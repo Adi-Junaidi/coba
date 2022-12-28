@@ -37,25 +37,25 @@
                 <i class="bi bi-stack"></i>
                 <span>Data Master</span>
             </a>
-            <ul class="submenu  ">
-                <li class="submenu-item">
+            <ul class="submenu {{ Request::is('pembina') ? 'active' : '' }}">
+                <li class="submenu-item active">
                     <a href="/pembina">Data Pembina</a>
                 </li>
             </ul>
         </li>
         
         <li
-            class="sidebar-item  has-sub">
+            class="sidebar-item  has-sub {{ Request::is('registrasi-pikr', 'registrasi-kegiatan') ? 'active' : '' }}">
             <a href="#" class='sidebar-link'>
                 <i class="bi bi-collection-fill"></i>
                 <span>Data PIK-R</span>
             </a>
-            <ul class="submenu ">
-                <li class="submenu-item ">
-                    <a href="#">Registrasi PIK-R</a>
+            <ul class="submenu {{ Request::is('registrasi-pikr', 'registrasi-kegiatan') ? 'active' : '' }}">
+                <li class="submenu-item {{ Request::is('registrasi-pikr') ? 'active' : '' }}">
+                    <a href="/registrasi-pikr">Registrasi PIK-R</a>
                 </li>
-                <li class="submenu-item ">
-                    <a href="#">Registrasi Kegiatan</a>
+                <li class="submenu-item {{ Request::is('registrasi-kegiatan') ? 'active' : '' }}">
+                    <a href="/registrasi-kegiatan">Registrasi Kegiatan</a>
                 </li>
             </ul>
         </li>

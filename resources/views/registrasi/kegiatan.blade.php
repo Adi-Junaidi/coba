@@ -31,7 +31,7 @@
               <div class="card-header">
                 <h4 class="card-title">Pencarian Berdasarkan Alamat Pembina</h4>
               </div>
-              <div class="card-body">
+              {{-- <div class="card-body">
                 <div class="row">
                   <label class="col-md-2">Provinsi</label>
                   <fieldset class="form-group col-md-4">
@@ -55,9 +55,6 @@
                   <label class="col-md-2">Kecamatan</label>
                   <fieldset class="form-group col-md-4">
                     <select class="form-select" id="ddKecamatan" name="ddKecamatan">
-                      {{-- @foreach ($kecamatan as $p)
-                                <option>{{ $p->kode . " | " . $p->nama }}</option>
-                            @endforeach --}}
                     </select>
                   </fieldset>
                   <label class="col-md-2">Desa/Kelurahan</label>
@@ -73,7 +70,7 @@
                 <div class="d-grid gap-2">
                   <button class="btn btn-primary" type="submit">Cari</button>
                 </div>
-              </div>
+              </div> --}}
             </div>
           </section>
         </div>
@@ -105,7 +102,7 @@
                     <th>Aksi</th>
                   </tr>
                 </thead>
-                <tbody>
+                {{-- <tbody>
                   @foreach ($pembina as $p)
                     <tr>
                       <td>{{ $p->id }}</td>
@@ -136,11 +133,11 @@
                       </td>
                     </tr>
                   @endforeach
-                </tbody>
+                </tbody> --}}
               </table>
-              <div class="row">
+              {{-- <div class="row">
                 <span class="pagination justify-content-end">{{ $pembina->links() }}</span>
-              </div>
+              </div> --}}
             </div>
           </div>
         </section>

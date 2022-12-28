@@ -15,13 +15,13 @@
         <div class="page-title">
           <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-              <h3>Data Pembina</h3>
+              <h3>{{ $title }}</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
               <nav class="breadcrumb-header float-start float-lg-end" aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="index.html">Data Master</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Data Pembina</li>
+                  <li class="breadcrumb-item"><a href="index.html">Data PIK-R</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">{{ $title }}</li>
                 </ol>
               </nav>
             </div>
@@ -29,25 +29,25 @@
           <section class="section">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">Pencarian Berdasarkan Alamat Pembina</h4>
+                <h4 class="card-title">Pencarian Berdasarkan Alamat PIK-R</h4>
               </div>
+
+              {{-- form cari berdasarkan alamat --}}
               <div class="card-body">
                 <div class="row">
                   <label class="col-md-2">Provinsi</label>
                   <fieldset class="form-group col-md-4">
                     <select class="form-select" id="basicSelect" disabled>
-                      @foreach ($pembina as $p)
-                        <option>{{ $p->desa->kecamatan->kabkota->provinsi->kode . ' | ' . $p->desa->kecamatan->kabkota->provinsi->nama }}</option>
-                      @endforeach
+                        <option value="">75 | Gorontalo</option>
                     </select>
                   </fieldset>
                   <label class="col-md-2">Kabupaten/Kota</label>
                   <fieldset class="form-group col-md-4">
                     <select class="form-select" id="ddKabKota" name="ddKabKota">
                       <option hidden>Kabupaten/Kota</option>
-                      @foreach ($kabkota as $p)
-                        <option value="{{ $p->id }}">{{ $p->kode . ' | ' . $p->nama }}</option>
-                      @endforeach
+                        @foreach ($kabkota as $p)
+                            <option value="{{ $p->id }}">{{ $p->kode . ' | ' . $p->nama }}</option>
+                        @endforeach
                     </select>
                   </fieldset>
                 </div>
@@ -55,18 +55,11 @@
                   <label class="col-md-2">Kecamatan</label>
                   <fieldset class="form-group col-md-4">
                     <select class="form-select" id="ddKecamatan" name="ddKecamatan">
-                      {{-- @foreach ($kecamatan as $p)
-                                <option>{{ $p->kode . " | " . $p->nama }}</option>
-                            @endforeach --}}
                     </select>
                   </fieldset>
                   <label class="col-md-2">Desa/Kelurahan</label>
                   <fieldset class="form-group col-md-4">
-                    <select class="form-select" id="basicSelect">
-                      <option hidden>Desa/Kelurahan</option>
-                      @foreach ($desa as $p)
-                        <option>{{ $p->kode . ' | ' . $p->nama }}</option>
-                      @endforeach
+                    <select class="form-select" id="ddDesa" name="ddDesa">
                     </select>
                   </fieldset>
                 </div>
@@ -74,6 +67,7 @@
                   <button class="btn btn-primary" type="submit">Cari</button>
                 </div>
               </div>
+
             </div>
           </section>
         </div>
@@ -91,7 +85,7 @@
                 </div>
                 <div class="col-md">
                   <div class="d-flex justify-content-end ">
-                    <button class="btn btn-primary" type="submit"><span class="fa-fw select-all fas me-2"></span>Tambah Data Pembina</button>
+                    <button class="btn btn-primary" type="submit"><span class="fa-fw select-all fas me-2"></span>Tambah Data PIK-R</button>
                   </div>
                 </div>
               </div>
@@ -101,11 +95,12 @@
                     <th>No.</th>
                     <th>No. Register</th>
                     <th>Nama</th>
-                    <th>Jabatan</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
-                <tbody>
+
+                {{-- tabel pik-r --}}
+                {{-- <tbody>
                   @foreach ($pembina as $p)
                     <tr>
                       <td>{{ $p->id }}</td>
@@ -136,11 +131,11 @@
                       </td>
                     </tr>
                   @endforeach
-                </tbody>
+                </tbody> --}}
               </table>
-              <div class="row">
+              {{-- <div class="row">
                 <span class="pagination justify-content-end">{{ $pembina->links() }}</span>
-              </div>
+              </div> --}}
             </div>
           </div>
         </section>
@@ -299,7 +294,7 @@
                     $('#ddKecamatan').empty();
                     $('#ddKecamatan').append('<option hidden>Kecamatan</option>');
                     $.each(data, function(key, kecamatan) {
-                      $('select[name="ddKecamatan"]').append('<option value="' + key + '">' + kecamatan.kode + '|' + kecamatan.nama + '</option>');
+                      $('select[name="ddKecamatan"]').append('<option value="' + key + '">' + kecamatan.kode + ' | ' + kecamatan.nama + '</option>');
                     });
                   } else {
                     $('#ddKecamatan').empty();
