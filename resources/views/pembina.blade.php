@@ -45,7 +45,7 @@
                     <fieldset class="form-group col-md-4" >
                         <select class="form-select" id="ddKabKota" name="ddKabKota">
                             <option hidden>Kabupaten/Kota</option>
-                            @foreach ($ddkabkota as $p)
+                            @foreach ($kabkota as $p)
                                 <option value="{{ $p->id }}">{{ $p->kode . " | " . $p->nama }}</option>
                             @endforeach
                         </select>

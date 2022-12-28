@@ -20,7 +20,8 @@ class PembinaController extends Controller
         return view('pembina', [
             "title" => "Data Pembina",
             "pembina" => Pembina::paginate(10),
-            "desa" => Desa::all()
+            "desa" => Desa::all(),
+            "kabkota" => Kabkota::all()
         ]);
     }
 
