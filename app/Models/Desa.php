@@ -21,4 +21,9 @@ class Desa extends Model
     {
         return $this->belongsTo(Kecamatan::class);
     }
+
+    public function pikr()
+    {
+        return $this->hasMany(Pikr::class);
+    }
 }

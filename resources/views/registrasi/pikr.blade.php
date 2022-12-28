@@ -54,12 +54,14 @@
                 <div class="row">
                   <label class="col-md-2">Kecamatan</label>
                   <fieldset class="form-group col-md-4">
-                    <select class="form-select" id="ddKecamatan" name="ddKecamatan">
+                    <select class="form-select" id="ddKecamatan" name="ddKecamatan" disabled>
+                        <option hidden>Kecamatan</option>
                     </select>
                   </fieldset>
                   <label class="col-md-2">Desa/Kelurahan</label>
                   <fieldset class="form-group col-md-4">
-                    <select class="form-select" id="ddDesa" name="ddDesa">
+                    <select class="form-select" id="ddDesa" name="ddDesa" disabled>
+                        <option hidden>Desa/Kelurahan</option>
                     </select>
                   </fieldset>
                 </div>
@@ -101,7 +103,7 @@
 
                 {{-- tabel pik-r --}}
                 {{-- <tbody>
-                  @foreach ($pembina as $p)
+                  @foreach ($pikr as $p)
                     <tr>
                       <td>{{ $p->id }}</td>
                       <td>
@@ -109,9 +111,6 @@
                       </td>
                       <td>
                         <span id="nama">{{ $p->nama }}</span>
-                      </td>
-                      <td>
-                        <span id="jabatan">{{ $p->jabatan->nama }}</span>
                       </td>
                       <td>
                         <!-- Button trigger for form modal -->
@@ -239,73 +238,115 @@
         }, false);
       </script>
 
-      <script>
-        $(document).ready(function() {
-          // modal untuk menampilkan detail data pembina
-          $(document).on("click", "#detail", function() {
-            var noreg = $(this).data("noreg");
-            var nourut = $(this).data("nourut");
-            var nama = $(this).data("nama");
-            var provinsi = $(this).data("provinsi");
-            var kabkota = $(this).data("kabkota");
-            var kecamatan = $(this).data("kecamatan");
-            var desakel = $(this).data("desakel");
-            var jabatan = $(this).data("jabatan");
+<script>
+    $(document).ready(function() {
+      // modal untuk menampilkan detail data pembina
+      $(document).on("click", "#detail", function() {
+        const noreg = $(this).data("noreg");
+        const nourut = $(this).data("nourut");
+        const nama = $(this).data("nama");
+        const provinsi = $(this).data("provinsi");
+        const kabkota = $(this).data("kabkota");
+        const kecamatan = $(this).data("kecamatan");
+        const desakel = $(this).data("desakel");
+        const jabatan = $(this).data("jabatan");
 
-            $("#noRegister").val(noreg);
-            $("#noUrut").val(nourut);
-            $("#name").val(nama);
-            $("#provinsi").val(provinsi);
-            $("#kabKota").val(kabkota);
-            $("#kecamatan").val(kecamatan);
-            $("#desaKel").val(desakel);
-            $("#position").val(jabatan);
-          })
+        $("#noRegister").val(noreg);
+        $("#noUrut").val(nourut);
+        $("#name").val(nama);
+        $("#provinsi").val(provinsi);
+        $("#kabKota").val(kabkota);
+        $("#kecamatan").val(kecamatan);
+        $("#desaKel").val(desakel);
+        $("#position").val(jabatan);
+      });
 
-          // tombol cari pembina berdasarkan nama with ajax
-          $(document).on("keyup", "#cari", function() {
-            const keyword = $("#cari").val();
+      const filters = {
+        kabkota: null,
+        kecamatan: null,
+        desa: null,
+      };
 
-            $.ajax({
-              type: "get",
-              url: "{{ URL::to('/pembina/{pembina}') }}",
-              data: {
-                "keyword": keyword
-              },
-              success: function(data) {
-                $('tbody').html(data);
+      // tombol cari pembina berdasarkan nama with ajax
+      $(document).on("keyup", "#cari", function() {
+        const keyword = $("#cari").val();
+        const data = {
+          keyword
+        };
+
+        if (filters.kabkota) data.kabkota = filters.kabkota;
+        if (filters.kecamatan) data.kecamatan = filters.kecamatan;
+        if (filters.desa) data.desa = filters.desa;
+
+        $.ajax({
+          type: "get",
+          url: "/api/pembina",
+          data,
+          success: function(data) {
+            console.log(data);
+            $('tbody').html(data);
+          }
+        });
+      });
+
+      // dropdown dependent
+      $('#ddKabKota').on('change', function() {
+        const kabkotaID = $(this).val();
+        const ddKecamatan = $('#ddKecamatan');
+
+        if (kabkotaID) {
+          $.ajax({
+            type: "get",
+            url: `/api/kabkota/${kabkotaID}/kecamatans/`,
+            dataType: "json",
+            success: function(data) {
+              if (data) {
+                ddKecamatan.empty();
+                ddKecamatan.append('<option hidden>Kecamatan</option>');
+                $.each(data, function(key, kecamatan) {
+                  $('select[name="ddKecamatan"]').append('<option value="' + kecamatan.id + '">' + kecamatan.kode + ' | ' + kecamatan.nama + '</option>');
+                });
+                ddKecamatan.prop('disabled', false);
+              } else {
+                ddKecamatan.empty();
+                ddKecamatan.prop('disabled', true);
               }
-            });
-            // return console.log(keyword);
-          });
-
-          // dropdown dependent
-          $('#ddKabKota').on('change', function() {
-            var kabkotaID = $(this).val();
-
-            if (kabkotaID) {
-              $.ajax({
-                type: "get",
-                url: "/pembina/dd-kecamatan/" + kabkotaID,
-                data: {"_token":"{{ csrf_token() }}"},
-                dataType: "json",
-                success: function(data) {
-                  if (data) {
-                    $('#ddKecamatan').empty();
-                    $('#ddKecamatan').append('<option hidden>Kecamatan</option>');
-                    $.each(data, function(key, kecamatan) {
-                      $('select[name="ddKecamatan"]').append('<option value="' + key + '">' + kecamatan.kode + ' | ' + kecamatan.nama + '</option>');
-                    });
-                  } else {
-                    $('#ddKecamatan').empty();
-                  }
-                }
-              });
-
-            } else {
-              $('#ddKecamatan').empty();
             }
           });
-        })
-      </script>
+        } else {
+          ddKecamatan.empty();
+          ddKecamatan.prop('disabled', true);
+        }
+      });
+
+      $('#ddKecamatan').on('change', function() {
+        const kecamatanId = $(this).val();
+        const ddDesa = $('#ddDesa');
+
+        if (kecamatanId) {
+          $.ajax({
+            type: "get",
+            url: `/api/kecamatan/${kecamatanId}/desas/`,
+            dataType: "json",
+            success: function(data) {
+              if (data) {
+                ddDesa.empty();
+                ddDesa.append('<option hidden>Desa/Kelurahan</option>');
+                $.each(data, function(key, desa) {
+                  $('select[name="ddDesa"]').append('<option value="' + desa.id + '">' + desa.kode + ' | ' + desa.nama + '</option>');
+                });
+                ddDesa.prop('disabled', false);
+              } else {
+                ddDesa.empty();
+                ddDesa.prop('disabled', true);
+              }
+            }
+          });
+        } else {
+          ddDesa.empty();
+          ddDesa.prop('disabled', true);
+        }
+      });
+    })
+  </script>
     @endsection

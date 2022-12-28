@@ -10,7 +10,7 @@ class Pembina extends Model
     use HasFactory;
 
     protected $guarded = ["id"];
-    protected $with = ["jabatan", "desa"];
+    protected $with = ["jabatan", "desa", "pikr"];
 
     public function desa()
     {
@@ -20,5 +20,10 @@ class Pembina extends Model
     public function jabatan()
     {
         return $this->belongsTo(Jabatan::class);
+    }
+
+    public function pikr()
+    {
+        return $this->hasMany(Pikr::class);
     }
 }
