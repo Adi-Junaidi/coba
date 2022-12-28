@@ -19,7 +19,7 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
 Route::resource('/pembina', PembinaController::class)->only(['index', 'show'])->middleware('auth');
-Route::get('/pembina/dd-kecamatan/{id}', function ($id) {
-    $ddkecamatan = Kecamatan::where('kabkota_id', $id)->get();
-    return response()->json($ddkecamatan);
-});
+
+Route::get('/api/kabkota/{kabkota}/kecamatans', fn (Kabkota $kabkota) => response()->json($kabkota->kecamatan));
+Route::get('/api/kecamatan/{kecamatan}/desas', fn (Kecamatan $kecamatan) => response()->json($kecamatan->desa));
+Route::get('/api/pembina/', [PembinaController::class, 'show']);
