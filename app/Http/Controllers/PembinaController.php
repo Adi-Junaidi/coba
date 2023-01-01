@@ -54,22 +54,24 @@ class PembinaController extends Controller
    */
   public function show(Request $request)
   {
-    if ($request->ajax()) {
-      $hasilPencarian = "";
-      $keyword = $request->keyword;
+    // if ($request->ajax()) {
+    $keyword = $request->keyword;
+    $desaId = $request->desa;
 
-      $pembina = Pembina::where("nama", "LIKE", "%" . $keyword . "%")
-        ->orWhere("no_register", "LIKE", "%" . $keyword . "%")
-        ->paginate(10);
+    $pembina = Pembina::when($desaId, function ($q, $desaId) {
+      $q->where('desa_id', $desaId);
+    })->when($keyword, function ($q, $keyword) {
+      $q->where("nama", "LIKE", "%" . $keyword . "%")
+        ->orWhere("no_register", "LIKE", "%" . $keyword . "%");
+    })
+      // ->get();
+      ->paginate(10);
 
-      $count = count($pembina);
+    $count = count($pembina);
 
-      if ($count != 0) {
-        return view('cariPembina', ["pembina" => $pembina]);
-      } else {
-        return $hasilPencarian = '<tr><td colspan="5" style="text-align:center"><h6 class="align-content-center">Maaf data tidak ditemukan</h6></td></tr>';
-      }
-    }
+    return ($count != 0)
+      ? view('partials.table-pembina', ["pembina" => $pembina])
+      : '<tr><th colspan="5" class="text-center">Maaf data tidak ditemukan</th></tr>';
   }
 
   /**
