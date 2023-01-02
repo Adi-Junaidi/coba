@@ -152,8 +152,8 @@
       <div class="modal fade text-left" id="detailModal" role="dialog" aria-labelledby="judulModal" aria-hidden="true" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
           <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title" id="judulModal">Detail Data Pembina</h4>
+            <div class="modal-header bg-info">
+              <h4 class="modal-title text-light" id="judulModal">Detail Data Pembina</h4>
               <button class="close" data-bs-dismiss="modal" type="button" aria-label="Close">
                 <i data-feather="x"></i>
               </button>
@@ -245,115 +245,5 @@
         }, false);
       </script>
 
-      <script>
-        $(document).ready(function() {
-          // modal untuk menampilkan detail data pembina
-          $(document).on("click", "#detail", function() {
-            const noreg = $(this).data("noreg");
-            const nourut = $(this).data("nourut");
-            const nama = $(this).data("nama");
-            const provinsi = $(this).data("provinsi");
-            const kabkota = $(this).data("kabkota");
-            const kecamatan = $(this).data("kecamatan");
-            const desakel = $(this).data("desakel");
-            const jabatan = $(this).data("jabatan");
-
-            $("#noRegister").val(noreg);
-            $("#noUrut").val(nourut);
-            $("#name").val(nama);
-            $("#provinsi").val(provinsi);
-            $("#kabKota").val(kabkota);
-            $("#kecamatan").val(kecamatan);
-            $("#desaKel").val(desakel);
-            $("#position").val(jabatan);
-          });
-
-          const filters = {
-            kabkota: null,
-            kecamatan: null,
-            desa: null,
-          };
-
-          // tombol cari pembina berdasarkan nama with ajax
-          $(document).on("keyup", "#cari", function() {
-            const keyword = $("#cari").val();
-            const data = {
-              keyword
-            };
-
-            if (filters.kabkota) data.kabkota = filters.kabkota;
-            if (filters.kecamatan) data.kecamatan = filters.kecamatan;
-            if (filters.desa) data.desa = filters.desa;
-
-            $.ajax({
-              type: "get",
-              url: "/api/pembina",
-              data,
-              success: function(data) {
-                console.log(data);
-                $('tbody').html(data);
-              }
-            });
-          });
-
-          // dropdown dependent
-          $('#ddKabKota').on('change', function() {
-            const kabkotaID = $(this).val();
-            const ddKecamatan = $('#ddKecamatan');
-
-            if (kabkotaID) {
-              $.ajax({
-                type: "get",
-                url: `/api/kabkota/${kabkotaID}/kecamatans/`,
-                dataType: "json",
-                success: function(data) {
-                  if (data) {
-                    ddKecamatan.empty();
-                    ddKecamatan.append('<option hidden>Kecamatan</option>');
-                    $.each(data, function(key, kecamatan) {
-                      $('select[name="ddKecamatan"]').append('<option value="' + kecamatan.id + '">' + kecamatan.kode + ' | ' + kecamatan.nama + '</option>');
-                    });
-                    ddKecamatan.prop('disabled', false);
-                  } else {
-                    ddKecamatan.empty();
-                    ddKecamatan.prop('disabled', true);
-                  }
-                }
-              });
-            } else {
-              ddKecamatan.empty();
-              ddKecamatan.prop('disabled', true);
-            }
-          });
-
-          $('#ddKecamatan').on('change', function() {
-            const kecamatanId = $(this).val();
-            const ddDesa = $('#ddDesa');
-
-            if (kecamatanId) {
-              $.ajax({
-                type: "get",
-                url: `/api/kecamatan/${kecamatanId}/desas/`,
-                dataType: "json",
-                success: function(data) {
-                  if (data) {
-                    ddDesa.empty();
-                    ddDesa.append('<option hidden>Desa</option>');
-                    $.each(data, function(key, desa) {
-                      $('select[name="ddDesa"]').append('<option value="' + desa.id + '">' + desa.kode + ' | ' + desa.nama + '</option>');
-                    });
-                    ddDesa.prop('disabled', false);
-                  } else {
-                    ddDesa.empty();
-                    ddDesa.prop('disabled', true);
-                  }
-                }
-              });
-            } else {
-              ddDesa.empty();
-              ddDesa.prop('disabled', true);
-            }
-          });
-        })
-      </script>
+      
     @endsection

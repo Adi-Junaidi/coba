@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSksTable extends Migration
+class CreateMateriPikrsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateSksTable extends Migration
      */
     public function up()
     {
-        Schema::create('sks', function (Blueprint $table) {
-            $table->id();
+        Schema::create('materi_pikrs', function (Blueprint $table) {
+            $table->foreignId('pikr_id');
+            $table->foreignId('materi_id');
             $table->string('status');
-            $table->string('no_sk')->nullable();
-            $table->string('tanggal_sk')->nullable();
-            $table->string('dikeluarkan_oleh')->nullable();
-            $table->timestamps();
         });
     }
 
@@ -30,6 +27,6 @@ class CreateSksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sks');
+        Schema::dropIfExists('materi_pikrs');
     }
 }

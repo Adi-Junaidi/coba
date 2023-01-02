@@ -14,7 +14,7 @@ class CreatePikrsTable extends Migration
     public function up()
     {
         Schema::create('pikrs', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->foreignId('desa_id');
             $table->foreignId('sk_id');
             $table->foreignId('pembina_id');

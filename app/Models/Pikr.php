@@ -10,7 +10,8 @@ class Pikr extends Model
     use HasFactory;
 
     protected $guarded = ["id"];
-    protected $with = ["desa", "sk", "pembina"];
+
+    protected $with = ["materi"];
 
     public function desa()
     {
@@ -25,5 +26,12 @@ class Pikr extends Model
     public function pembina()
     {
         return $this->belongsTo(Pembina::class);
+    }
+
+
+    // ini function utk many to many pada tabel materi
+    public function materi()
+    {
+        return $this->belongsToMany(Materi::class);
     }
 }
