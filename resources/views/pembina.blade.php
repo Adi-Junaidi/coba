@@ -126,8 +126,8 @@
       <div class="modal fade text-left" id="detailModal" role="dialog" aria-labelledby="judulModal" aria-hidden="true" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
           <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title" id="judulModal">Detail Data Pembina</h4>
+            <div class="modal-header bg-info">
+              <h4 class="modal-title text-light" id="judulModal">Detail Data Pembina</h4>
               <button class="close" data-bs-dismiss="modal" type="button" aria-label="Close">
                 <i data-feather="x"></i>
               </button>

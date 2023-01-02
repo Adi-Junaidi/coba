@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Desa;
-use App\Models\Kabkota;
-use App\Models\Materi;
-use App\Models\Pikr;
-use Illuminate\Database\Eloquent\Relations\Pivot;
-use Illuminate\Http\Request;
+use App\Models\Sk;
+use App\Http\Requests\StoreSkRequest;
+use App\Http\Requests\UpdateSkRequest;
 
-class RegistrasiPikrController extends Controller
+class SkController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,13 +15,7 @@ class RegistrasiPikrController extends Controller
      */
     public function index()
     {
-
-        return view('registrasi.pikr', [
-            "title" => "Data Registrasi PIK-R",
-            "pikr" => Pikr::all(),
-            "desa" => Desa::all(),
-            "kabkota" => Kabkota::all()
-        ]);
+        //
     }
 
     /**
@@ -40,10 +31,10 @@ class RegistrasiPikrController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreSkRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSkRequest $request)
     {
         //
     }
@@ -51,20 +42,21 @@ class RegistrasiPikrController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Sk  $sk
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Sk $sk)
     {
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Sk  $sk
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Sk $sk)
     {
         //
     }
@@ -72,11 +64,11 @@ class RegistrasiPikrController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\UpdateSkRequest  $request
+     * @param  \App\Models\Sk  $sk
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateSkRequest $request, Sk $sk)
     {
         //
     }
@@ -84,10 +76,10 @@ class RegistrasiPikrController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Sk  $sk
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Sk $sk)
     {
         //
     }
