@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Desa;
 use App\Models\Jabatan;
 use App\Models\Kabkota;
-use App\Models\Kecamatan;
 use App\Models\Pembina;
 use App\Models\Provinsi;
 use Illuminate\Http\Request;
@@ -25,7 +24,6 @@ class PembinaController extends Controller
       "kabkota" => Kabkota::all(),
       "desa" => Desa::all(),
       "jabatans" => Jabatan::all(),
-      // "pembina" => Pembina::paginate(10),
       "pembina" => Pembina::all(),
     ]);
   }
@@ -48,11 +46,7 @@ class PembinaController extends Controller
    */
   public function store(Request $request)
   {
-    // $request->validate([
-    //   'nama' => 'required',
-    //   'jabatanId' => 'required',
-    //   'desaId' => 'required'
-    // ]);
+    // FIXME: lakukan validasi
     $desa = Desa::find($request->desaId);
     $kecamatan = $desa->kecamatan;
     $kabkota = $kecamatan->kabkota;
@@ -66,15 +60,15 @@ class PembinaController extends Controller
 
     $noRegister = $kodeProvinsi . $kodeKabKot . $kodeKecamatan . $kodeJabatan . $nomorUrut;
     Pembina::create([
-      // "no_register" => "757101B02",
       "no_register" => $noRegister,
       "nama" => $request->nama,
-      "no_urut" => "02",
+      "no_urut" => $nomorUrut,
       "jabatan_id" => $request->jabatanId,
       "desa_id" => $request->desaId
     ]);
 
     return response()->json([
+      'nomor_urut' => $kecamatan->toJson(),
       'status' => 'success',
       'message' => 'Berhasil menambah pembina'
     ]);
