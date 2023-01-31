@@ -76,34 +76,30 @@
         </div>
 
         <!-- Tables start -->
-        <section class="section">
+        <section class="section" id="section1">
           <div class="card">
             <div class="card-body">
-              <div class="row g-2 mb-3">
-                <div class="col-md">
-                  <div class="input-group">
-                    <span class="input-group-text" id="basic-addon1"><span class="fa-fw select-all fas"></span></span>
-                    <input class="form-control" id="cari" name="cari" type="text" placeholder="Cari..." autocomplete="off">
-                  </div>
-                </div>
+              {{-- Fitur tambah data ada setelah user memilih pik-r tujuan --}}
+              {{-- <div class="row g-2 mb-3">
                 <div class="col-md">
                   <div class="d-flex justify-content-end ">
-                    <button class="btn btn-primary" type="submit"><span class="fa-fw select-all fas me-2"></span>Tambah Data Pembina</button>
+                    <button class="btn btn-primary" type="submit"><span class="fa-fw select-all fas me-2"></span>Tambah Data Register</button>
                   </div>
                 </div>
-              </div>
-              <table class="table" id="table1">
+              </div> --}}
+              <table class="table" id="table">
                 <thead>
                   <tr>
                     <th>No.</th>
                     <th>No. Register</th>
                     <th>Nama</th>
-                    <th>Jabatan</th>
+                    <th>Basis</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
-                {{-- <tbody>
-                  @foreach ($pembina as $p)
+                {{-- tabel pik-r --}}
+                <tbody>
+                  @foreach ($pikr as $p)
                     <tr>
                       <td>{{ $p->id }}</td>
                       <td>
@@ -113,31 +109,20 @@
                         <span id="nama">{{ $p->nama }}</span>
                       </td>
                       <td>
-                        <span id="jabatan">{{ $p->jabatan->nama }}</span>
+                        <span id="basis">{{ $p->basis }}</span>
                       </td>
                       <td>
-                        <!-- Button trigger for form modal -->
-                        <button class="btn btn-info btn-sm" id="detail" data-bs-toggle="modal" data-bs-target="#detailModal" data-noreg="{{ $p->no_register }}" data-nourut="{{ $p->no_urut }}" data-nama="{{ $p->nama }}" data-provinsi="{{ $p->desa->kecamatan->kabkota->provinsi->kode . ' | ' . $p->desa->kecamatan->kabkota->provinsi->nama }}" data-kabkota="{{ $p->desa->kecamatan->kabkota->kode . ' | ' . $p->desa->kecamatan->kabkota->nama }}" data-kecamatan="{{ $p->desa->kecamatan->kode . ' | ' . $p->desa->kecamatan->nama }}" data-desakel="{{ $p->desa->kode . ' | ' . $p->desa->nama }}" data-jabatan="{{ $p->jabatan->nama }}" type="button">
+                        <!-- Button trigger for next table -->
+                        <button class="btn btn-info btn-sm" id="detail1" type="button">
                           <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="Detail">
                             <span class="fa-fw select-all fas"></span>
                           </span>
                         </button>
-
-                        <button class="btn btn-warning btn-sm" id="edit" data-bs-toggle="tooltip" data-bs-placement="bottom" type="button" title="Edit">
-                          <span class="fa-fw select-all fas"></span>
-                        </button>
-
-                        <button class="btn btn-danger btn-sm" id="delete" data-bs-toggle="tooltip" data-bs-placement="bottom" type="button" title="Delete">
-                          <span class="fa-fw select-all fas"></span>
-                        </button>
                       </td>
                     </tr>
                   @endforeach
-                </tbody> --}}
+                </tbody>
               </table>
-              {{-- <div class="row">
-                <span class="pagination justify-content-end">{{ $pembina->links() }}</span>
-              </div> --}}
             </div>
           </div>
         </section>
@@ -145,7 +130,7 @@
       </div>
 
       <!-- Modal -->
-      <div class="modal fade text-left" id="detailModal" role="dialog" aria-labelledby="judulModal" aria-hidden="true" tabindex="-1">
+      <div class="modal fade text-left" id="modal1" role="dialog" aria-labelledby="judulModal" aria-hidden="true" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -217,11 +202,6 @@
                   <i class="bx bx-x d-block d-sm-none"></i>
                   <span class="d-none d-sm-block">Close</span>
                 </button>
-                {{-- <button type="button" class="btn btn-primary ml-1"
-                            data-bs-dismiss="modal">
-                            <i class="bx bx-check d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">login</span>
-                        </button> --}}
               </div>
             </form>
           </div>
@@ -229,85 +209,18 @@
       </div>
     @endsection
 
-    @section('script')
-      <script src="{{ asset('dist') }}/assets/extensions/jquery/jquery.min.js"></script>
+@section('script')
+<script src="{{ asset('dist') }}/assets/extensions/jquery/jquery.min.js"></script>
+<script src="/js/datatables.min.js"></script>
+<script src="/assets/js/kegiatan.js"></script>
 
-      <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-          var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-          })
-        }, false);
-      </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  }, false);
+</script>
 
-      <script>
-        $(document).ready(function() {
-          // modal untuk menampilkan detail data pembina
-          $(document).on("click", "#detail", function() {
-            var noreg = $(this).data("noreg");
-            var nourut = $(this).data("nourut");
-            var nama = $(this).data("nama");
-            var provinsi = $(this).data("provinsi");
-            var kabkota = $(this).data("kabkota");
-            var kecamatan = $(this).data("kecamatan");
-            var desakel = $(this).data("desakel");
-            var jabatan = $(this).data("jabatan");
-
-            $("#noRegister").val(noreg);
-            $("#noUrut").val(nourut);
-            $("#name").val(nama);
-            $("#provinsi").val(provinsi);
-            $("#kabKota").val(kabkota);
-            $("#kecamatan").val(kecamatan);
-            $("#desaKel").val(desakel);
-            $("#position").val(jabatan);
-          })
-
-          // tombol cari pembina berdasarkan nama with ajax
-          $(document).on("keyup", "#cari", function() {
-            const keyword = $("#cari").val();
-
-            $.ajax({
-              type: "get",
-              url: "{{ URL::to('/pembina/{pembina}') }}",
-              data: {
-                "keyword": keyword
-              },
-              success: function(data) {
-                $('tbody').html(data);
-              }
-            });
-            // return console.log(keyword);
-          });
-
-          // dropdown dependent
-          $('#ddKabKota').on('change', function() {
-            var kabkotaID = $(this).val();
-
-            if (kabkotaID) {
-              $.ajax({
-                type: "get",
-                url: "/pembina/dd-kecamatan/" + kabkotaID,
-                data: {"_token":"{{ csrf_token() }}"},
-                dataType: "json",
-                success: function(data) {
-                  if (data) {
-                    $('#ddKecamatan').empty();
-                    $('#ddKecamatan').append('<option hidden>Kecamatan</option>');
-                    $.each(data, function(key, kecamatan) {
-                      $('select[name="ddKecamatan"]').append('<option value="' + key + '">' + kecamatan.kode + '|' + kecamatan.nama + '</option>');
-                    });
-                  } else {
-                    $('#ddKecamatan').empty();
-                  }
-                }
-              });
-
-            } else {
-              $('#ddKecamatan').empty();
-            }
-          });
-        })
-      </script>
-    @endsection
+@endsection

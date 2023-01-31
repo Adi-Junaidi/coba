@@ -196,7 +196,7 @@
     <div class="modal fade text-left" id="modalUpdate" role="dialog" aria-labelledby="judulModalUpdate" aria-hidden="true" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
         <div class="modal-content">
-          <div class="modal-header bg-primary">
+          <div class="modal-header bg-warning">
             <h4 class="modal-title text-light" id="judulModalUpdate">Edit Pembina</h4>
             <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Tutup"></button>
           </div>
@@ -262,11 +262,11 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+              <button class="btn btn-light-secondary" data-bs-dismiss="modal" type="button">
                 <i class="bx bx-x d-block d-sm-none"></i>
                 <span class="d-none d-sm-block">Batal</span>
               </button>
-              <button class="btn btn-primary" data-bs-dismiss="modal" type="submit">
+              <button class="btn btn-warning" data-bs-dismiss="modal" type="submit">
                 <i class="bx bx-x d-block d-sm-none"></i>
                 <span class="d-none d-sm-block">Simpan</span>
               </button>
@@ -374,4 +374,5 @@
     const CSRF = "{{ csrf_token() }}";
   </script>
   <script src="/assets/js/pembina.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @endsection

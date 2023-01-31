@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Desa;
-use App\Models\Pikr;
-use App\Models\Kabkota;
-use Illuminate\Http\Request;
+use App\Models\Laporan;
+use App\Http\Requests\StoreLaporanRequest;
+use App\Http\Requests\UpdateLaporanRequest;
 
-class RegistrasiKegiatanController extends Controller
+class LaporanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,12 +15,7 @@ class RegistrasiKegiatanController extends Controller
      */
     public function index()
     {
-        return view('registrasi.kegiatan', [
-            "title" => "Data Registrasi Kegiatan",
-            "pikr" => Pikr::all(),
-            "desa" => Desa::all(),
-            "kabkota" => Kabkota::all()
-        ]);
+        //
     }
 
     /**
@@ -37,10 +31,10 @@ class RegistrasiKegiatanController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreLaporanRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreLaporanRequest $request)
     {
         //
     }
@@ -48,10 +42,10 @@ class RegistrasiKegiatanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Laporan  $laporan
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Laporan $laporan)
     {
         //
     }
@@ -59,10 +53,10 @@ class RegistrasiKegiatanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Laporan  $laporan
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Laporan $laporan)
     {
         //
     }
@@ -70,11 +64,11 @@ class RegistrasiKegiatanController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\UpdateLaporanRequest  $request
+     * @param  \App\Models\Laporan  $laporan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateLaporanRequest $request, Laporan $laporan)
     {
         //
     }
@@ -82,10 +76,10 @@ class RegistrasiKegiatanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Laporan  $laporan
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Laporan $laporan)
     {
         //
     }

@@ -26,4 +26,9 @@ class Pembina extends Model
     {
         return $this->hasMany(Pikr::class);
     }
+
+    public function pelayananInformasi()
+    {
+        return $this->hasMany(PelayananInformasi::class);
+    }
 }

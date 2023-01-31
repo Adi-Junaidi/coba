@@ -78,11 +78,18 @@
         <section class="section">
           <div class="card">
             <div class="card-body">
-              <div class="row mb-3">
+              {{-- <div class="row mb-3">
                 <div class="col-sm-4">
                   <div class="input-group">
                     <span class="input-group-text" id="basic-addon1"><span class="fa-fw select-all fas"></span></span>
                     <input class="form-control" id="cari" name="cari" type="text" placeholder="Cari..." autocomplete="off">
+                  </div>
+                </div>
+              </div> --}}
+              <div class="row g-2 mb-3">
+                <div class="col-md">
+                  <div class="d-flex justify-content-end ">
+                    <button class="btn btn-primary" type="submit"><span class="fa-fw select-all fas me-2"></span>Tambah Data PIK-R</button>
                   </div>
                 </div>
               </div>
@@ -584,15 +591,15 @@
             </div>
             <form action="#">
               <div class="modal-body">
-                <h6 class="mb-4 text-secondary">D. Ketersediaan Sarana PIK-R</h6>
-                <div class="row mb-2">
+                <h6 class="mb-4 text-secondary">E. Mitra PIK-R</h6>
+                {{-- <div class="row mb-2">
                   <div class="col-sm-4">
                     <div class="input-group">
                       <span class="input-group-text" id="basic-addon1"><span class="fa-fw select-all fas"></span></span>
                       <input class="form-control" id="cariMitra" name="cariMitra" type="text" placeholder="Cari..." autocomplete="off">
                     </div>
                   </div>
-                </div>
+                </div> --}}
                 <table class="table" id="table1">
                   <thead>
                     <tr>
@@ -641,15 +648,15 @@
             </div>
             <form action="#">
               <div class="modal-body">
-                <h6 class="mb-4 text-secondary">E. Informasi Pengurus PIK-R</h6>
-                <div class="row mb-2">
+                <h6 class="mb-4 text-secondary">F. Informasi Pengurus PIK-R</h6>
+                {{-- <div class="row mb-2">
                   <div class="col-sm-4">
                     <div class="input-group">
                       <span class="input-group-text" id="basic-addon1"><span class="fa-fw select-all fas"></span></span>
                       <input class="form-control" id="cariPengurus" name="cariPengurus" type="text" placeholder="Cari..." autocomplete="off">
                     </div>
                   </div>
-                </div>
+                </div> --}}
                 <table class="table" id="table1">
                   <thead>
                     <tr>
@@ -700,7 +707,7 @@
             </div>
             <form action="#">
               <div class="modal-body">
-                <h6 class="mb-4 text-secondary">F. Persetujuan Registrasi PIK-R</h6>
+                <h6 class="mb-4 text-secondary">G. Persetujuan Registrasi PIK-R</h6>
                 <div class="mb-2 row">
                   <label class="col-sm-1 col-form-label" for="tempat">Tempat</label>
                   <div class="col-sm-3">
@@ -734,9 +741,9 @@
                 </div>
 
                 <div>
-                <button class="btn btn-success" data-bs-target="#modal5" data-bs-toggle="modal" type="button">
+                <button class="btn btn-light-secondary" data-bs-target="#modal5" data-bs-toggle="modal" type="button">
                   <i class="bx bx-x d-block d-sm-none"></i>
-                  <span class="d-none d-sm-block">Kirim</span>
+                  <span class="d-none d-sm-block">Batal</span>
                 </button>
                 </div>
 
@@ -751,6 +758,7 @@
 
     @section('script')
       <script src="{{ asset('dist') }}/assets/extensions/jquery/jquery.min.js"></script>
+      <script src="/js/datatables.min.js"></script>
 
       <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -759,6 +767,12 @@
             return new bootstrap.Tooltip(tooltipTriggerEl)
           })
         }, false);
+      </script>
+
+      <script>
+        $(document).ready(function(){
+          $('.table').DataTable();
+        });
       </script>
 
 <script>

@@ -193,7 +193,13 @@ $(document).ready(function () {
         $("#tambah__nama").val("");
         $("#tambah__jabatan").val("");
         console.log(data);
-        alert(`${data.status}: ${data.message}`); // FIXME: ganti dengan sweetalert
+        swal ({
+          title : "Berhasil",
+          text : "Data Berhasil Ditambahkan",
+          icon : "success",
+          button : true
+        });
+        // alert(`${data.status}: ${data.message}`); // FIXME: ganti dengan sweetalert
 
         getPembina({
           desa: ddDesa.val(),
