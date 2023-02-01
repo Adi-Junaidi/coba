@@ -16,9 +16,13 @@
         <span class="fa-fw select-all fas"></span>
       </button>
 
-      <button class="btn btn-danger btn-sm" id="delete" data-bs-toggle="tooltip" data-bs-placement="bottom" type="button" title="Delete">
-        <span class="fa-fw select-all fas"></span>
-      </button>
+      <form class="d-inline" action="/pembina/{{ $p->id }}" method="post">
+        @csrf
+        @method('delete')
+        <button class="btn btn-danger btn-sm" id="delete" data-bs-toggle="tooltip" data-bs-placement="bottom" type="submit" title="Delete">
+          <span class="fa-fw select-all fas"></span>
+        </button>
+      </form>
     </td>
   </tr>
 @endforeach

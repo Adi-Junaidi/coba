@@ -22,7 +22,6 @@ Route::post('/register', [RegisterController::class, 'store']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
-// Route::resource('/pembina', PembinaController::class)->only(['index', 'show'])->middleware('auth');
 Route::resource('/pembina', PembinaController::class)->middleware('auth');
 
 Route::get('/api/kabkota/{kabkota}/kecamatans', fn (Kabkota $kabkota) => response()->json($kabkota->kecamatan));

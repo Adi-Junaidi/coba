@@ -192,14 +192,12 @@ $(document).ready(function () {
       success: function (data) {
         $("#tambah__nama").val("");
         $("#tambah__jabatan").val("");
-        console.log(data);
-        swal ({
-          title : "Berhasil",
-          text : "Data Berhasil Ditambahkan",
-          icon : "success",
-          button : true
+        swal({
+          title: "Berhasil",
+          text: "Data Berhasil Ditambahkan",
+          icon: "success",
+          button: true,
         });
-        // alert(`${data.status}: ${data.message}`); // FIXME: ganti dengan sweetalert
 
         getPembina({
           desa: ddDesa.val(),
@@ -233,9 +231,13 @@ $(document).ready(function () {
                 <span class="fa-fw select-all fas"></span>
               </button>
 
-              <button class="btn btn-danger btn-sm" id="delete" data-bs-toggle="tooltip" data-bs-placement="bottom" type="button" title="Delete">
-                <span class="fa-fw select-all fas"></span>
-              </button>`,
+              <form class="d-inline" action="/pembina/${d.id}" method="post">
+                <input type="hidden" name="_token" value="${CSRF}" />
+                <input type="hidden" name="_method" value="delete" />
+                <button class="btn btn-danger btn-sm" id="delete" data-bs-toggle="tooltip" data-bs-placement="bottom" type="submit" title="Delete">
+                  <span class="fa-fw select-all fas"></span>
+                </button>
+              </form>`,
             ])
           )
           .draw();
