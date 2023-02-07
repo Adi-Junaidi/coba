@@ -1,7 +1,7 @@
 @extends('layouts.main', [
     'title' => 'Data PIK-R',
     'heading' => 'Data PIK-R',
-    'breadcrumb' => ['Data PIK-R', 'Data PIK-R'],
+    'breadcrumb' => ['Data Master', 'Data PIK-R'],
 ])
 
 @section('link')
@@ -63,7 +63,7 @@
         <div class="row g-2 mb-3">
           <div class="col-md">
             <div class="d-flex justify-content-end">
-              <button class="btn btn-primary" type="submit"><span class="fa-fw fas me-2 select-all"></span>Tambah Data PIK-R</button>
+              <a class="btn btn-primary" href="/pikr/create"><span class="fa-fw fas me-2 select-all"></span>Tambah Data PIK-R</a>
             </div>
           </div>
         </div>

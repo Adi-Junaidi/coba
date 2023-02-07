@@ -41,18 +41,18 @@
             </a>
           </li>
 
-          <li class="sidebar-item has-sub {{ Request::is('pembina', 'pikr') ? 'active' : '' }}">
+          <li class="sidebar-item has-sub {{ Request::is('pembina', 'pikr*') ? 'active' : '' }}">
             <a class='sidebar-link' href="#">
               <i class="bi bi-stack"></i>
               <span>Data Master</span>
             </a>
 
-            <ul class="submenu {{ Request::is('pembina', 'pikr') ? 'active' : '' }}">
+            <ul class="submenu {{ Request::is('pembina', 'pikr*') ? 'active' : '' }}">
               <li class="submenu-item {{ Request::is('pembina') ? 'active' : '' }}">
                 <a href="/pembina">Data Pembina</a>
               </li>
 
-              <li class="submenu-item {{ Request::is('pikr') ? 'active' : '' }}">
+              <li class="submenu-item {{ Request::is('pikr*') ? 'active' : '' }}">
                 <a href="/pikr">Data PIK-R</a>
               </li>
             </ul>

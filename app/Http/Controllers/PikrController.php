@@ -7,6 +7,7 @@ use App\Http\Requests\StorePikrRequest;
 use App\Http\Requests\UpdatePikrRequest;
 use App\Models\Desa;
 use App\Models\Kabkota;
+use App\Models\Pembina;
 
 class PikrController extends Controller
 {
@@ -31,7 +32,10 @@ class PikrController extends Controller
    */
   public function create()
   {
-    //
+    return view('pikr.create', [
+      'kabkota' => Kabkota::all(),
+      'pembinas' => Pembina::all()
+    ]);
   }
 
   /**
