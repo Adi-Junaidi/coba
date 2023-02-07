@@ -8,40 +8,38 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class LoginController extends Controller
 {
-    public function index()
-    {
-        return view('login', [
-            "title" => "Login"
-        ]);
+  public function index()
+  {
+    return view('auth.login');
+  }
+
+  public function authenticate(Request $request)
+  {
+    $credentials = $request->validate([
+      'username' => 'required',
+      'password' => 'required'
+    ]);
+
+    if (Auth::attempt($credentials)) {
+      $request->session()->regenerate();
+
+      Alert::success('Login Successful!');
+
+      return redirect()->intended('/dashboard');
+    } else {
+      Alert::error('Login Failed!');
     }
 
-    public function authenticate(Request $request)
-    {
-        $credentials = $request->validate([
-            'username' => 'required',
-            'password' => 'required'
-        ]);
+    return back();
+  }
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+  public function logout(Request $request)
+  {
+    Auth::logout();
 
-            Alert::success('Login Successful!');
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
 
-            return redirect()->intended('/dashboard');
-        } else {
-            Alert::error('Login Failed!');
-        }
-
-        return back();
-    }
-
-    public function logout(Request $request)
-    {
-        Auth::logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/login');
-    }
+    return redirect('/login');
+  }
 }
