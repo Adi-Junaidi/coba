@@ -1,4 +1,5 @@
 @extends('layouts.main', [
+    'title' => 'Registrasi Kegiatan',
     'heading' => 'Data Pembina',
     'breadcrumb' => ['Data Master', 'Data Pembina'],
 ])

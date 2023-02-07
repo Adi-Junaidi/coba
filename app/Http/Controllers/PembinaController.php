@@ -19,7 +19,6 @@ class PembinaController extends Controller
   public function index()
   {
     return view('pembina', [
-      "title" => "Data Pembina",
       "provinsi" => Provinsi::find(1),
       "kabkota" => Kabkota::all(),
       "desa" => Desa::all(),

@@ -1,4 +1,5 @@
 @extends('layouts.main', [
+    'title' => 'Dashboard',
     'heading' => 'Data PIK-R',
     'breadcrumb' => ['Dashboard'],
 ])

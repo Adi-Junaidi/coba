@@ -26,6 +26,7 @@
 
       <div id="main-content">
         @include('partials.heading', [
+            'title' => $title,
             'heading' => $heading,
             'breadcrumb' => $breadcrumb,
         ])

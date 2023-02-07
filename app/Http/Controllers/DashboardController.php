@@ -7,11 +7,10 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
-    {
-        return view('dashboard', [
-            "title" => "Dashboard",
-            "pembina" => Pembina::all()
-        ]);
-    }
+  public function index()
+  {
+    return view('dashboard', [
+      "pembina" => Pembina::all()
+    ]);
+  }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PembinaController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PikrController;
 use App\Http\Controllers\RegistrasiKegiatanController;
 use App\Http\Controllers\RegistrasiPikrController;
 use App\Models\Kabkota;
@@ -23,10 +24,10 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
 Route::resource('/pembina', PembinaController::class)->middleware('auth');
+Route::resource('/pikr', PikrController::class)->middleware('auth');
 
 Route::get('/api/kabkota/{kabkota}/kecamatans', fn (Kabkota $kabkota) => response()->json($kabkota->kecamatan));
 Route::get('/api/kecamatan/{kecamatan}/desas', fn (Kecamatan $kecamatan) => response()->json($kecamatan->desa));
 Route::get('/api/pembina/', [PembinaController::class, 'api']);
 
-Route::resource('/registrasi-pikr', RegistrasiPikrController::class)->only(['index'])->middleware('auth');
 Route::resource('/registrasi-kegiatan', RegistrasiKegiatanController::class)->only(['index'])->middleware('auth');

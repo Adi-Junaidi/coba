@@ -34,41 +34,35 @@
         <ul class="menu">
           <li class="sidebar-title">Menu</li>
 
-          <li class="sidebar-item {{ $title === 'Dashboard' ? 'active' : '' }}">
+          <li class="sidebar-item {{ Request::is('dashboard') ? 'active' : '' }}">
             <a class='sidebar-link' href="/dashboard">
               <i class="bi bi-grid-fill"></i>
               <span>Dashboard</span>
             </a>
           </li>
 
-          <li class="sidebar-item has-sub {{ $title === 'Data Pembina' ? 'active' : '' }}">
+          <li class="sidebar-item has-sub {{ Request::is('pembina', 'pikr') ? 'active' : '' }}">
             <a class='sidebar-link' href="#">
               <i class="bi bi-stack"></i>
               <span>Data Master</span>
             </a>
+
             <ul class="submenu {{ Request::is('pembina', 'pikr') ? 'active' : '' }}">
               <li class="submenu-item {{ Request::is('pembina') ? 'active' : '' }}">
                 <a href="/pembina">Data Pembina</a>
               </li>
+
               <li class="submenu-item {{ Request::is('pikr') ? 'active' : '' }}">
                 <a href="/pikr">Data PIK-R</a>
               </li>
             </ul>
           </li>
 
-          <li class="sidebar-item has-sub {{ Request::is('registrasi-pikr', 'registrasi-kegiatan') ? 'active' : '' }}">
-            <a class='sidebar-link' href="#">
+          <li class="sidebar-item {{ Request::is('registrasi-kegiatan') ? 'active' : '' }}">
+            <a class='sidebar-link' href="/registrasi-kegiatan">
               <i class="bi bi-collection-fill"></i>
-              <span>Data PIK-R</span>
+              <span>Registrasi Kegiatan</span>
             </a>
-            <ul class="submenu {{ Request::is('registrasi-pikr', 'registrasi-kegiatan') ? 'active' : '' }}">
-              <li class="submenu-item {{ Request::is('registrasi-pikr') ? 'active' : '' }}">
-                <a href="/registrasi-pikr">Registrasi PIK-R</a>
-              </li>
-              <li class="submenu-item {{ Request::is('registrasi-kegiatan') ? 'active' : '' }}">
-                <a href="/registrasi-kegiatan">Registrasi Kegiatan</a>
-              </li>
-            </ul>
           </li>
 
           <li class="sidebar-item">
