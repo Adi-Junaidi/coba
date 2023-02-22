@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Desa;
 use App\Models\Pikr;
 use App\Models\Kabkota;
+use App\Models\Laporan;
 use Illuminate\Http\Request;
 
 class RegistrasiKegiatanController extends Controller
@@ -16,7 +17,7 @@ class RegistrasiKegiatanController extends Controller
    */
   public function index()
   {
-    return view('registrasi.kegiatan', [
+    return view('registrasi.index', [
       "pikr" => Pikr::all(),
       "desa" => Desa::all(),
       "kabkota" => Kabkota::all()
@@ -52,7 +53,10 @@ class RegistrasiKegiatanController extends Controller
    */
   public function show($id)
   {
-    //
+    return view('registrasi.show', [
+      'pikr' => Pikr::find($id),
+      'laporan' => Laporan::all()
+    ]);
   }
 
   /**

@@ -30,4 +30,4 @@ Route::get('/api/kabkota/{kabkota}/kecamatans', fn (Kabkota $kabkota) => respons
 Route::get('/api/kecamatan/{kecamatan}/desas', fn (Kecamatan $kecamatan) => response()->json($kecamatan->desa));
 Route::get('/api/pembina/', [PembinaController::class, 'api']);
 
-Route::resource('/registrasi-kegiatan', RegistrasiKegiatanController::class)->only(['index'])->middleware('auth');
+Route::resource('/registrasi-kegiatan', RegistrasiKegiatanController::class)->middleware('auth');

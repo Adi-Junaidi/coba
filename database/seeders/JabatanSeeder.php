@@ -18,5 +18,10 @@ class JabatanSeeder extends Seeder
       "nama" => "PKB/PLKB",
       "kode" => "B"
     ]);
+
+    Jabatan::create([
+      "nama" => "Lainnya",
+      "kode" => "Z"
+    ]);
   }
 }

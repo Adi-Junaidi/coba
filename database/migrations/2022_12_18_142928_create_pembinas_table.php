@@ -15,7 +15,7 @@ class CreatePembinasTable extends Migration
   {
     Schema::create('pembinas', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('jabatan_id')->nullable();
+      $table->foreignId('jabatan_id');
       $table->foreignId('desa_id');
       $table->string('no_register');
       $table->string('nama');

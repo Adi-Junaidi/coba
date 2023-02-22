@@ -14,10 +14,8 @@ class CreateMitraPikrsTable extends Migration
     public function up()
     {
         Schema::create('mitra_pikr', function (Blueprint $table) {
-            $table->integer('pikr_id')->unsigned();
-            $table->integer('mitra_id')->unsigned();
-            $table->foreign('pikr_id')->references('id')->on('pikrs')->onDelete('cascade');
-            $table->foreign('mitra_id')->references('id')->on('mitras')->onDelete('cascade');
+            $table->foreignId('pikr_id');
+            $table->foreignId('mitra_id');
             $table->string('mou');
             $table->string('bentuk_kerjasama');
         });

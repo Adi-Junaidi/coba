@@ -61,7 +61,7 @@
           <li class="sidebar-item {{ Request::is('registrasi-kegiatan') ? 'active' : '' }}">
             <a class='sidebar-link' href="/registrasi-kegiatan">
               <i class="bi bi-collection-fill"></i>
-              <span>Registrasi Kegiatan</span>
+              <span>Register Kegiatan</span>
             </a>
           </li>
 

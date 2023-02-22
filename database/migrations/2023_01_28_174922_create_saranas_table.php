@@ -14,7 +14,7 @@ class CreateSaranasTable extends Migration
     public function up()
     {
         Schema::create('saranas', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('nama');
             $table->timestamps();
         });

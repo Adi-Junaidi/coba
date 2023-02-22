@@ -14,22 +14,24 @@ class CreatePikrsTable extends Migration
     public function up()
     {
         Schema::create('pikrs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->foreignId('desa_id');
-            $table->foreignId('sk_id');
-            $table->foreignId('pembina_id');
+            $table->id();
+            $table->foreignId('desa_id'); //
+            $table->foreignId('sk_id'); //
+            $table->foreignId('pembina_id'); //
+            $table->foreignId('jabatan_id'); //
             $table->string('no_register');
-            $table->string('nama');
+            $table->string('nama'); //
             $table->string('no_urut');
-            $table->string('alamat');
-            $table->string('basis');
-            $table->string('akun_medsos');
-            $table->string('sumber_dana');
-            $table->string('keterpaduan_kelompok');
-            $table->string('pro_pn');
+            $table->string('alamat'); //
+            $table->string('basis'); //
+            $table->string('punya_medsos'); //
+            $table->string('akun_medsos'); //
+            $table->string('sumber_dana'); //
+            $table->string('keterpaduan_kelompok'); //
+            $table->string('pro_pn'); //
             $table->string('materi_lainnya');
             $table->string('sarana_lainnya');
-            $table->string('jabatan_lainnya');
+            $table->string('jabatan_lainnya'); //
             $table->timestamps();
         });
     }

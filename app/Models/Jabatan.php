@@ -15,4 +15,9 @@ class Jabatan extends Model
     {
         return $this->hasMany(Pembina::class);
     }
+
+    public function pikr()
+    {
+        return $this->hasMany(Pikr::class);
+    }
 }

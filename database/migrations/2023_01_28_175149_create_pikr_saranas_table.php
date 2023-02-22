@@ -14,10 +14,8 @@ class CreatePikrSaranasTable extends Migration
     public function up()
     {
         Schema::create('pikr_sarana', function (Blueprint $table) {
-            $table->integer('pikr_id')->unsigned();
-            $table->integer('sarana_id')->unsigned();
-            $table->foreign('pikr_id')->references('id')->on('pikrs')->onDelete('cascade');
-            $table->foreign('sarana_id')->references('id')->on('saranas')->onDelete('cascade');
+            $table->foreignId('pikr_id');
+            $table->foreignId('sarana_id');
             $table->string('status');
         });
     }

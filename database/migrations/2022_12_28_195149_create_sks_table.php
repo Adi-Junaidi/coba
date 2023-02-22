@@ -17,7 +17,7 @@ class CreateSksTable extends Migration
             $table->id();
             $table->string('status');
             $table->string('no_sk')->nullable();
-            $table->string('tanggal_sk')->nullable();
+            $table->date('tanggal_sk')->nullable();
             $table->string('dikeluarkan_oleh')->nullable();
             $table->timestamps();
         });

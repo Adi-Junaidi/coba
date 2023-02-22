@@ -28,6 +28,11 @@ class Pikr extends Model
         return $this->belongsTo(Pembina::class);
     }
 
+    public function jabatan()
+    {
+        return $this->belongsTo(Jabatan::class);
+    }
+
     public function laporan()
     {
         return $this->hasMany(Laporan::class);

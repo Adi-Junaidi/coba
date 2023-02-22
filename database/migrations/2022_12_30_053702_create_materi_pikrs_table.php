@@ -17,10 +17,8 @@ class CreateMateriPikrsTable extends Migration
         // ini tabel pivot untuk materi dan pikr, insya allah sudah bisa digunakan
 
         Schema::create('materi_pikr', function (Blueprint $table) {
-            $table->integer('pikr_id')->unsigned();
-            $table->integer('materi_id')->unsigned();
-            $table->foreign('pikr_id')->references('id')->on('pikrs')->onDelete('cascade');
-            $table->foreign('materi_id')->references('id')->on('materis')->onDelete('cascade');
+            $table->foreignId('pikr_id');
+            $table->foreignId('materi_id');
             $table->string('status');
         });
     }
