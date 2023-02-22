@@ -8,7 +8,6 @@ use App\Http\Requests\UpdatePikrRequest;
 use App\Models\Desa;
 use App\Models\Kabkota;
 use App\Models\Pembina;
-use App\Models\Pembina;
 
 class PikrController extends Controller
 {

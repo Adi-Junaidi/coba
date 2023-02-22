@@ -108,7 +108,7 @@
                     <label for="namaPembina">Nama Pembina</label>
                     <input class="form-control" id="namaPembina" name="pembina_id" list="datalistOptions" placeholder="Cari Nama Pembina" disabled>
                     <datalist id="datalistOptions">
-                      @foreach ($pembina as $p)
+                      @foreach ($pembinas as $p)
                         <option>{{ $p->nama }}</option>
                       @endforeach
                     </datalist>
@@ -713,7 +713,7 @@
 
           $(`
             <datalist id="datalistOptions">
-                @foreach ($pembina as $p)
+                @foreach ($pembinas as $p)
                     <option>{{ $p->nama }}</option>
                 @endforeach
             </datalist>
