@@ -51,7 +51,7 @@
           </fieldset>
         </div>
         <div class="d-grid gap-2">
-          <button class="btn btn-primary" type="submit">Cari</button>
+          <button class="btn btn-primary" id="tombolCari" type="submit" disabled>Cari</button>
         </div>
       </div>
     </div>
@@ -63,7 +63,7 @@
         <div class="row g-2 mb-3">
           <div class="col-md">
             <div class="d-flex justify-content-end">
-              <a href="{{ route('pikr.create') }}" class="btn btn-primary" type="submit"><span class="fa-fw fas me-2 select-all"></span>Tambah Data PIK-R</a>
+              <a class="btn btn-primary disabled" id="tombolTambah" data-href="{{ route('pikr.create') }}" role="button" aria-disabled="true"><span class="fa-fw fas me-2 select-all"></span>Tambah Data PIK-R</a>
             </div>
           </div>
         </div>
@@ -853,6 +853,32 @@
           ddDesa.empty();
           ddDesa.prop('disabled', true);
         }
+      });
+
+      $('#ddDesa').on('change', function() {
+        const desaId = $(this).val();
+        const tombolCari = $('#tombolCari');
+        if (desaId) {
+          // Enable tombol cari
+          tombolCari.prop('disabled', false);
+        } else {
+          // Disable tombol cari
+          tombolCari.prop('disabled', false);
+        }
+      });
+
+      $('#tombolCari').on('click', () => {
+        const desaId = $('#ddDesa').val();
+        sessionStorage.setItem('desa-id', desaId);
+
+        // Update tabel pikr
+
+        // Enable tombol tambah
+        const tombolTambah = $('#tombolTambah');
+        const href = tombolTambah.data('href');
+        tombolTambah.prop('href', href);
+        tombolTambah.prop('aria-disabled', false);
+        tombolTambah.removeClass('disabled');
       });
     })
   </script>
