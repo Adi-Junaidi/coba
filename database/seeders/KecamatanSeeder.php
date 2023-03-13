@@ -111,6 +111,43 @@ class KecamatanSeeder extends Seeder
       "kabkota_id" => 1
     ]);
 
+    // Kabupaten Boalemo | id: 2
+    Kecamatan::create([
+      "nama" => "Paguyaman",
+      "kode" => "01",
+      "kabkota_id" => 2
+    ]);
+    Kecamatan::create([
+      "nama" => "Wonosari",
+      "kode" => "02",
+      "kabkota_id" => 2
+    ]);
+    Kecamatan::create([
+      "nama" => "Dulupi",
+      "kode" => "03",
+      "kabkota_id" => 2
+    ]);
+    Kecamatan::create([
+      "nama" => "Tilamuta",
+      "kode" => "04",
+      "kabkota_id" => 2
+    ]);
+    Kecamatan::create([
+      "nama" => "Mananggu",
+      "kode" => "05",
+      "kabkota_id" => 2
+    ]);
+    Kecamatan::create([
+      "nama" => "Botumoito",
+      "kode" => "06",
+      "kabkota_id" => 2
+    ]);
+    Kecamatan::create([
+      "nama" => "Paguyaman Pantai",
+      "kode" => "07",
+      "kabkota_id" => 2
+    ]);
+
     // Kota Gorontalo | id: 6
     Kecamatan::create([
       "nama" => "Kota Barat",

@@ -1,3 +1,21 @@
+// const getStr = (kecamatanId) => {
+//   const trs = [];
+//   for(let e = $0; e.nextSibling; e = e.nextSibling) trs.push(e);
+//   const strs = [];
+//   for(const tr of trs) {
+//     let [,, kode, nama] = tr.children;
+//     kode = kode.textContent.slice(-2);
+//     nama = nama.textContent;
+//     strs.push(`Desa::create([
+//     "nama" => "${nama}",
+//     "kode" => "${kode}",
+//     "kecamatan_id" => ${kecamatanId}
+//   ]);`);
+//   }
+//   const str = strs.join('\n');
+//   console.log(str);
+// };
+
 $(document).ready(function () {
   const tablePikr = $("#tablePikr").DataTable({
     columnDefs: [

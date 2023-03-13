@@ -1,7 +1,7 @@
 @extends('layouts.main', [
     'title' => 'Data PIK-R',
     'heading' => 'Tambah Data PIK-R',
-    'breadcrumb' => ['Data PIK-R', 'Tambah Data PIK-R'],
+    'breadcrumb' => ['Data Master', 'Data PIK-R', 'Tambah Data PIK-R'],
 ])
 
 @section('link')
@@ -43,25 +43,25 @@
                 <div class="col-md-6 col-12">
                   <div class="form-group">
                     <label for="provinsi">Provinsi</label>
-                    <input class="form-control" id="provinsi" name="provinsi" type="text" value="75 | Gorontalo" disabled>
+                    <input class="form-control" id="input_provinsi" name="provinsi" type="text" disabled>
                   </div>
                 </div>
                 <div class="col-md-6 col-12">
                   <div class="form-group">
                     <label for="kabkota">Kabupaten/Kota</label>
-                    <input class="form-control" id="kabkota" name="kabkota" type="text" value="71 | Kota Gorontalo" disabled>
+                    <input class="form-control" id="input_kabkota" name="kabkota" type="text" disabled>
                   </div>
                 </div>
                 <div class="col-md-6 col-12">
                   <div class="form-group">
                     <label for="kecamatan">Kecamatan</label>
-                    <input class="form-control" id="kecamatan" name="kecamatan" type="text" value="01 | Kota Barat" disabled>
+                    <input class="form-control" id="input_kecamatan" name="kecamatan" type="text" disabled>
                   </div>
                 </div>
                 <div class="col-md-6 col-12">
                   <div class="form-group">
                     <label for="desa">Desa/Kelurahan</label>
-                    <input class="form-control" id="desa" name="desa_id" type="text" value="01 | Buladu" disabled>
+                    <input class="form-control" id="input_desa" name="desa_id" type="text" disabled>
                   </div>
                 </div>
 
@@ -694,11 +694,37 @@
 
   <script>
     $(document).ready(function() {
+      /* ========== DD ==========
+      Mengambil data dari dropdown dependent (Desa & Kecamatan & Kabkota & Provinsi)
+      */
+      const desaId = sessionStorage.getItem('desa-id');
+      $.ajax({
+        type: 'get',
+        url: `/api/desa/${desaId}`,
+        success(data) {
+          const desa = data;
+          const kecamatan = data.kecamatan;
+          const kabkota = kecamatan.kabkota;
+          const provinsi = kabkota.provinsi;
+
+          const inputs = {
+            desa: $('#input_desa'),
+            kabkota: $('#input_kabkota'),
+            kecamatan: $('#input_kecamatan'),
+            provinsi: $('#input_provinsi'),
+          };
+
+          inputs.desa.val(`${desa.kode} | ${desa.nama}`);
+          inputs.kabkota.val(`${kabkota.kode} | ${kabkota.nama}`);
+          inputs.kecamatan.val(`${kecamatan.kode} | ${kecamatan.nama}`);
+          inputs.provinsi.val(`${provinsi.kode} | ${provinsi.nama}`);
+        }
+      });
+      /* ========== End DD ========== */
+
       $('#selectPembina').click(function(e) {
         e.preventDefault();
         const pembina = $('#selectPembina option:selected').val();
-
-        // console.log(pembina);
 
         if (pembina === "1") {
           $("#jabatanLainnya").replaceWith(`
