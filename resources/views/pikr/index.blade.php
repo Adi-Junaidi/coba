@@ -29,7 +29,7 @@
           <label class="col-md-2">Kabupaten/Kota</label>
           <fieldset class="form-group col-md-4">
             <select class="form-select" id="ddKabKota" name="ddKabKota">
-              <option hidden>Kabupaten/Kota</option>
+              <option value="" hidden>Kabupaten/Kota</option>
               @foreach ($kabkota as $p)
                 <option value="{{ $p->id }}">{{ $p->kode . ' | ' . $p->nama }}</option>
               @endforeach
@@ -40,13 +40,13 @@
           <label class="col-md-2">Kecamatan</label>
           <fieldset class="form-group col-md-4">
             <select class="form-select" id="ddKecamatan" name="ddKecamatan" disabled>
-              <option hidden>Kecamatan</option>
+              <option value="" hidden>Kecamatan</option>
             </select>
           </fieldset>
           <label class="col-md-2">Desa/Kelurahan</label>
           <fieldset class="form-group col-md-4">
             <select class="form-select" id="ddDesa" name="ddDesa" disabled>
-              <option hidden>Desa/Kelurahan</option>
+              <option value="" hidden>Desa/Kelurahan</option>
             </select>
           </fieldset>
         </div>
@@ -67,7 +67,7 @@
             </div>
           </div>
         </div>
-        <table class="table" id="table1">
+        <table class="table" id="tablePikr">
           <thead>
             <tr>
               <th>No.</th>
@@ -114,9 +114,7 @@
               </tr>
             @endforeach
           </tbody>
-
         </table>
-
       </div>
     </div>
   </section>
@@ -190,10 +188,6 @@
             </div>
 
             <div class="row mb-2">
-              {{-- <label class="col-sm-2 col-form-label" for="basis">Basis</label>
-                  <div class="col-sm-10">
-                    <input class="form-control" id="basis" type="text" disabled readonly>
-                  </div> --}}
               <label class="col-sm-2 col-form-label">Basis</label>
               <fieldset class="form-group col-sm-10">
                 <select class="form-select" id="basicSelect" disabled>
@@ -203,10 +197,6 @@
             </div>
 
             <div class="row mb-2">
-              {{-- <label class="col-sm-2 col-form-label" for="jabatan">Jabatan</label>
-                  <div class="col-sm-4">
-                    <input class="form-control" id="position" type="text" disabled readonly>
-                  </div> --}}
               <label class="col-sm-2 col-form-label">Jabatan</label>
               <fieldset class="form-group col-sm-4">
                 <select class="form-select" id="basicSelect" disabled>
@@ -504,6 +494,7 @@
                 </select>
               </fieldset>
             </div>
+
             <div class="row mb-2">
               <label class="col-sm-6 col-form-label">11. Buku Komik Berseri</label>
               <fieldset class="form-group col-sm-4">
@@ -512,6 +503,7 @@
                 </select>
               </fieldset>
             </div>
+
             <div class="row mb-2">
               <h6 class="col-sm-6 text-secondary mb-0">12. Lainnya</h6>
               <fieldset class="form-group col-sm-4">
@@ -520,15 +512,15 @@
                 </select>
               </fieldset>
             </div>
+
             <div class="row mb-4">
               <label class="col-sm-6 col-form-label" for="saranaLainnya"></label>
               <div class="col-sm-4">
                 <input class="form-control" id="saranaLainnya" type="text" placeholder="Lainnya" disabled readonly>
               </div>
             </div>
-
-
           </div>
+
           <div class="modal-footer d-flex justify-content-between">
             <div>
               <button class="btn btn-info" data-bs-target="#modal1" data-bs-toggle="modal" type="button">
@@ -543,7 +535,6 @@
                 <span class="d-none d-sm-block">Selanjutnya <span class="fa-fw fas select-all"></span></span>
               </button>
             </div>
-
           </div>
         </form>
       </div>
@@ -563,14 +554,6 @@
         <form action="#">
           <div class="modal-body">
             <h6 class="text-secondary mb-4">E. Mitra PIK-R</h6>
-            {{-- <div class="row mb-2">
-                  <div class="col-sm-4">
-                    <div class="input-group">
-                      <span class="input-group-text" id="basic-addon1"><span class="fa-fw select-all fas"></span></span>
-                      <input class="form-control" id="cariMitra" name="cariMitra" type="text" placeholder="Cari..." autocomplete="off">
-                    </div>
-                  </div>
-                </div> --}}
             <table class="table" id="table1">
               <thead>
                 <tr>
@@ -599,10 +582,8 @@
                 <span class="d-none d-sm-block">Selanjutnya <span class="fa-fw fas select-all"></span></span>
               </button>
             </div>
-
           </div>
         </form>
-
       </div>
     </div>
   </div>
@@ -620,14 +601,6 @@
         <form action="#">
           <div class="modal-body">
             <h6 class="text-secondary mb-4">F. Informasi Pengurus PIK-R</h6>
-            {{-- <div class="row mb-2">
-                  <div class="col-sm-4">
-                    <div class="input-group">
-                      <span class="input-group-text" id="basic-addon1"><span class="fa-fw select-all fas"></span></span>
-                      <input class="form-control" id="cariPengurus" name="cariPengurus" type="text" placeholder="Cari..." autocomplete="off">
-                    </div>
-                  </div>
-                </div> --}}
             <table class="table" id="table1">
               <thead>
                 <tr>
@@ -658,10 +631,8 @@
                 <span class="d-none d-sm-block">Selanjutnya <span class="fa-fw fas select-all"></span></span>
               </button>
             </div>
-
           </div>
         </form>
-
       </div>
     </div>
   </div>
@@ -739,147 +710,5 @@
     }, false);
   </script>
 
-  <script>
-    $(document).ready(function() {
-      $('.table').DataTable();
-    });
-  </script>
-
-  <script>
-    $(document).ready(function() {
-      // modal untuk menampilkan detail data pembina
-      $(document).on("click", "#detail", function() {
-        const noreg = $(this).data("noreg");
-        const nourut = $(this).data("nourut");
-        const nama = $(this).data("nama");
-        const provinsi = $(this).data("provinsi");
-        const kabkota = $(this).data("kabkota");
-        const kecamatan = $(this).data("kecamatan");
-        const desakel = $(this).data("desakel");
-        const jabatan = $(this).data("jabatan");
-
-        $("#noRegister").val(noreg);
-        $("#noUrut").val(nourut);
-        $("#name").val(nama);
-        $("#provinsi").val(provinsi);
-        $("#kabKota").val(kabkota);
-        $("#kecamatan").val(kecamatan);
-        $("#desaKel").val(desakel);
-        $("#position").val(jabatan);
-      });
-
-      const filters = {
-        kabkota: null,
-        kecamatan: null,
-        desa: null,
-      };
-
-      // tombol cari pembina berdasarkan nama with ajax
-      $(document).on("keyup", "#cari", function() {
-        const keyword = $("#cari").val();
-        const data = {
-          keyword
-        };
-
-        if (filters.kabkota) data.kabkota = filters.kabkota;
-        if (filters.kecamatan) data.kecamatan = filters.kecamatan;
-        if (filters.desa) data.desa = filters.desa;
-
-        $.ajax({
-          type: "get",
-          url: "/api/pembina",
-          data,
-          success: function(data) {
-            console.log(data);
-            $('tbody').html(data);
-          }
-        });
-      });
-
-      // dropdown dependent
-      $('#ddKabKota').on('change', function() {
-        const kabkotaID = $(this).val();
-        const ddKecamatan = $('#ddKecamatan');
-
-        if (kabkotaID) {
-          $.ajax({
-            type: "get",
-            url: `/api/kabkota/${kabkotaID}/kecamatans/`,
-            dataType: "json",
-            success: function(data) {
-              if (data) {
-                ddKecamatan.empty();
-                ddKecamatan.append('<option hidden>Kecamatan</option>');
-                $.each(data, function(key, kecamatan) {
-                  $('select[name="ddKecamatan"]').append('<option value="' + kecamatan.id + '">' + kecamatan.kode + ' | ' + kecamatan.nama + '</option>');
-                });
-                ddKecamatan.prop('disabled', false);
-              } else {
-                ddKecamatan.empty();
-                ddKecamatan.prop('disabled', true);
-              }
-            }
-          });
-        } else {
-          ddKecamatan.empty();
-          ddKecamatan.prop('disabled', true);
-        }
-      });
-
-      $('#ddKecamatan').on('change', function() {
-        const kecamatanId = $(this).val();
-        const ddDesa = $('#ddDesa');
-
-        if (kecamatanId) {
-          $.ajax({
-            type: "get",
-            url: `/api/kecamatan/${kecamatanId}/desas/`,
-            dataType: "json",
-            success: function(data) {
-              if (data) {
-                ddDesa.empty();
-                ddDesa.append('<option hidden>Desa/Kelurahan</option>');
-                $.each(data, function(key, desa) {
-                  $('select[name="ddDesa"]').append('<option value="' + desa.id + '">' + desa.kode + ' | ' + desa.nama + '</option>');
-                });
-                ddDesa.prop('disabled', false);
-              } else {
-                ddDesa.empty();
-                ddDesa.prop('disabled', true);
-              }
-            }
-          });
-        } else {
-          ddDesa.empty();
-          ddDesa.prop('disabled', true);
-        }
-      });
-
-      $('#ddDesa').on('change', function() {
-        const desaId = $(this).val();
-        const tombolCari = $('#tombolCari');
-        if (desaId) {
-          // Enable tombol cari
-          tombolCari.prop('disabled', false);
-        } else {
-          // Disable tombol cari
-          tombolCari.prop('disabled', false);
-        }
-      });
-
-      $('#tombolCari').on('click', () => {
-        const desaId = $('#ddDesa').val();
-        sessionStorage.setItem('desa-id', desaId);
-
-        // Update tabel pikr
-
-        // Enable tombol tambah
-        const tombolTambah = $('#tombolTambah');
-        const href = tombolTambah.data('href');
-        tombolTambah.prop('href', href);
-        tombolTambah.prop('aria-disabled', false);
-        tombolTambah.removeClass('disabled');
-      });
-    })
-  </script>
+  <script src="/js/pikr.js"></script>
 @endsection
