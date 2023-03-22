@@ -1,8 +1,3 @@
-### Tolong buatkan faker dan seeder :
-
-- tabel pikr
-- tabel sk
-
 ### CRUD
 
 - Pembina
@@ -25,8 +20,15 @@
   - [ ] Update
   - [ ] Delete
 
+### Faker
+
+- [ ] PIK-R
+- [ ] SK
+
 # Seeder
 
+- [ ] PIK-R
+- [ ] SK
 - [x] Kabupaten/Kota
 - [ ] Kecamatan
 - [ ] Kelurahan/Desa

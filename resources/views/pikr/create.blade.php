@@ -19,6 +19,7 @@
 
         {{-- Card Identitas Kelompok --}}
 
+        <!-- FIXME: fix name dan id untuk setiap input -->
         <div class="col-12">
           <div class="card">
             <div class="card-header">
@@ -106,8 +107,8 @@
                 <div class="col-md-6 col-12">
                   <div class="form-group">
                     <label for="namaPembina">Nama Pembina</label>
-                    <input class="form-control" id="namaPembina" name="pembina_id" list="datalistOptions" placeholder="Cari Nama Pembina" disabled>
-                    <datalist id="datalistOptions">
+                    <input class="form-control" id="namaPembina" name="pembina_id" list="list-pembina" placeholder="Cari Nama Pembina" disabled>
+                    <datalist id="list-pembina">
                       @foreach ($pembinas as $p)
                         <option>{{ $p->nama }}</option>
                       @endforeach
@@ -116,13 +117,11 @@
                 </div>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="punyaMedsos">Akun Media Sosial</label>
-                    <select class="form-select" id="punyaMedsos">
-                      <option hidden>Punya Akun Media Sosial?</option>
-                      <option value="1">Ada</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="punyaMedsos" name="punyaMedsos" type="checkbox">
+                      <label for="punyaMedsos">Akun Media Sosial</label>
+                    </div>
                   </div>
                 </div>
 
@@ -147,13 +146,11 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="punyaSk">SK Pengukuhan</label>
-                    <select class="form-select" id="punyaSk" name="status">
-                      <option hidden>Punya SK Pengukuhan?</option>
-                      <option value="1">Ada</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="punyaSk" name="punyaSk" type="checkbox">
+                      <label for="punyaSk">SK Pengukuhan</label>
+                    </div>
                   </div>
                 </div>
 
@@ -201,24 +198,20 @@
                 </div>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="keterpaduanKelompok">Keterpaduan Kelompok</label>
-                    <select class="form-select" id="keterpaduanKelompok" name="keterpaduan_kelompok">
-                      <option hidden>Pilih Keterpaduan Kelompok</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="keterpaduanKelompok" name="keterpaduanKelompok" type="checkbox">
+                      <label for="keterpaduanKelompok">Keterpaduan Kelompok</label>
+                    </div>
                   </div>
                 </div>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="propn">Proyek Prioritas Nasional</label>
-                    <select class="form-select" id="propn" name="pro_pn">
-                      <option hidden>Pilih Proyek Prioritas Nasional</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="propn" name="propn" type="checkbox">
+                      <label for="propn">Proyek Prioritas Nasional</label>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -239,132 +232,109 @@
                 <p>1. Kesehatan Remaja</p>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="pubertas">a. Pubertas</label>
-                    <select class="form-select" id="pubertas" name="">
-                      <option hidden>Pilih Materi</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="pubertas" name="pubertas" type="checkbox">
+                      <label for="pubertas">a. Pubertas</label>
+                    </div>
                   </div>
                 </div>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="seksualitas">b. Seksualitas</label>
-                    <select class="form-select" id="seksualitas" name="">
-                      <option hidden>Pilih Materi</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="seksualitas" name="seksualitas" type="checkbox">
+                      <label for="seksualitas">b. Seksualitas</label>
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="reproduksi">c. Reproduksi</label>
-                    <select class="form-select" id="reproduksi" name="">
-                      <option hidden>Pilih Materi</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="reproduksi" name="reproduksi" type="checkbox">
+                      <label for="reproduksi">c. Reproduksi</label>
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="giziRemaja">d. Kesehatan dan Gizi Remaja</label>
-                    <select class="form-select" id="giziRemaja" name="">
-                      <option hidden>Pilih Materi</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="giziRemaja" name="giziRemaja" type="checkbox">
+                      <label for="giziRemaja">d. Kesehatan dan Gizi Remaja</label>
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="perilakuBerisiko">e. Perilaku Berisiko</label>
-                    <select class="form-select" id="perilakuBerisiko" name="">
-                      <option hidden>Pilih Materi</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="perilakuBerisiko" name="perilakuBerisiko" type="checkbox">
+                      <label for="perilakuBerisiko">e. Perilaku Berisiko</label>
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="tindakanBerbahaya">f. Tindakan Berbahaya</label>
-                    <select class="form-select" id="tindakanBerbahaya" name="">
-                      <option hidden>Pilih Materi</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="tindakanBerbahaya" name="tindakanBerbahaya" type="checkbox">
+                      <label for="tindakanBerbahaya">f. Tindakan Berbahaya</label>
+                    </div>
                   </div>
                 </div>
 
                 <p>2. Perencanaan Berkeluarga</p>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="persiapanPernikahan">a. Persiapan Pernikahan</label>
-                    <select class="form-select" id="persiapanPernikahan" name="">
-                      <option hidden>Pilih Materi</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="persiapanPernikahan" name="persiapanPernikahan" type="checkbox">
+                      <label for="persiapanPernikahan">a. Persiapan Pernikahan</label>
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="perkembanganKeluarga">b. Perkembangan Keluarga</label>
-                    <select class="form-select" id="perkembanganKeluarga" name="">
-                      <option hidden>Pilih Materi</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="perkembanganKeluarga" name="perkembanganKeluarga" type="checkbox">
+                      <label for="perkembanganKeluarga">b. Perkembangan Keluarga</label>
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="pengasuhanKeluarga">c. Pengasuhan Keluarga Sehat</label>
-                    <select class="form-select" id="pengasuhanKeluarga" name="">
-                      <option hidden>Pilih Materi</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="pengasuhanKeluarga" name="pengasuhanKeluarga" type="checkbox">
+                      <label for="pengasuhanKeluarga">c. Pengasuhan Keluarga Sehat</label>
+                    </div>
                   </div>
                 </div>
 
                 <p>3. Life Skill</p>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="softSkill">a. Soft Skill</label>
-                    <select class="form-select" id="softSkill" name="">
-                      <option hidden>Pilih Materi</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="softSkill" name="softSkill" type="checkbox">
+                      <label for="softSkill">a. Soft Skill</label>
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="hardSkill">b. Hard Skill</label>
-                    <select class="form-select" id="hardSkill" name="">
-                      <option hidden>Pilih Materi</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="hardSkill" name="hardSkill" type="checkbox">
+                      <label for="hardSkill">b. Hard Skill</label>
+                    </div>
                   </div>
                 </div>
 
                 <p>4. Lainnya</p>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <select class="form-select" id="materi_lainnya" name="">
-                      <option hidden>Pilih Materi</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="materi_lainnya" name="materi_lainnya" type="checkbox">
+                      <label for="materi_lainnya">Materi Lainnya</label>
+                    </div>
                   </div>
                 </div>
 
@@ -380,146 +350,119 @@
                 </div>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="ruangSekretariat">1. Ruang Sekretariat</label>
-                    <select class="form-select" id="ruangSekretariat" name="">
-                      <option hidden>Pilih Sarana</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="ruangSekretariat" name="ruangSekretariat" type="checkbox">
+                      <label for="ruangSekretariat">1. Ruang Sekretariat</label>
+                    </div>
                   </div>
                 </div>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="papanNama">2. Papan Nama</label>
-                    <select class="form-select" id="papanNama" name="">
-                      <option hidden>Pilih Sarana</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="papanNama" name="papanNama" type="checkbox">
+                      <label for="papanNama">2. Papan Nama</label>
+                    </div>
                   </div>
                 </div>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="ruangKonseling">3. Ruang Khusus Konseling</label>
-                    <select class="form-select" id="ruangKonseling" name="">
-                      <option hidden>Pilih Sarana</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="ruangKonseling" name="ruangKonseling" type="checkbox">
+                      <label for="ruangKonseling">3. Ruang Khusus Konseling</label>
+                    </div>
                   </div>
                 </div>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="pedomanPikr">4. Pedoman Pengelolaan PIK-R</label>
-                    <select class="form-select" id="pedomanPikr" name="">
-                      <option hidden>Pilih Sarana</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="pedomanPikr" name="pedomanPikr" type="checkbox">
+                      <label for="pedomanPikr">4. Pedoman Pengelolaan PIK-R</label>
+                    </div>
                   </div>
                 </div>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="modulFasilitator">5. Modul Fasilitator PIK-R</label>
-                    <select class="form-select" id="modulFasilitator" name="">
-                      <option hidden>Pilih Sarana</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="modulFasilitator" name="modulFasilitator" type="checkbox">
+                      <label for="modulFasilitator">5. Modul Fasilitator PIK-R</label>
+                    </div>
                   </div>
                 </div>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="bukuPs">6. Buku Pegangan PS</label>
-                    <select class="form-select" id="bukuPs" name="">
-                      <option hidden>Pilih Sarana</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="bukuPs" name="bukuPs" type="checkbox">
+                      <label for="bukuPs">6. Buku Pegangan PS</label>
+                    </div>
                   </div>
                 </div>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="modulTentangKita">7. Modul "Tentang Kita"</label>
-                    <select class="form-select" id="modulTentangKita" name="">
-                      <option hidden>Pilih Sarana</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="modulTentangKita" name="modulTentangKita" type="checkbox">
+                      <label for="modulTentangKita">7. Modul "Tentang Kita"</label>
+                    </div>
                   </div>
                 </div>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="lembarBalik">8. Lembar Balik</label>
-                    <select class="form-select" id="lembarBalik" name="">
-                      <option hidden>Pilih Sarana</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="lembarBalik" name="lembarBalik" type="checkbox">
+                      <label for="lembarBalik">8. Lembar Balik</label>
+                    </div>
                   </div>
                 </div>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="leaflet">9. Leaflet</label>
-                    <select class="form-select" id="leaflet" name="">
-                      <option hidden>Pilih Sarana</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="leaflet" name="leaflet" type="checkbox">
+                      <label for="leaflet">9. Leaflet</label>
+                    </div>
                   </div>
                 </div>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="poster">10. Poster</label>
-                    <select class="form-select" id="poster" name="">
-                      <option hidden>Pilih Sarana</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="poster" name="poster" type="checkbox">
+                      <label for="poster">10. Poster</label>
+                    </div>
                   </div>
                 </div>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="genreKit">11. GenRe Kit</label>
-                    <select class="form-select" id="genreKit" name="">
-                      <option hidden>Pilih Sarana</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="genreKit" name="genreKit" type="checkbox">
+                      <label for="genreKit">11. GenRe Kit</label>
+                    </div>
                   </div>
                 </div>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="komikBerseri">12. Buku Komik Berseri</label>
-                    <select class="form-select" id="komikBerseri" name="">
-                      <option hidden>Pilih Sarana</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="komikBerseri" name="komikBerseri" type="checkbox">
+                      <label for="komikBerseri">12. Buku Komik Berseri</label>
+                    </div>
                   </div>
                 </div>
 
-                <p>13. Lainnya</p>
-
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <select class="form-select" id="sarana_lainnya" name="">
-                      <option hidden>Pilih Sarana</option>
-                      <option value="1">Ya</option>
-                      <option value="0">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="sarana_lainnya" name="sarana_lainnya" type="checkbox">
+                      <label for="sarana_lainnya">13. Lainnya</label>
+                    </div>
                   </div>
                 </div>
 
@@ -551,13 +494,11 @@
                   </div>
                 </div>
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="mou">MOU/Perjanjian Kerjasama</label>
-                    <select class="form-select" id="mou" name="" required>
-                      <option hidden>Pilih MOU/Perjanjian Kerjasama</option>
-                      <option value="Ya">Ya</option>
-                      <option value="Tidak">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="mou" name="mou" type="checkbox">
+                      <label for="mou">MOU/Perjanjian Kerjasama</label>
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6 col-12">
@@ -586,7 +527,7 @@
                       </tr>
                     </thead>
                     <tbody id="tabelMitra">
-                      {{-- isi tabel mitra menggunakan jquery --}}
+                      <!-- TODO: isi tabel mitra menggunakan jquery -->
                     </tbody>
                   </table>
                 </div>
@@ -645,13 +586,11 @@
                 </div>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="pelatihan">Pelatihan</label>
-                    <select class="form-select" id="pelatihan" name="">
-                      <option hidden>Pernah Ikut Pelatihan?</option>
-                      <option value="Ya">Ya</option>
-                      <option value="Tidak">Tidak</option>
-                    </select>
+                  <div class="form-check">
+                    <div class="checkbox">
+                      <input class="form-check-input" id="pelatihan" name="pelatihan" type="checkbox">
+                      <label for="pelatihan">Pernah ikut pelatihan</label>
+                    </div>
                   </div>
                 </div>
 
@@ -672,7 +611,7 @@
                       </tr>
                     </thead>
                     <tbody id="tabelPengurus">
-                      {{-- isi tabel mitra menggunakan jquery --}}
+                      <!-- TODO: isi tabel pengurus menggunakan jquery -->
                     </tbody>
                   </table>
                 </div>
@@ -692,216 +631,5 @@
   <script src="{{ asset('dist') }}/assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
   <script src="{{ asset('dist') }}/assets/js/pages/form-element-select.js"></script>
 
-  <script>
-    $(document).ready(function() {
-      /* ========== DD ==========
-      Mengambil data dari dropdown dependent (Desa & Kecamatan & Kabkota & Provinsi)
-      */
-      const desaId = sessionStorage.getItem('desa-id');
-      $.ajax({
-        type: 'get',
-        url: `/api/desa/${desaId}`,
-        success(data) {
-          const desa = data;
-          const kecamatan = data.kecamatan;
-          const kabkota = kecamatan.kabkota;
-          const provinsi = kabkota.provinsi;
-
-          const inputs = {
-            desa: $('#input_desa'),
-            kabkota: $('#input_kabkota'),
-            kecamatan: $('#input_kecamatan'),
-            provinsi: $('#input_provinsi'),
-          };
-
-          inputs.desa.val(`${desa.kode} | ${desa.nama}`);
-          inputs.kabkota.val(`${kabkota.kode} | ${kabkota.nama}`);
-          inputs.kecamatan.val(`${kecamatan.kode} | ${kecamatan.nama}`);
-          inputs.provinsi.val(`${provinsi.kode} | ${provinsi.nama}`);
-        }
-      });
-      /* ========== End DD ========== */
-
-      $('#selectPembina').click(function(e) {
-        e.preventDefault();
-        const pembina = $('#selectPembina option:selected').val();
-
-        if (pembina === "1") {
-          $("#jabatanLainnya").replaceWith(`
-            <input type="text" name="jabatan_lainnya" id="jabatanLainnya" class="form-control" placeholder="Lainnya..." disabled>
-          `);
-
-          $('#namaPembina').replaceWith(`
-            <input class="form-control" list="datalistOptions" name="pembina_id" id="namaPembina" placeholder="Cari Nama Pembina">
-          `);
-
-          $('#datalistOptions').remove();
-
-          $(`
-            <datalist id="datalistOptions">
-                @foreach ($pembinas as $p)
-                    <option>{{ $p->nama }}</option>
-                @endforeach
-            </datalist>
-          `).insertAfter('#namaPembina');
-        } else if (pembina === "0") {
-          $("#jabatanLainnya").replaceWith(`
-            <input type="text" name="jabatan_lainnya" id="jabatanLainnya" class="form-control" placeholder="Lainnya...">
-          `);
-
-          $('#namaPembina').replaceWith(`
-            <input class="form-control" list="datalistOptions" name="pembina_id" id="namaPembina" placeholder="Cari Nama Pembina">
-          `);;
-
-          $('#datalistOptions').remove();
-        } else {
-          $("#jabatanLainnya").replaceWith(`
-            <input type="text" name="jabatan_lainnya" id="jabatanLainnya" class="form-control" placeholder="Lainnya..." disabled>
-          `);
-
-          $('#namaPembina').replaceWith(`
-            <input class="form-control" list="datalistOptions" name="pembina_id" id="namaPembina" placeholder="Cari Nama Pembina" disabled>
-          `);
-        }
-      });
-
-      $('#punyaMedsos').click(function(e) {
-        e.preventDefault();
-
-        const medsos = $('#punyaMedsos option:selected').val();
-
-        if (medsos === "1") {
-          $('#akunMedsos').replaceWith(`
-          <input type="text" name="akun_medsos" id="akunMedsos" class="form-control" placeholder="Masukkan Nama Akun Media Sosial">
-          `);
-        } else {
-          $('#akunMedsos').replaceWith(`
-          <input type="text" name="akun_medsos" id="akunMedsos" class="form-control" placeholder="Masukkan Nama Akun Media Sosial" disabled>
-          `);
-        }
-      });
-
-      $('#punyaSk').click(function(e) {
-        e.preventDefault();
-
-        const sk = $('#punyaSk option:selected').val();
-
-        if (sk === "1") {
-          $('#nomorSk').replaceWith(`
-            <input type="text" name="no_sk" id="nomorSk" class="form-control" placeholder="Masukkan Nomor SK">
-          `);
-
-          $('#tanggalSk').replaceWith(`
-            <input type="date" name="tanggal_sk" id="tanggalSk" class="form-control">
-          `);
-
-          $('#dikeluarkanOleh').replaceWith(`
-            <select name="dikeluarkan_oleh" id="dikeluarkanOleh" class="form-select">
-              <option hidden>Dikeluarkan Oleh</option>
-              <option value="Kepala Desa/Lurah">Kepala Desa/Lurah</option>
-              <option value="Camat">Camat</option>
-              <option value="OPD-KB">OPD-KB</option>
-              <option value="Bupati/Walikota">Bupati/Walikota</option>
-              <option value="Lainnya">Lainnya</option>
-            </select>
-          `);
-        } else {
-          $('#nomorSk').replaceWith(`
-            <input type="text" name="no_sk" id="nomorSk" class="form-control" placeholder="Masukkan Nomor SK" disabled>
-          `);
-
-          $('#tanggalSk').replaceWith(`
-            <input type="date" name="tanggal_sk" id="tanggalSk" class="form-control" disabled>
-          `);
-
-          $('#dikeluarkanOleh').replaceWith(`
-            <select name="dikeluarkan_oleh" id="dikeluarkanOleh" class="form-select" disabled>
-              <option hidden>Dikeluarkan Oleh</option>
-              <option value="Kepala Desa/Lurah">Kepala Desa/Lurah</option>
-              <option value="Camat">Camat</option>
-              <option value="OPD-KB">OPD-KB</option>
-              <option value="Bupati/Walikota">Bupati/Walikota</option>
-              <option value="Lainnya">Lainnya</option>
-            </select>
-          `);
-        }
-      });
-
-      $('#materi_lainnya').click(function(e) {
-        e.preventDefault();
-
-        const materiLainnya = $('#materi_lainnya option:selected').val();
-
-        if (materiLainnya === "1") {
-          $('#materiLainnya').replaceWith(`
-            <textarea name="materi_lainnya" id="materiLainnya" cols="30" rows="3" class="form-control"></textarea>
-          `);
-        } else {
-          $('#materiLainnya').replaceWith(`
-            <textarea name="materi_lainnya" id="materiLainnya" cols="30" rows="3" class="form-control" disabled></textarea>
-          `);
-        }
-      });
-
-      $('#sarana_lainnya').click(function(e) {
-        e.preventDefault();
-
-        const saranaLainnya = $('#sarana_lainnya option:selected').val();
-
-        if (saranaLainnya === "1") {
-          $('#saranaLainnya').replaceWith(`
-            <textarea name="sarana_lainnya" id="saranaLainnya" cols="30" rows="3" class="form-control"></textarea>
-          `);
-        } else {
-          $('#saranaLainnya').replaceWith(`
-            <textarea name="sarana_lainnya" id="saranaLainnya" cols="30" rows="3" class="form-control" disabled></textarea>
-          `);
-        }
-      });
-
-      $('#tambahMou').click(function(e) {
-        e.preventDefault();
-
-        const namaMitra = $('#namaMitra').val();
-        const mou = $('#mou option:selected').val();
-        const bentukKerjasama = $('#bentukKerjasama option:selected').val();
-
-        $(`
-          <tr>
-            <td>${namaMitra}</td>
-            <td>${mou}</td>
-            <td>${bentukKerjasama}</td>
-            <td>
-              <button type="button" class="btn btn-danger">Hapus</button>
-            </td>
-          </tr>
-        `).appendTo('#tabelMitra');
-
-      });
-
-      $('#tambahPengurus').click(function(e) {
-        e.preventDefault();
-
-        const nik = $('#nik').val();
-        const namaLengkap = $('#namaLengkap').val();
-        const jabatanPengurus = $('#jabatanPengurus option:selected').val();
-        const noHp = $('#noHp').val();
-        const pelatihan = $('#pelatihan option:selected').val();
-
-        $(`
-          <tr>
-            <td>${nik}</td>
-            <td>${namaLengkap}</td>
-            <td>${jabatanPengurus}</td>
-            <td>${noHp}</td>
-            <td>${pelatihan}</td>
-            <td>
-              <button type="button" class="btn btn-danger">Hapus</button>
-            </td>
-          </tr>
-        `).appendTo('#tabelPengurus');
-      });
-
-    });
-  </script>
+  <script src="/js/pikr.create.js"></script>
 @endsection
