@@ -3,7 +3,6 @@
 use App\Models\Kabkota;
 use App\Models\Kecamatan;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PikrController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PembinaController;
 use App\Http\Controllers\RegisterController;
@@ -11,12 +10,6 @@ use App\Http\Controllers\UserPikrController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\PikrController;
-use App\Http\Controllers\RegistrasiKegiatanController;
-use App\Http\Controllers\RegistrasiPikrController;
-use App\Models\Kabkota;
-use App\Models\Kecamatan;
-use Illuminate\Routing\Route as RoutingRoute;
-use App\Http\Controllers\RegistrasiPikrController;
 use App\Http\Controllers\RegistrasiKegiatanController;
 
 Route::get('/', fn () => redirect('/dashboard'));
