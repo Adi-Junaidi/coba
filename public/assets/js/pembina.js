@@ -13,6 +13,7 @@ $(document).ready(function () {
   const ddKabKota = $("#ddKabKota");
   const ddKecamatan = $("#ddKecamatan");
   const ddDesa = $("#ddDesa");
+  const formUpdate = $("#formUpdate");
 
   // modal untuk menampilkan detail data pembina
   $(document).on("click", ".btnDetail", function () {
@@ -39,6 +40,7 @@ $(document).ready(function () {
 
   $(document).on("click", ".btnUpdate", function () {
     const {
+      id,
       noreg,
       nourut,
       nama,
@@ -49,6 +51,7 @@ $(document).ready(function () {
       jabatan_id,
     } = getData($(this));
 
+    formUpdate.attr("action", `/pembina/${id}`);
     $("#update__noRegister").val(noreg);
     $("#update__noUrut").val(nourut);
     $("#update__nama").val(nama);
@@ -227,8 +230,8 @@ $(document).ready(function () {
                 </span>
               </button>
 
-              <button class="btn btn-warning btn-sm btnEdit" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-target="#modalUpdate" data-jabatan_id="${d.jabatan.id}" data-noreg="${d.no_register}" data-nourut="${d.no_urut}" data-nama="${d.nama}" data-provinsi="${d.desa.kecamatan.kabkota.provinsi.kode} | ${d.desa.kecamatan.kabkota.provinsi.nama}" data-kabkota="${d.desa.kecamatan.kabkota.kode} | ${d.desa.kecamatan.kabkota.nama}" data-kecamatan="${d.desa.kecamatan.kode} | ${d.desa.kecamatan.nama}" data-desakel="${d.desa.kode} | ${d.desa.nama}" data-jabatan="${d.jabatan.nama}" type="button" title="Edit">
-                <span class="fa-fw select-all fas"></span>
+              <button class="btn btn-warning btn-sm btnEdit" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-target="#modalUpdate" data-id="${d.id}" data-jabatan_id="${d.jabatan.id}" data-noreg="${d.no_register}" data-nourut="${d.no_urut}" data-nama="${d.nama}" data-provinsi="${d.desa.kecamatan.kabkota.provinsi.kode} | ${d.desa.kecamatan.kabkota.provinsi.nama}" data-kabkota="${d.desa.kecamatan.kabkota.kode} | ${d.desa.kecamatan.kabkota.nama}" data-kecamatan="${d.desa.kecamatan.kode} | ${d.desa.kecamatan.nama}" data-desakel="${d.desa.kode} | ${d.desa.nama}" data-jabatan="${d.jabatan.nama}" type="button">
+                <span class="fa-fw select-all fas" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"></span>
               </button>
 
               <form class="d-inline" action="/pembina/${d.id}" method="post">
@@ -246,6 +249,7 @@ $(document).ready(function () {
   }
 
   function getData(self) {
+    const id = self.data("id");
     const noreg = self.data("noreg");
     const nourut = self.data("nourut");
     const nama = self.data("nama");
@@ -257,6 +261,7 @@ $(document).ready(function () {
     const jabatan_id = self.data("jabatan_id");
 
     return {
+      id,
       noreg,
       nourut,
       nama,

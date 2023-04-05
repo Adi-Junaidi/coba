@@ -18,7 +18,7 @@ class PembinaController extends Controller
    */
   public function index()
   {
-    return view('pembina', [
+    return view('pembina.index', [
       "provinsi" => Provinsi::find(1),
       "kabkota" => Kabkota::all(),
       "desa" => Desa::all(),
@@ -121,7 +121,17 @@ class PembinaController extends Controller
    */
   public function update(Request $request, Pembina $pembina)
   {
-    //
+    // FIXME: perbaiki validasi
+    $validated = $request->validate([
+      'nama' => 'required',
+      'jabatan_id' => 'required'
+    ]);
+
+    $pembina->nama = $validated["nama"];
+    $pembina->jabatan_id = $validated['jabatan_id'];
+    $pembina->save();
+
+    return back()->with('success', 'Berhasil mengupdate data pembina ' . $validated["nama"]);
   }
 
   /**
