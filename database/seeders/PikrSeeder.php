@@ -22,11 +22,10 @@ class PikrSeeder extends Seeder
       "basis" => "Pendidikan - SMA/Setara",
       "akun_medsos" => "Instagram (@pikr-assalam)",
       "sumber_dana" => "lainnya",
-      "keterpaduan_kelompok" => "Ya",
-      "pro_pn" => "Ya",
+      "keterpaduan_kelompok" => true,
+      "pro_pn" => true,
       "materi_lainnya" => "",
       "sarana_lainnya" => "",
-      "jabatan_lainnya" => "",
       "desa_id" => 1,
       "sk_id" => 1,
       "pembina_id" => 1

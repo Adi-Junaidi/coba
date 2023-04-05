@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatePikrRequest;
 use App\Models\Desa;
 use App\Models\Kabkota;
 use App\Models\Pembina;
+use Illuminate\Http\Request;
 
 class PikrController extends Controller
 {
@@ -92,5 +93,31 @@ class PikrController extends Controller
   public function destroy(Pikr $pikr)
   {
     //
+  }
+
+  public function api(Request $request)
+  {
+    if ($request->ajax()) {
+      $desaId = $request->desa;
+      $desa = Desa::find($desaId);
+
+      $pikrs = Pikr::where('desa_id', $desaId)->get();
+
+      return ($pikrs->count() !== 0)
+        ? response()->json([
+          'pikrs' => $pikrs->map(function ($pikr) {
+            return [
+              ...$pikr->toArray(),
+              'pembina' => $pikr->pembina,
+              'sk' => $pikr->sk
+            ];
+          }),
+          'desa' => $desa,
+          'kecamatan' => $desa->kecamatan,
+          'kabkota' => $desa->kecamatan->kabkota,
+          'provinsi' => $desa->kecamatan->kabkota->provinsi
+        ])
+        : response()->json(['error' => 'PIK-R tidak ditemukan']);
+    }
   }
 }

@@ -9,6 +9,12 @@ use App\Http\Controllers\PembinaController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserPikrController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DesaController;
+use App\Http\Controllers\PikrController;
+use App\Http\Controllers\RegistrasiKegiatanController;
+use App\Http\Controllers\RegistrasiPikrController;
+use App\Models\Kabkota;
+use App\Models\Kecamatan;
 use Illuminate\Routing\Route as RoutingRoute;
 use App\Http\Controllers\RegistrasiPikrController;
 use App\Http\Controllers\RegistrasiKegiatanController;
@@ -29,7 +35,9 @@ Route::resource('/pikr', PikrController::class)->middleware('auth');
 
 Route::get('/api/kabkota/{kabkota}/kecamatans', fn (Kabkota $kabkota) => response()->json($kabkota->kecamatan));
 Route::get('/api/kecamatan/{kecamatan}/desas', fn (Kecamatan $kecamatan) => response()->json($kecamatan->desa));
+Route::get('/api/desa/{desa}', [DesaController::class, 'api']);
 Route::get('/api/pembina/', [PembinaController::class, 'api']);
+Route::get('/api/pikr', [PikrController::class, 'api']);
 
 Route::resource('/registrasi-kegiatan', RegistrasiKegiatanController::class)->middleware('auth');
 

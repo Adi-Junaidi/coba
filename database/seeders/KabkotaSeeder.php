@@ -16,31 +16,31 @@ class KabkotaSeeder extends Seeder
   {
     Kabkota::create([
       "nama" => "Kabupaten Gorontalo",
-      "kode" => "1",
+      "kode" => "01",
       "provinsi_id" => "1"
     ]);
 
     Kabkota::create([
       "nama" => "Kabupaten Boalemo",
-      "kode" => "2",
+      "kode" => "02",
       "provinsi_id" => "1"
     ]);
 
     Kabkota::create([
       "nama" => "Kabupaten Bone Bolango",
-      "kode" => "3",
+      "kode" => "03",
       "provinsi_id" => "1"
     ]);
 
     Kabkota::create([
       "nama" => "Kabupaten Pohuwato",
-      "kode" => "4",
+      "kode" => "04",
       "provinsi_id" => "1"
     ]);
 
     Kabkota::create([
       "nama" => "Kabupaten Gorontalo Utara",
-      "kode" => "5",
+      "kode" => "05",
       "provinsi_id" => "1"
     ]);
 
