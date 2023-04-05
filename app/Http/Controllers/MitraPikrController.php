@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MitraPikr;
 use App\Http\Requests\StoreMitraPikrRequest;
 use App\Http\Requests\UpdateMitraPikrRequest;
+use Illuminate\Http\Request;
 
 class MitraPikrController extends Controller
 {
@@ -15,7 +16,9 @@ class MitraPikrController extends Controller
      */
     public function index()
     {
-        //
+        return view('user-pikr/data/mitra', [
+            'title' => 'Mitra',
+        ]);
     }
 
     /**
@@ -34,9 +37,9 @@ class MitraPikrController extends Controller
      * @param  \App\Http\Requests\StoreMitraPikrRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreMitraPikrRequest $request)
+    public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**

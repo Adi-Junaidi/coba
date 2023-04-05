@@ -51,31 +51,35 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item has-sub {{ Request::is('up/biodata*') ? 'active' : '' }}">
+                <li class="sidebar-item has-sub {{ Request::is('up/data*') ? 'active' : '' }}">
                     <a class='sidebar-link' href="#">
                         <i class="bi bi-person-bounding-box"></i>
                         <span>Data PIK-R</span>
                     </a>
 
-                    <ul class="submenu {{ Request::is('up/biodata*') ? 'active' : '' }}">
-                        <li class="submenu-item {{ Request::is('up/biodata/identitas') ? 'active' : '' }}">
-                            <a href="/up/biodata/identitas">Identitas Kelompok</a>
+                    <ul class="submenu {{ Request::is('up/data*') ? 'active' : '' }}">
+                        <li class="submenu-item {{ Request::is('up/data/identitas') ? 'active' : '' }}">
+                            <a href="/up/data/identitas">Identitas Kelompok</a>
                         </li>
 
-                        <li class="submenu-item {{ Request::is('up/biodata/informasi') ? 'active' : '' }}">
-                            <a href="/up/biodata/informasi">Informasi Kelompok</a>
+                        <li class="submenu-item {{ Request::is('up/data/informasi') ? 'active' : '' }}">
+                            <a href="/up/data/informasi">Informasi Kelompok</a>
                         </li>
 
-                        <li class="submenu-item {{ Request::is('up/biodata/ketersediaan') ? 'active' : '' }}">
-                            <a href="/up/biodata/ketersediaan">Informasi Ketersediaan</a>
+                        <li class="submenu-item {{ Request::is('up/data/materi') ? 'active' : '' }}">
+                            <a href="/up/data/materi">Ketersediaan Materi</a>
                         </li>
 
-                        <li class="submenu-item {{ Request::is('up/biodata/mitra') ? 'active' : '' }}">
-                            <a href="/up/biodata/mitra">Mitra</a>
+                        <li class="submenu-item {{ Request::is('up/data/sarana') ? 'active' : '' }}">
+                            <a href="/up/data/sarana">Ketersediaan Sarana</a>
                         </li>
 
-                        <li class="submenu-item {{ Request::is('up/biodata/pengurus') ? 'active' : '' }}">
-                            <a href="/up/biodata/pengurus">Pengurus</a>
+                        <li class="submenu-item {{ Request::is('up/data/mitra') ? 'active' : '' }}">
+                            <a href="/up/data/mitra">Mitra</a>
+                        </li>
+
+                        <li class="submenu-item {{ Request::is('up/data/pengurus') ? 'active' : '' }}">
+                            <a href="/up/data/pengurus">Pengurus</a>
                         </li>
                     </ul>
                 </li>

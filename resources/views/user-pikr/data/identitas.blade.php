@@ -26,7 +26,7 @@
                             <span class="bs-stepper-label d-lg-inline-block d-none small">Alamat Kelompok</span>
                         </button>
                     </div>
-                    
+
                 </div>
 
                 <div class="bs-stepper-content">
@@ -36,8 +36,60 @@
                             <label for="nama">Nama PIK-R</label>
                             <input class="form-control" id="nama" name="nama" type="text"
                                 placeholder="Masukkan Nama PIK-R">
-                            </div>
-                            <button class="btn btn-primary mt-3" onclick="stepper.next()">Selanjutnya</button>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="basis">Basis PIK-R</label>
+                            <select class="form-select" id="basis" name="basis">
+                                <option hidden>Pilih Basis PIK-R</option>
+                                <optgroup label="Jalur Pendidikan">
+                                    <option value="SMP/Sederajat">Jalur Pendidikan - SMP/Sederajat</option>
+                                    <option value="SMA/Sederajat">Jalur Pendidikan - SMA/Sederajat</option>
+                                    <option value="Perguruan Tinggi">Jalur Pendidikan - Perguruan Tinggi</option>
+                                </optgroup>
+                                <optgroup label="Jalur Masyarakat">
+                                    <option value="Organisasi Keagamaan">Jalur Masyarakat - Organisasi Keagamaan</option>
+                                    <option value="LSM/Organisasi Kepemudaan/Organisasi Kemasyarakatan">Jalur Masyarakat -
+                                        LSM/Organisasi Kepemudaan/Organisasi Kemasyarakatan</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pembina">Jabatan Pembina</label>
+                            <select class="form-select" id="selectPembina">
+                                <option hidden>Pilih Jabatan</option>
+                                <option value="1">PKB/PLKB</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="namaPembina">Nama Pembina</label>
+                            <input class="form-control" id="namaPembina" name="pembina_id" list="datalistOptions"
+                                placeholder="Cari Nama Pembina" disabled>
+                            <datalist id="datalistOptions">
+                                {{-- @foreach ($pembinas as $p)
+                                    <option>{{ $p->nama }}</option>
+                                @endforeach --}}
+                            </datalist>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="punyaMedsos">Akun Media Sosial</label>
+                            <select class="form-select" id="punyaMedsos">
+                                <option hidden>Punya Akun Media Sosial?</option>
+                                <option value="1">Ada</option>
+                                <option value="0">Tidak</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="akunMedsos">Nama Akun Media Sosial</label>
+                            <input class="form-control" id="akunMedsos" name="akun_medsos" type="text"
+                                placeholder="Masukkan Nama Akun Media Sosial" disabled>
+                        </div>
+
+                        <button class="btn btn-primary mt-3" onclick="stepper.next()">Selanjutnya</button>
                     </div>
 
 

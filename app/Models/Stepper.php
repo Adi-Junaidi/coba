@@ -5,14 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Mitra extends Model
+class Stepper extends Model
 {
     use HasFactory;
 
-    protected $guarded = ["id"];
-
-    public function pikr()
-    {
-        return $this->belongsToMany(Pikr::class);
-    }
+    protected $guarded = ['id'];
 }

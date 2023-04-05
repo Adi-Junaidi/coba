@@ -17,7 +17,7 @@ class SkSeeder extends Seeder
     Sk::create([
       "status" => "ada",
       "no_sk" => "25",
-      "tanggal_sk" => "12 Desember 2012",
+      "tanggal_sk" => "12/12/2012",
       "dikeluarkan_oleh" => "OPD-KB"
     ]);
   }

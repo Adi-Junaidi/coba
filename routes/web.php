@@ -1,15 +1,22 @@
 <?php
 
+use App\Models\Materi;
 use App\Models\Kabkota;
 use App\Models\Kecamatan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PikrController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MateriController;
+use App\Http\Controllers\SaranaController;
 use App\Http\Controllers\PembinaController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserPikrController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MitraPikrController;
+use App\Http\Controllers\PengurusController;
 use Illuminate\Routing\Route as RoutingRoute;
+use App\Http\Controllers\UpInformasiController;
+use App\Http\Controllers\PikInformasiController;
 use App\Http\Controllers\RegistrasiPikrController;
 use App\Http\Controllers\RegistrasiKegiatanController;
 
@@ -27,6 +34,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 Route::resource('/pembina', PembinaController::class)->middleware('auth');
 Route::resource('/pikr', PikrController::class)->middleware('auth');
 
+
 Route::get('/api/kabkota/{kabkota}/kecamatans', fn (Kabkota $kabkota) => response()->json($kabkota->kecamatan));
 Route::get('/api/kecamatan/{kecamatan}/desas', fn (Kecamatan $kecamatan) => response()->json($kecamatan->desa));
 Route::get('/api/pembina/', [PembinaController::class, 'api']);
@@ -35,8 +43,18 @@ Route::resource('/registrasi-kegiatan', RegistrasiKegiatanController::class)->mi
 
 
 Route::get('/up/dashboard', [UserPikrController::class, 'dashboard']);
-Route::get('/up/biodata/identitas', [UserPikrController::class, 'b_identitas']);
-Route::get('/up/biodata/informasi', [UserPikrController::class, 'b_informasi']);
-Route::get('/up/biodata/ketersediaan', [UserPikrController::class, 'b_ketersediaan']);
-Route::get('/up/biodata/mitra', [UserPikrController::class, 'b_mitra']);
-Route::get('/up/biodata/pengurus', [UserPikrController::class, 'b_pengurus']);
+Route::get('/up/data/identitas', [UserPikrController::class, 'b_identitas']);
+Route::get('/up/data/informasi', [UserPikrController::class, 'b_informasi']);
+Route::get('/up/data/mitra', [UserPikrController::class, 'b_mitra']);
+Route::get('/up/data/pengurus', [UserPikrController::class, 'b_pengurus']);
+
+Route::post('/up/data/informasi', [UserPikrController::class, 's_informasi']);
+
+Route::resources([
+    '/up/data/materi' => MateriController::class,
+    '/up/data/sarana' => SaranaController::class,
+    '/up/data/mitra' => MitraPikrController::class,
+    '/up/data/pengurus' => PengurusController::class,
+]);
+
+
