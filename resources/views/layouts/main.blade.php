@@ -20,7 +20,7 @@
   @include('partials.sidebar')
 
   <div class="container-fluid">
-    <div class='layout-navbar' id="main">
+    <div id="main">
       @include('partials.navbar')
       @include('sweetalert::alert')
 
