@@ -20,7 +20,7 @@ class PembinaController extends Controller
    */
   public function index()
   {
-    $this->authorize('viewAny', Pembina::class);
+    $this->authorize('viewAll', Pembina::class);
 
     return view('pembina.index', [
       "provinsi" => Provinsi::find(1),

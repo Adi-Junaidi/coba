@@ -11,6 +11,17 @@ class PembinaPolicy
   use HandlesAuthorization;
 
   /**
+   * Determine whether the user can view all models.
+   *
+   * @param  \App\Models\User  $user
+   * @return \Illuminate\Auth\Access\Response|bool
+   */
+  public function viewAll(User $user)
+  {
+    return $user->isAdmin();
+  }
+
+  /**
    * Determine whether the user can view any models.
    *
    * @param  \App\Models\User  $user
