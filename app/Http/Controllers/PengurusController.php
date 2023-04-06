@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengurus;
-use App\Http\Requests\StorePengurusRequest;
-use App\Http\Requests\UpdatePengurusRequest;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\UpdatePengurusRequest;
 
 class PengurusController extends Controller
 {
@@ -16,8 +16,22 @@ class PengurusController extends Controller
      */
     public function index()
     {
+
+        $jabatan = [
+            'Pembina',
+            'Ketua',
+            'Sekretaris',
+            'Bendahara',
+            'Ketua Bidang',
+            'Pendidik Sebaya',
+            'Konselor Sebaya',
+            'Anggota',
+        ];
+
         return view('user-pikr/data/pengurus', [
             'title' => 'Pengurus',
+            'jabatan' => $jabatan,
+            'pengurus' => Pengurus::all(),
         ]);
     }
 
@@ -39,7 +53,22 @@ class PengurusController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        // return $request;
+        
+        $validatedData = $request->validate([
+            'nik' => 'required|unique:penguruses,nik',
+            'nama' => 'required',
+            'no_hp' => 'required',
+            'jabatan' => 'required',
+            'pernah_pelatihan' => 'required',
+        ]);
+
+        $validatedData['pikr_id'] = auth()->user()->id;
+
+        Pengurus::create($validatedData);
+        Alert::success('New Post has been added!');
+
+        return \redirect('/up/data/pengurus');
     }
 
     /**

@@ -56,6 +56,7 @@ class MitraPikrController extends Controller
             'mou' => 'required',
             'bentuk_kerjasama' => 'required',
         ]);
+
         $validatedData['pikr_id'] = auth()->user()->id;
 
         MitraPikr::create($validatedData);

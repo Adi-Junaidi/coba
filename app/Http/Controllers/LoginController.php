@@ -25,7 +25,7 @@ class LoginController extends Controller
 
       Alert::success('Login Successful!');
 
-      return redirect()->intended('/dashboard');
+      return redirect()->intended('/main');
     } else {
       Alert::error('Login Failed!');
     }

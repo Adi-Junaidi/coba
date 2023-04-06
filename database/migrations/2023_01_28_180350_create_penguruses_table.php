@@ -16,11 +16,11 @@ class CreatePengurusesTable extends Migration
         Schema::create('penguruses', function (Blueprint $table) {
             $table->increments('id');
             $table->foreignId('pikr_id');
-            $table->string('nik');
+            $table->string('nik')->unique();
             $table->string('nama');
             $table->string('jabatan');
             $table->string('no_hp');
-            $table->string('pernah_pelatihan');
+            $table->boolean('pernah_pelatihan');
             $table->timestamps();
         });
     }
