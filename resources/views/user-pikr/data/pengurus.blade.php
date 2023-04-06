@@ -15,20 +15,35 @@
                         <table class="table table-lg">
                             <thead>
                                 <tr>
+                                    <th>No</th>
                                     <th>NIK</th>
                                     <th>Nama Lengkap</th>
                                     <th>Jabatan</th>
                                     <th>No. Handphone</th>
-                                    <th>Pelatihan</th>
+                                    <th>Ikut Pelatihan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-bold-500">Michael Right</td>
-                                    <td>$15/hr</td>
-                                    <td class="text-bold-500">UI/UX</td>
-                                </tr>
+                                @foreach ($pengurus as $p)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $p->nik }}</td>
+                                        <td>{{ $p->nama }}</td>
+                                        <td>{{ $p->jabatan }}</td>
+                                        <td>{{ $p->no_hp }}</td>
+                                        <td>{{ $p->pernah_pelatihan ? 'Pernah' : 'Tidak Pernah' }}</td>
+                                        <td>
+                                            <button type="button" href="/up/data/mitra"
+                                                class="btn btn-warning btn-sm edit_btn" data-bs-toggle="modal"
+                                                data-bs-target="#editModal" data-id="{{ $p->id }}">Edit</button>
+                                            <button type="button" href="/up/data/mitra"
+                                                class="btn btn-danger btn-sm delete_btn" data-bs-toggle="modal"
+                                                data-bs-target="#deleteModal" data-nama="{{ $p->nama }}"
+                                                data-id="{{ $p->id }}">Hapus</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -44,8 +59,8 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel1">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title white" id="myModalLabel1">
                         Tambah Data Pengurus
                     </h5>
                     <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
@@ -62,59 +77,84 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>NIK</label>
-                            <input class="form-control" type="text">
+                            <input class="form-control @error('nik') is-invalid @enderror"" type="text" name="nik"
+                                placeholder="Masukkan NIK" required value="{{ old('nik') }}">
+                            @error('nik')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label>Nama Lengkap</label>
-                            <input class="form-control" type="text">
-
-                            <div class="form-group">
-                                <label>Nomor Handphone</label>
-                                <input class="form-control" type="text">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Jabatan</label>
-                                <select class="form-select" name="">
-                                    <option hidden="">Pilih Jabatan</option>
-                                    <option value="Pembina">Pembina</option>
-                                    <option value="Ketua">Ketua</option>
-                                    <option value="Sekretaris">Sekretaris</option>
-                                    <option value="Bendahara">Bendahara</option>
-                                    <option value="Ketua Bidang">Ketua Bidang</option>
-                                    <option value="Pendidik Sebaya">Pendidik Sebaya</option>
-                                    <option value="Konselor Sebaya">Konselor Sebaya</option>
-                                    <option value="Anggota">Anggota</option>
-                                    <option value="Lainnya">Lainnya</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="my-2">Pernah Ikut Pelatihan?</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="mou" value="1">
-                                    <label class="form-check-label"> Pernah </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="mou" value="0">
-                                    <label class="form-check-label"> Tidak Pernah </label>
-                                </div>
-                            </div>
-
+                            <input class="form-control" type="text" name="nama" placeholder="Masukkan Nama Lengkap" required value="{{ old('nik') }}">
+                            @error('nama')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn" data-bs-dismiss="modal">
-                                <i class="bx bx-x d-block d-sm-none"></i>
-                                <span class="d-none d-sm-block">Close</span>
-                            </button>
-                            <button type="submit" class="btn btn-primary ms-1" data-bs-dismiss="modal">
-                                <i class="bx bx-check d-block d-sm-none"></i>
-                                <span class="d-none d-sm-block">Submit</span>
-                            </button>
+                        <div class="form-group">
+                            <label>Nomor Handphone</label>
+                            <input class="form-control" type="text" name="no_hp"
+                                placeholder="Masukkan Nomor Handphone" required value="{{ old('nik') }}">
+                            @error('nik')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
+
+                        <div class="form-group">
+                            <label>Jabatan</label>
+                            <select class="form-select" name="jabatan">
+                                @foreach ($jabatan as $jab)
+                                    @if ($jab == old('jabatan'))
+                                        <option value="{{ $jab }}" selected>{{ $jab }}</option>
+                                    @else
+                                        <option value="{{ $jab }}">{{ $jab }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="my-2">Pernah Ikut Pelatihan?</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="pernah_pelatihan" value="1"
+                                    {{ old('pernah_pelatihan') == '1' ? 'checked' : '' }}>
+                                <label class="form-check-label"> Pernah </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="pernah_pelatihan" value="0"
+                                    {{ old('pernah_pelatihan') == '0' ? 'checked' : '' }}>
+                                <label class="form-check-label"> Tidak Pernah </label>
+                            </div>
+                            @error('pernah_pelatihan')
+                                <div class="small text-danger">Tidak boleh dikosongkan</div>
+                            @enderror
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-bs-dismiss="modal">
+                            <i class="bx bx-x d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Close</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+                            <i class="bx bx-check d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Submit</span>
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
+
+    
 @endpush
+
+@if ($errors->any())
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+                $('#addModal').modal('show');
+            });
+        </script>
+    @endpush
+@endif

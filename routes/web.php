@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Materi;
 use App\Models\Kabkota;
 use App\Models\Kecamatan;
 use Illuminate\Support\Facades\Route;
@@ -13,14 +12,9 @@ use App\Http\Controllers\UserPikrController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MitraPikrController;
 use App\Http\Controllers\PengurusController;
-use Illuminate\Routing\Route as RoutingRoute;
-use App\Http\Controllers\UpInformasiController;
-use App\Http\Controllers\PikInformasiController;
-use App\Http\Controllers\RegistrasiPikrController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\PikrController;
 use App\Http\Controllers\RegistrasiKegiatanController;
-use App\Models\MitraPikr;
 
 Route::get('/', fn () => redirect('/dashboard'));
 
@@ -30,6 +24,10 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
 Route::get('/register', [RegisterController::class, 'index']);
 Route::post('/register', [RegisterController::class, 'store']);
+
+Route::get('/main', function () {
+    return view('/main');
+})->middleware('auth'); 
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
