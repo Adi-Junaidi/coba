@@ -15,6 +15,7 @@ class CreatePikrsTable extends Migration
   {
     Schema::create('pikrs', function (Blueprint $table) {
       $table->id();
+      $table->foreignId('user_id');
       $table->foreignId('desa_id');
       $table->foreignId('sk_id');
       $table->foreignId('pembina_id'); // untuk jabatan dan jabatan lainnya itu merupakan properti dari pembina, jadi dia tersimpan di table pembina
