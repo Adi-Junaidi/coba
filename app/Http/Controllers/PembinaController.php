@@ -7,7 +7,9 @@ use App\Models\Jabatan;
 use App\Models\Kabkota;
 use App\Models\Pembina;
 use App\Models\Provinsi;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class PembinaController extends Controller
 {
@@ -59,6 +61,13 @@ class PembinaController extends Controller
 
     $noRegister = $kodeProvinsi . $kodeKabKot . $kodeKecamatan . $kodeJabatan . $nomorUrut;
     Pembina::create([
+      "user_id" => User::create([
+        'nama' => $request->nama,
+        'username' => $request->username,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+
+      ]),
       "no_register" => $noRegister,
       "nama" => $request->nama,
       "no_urut" => $nomorUrut,

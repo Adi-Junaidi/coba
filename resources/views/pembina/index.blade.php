@@ -104,6 +104,21 @@
           @csrf
           <div class="modal-body">
             <div class="row mb-3">
+
+              <!-- Untuk kebutuhan login -->
+              <label class="col-sm-2 col-form-label" for="tambah__username">Username</label>
+              <div class="col-sm-4">
+                <input class="form-control" id="tambah__username" type="text" placeholder="Username untuk login">
+              </div>
+              <label class="col-sm-2 col-form-label" for="tambah__email">Email</label>
+              <div class="col-sm-4">
+                <input class="form-control" id="tambah__email" type="email" placeholder="Masukkan email">
+              </div>
+              <label class="col-sm-2 col-form-label" for="tambah__password">Password</label>
+              <div class="col-sm-4">
+                <input class="form-control" id="tambah__password" type="password" placeholder="Masukkan password">
+              </div>
+
               <label class="col-sm-2 col-form-label" for="tambah__noRegister">No. Register</label>
               <div class="col-sm-4">
                 <input class="form-control" id="tambah__noRegister" type="text" placeholder="Pilih jabatan terlebih dahulu" readonly disabled>

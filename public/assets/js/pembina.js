@@ -185,6 +185,9 @@ $(document).ready(function () {
       type: "post",
       url: "/pembina",
       data: {
+        username: $("#tambah__username").val(),
+        email: $("#tambah__email").val(),
+        password: $("#tambah__password").val(),
         nama: $("#tambah__nama").val(),
         jabatanId: $("#tambah__jabatan").val(),
         desaId: ddDesa.val(),
