@@ -4,7 +4,6 @@ use App\Models\Materi;
 use App\Models\Kabkota;
 use App\Models\Kecamatan;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PikrController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\SaranaController;
@@ -18,6 +17,8 @@ use Illuminate\Routing\Route as RoutingRoute;
 use App\Http\Controllers\UpInformasiController;
 use App\Http\Controllers\PikInformasiController;
 use App\Http\Controllers\RegistrasiPikrController;
+use App\Http\Controllers\DesaController;
+use App\Http\Controllers\PikrController;
 use App\Http\Controllers\RegistrasiKegiatanController;
 use App\Models\MitraPikr;
 
@@ -25,7 +26,7 @@ Route::get('/', fn () => redirect('/dashboard'));
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->middleware('guest');
-Route::post('/logout', [LoginController::class, 'logout'])->middleware('guest');
+Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
 Route::get('/register', [RegisterController::class, 'index']);
 Route::post('/register', [RegisterController::class, 'store']);
@@ -38,7 +39,9 @@ Route::resource('/pikr', PikrController::class)->middleware('auth');
 
 Route::get('/api/kabkota/{kabkota}/kecamatans', fn (Kabkota $kabkota) => response()->json($kabkota->kecamatan));
 Route::get('/api/kecamatan/{kecamatan}/desas', fn (Kecamatan $kecamatan) => response()->json($kecamatan->desa));
+Route::get('/api/desa/{desa}', [DesaController::class, 'api']);
 Route::get('/api/pembina/', [PembinaController::class, 'api']);
+Route::get('/api/pikr', [PikrController::class, 'api']);
 
 Route::resource('/registrasi-kegiatan', RegistrasiKegiatanController::class)->middleware('auth');
 
@@ -58,5 +61,3 @@ Route::resources([
     '/up/data/mitra' => MitraPikrController::class,
     '/up/data/pengurus' => PengurusController::class,
 ]);
-
-

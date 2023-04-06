@@ -104,6 +104,21 @@
           @csrf
           <div class="modal-body">
             <div class="row mb-3">
+
+              <!-- Untuk kebutuhan login -->
+              <label class="col-sm-2 col-form-label" for="tambah__username">Username</label>
+              <div class="col-sm-4">
+                <input class="form-control" id="tambah__username" type="text" placeholder="Username untuk login">
+              </div>
+              <label class="col-sm-2 col-form-label" for="tambah__email">Email</label>
+              <div class="col-sm-4">
+                <input class="form-control" id="tambah__email" type="email" placeholder="Masukkan email">
+              </div>
+              <label class="col-sm-2 col-form-label" for="tambah__password">Password</label>
+              <div class="col-sm-4">
+                <input class="form-control" id="tambah__password" type="password" placeholder="Masukkan password">
+              </div>
+
               <label class="col-sm-2 col-form-label" for="tambah__noRegister">No. Register</label>
               <div class="col-sm-4">
                 <input class="form-control" id="tambah__noRegister" type="text" placeholder="Pilih jabatan terlebih dahulu" readonly disabled>
@@ -184,8 +199,10 @@
           <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Tutup"></button>
         </div>
 
-        <form id="formUpdate">
+        <!-- TODO: id di action akan berubah secara dinamis menggunakan js -->
+        <form id="formUpdate" action="/pembina/{id}" method="post">
           @csrf
+          @method('put')
           <div class="modal-body">
             <div class="row mb-3">
               <label class="col-sm-2 col-form-label" for="update__noRegister">No. Register</label>
@@ -202,12 +219,12 @@
             <div class="row mb-3">
               <label class="col-sm-2 col-form-label" for="update__nama">Nama</label>
               <div class="col-sm-4">
-                <input class="form-control" id="update__nama" type="text" placeholder="Nama Pembina">
+                <input class="form-control" id="update__nama" name="nama" type="text" placeholder="Nama Pembina">
               </div>
 
               <label class="col-sm-2 col-form-label" for="update__jabatan">Jabatan</label>
               <div class="col-sm-4">
-                <select class="form-select" id="update__jabatan" required>
+                <select class="form-select" id="update__jabatan" name="jabatan_id" required>
                   <option value="" hidden>Pilih Jabatan</option>
                   @foreach ($jabatans as $jabatan)
                     <option data-kode="{{ $jabatan->kode }}" value="{{ $jabatan->id }}">{{ $jabatan->nama }}</option>
@@ -336,7 +353,6 @@
         </form>
       </div>
     </div>
-  </div>
   </div>
 @endsection
 

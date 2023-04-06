@@ -7,7 +7,9 @@ use App\Models\Jabatan;
 use App\Models\Kabkota;
 use App\Models\Pembina;
 use App\Models\Provinsi;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class PembinaController extends Controller
 {
@@ -18,7 +20,7 @@ class PembinaController extends Controller
    */
   public function index()
   {
-    return view('pembina', [
+    return view('pembina.index', [
       "provinsi" => Provinsi::find(1),
       "kabkota" => Kabkota::all(),
       "desa" => Desa::all(),
@@ -59,6 +61,13 @@ class PembinaController extends Controller
 
     $noRegister = $kodeProvinsi . $kodeKabKot . $kodeKecamatan . $kodeJabatan . $nomorUrut;
     Pembina::create([
+      "user_id" => User::create([
+        'nama' => $request->nama,
+        'username' => $request->username,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+
+      ]),
       "no_register" => $noRegister,
       "nama" => $request->nama,
       "no_urut" => $nomorUrut,
@@ -121,7 +130,17 @@ class PembinaController extends Controller
    */
   public function update(Request $request, Pembina $pembina)
   {
-    //
+    // FIXME: perbaiki validasi
+    $validated = $request->validate([
+      'nama' => 'required',
+      'jabatan_id' => 'required'
+    ]);
+
+    $pembina->nama = $validated["nama"];
+    $pembina->jabatan_id = $validated['jabatan_id'];
+    $pembina->save();
+
+    return back()->with('success', 'Berhasil mengupdate data pembina ' . $validated["nama"]);
   }
 
   /**
