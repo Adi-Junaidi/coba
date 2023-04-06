@@ -1,58 +1,40 @@
 @extends('layouts.auth')
 
-@section('title', 'Register')
+@section('title', 'Daftar PIK-R')
 
-@section('inputs')
-  <div class="form-group position-relative has-icon-left mb-4">
-    <input class="form-control form-control-xl @error('nama') is-invalid @enderror" id="nama" name="nama" type="text" value="{{ old('nama') }}" placeholder="Nama" required autocomplete="off" autofocus>
-    <div class="form-control-icon">
-      <i class="bi bi-card-text"></i>
+@section('form')
+  <form class="login100-form validate-form p-b-33 p-t-5" action="/register" method="post">
+    @csrf
+
+    <div class="wrap-input100 validate-input" data-validate="Masukkan Nama">
+      <input class="input100" name="nama" type="text" placeholder="Masukkan Nama">
+      <span class="focus-input100" data-placeholder="&#xe82a;"></span>
     </div>
-    @error('nama')
-      <div class="invalid-feedback">
-        {{ $message }}
-      </div>
-    @enderror
-  </div>
 
-  <div class="form-group position-relative has-icon-left mb-4">
-    <input class="form-control form-control-xl @error('username') is-invalid @enderror" id="username" name="username" type="text" value="{{ old('username') }}" placeholder="Username" required autocomplete="off">
-    <div class="form-control-icon">
-      <i class="bi bi-person"></i>
+    <div class="wrap-input100 validate-input" data-validate="Enter username">
+      <input class="input100" name="username" type="text" placeholder="Username">
+      <span class="focus-input100" data-placeholder="&#xe82a;"></span>
     </div>
-    @error('username')
-      <div class="invalid-feedback">
-        {{ $message }}
-      </div>
-    @enderror
-  </div>
 
-  <div class="form-group position-relative has-icon-left mb-4">
-    <input class="form-control form-control-xl @error('email') is-invalid @enderror" id="email" name="email" type="email" value="{{ old('email') }}" placeholder="Email" required autocomplete="off">
-    <div class="form-control-icon">
-      <i class="bi bi-envelope"></i>
+    <div class="wrap-input100 validate-input" data-validate="Enter email">
+      <input class="input100" name="email" type="email" placeholder="Email">
+      <span class="focus-input100" data-placeholder="&#xe818;"></span>
     </div>
-    @error('email')
-      <div class="invalid-feedback">
-        {{ $message }}
-      </div>
-    @enderror
-  </div>
 
-  <div class="form-group position-relative has-icon-left mb-4">
-    <input class="form-control form-control-xl @error('password') is-invalid @enderror" id="password" name="password" type="password" placeholder="Password" required autocomplete="off">
-    <div class="form-control-icon">
-      <i class="bi bi-shield-lock"></i>
+    <div class="wrap-input100 validate-input" data-validate="Masukkan password">
+      <input class="input100" name="password" type="password" placeholder="Masukkan Password">
+      <span class="focus-input100" data-placeholder="&#xe80f;"></span>
     </div>
-    @error('password')
-      <div class="invalid-feedback">
-        {{ $message }}
-      </div>
-    @enderror
-  </div>
-@endsection
 
-@section('text')
-  Already have an account?
-  <a class="font-bold" href="/login">Log in</a>
+    <div class="wrap-input100 validate-input" data-validate="Konfirmasi password">
+      <input class="input100" name="passwordConfirm" type="password" placeholder="Konfirmasi Password">
+      <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+    </div>
+
+    <div class="container-login100-form-btn m-t-32">
+      <button class="login100-form-btn">Daftar</button>
+    </div>
+
+    <div class="mt-3 text-center">Sudah punya akun? <a href="/login">Login</a></div>
+  </form>
 @endsection
