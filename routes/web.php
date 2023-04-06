@@ -19,6 +19,7 @@ use App\Http\Controllers\UpInformasiController;
 use App\Http\Controllers\PikInformasiController;
 use App\Http\Controllers\RegistrasiPikrController;
 use App\Http\Controllers\RegistrasiKegiatanController;
+use App\Models\MitraPikr;
 
 Route::get('/', fn () => redirect('/dashboard'));
 
@@ -49,6 +50,7 @@ Route::get('/up/data/mitra', [UserPikrController::class, 'b_mitra']);
 Route::get('/up/data/pengurus', [UserPikrController::class, 'b_pengurus']);
 
 Route::post('/up/data/informasi', [UserPikrController::class, 's_informasi']);
+Route::post('/up/data/mitra/{id}', [MitraPikrController::class, 'update']);
 
 Route::resources([
     '/up/data/materi' => MateriController::class,

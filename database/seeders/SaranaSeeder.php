@@ -31,27 +31,27 @@ class SaranaSeeder extends Seeder
 
         Sarana::create([
             'nama'=> 'Pedoman Pengelolaan PIK-R',
-            'kategori'=> 'Buku',
+            'kategori'=> 'Bacaan',
         ]);
 
         Sarana::create([
             'nama'=> 'Modul Fasilitator PIK-R',
-            'kategori'=> 'Buku',
+            'kategori'=> 'Bacaan',
         ]);
         
         Sarana::create([
             'nama'=> 'Buku Pegangan PS',
-            'kategori'=> 'Buku',
+            'kategori'=> 'Bacaan',
         ]);
         
         Sarana::create([
             'nama'=> 'Modul "Tentang Kita"',
-            'kategori'=> 'Buku',
+            'kategori'=> 'Bacaan',
         ]);
 
         Sarana::create([
             'nama'=> 'Lembar Balik',
-            'kategori'=> 'Buku',
+            'kategori'=> 'Bacaan',
         ]);
 
         Sarana::create([
@@ -71,7 +71,7 @@ class SaranaSeeder extends Seeder
 
         Sarana::create([
             'nama'=> 'Buku Komik Berseri',
-            'kategori'=> 'Buku',
+            'kategori'=> 'Bacaan',
         ]);
 
     }

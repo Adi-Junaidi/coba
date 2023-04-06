@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\MitraPikr;
 use App\Http\Requests\StoreMitraPikrRequest;
 use App\Http\Requests\UpdateMitraPikrRequest;
+use Illuminate\Contracts\Support\ValidatedData;
+use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MitraPikrController extends Controller
 {
@@ -16,8 +19,16 @@ class MitraPikrController extends Controller
      */
     public function index()
     {
+        $bentuk_kerjasama = [
+            'Sponsorship',
+            'Narasumber',
+        ];
+
+
         return view('user-pikr/data/mitra', [
             'title' => 'Mitra',
+            'bentuk_kerjasama' => $bentuk_kerjasama,
+            'mitra_s' => MitraPikr::all(),
         ]);
     }
 
@@ -39,7 +50,18 @@ class MitraPikrController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'mou' => 'required',
+            'bentuk_kerjasama' => 'required',
+        ]);
+        $validatedData['pikr_id'] = auth()->user()->id;
+
+        MitraPikr::create($validatedData);
+        Alert::success('New Post has been added!');
+
+        return \redirect('/up/data/mitra');
     }
 
     /**
@@ -59,9 +81,10 @@ class MitraPikrController extends Controller
      * @param  \App\Models\MitraPikr  $mitraPikr
      * @return \Illuminate\Http\Response
      */
-    public function edit(MitraPikr $mitraPikr)
+    public function edit($id)
     {
-        //
+        $data = MitraPikr::find($id);
+        return response()->json($data);
     }
 
     /**
@@ -71,19 +94,33 @@ class MitraPikrController extends Controller
      * @param  \App\Models\MitraPikr  $mitraPikr
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateMitraPikrRequest $request, MitraPikr $mitraPikr)
+    public function update(Request $request,  $id)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'mou' => 'required',
+            'bentuk_kerjasama' => 'required',
+        ]);
+        $validatedData['pikr_id'] = auth()->user()->id;
+        
+        $id = MitraPikr::find($id)->toArray()['id'];
 
+
+        MitraPikr::where('id', $id)->update($validatedData);
+        Alert::success('New Post has been added!');
+
+        return \redirect('/up/data/mitra');
+    }
+    
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\MitraPikr  $mitraPikr
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MitraPikr $mitraPikr)
+    public function destroy($id)
     {
-        //
+        MitraPikr::destroy($id);
+        return \redirect('/up/data/mitra');
     }
 }
