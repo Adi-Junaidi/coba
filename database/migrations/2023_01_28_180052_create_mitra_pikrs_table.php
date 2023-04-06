@@ -13,11 +13,13 @@ class CreateMitraPikrsTable extends Migration
      */
     public function up()
     {
-        Schema::create('mitra_pikr', function (Blueprint $table) {
+        Schema::create('mitra_pikrs', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('pikr_id');
-            $table->foreignId('mitra_id');
+            $table->string('nama');
             $table->string('mou');
             $table->string('bentuk_kerjasama');
+            $table->timestamps();
         });
     }
 

@@ -29,7 +29,9 @@ class DatabaseSeeder extends Seeder
       DesaSeeder::class,
       PembinaSeeder::class,
       PikrSeeder::class,
-      SkSeeder::class
+      SkSeeder::class,
+      MateriSeeder::class,
+      SaranaSeeder::class,
     ]);
   }
 }

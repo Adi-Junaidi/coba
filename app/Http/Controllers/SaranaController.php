@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Sarana;
 use App\Http\Requests\StoreSaranaRequest;
 use App\Http\Requests\UpdateSaranaRequest;
+use Illuminate\Http\Request;
 
 class SaranaController extends Controller
 {
@@ -15,7 +16,15 @@ class SaranaController extends Controller
      */
     public function index()
     {
-        //
+        $kategori = Sarana::distinct()->pluck('kategori')->toArray();
+        $sarana = Sarana::all();
+
+
+        return view('user-pikr/data/sarana', [
+            'title' => 'Sarana',
+            'kategori' => $kategori,
+            'sarana' => $sarana,
+        ]);
     }
 
     /**
@@ -34,9 +43,9 @@ class SaranaController extends Controller
      * @param  \App\Http\Requests\StoreSaranaRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreSaranaRequest $request)
+    public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**

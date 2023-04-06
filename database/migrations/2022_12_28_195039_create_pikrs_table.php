@@ -24,8 +24,7 @@ class CreatePikrsTable extends Migration
       $table->string('no_urut');
       $table->string('alamat'); //
       $table->string('basis'); //
-      $table->boolean('punya_medsos')->default(false);
-      $table->string('akun_medsos'); //
+      $table->string('akun_medsos')->nullable(); //
       $table->string('sumber_dana'); //
       $table->boolean('keterpaduan_kelompok')->default(false);
       $table->boolean('pro_pn')->default(false);

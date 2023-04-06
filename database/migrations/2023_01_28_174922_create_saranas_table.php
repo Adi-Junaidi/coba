@@ -16,6 +16,7 @@ class CreateSaranasTable extends Migration
         Schema::create('saranas', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('kategori');
             $table->timestamps();
         });
     }

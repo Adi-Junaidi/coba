@@ -36,7 +36,8 @@ class PikrSeeder extends Seeder
       "sarana_lainnya" => "",
       "desa_id" => 1,
       "sk_id" => 1,
-      "pembina_id" => 1
+      "pembina_id" => 1,
+      "jabatan_id" => 1
     ]);
   }
 }

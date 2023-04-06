@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pengurus;
 use App\Http\Requests\StorePengurusRequest;
 use App\Http\Requests\UpdatePengurusRequest;
+use Illuminate\Http\Request;
 
 class PengurusController extends Controller
 {
@@ -15,7 +16,9 @@ class PengurusController extends Controller
      */
     public function index()
     {
-        //
+        return view('user-pikr/data/pengurus', [
+            'title' => 'Pengurus',
+        ]);
     }
 
     /**
@@ -34,9 +37,9 @@ class PengurusController extends Controller
      * @param  \App\Http\Requests\StorePengurusRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePengurusRequest $request)
+    public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**

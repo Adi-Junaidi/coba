@@ -44,9 +44,11 @@
 
         <!-- Need: Apexcharts -->
         <script src="{{ asset('dist') }}/assets/extensions/apexcharts/apexcharts.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         
+        @stack('modal')
         @stack('custom_js')
-        
+        @stack('scripts')
 
 
 </body>
