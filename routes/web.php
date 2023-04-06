@@ -25,10 +25,6 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 Route::get('/register', [RegisterController::class, 'index']);
 Route::post('/register', [RegisterController::class, 'store']);
 
-Route::get('/main', function () {
-    return view('/main');
-})->middleware('auth'); 
-
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
 Route::resource('/pembina', PembinaController::class)->middleware('auth');
@@ -54,8 +50,8 @@ Route::post('/up/data/informasi', [UserPikrController::class, 's_informasi']);
 Route::post('/up/data/mitra/{id}', [MitraPikrController::class, 'update']);
 
 Route::resources([
-    '/up/data/materi' => MateriController::class,
-    '/up/data/sarana' => SaranaController::class,
-    '/up/data/mitra' => MitraPikrController::class,
-    '/up/data/pengurus' => PengurusController::class,
+  '/up/data/materi' => MateriController::class,
+  '/up/data/sarana' => SaranaController::class,
+  '/up/data/mitra' => MitraPikrController::class,
+  '/up/data/pengurus' => PengurusController::class,
 ]);
