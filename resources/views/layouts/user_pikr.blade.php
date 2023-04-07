@@ -25,7 +25,6 @@
         <div id="main">
             <div id="main-content">
                 <div class="page-content">
-                    
                     @yield('content')
                 </div>
             </div>
