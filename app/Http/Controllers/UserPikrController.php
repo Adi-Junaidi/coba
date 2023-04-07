@@ -72,7 +72,7 @@ class UserPikrController extends Controller
             $skData['pikr_id'] = $id;
             Sk::create($skData);
 
-            $informationData['sk_id'] = Sk::where('pikr_id', $id)->get()->toArray()['id'];
+            $informationData['sk_id'] = Sk::where('pikr_id', $id)->first()->id;
         }
 
         if ($request->has('sumber_dana')) {
