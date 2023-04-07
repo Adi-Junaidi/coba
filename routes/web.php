@@ -16,7 +16,13 @@ use App\Http\Controllers\DesaController;
 use App\Http\Controllers\PikrController;
 use App\Http\Controllers\RegistrasiKegiatanController;
 
-Route::get('/', fn () => redirect('/dashboard'));
+Route::get('/', function () {
+    if(auth()->user()->isPikr()){
+        return redirect('/up/dashboard');
+    }else{
+        return redirect('/dashboard');
+    }
+});
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->middleware('guest');

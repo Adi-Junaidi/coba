@@ -11,7 +11,7 @@ class Pikr extends Model
 
   protected $guarded = ["id"];
 
-  protected $with = ["materi"];
+  // protected $with = ["materi"];
 
   public function user()
   {

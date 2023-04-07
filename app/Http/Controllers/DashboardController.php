@@ -9,14 +9,8 @@ class DashboardController extends Controller
 {
   public function index()
   {
-    if (auth()->user()->isPikr()) {
-      return view('user-pikr.dashboard', [
-        'title' => 'Dashboard',
-      ]);
-    } else {
-      return view('dashboard', [
-        "pembina" => Pembina::all()
-      ]);
-    }
+    return view('dashboard', [
+      "pembina" => Pembina::all()
+    ]);
   }
 }
