@@ -2,23 +2,24 @@
 
 @section('title', 'Login')
 
-@section('inputs')
-  <div class="form-group position-relative has-icon-left mb-4">
-    <input class="form-control form-control-xl" id="username" name="username" type="text" placeholder="Username" autofocus autocomplete="off" required>
-    <div class="form-control-icon">
-      <i class="bi bi-person"></i>
-    </div>
-  </div>
+@section('form')
+  <form class="login100-form validate-form p-b-33 p-t-5" action="/login" method="post">
+    @csrf
 
-  <div class="form-group position-relative has-icon-left mb-4">
-    <input class="form-control form-control-xl" id="password" name="password" type="password" placeholder="Password" required>
-    <div class="form-control-icon">
-      <i class="bi bi-shield-lock"></i>
+    <div class="wrap-input100 validate-input" data-validate="Masukkan Username">
+      <input class="input100" name="username" type="text" placeholder="Masukkan Username">
+      <span class="focus-input100" data-placeholder="&#xe82a;"></span>
     </div>
-  </div>
-@endsection
 
-@section('text')
-  Don't have an account?
-  <a class="font-bold" href="/register">Register Now!</a>
+    <div class="wrap-input100 validate-input" data-validate="Masukkan Password">
+      <input class="input100" name="password" type="password" placeholder="Masukkan Password">
+      <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+    </div>
+
+    <div class="container-login100-form-btn m-t-32">
+      <button class="login100-form-btn">Login</button>
+    </div>
+
+    <div class="mt-3 text-center">Belum punya akun? <a href="/register">Daftar</a></div>
+  </form>
 @endsection

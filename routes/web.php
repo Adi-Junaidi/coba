@@ -29,6 +29,7 @@ Route::get('/main', function () {
     return view('/main');
 })->middleware('auth');
 
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
 Route::resource('/pembina', PembinaController::class)->middleware('auth');
@@ -43,7 +44,6 @@ Route::get('/api/pikr', [PikrController::class, 'api']);
 
 Route::resource('/registrasi-kegiatan', RegistrasiKegiatanController::class)->middleware('auth');
 
-
 Route::middleware('stepCheck')->group(function () {
     Route::get('/up/dashboard', [UserPikrController::class, 'dashboard']);
     Route::get('/up/data/informasi', [UserPikrController::class, 'b_informasi']);
@@ -56,3 +56,4 @@ Route::middleware('stepCheck')->group(function () {
         '/up/data/pengurus' => PengurusController::class,
     ]);
 });
+

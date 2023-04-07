@@ -48,9 +48,11 @@
             </a>
 
             <ul class="submenu {{ Request::is('pembina', 'pikr*') ? 'active' : '' }}">
-              <li class="submenu-item {{ Request::is('pembina') ? 'active' : '' }}">
-                <a href="/pembina">Data Pembina</a>
-              </li>
+              @can('viewAll', \App\Models\Pembina::class)
+                <li class="submenu-item {{ Request::is('pembina') ? 'active' : '' }}">
+                  <a href="/pembina">Data Pembina</a>
+                </li>
+              @endcan
 
               <li class="submenu-item {{ Request::is('pikr*') ? 'active' : '' }}">
                 <a href="/pikr">Data PIK-R</a>
