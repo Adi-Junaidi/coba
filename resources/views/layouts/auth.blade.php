@@ -19,6 +19,8 @@
   <link type="text/css" href="/auth/vendor/daterangepicker/daterangepicker.css" rel="stylesheet">
   <link type="text/css" href="/auth/css/util.css" rel="stylesheet">
   <link type="text/css" href="/auth/css/main.css" rel="stylesheet">
+
+  @yield('styles')
 </head>
 
 <body>
@@ -43,6 +45,8 @@
   <script src="/auth/vendor/daterangepicker/daterangepicker.js"></script>
   <script src="/auth/vendor/countdowntime/countdowntime.js"></script>
   <script src="/auth/js/main.js"></script>
+
+  @yield('scripts')
 </body>
 
 </html>

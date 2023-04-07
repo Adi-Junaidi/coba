@@ -372,6 +372,7 @@ iframe {
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
+  gap: 1em;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -379,7 +380,6 @@ iframe {
 .login100-form-btn {
   font-family: Ubuntu-Bold;
   font-size: 18px;
-  color: #fff;
   line-height: 1.2;
   text-transform: uppercase;
 
@@ -395,11 +395,6 @@ iframe {
   height: 42px;
   border-radius: 21px;
 
-  background: #d41872;
-  background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: linear-gradient(left, #a445b2, #d41872, #fa4299);
   position: relative;
   z-index: 1;
 
@@ -414,14 +409,7 @@ iframe {
   display: block;
   position: absolute;
   z-index: -1;
-  width: 100%;
-  height: 100%;
   border-radius: 21px;
-  background-color: #555555;
-  top: 0;
-  left: 0;
-  opacity: 0;
-
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
@@ -432,8 +420,53 @@ iframe {
   background-color: transparent;
 }
 
-.login100-form-btn:hover:before {
+/* [Button States] */
+.login100-form-btn.primary {
+  color: #fff;
+
+  background-color: #d41872;
+  background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
+  background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
+  background: linear-gradient(to right, #a445b2, #d41872, #fa4299);
+}
+
+.login100-form-btn.secondary {
+  color: #d41872;
+
+  background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
+  background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
+  background-color: #fff;
+  background: linear-gradient(to right, #a445b2, #d41872, #fa4299);
+}
+.login100-form-btn.secondary:hover {
+  color: #fff;
+}
+
+.login100-form-btn.primary::before {
+  background-color: #555;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.login100-form-btn.secondary::before {
+  background-color: #fff;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+.login100-form-btn.primary:hover:before {
   opacity: 1;
+}
+
+.login100-form-btn.secondary:hover:before {
+  background-color: #555;
 }
 
 /*------------------------------------------------------------------
