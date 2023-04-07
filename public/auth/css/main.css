@@ -76,17 +76,15 @@ li {
 }
 
 /*---------------------------------------------*/
-input {
-  outline: none;
-  border: none;
-}
-
+input,
+select,
 textarea {
   outline: none;
   border: none;
 }
 
 textarea:focus,
+/* select:focus, */
 input:focus {
   border-color: transparent !important;
 }
@@ -213,7 +211,9 @@ iframe {
 }
 
 .wrap-login100 {
-  width: 390px;
+  min-width: 400px;
+  max-width: 600px;
+  width: calc(100% - 200px);
   border-radius: 10px;
   overflow: hidden;
 

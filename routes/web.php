@@ -17,22 +17,22 @@ use App\Http\Controllers\PikrController;
 use App\Http\Controllers\RegistrasiKegiatanController;
 
 Route::get('/', function () {
-    if(auth()->user()->isPikr()){
-        return redirect('/up/dashboard');
-    }else{
-        return redirect('/dashboard');
-    }
-});
+  if (auth()->user()->isPikr()) {
+    return redirect('/up/dashboard');
+  } else {
+    return redirect('/dashboard');
+  }
+})->middleware('auth');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->middleware('guest');
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
-Route::get('/register', [RegisterController::class, 'index']);
-Route::post('/register', [RegisterController::class, 'store']);
+Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
+Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
 
 Route::get('/main', function () {
-    return view('/main');
+  return view('/main');
 })->middleware('auth');
 
 
@@ -51,15 +51,14 @@ Route::get('/api/pikr', [PikrController::class, 'api']);
 Route::resource('/registrasi-kegiatan', RegistrasiKegiatanController::class)->middleware('auth');
 
 Route::middleware('stepCheck')->group(function () {
-    Route::get('/up/dashboard', [UserPikrController::class, 'dashboard']);
-    Route::get('/up/data/informasi', [UserPikrController::class, 'b_informasi']);
-    Route::post('/up/data/informasi', [UserPikrController::class, 's_informasi']);
-    Route::post('/up/data/mitra/{id}', [MitraPikrController::class, 'update']);
-    Route::resources([
-        '/up/data/materi' => MateriController::class,
-        '/up/data/sarana' => SaranaController::class,
-        '/up/data/mitra' => MitraPikrController::class,
-        '/up/data/pengurus' => PengurusController::class,
-    ]);
+  Route::get('/up/dashboard', [UserPikrController::class, 'dashboard']);
+  Route::get('/up/data/informasi', [UserPikrController::class, 'b_informasi']);
+  Route::post('/up/data/informasi', [UserPikrController::class, 's_informasi']);
+  Route::post('/up/data/mitra/{id}', [MitraPikrController::class, 'update']);
+  Route::resources([
+    '/up/data/materi' => MateriController::class,
+    '/up/data/sarana' => SaranaController::class,
+    '/up/data/mitra' => MitraPikrController::class,
+    '/up/data/pengurus' => PengurusController::class,
+  ]);
 });
-
