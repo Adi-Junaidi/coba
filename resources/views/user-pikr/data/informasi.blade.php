@@ -10,44 +10,69 @@
 
 
 @section('content')
+    <h1 class="mb-3">Informasi Kelompok PIK-R</h1>
+    @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible show fade">
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <section id="updateable" class="row">
-        <h1 class="mb-3">Informasi Kelompok PIK-R</h1>
         @if (session('stepper')->step_2)
             <div class="py-4 px-5 bg-white shadow-sm mb-3">
                 <h5>A. SK PIK-R</h5>
                 @if (!$sk)
-                    <div class="sk_part">
-                        <div id="add_sk" class="btn btn-primary mt-3">Tambah SK</div>
+                    <div id="sk_part">
+                        <div id="add_sk" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#addModal">
+                            Tambah SK</div>
                     </div>
                 @else
-                    <div class="sk_part">
-                        <div class="form-group">
-                            <label for="nomorSk">Nomor SK</label>
-                            <input class="form-control" id="nomorSk" name="no_sk" type="text"
-                                placeholder="Masukkan Nomor SK" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="tanggalSk">Tanggal SK</label>
-                            <input class="form-control" id="tanggalSk" name="tanggal_sk" type="date" disabled>
-                        </div>
+                    <div id="sk_part">
+                        <form action="/up/data/update_sk" method="post">
+                            @csrf
+                            <input type="hidden" name="pikr_id" value="{{ auth()->user()->id }}">
+                            <div class="form-group">
+                                <label for="nomorSk">Nomor SK</label>
+                                <input class="form-control" id="nomorSk" name="no_sk" type="text"
+                                    placeholder="Masukkan Nomor SK" value="{{ $sk->no_sk }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="tanggalSk">Tanggal SK</label>
+                                <input class="form-control" id="tanggalSk" name="tanggal_sk" type="date"
+                                    value="{{ $sk->tanggal_sk }}">
+                            </div>
 
-                        <div class="form-group">
-                            <label for="dikeluarkanOleh">Dikeluarkan Oleh</label>
-                            <select class="form-select" id="dikeluarkanOleh" name="dikeluarkan_oleh" disabled>
-                                @foreach ($dikeluarkan as $item)
-                                    <option value="{{ $item }}">{{ $item }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <label for="dikeluarkanOleh">Dikeluarkan Oleh</label>
+                                <select class="form-select" id="dikeluarkanOleh" name="dikeluarkan_oleh">
+                                    @foreach ($dikeluarkan as $item)
+                                        <option value="{{ $item }}"
+                                            {{ $sk->dikeluarkan_oleh == $item ? 'selected' : '' }}>{{ $item }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
 
-                        <div id="update_sk" class="btn btn-primary mt-3">Ubah</div>
+                            <div class="d-flex justify-content-between">
+                                <div id="update_sk" class="btn btn-primary mt-3 btn_ubah">Ubah</div>
+                                <div class="mt-3 btn_hidden" hidden>
+                                    <div class="btn btn-secondary cancel">Batalkan</div>
+                                    <button class="btn btn-primary">Simpan</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 @endif
             </div>
 
-            <div class="py-4 px-5 bg-white shadow-sm mb-3">
+
+            <div id="informasi_part" class="py-4 px-5 bg-white shadow-sm mb-3">
                 <h5>B. Informasi Lainnya</h5>
+
                 <form action="/up/data/informasi" method="post">
+                    @csrf
                     <div class="form-group">
                         <label for="sumberDana">Sumber Dana</label>
                         <ul class="list-unstyled mb-0 mt-3">
@@ -69,7 +94,6 @@
                         </ul>
                     </div>
 
-                    @csrf
                     <div class="form-group">
                         <label for="keterpaduanKelompok">Keterpaduan Kelompok</label>
                         <div class="form-check">
@@ -98,10 +122,10 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-between">
-                        <div id="update_informasi" class="btn btn-primary mt-3">Ubah</div>
-                        <div id="btn_hidden" class="mt-3" hidden>
+                        <div id="update_informasi" class="btn btn-primary mt-3 btn_ubah">Ubah</div>
+                        <div class="mt-3 btn_hidden" hidden>
                             <div class="btn btn-secondary cancel">Batalkan</div>
-                            <button class="btn btn-primary">Ubah</button>
+                            <button class="btn btn-primary">Simpan</button>
                         </div>
                     </div>
                 </form>
@@ -110,16 +134,23 @@
             @push('scripts')
                 <script>
                     $('#updateable :input').prop("disabled", true)
-                    $('#update_informasi').click(function() {
-                        $('#updateable :input').prop("disabled", false)
+
+                    $('#update_sk').click(function() {
+                        $('#sk_part :input').prop("disabled", false)
                         $(this).hide()
-                        $('#btn_hidden').prop('hidden', false)
+                        $('#sk_part .btn_hidden').prop('hidden', false)
+                    })
+
+                    $('#update_informasi').click(function() {
+                        $('#informasi_part :input').prop("disabled", false)
+                        $(this).hide()
+                        $('#informasi_part .btn_hidden').prop('hidden', false)
                     })
 
                     $('.cancel').click(function() {
-                        $('#btn_hidden').prop('hidden', true)
                         $('#updateable :input').prop("disabled", true)
-                        $('#update_informasi').show()
+                        $('.btn_hidden').prop('hidden', true)
+                        $('.btn_ubah').show()
                     })
                 </script>
             @endpush
@@ -197,7 +228,7 @@
                                                 <div class="form-check">
                                                     <div class="checkbox">
                                                         <input type="checkbox" class="form-check-input"
-                                                            name="sumber_dana[]" value="{{ $item }}" checked>
+                                                            name="sumber_dana[]" value="{{ $item }}">
                                                         <label>{{ $item }}</label>
                                                     </div>
                                                 </div>
@@ -247,6 +278,7 @@
             </div>
 
             @push('scripts')
+                <script src="/assets/js/bs-stepper.js"></script>
                 <script>
                     $('#sk_checkbox').change(function() {
                         if (this.checked) {
@@ -264,3 +296,60 @@
         @endif
     </section>
 @endsection
+
+@push('modal')
+    <div class="modal fade text-left" id="addModal" tabindex="-1" aria-labelledby="" style="display: none;"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title white" id="myModalLabel1">
+                        Tambah SK PIK-R
+                    </h5>
+                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <form action="/up/data/sk/{{ auth()->user()->id }}" method="post">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="nomorSk">Nomor SK</label>
+                            <input class="form-control" id="nomorSk" name="no_sk" type="text"
+                                placeholder="Masukkan Nomor SK">
+                        </div>
+                        <div class="form-group">
+                            <label for="tanggalSk">Tanggal SK</label>
+                            <input class="form-control" id="tanggalSk" name="tanggal_sk" type="date">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="dikeluarkanOleh">Dikeluarkan Oleh</label>
+                            <select class="form-select" id="dikeluarkanOleh" name="dikeluarkan_oleh">
+                                @foreach ($dikeluarkan as $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-bs-dismiss="modal">
+                            <i class="bx bx-x d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Close</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+                            <i class="bx bx-check d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Submit</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endpush

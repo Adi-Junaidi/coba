@@ -86,4 +86,42 @@ class UserPikrController extends Controller
 
         return \redirect('/up/data/informasi');
     }
+
+    public function addSk(Request $request, $id)
+    {
+        $sk_rules = [
+            'no_sk' => 'required|unique:sks,no_sk',
+            'tanggal_sk' => 'required',
+            'dikeluarkan_oleh' => 'required',
+        ];
+
+        $skData = $request->validate($sk_rules);
+        $skData['pikr_id'] = $id;
+        
+        Sk::create($skData);
+        
+        Pikr::where('pikr_id', $id)->update(['sk_id' => Sk::where('pikr_id', $id)->first()->id]);
+        return \redirect('/up/data/informasi');
+    }
+    
+    public function updateSk(Request $request)
+    {
+        $id = $request->pikr_id;
+        $sk_rules = [
+            'tanggal_sk' => 'required',
+            'dikeluarkan_oleh' => 'required',
+        ];
+        
+        $sk = Sk::where('pikr_id', $id)->first();
+        
+        if ($sk->no_sk !== $request->no_sk) {
+            $sk_rules['no_sk'] = 'required|unique:sks,no_sk';
+        }
+        
+        $skData = $request->validate($sk_rules);
+        $skData['pikr_id'] = $id;
+
+        Sk::where('pikr_id', $id)->update($skData);
+        return \redirect('/up/data/informasi');
+    }
 }

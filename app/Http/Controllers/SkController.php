@@ -70,7 +70,7 @@ class SkController extends Controller
      */
     public function update(UpdateSkRequest $request, Sk $sk)
     {
-        //
+        return $request;
     }
 
     /**

@@ -15,6 +15,7 @@ use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\PikrController;
 use App\Http\Controllers\RegistrasiKegiatanController;
+use App\Http\Controllers\SkController;
 
 Route::get('/', function () {
     if(auth()->user()->isPikr()){
@@ -55,6 +56,8 @@ Route::middleware('stepCheck')->group(function () {
     Route::get('/up/data/informasi', [UserPikrController::class, 'b_informasi']);
     Route::post('/up/data/informasi', [UserPikrController::class, 's_informasi']);
     Route::post('/up/data/mitra/{id}', [MitraPikrController::class, 'update']);
+    Route::post('/up/data/sk/{id}', [UserPikrController::class, 'addSk']);
+    Route::post('/up/data/update_sk', [UserPikrController::class, 'updateSk']);
     Route::resources([
         '/up/data/materi' => MateriController::class,
         '/up/data/sarana' => SaranaController::class,
