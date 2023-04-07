@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Materi;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateMateriPikrsTable extends Migration
 {
@@ -15,11 +17,27 @@ class CreateMateriPikrsTable extends Migration
     {
 
         // ini tabel pivot untuk materi dan pikr, insya allah sudah bisa digunakan
+        Schema::create('materi_pikrs', function (Blueprint $table) {
+            $materi = [
+                "pubertas",
+                "seksualitas",
+                "reproduksi",
+                "kesehatan_dan_gizi_remaja",
+                "perilaku_beresiko",
+                "tindakan_berbahaya",
+                "persiapan_pernikahan",
+                "perkembangan_keluarga",
+                "pengasuhan_keluarga_sehat",
+                "soft_skill",
+                "hard_skill"
+            ];
 
-        Schema::create('materi_pikr', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('pikr_id');
-            $table->foreignId('materi_id');
-            $table->string('status');
+            foreach ($materi as $m) {
+                $table->boolean($m);
+            }
+            $table->timestamps();
         });
     }
 

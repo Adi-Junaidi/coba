@@ -25,6 +25,11 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 Route::get('/register', [RegisterController::class, 'index']);
 Route::post('/register', [RegisterController::class, 'store']);
 
+Route::get('/main', function () {
+    return view('/main');
+})->middleware('auth');
+
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
 Route::resource('/pembina', PembinaController::class)->middleware('auth');
@@ -39,19 +44,16 @@ Route::get('/api/pikr', [PikrController::class, 'api']);
 
 Route::resource('/registrasi-kegiatan', RegistrasiKegiatanController::class)->middleware('auth');
 
+Route::middleware('stepCheck')->group(function () {
+    Route::get('/up/dashboard', [UserPikrController::class, 'dashboard']);
+    Route::get('/up/data/informasi', [UserPikrController::class, 'b_informasi']);
+    Route::post('/up/data/informasi', [UserPikrController::class, 's_informasi']);
+    Route::post('/up/data/mitra/{id}', [MitraPikrController::class, 'update']);
+    Route::resources([
+        '/up/data/materi' => MateriController::class,
+        '/up/data/sarana' => SaranaController::class,
+        '/up/data/mitra' => MitraPikrController::class,
+        '/up/data/pengurus' => PengurusController::class,
+    ]);
+});
 
-Route::get('/up/dashboard', [UserPikrController::class, 'dashboard']);
-Route::get('/up/data/identitas', [UserPikrController::class, 'b_identitas']);
-Route::get('/up/data/informasi', [UserPikrController::class, 'b_informasi']);
-Route::get('/up/data/mitra', [UserPikrController::class, 'b_mitra']);
-Route::get('/up/data/pengurus', [UserPikrController::class, 'b_pengurus']);
-
-Route::post('/up/data/informasi', [UserPikrController::class, 's_informasi']);
-Route::post('/up/data/mitra/{id}', [MitraPikrController::class, 'update']);
-
-Route::resources([
-  '/up/data/materi' => MateriController::class,
-  '/up/data/sarana' => SaranaController::class,
-  '/up/data/mitra' => MitraPikrController::class,
-  '/up/data/pengurus' => PengurusController::class,
-]);

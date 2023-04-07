@@ -5,6 +5,7 @@
 @endpush
 
 @section('content')
+
     <section class="row">
         <h1 class="mb-3">Informasi Kelompok PIK-R</h1>
         <div class="mb-5 p-4 bg-white shadow-sm">
@@ -47,10 +48,11 @@
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="{{ Str::slug($m->nama, '_') }}"
-                                                value="0">
+                                                value="0" checked>
                                             <label class="form-check-label"> Tidak Ada </label>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="id_materi" value="{{ $m->id }}">
                                 @endforeach
 
                                 @if ($loop->first)

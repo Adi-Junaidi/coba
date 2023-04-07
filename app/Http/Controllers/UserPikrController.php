@@ -18,10 +18,57 @@ class UserPikrController extends Controller
 
     public function b_informasi()
     {
+        $stepper = Stepper::where('pikr_id', \auth()->user()->id)->first();
+
+        $dikeluarkan = [
+            'Kepala Desa',
+            'Kepala Lurah',
+            'Camat',
+            'OPB-KB',
+            'Bupati',
+            'Walikota',
+        ];
+
         return view('user-pikr/data/informasi', [
             'title' => 'Biodata',
+            'dikeluarkan' => $dikeluarkan,
         ]);
     }
 
+    public function s_informasi(Request $request)
+    {
+        $id = auth()->user()->id;
 
+        $information_rules = [
+            'keterpaduan_kelompok' => 'required',
+            'pro_pn' => 'required',
+        ];
+
+        
+        $informationData = $request->validate($information_rules);
+        
+        if ($request->has('has_sk')) {
+            $sk_rules = [   
+                'no_sk' => 'required|unique:sks,no_sk',
+                'tanggal_sk' => 'required',
+                'dikeluarkan_oleh' => 'required',
+            ];
+            $skData = $request->validate($sk_rules);
+            $skData['pikr_id'] = $id;
+            Sk::create($skData);
+
+            $informationData['sk_id'] = Sk::where('pikr_id', $id)->get()->toArray()['id'];
+        }
+        
+        if ($request->has('sumber_dana')){
+            $informationData['sumber_dana'] = \implode(',', $request->sumber_dana);
+        }else{
+            $informationData['sumber_dana'] = 'Tidak Ada';
+        }
+
+        Pikr::where('user_id', $id)->update($informationData);
+        Stepper::where('pikr_id', $id)->update(['current_step' => 'step_2', 'step_2' => true]);
+
+        return \redirect('/up/data/informasi');
+    }
 }

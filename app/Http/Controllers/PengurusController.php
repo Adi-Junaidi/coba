@@ -54,7 +54,7 @@ class PengurusController extends Controller
     public function store(Request $request)
     {
         // return $request;
-        
+
         $validatedData = $request->validate([
             'nik' => 'required|unique:penguruses,nik',
             'nama' => 'required',
@@ -88,10 +88,12 @@ class PengurusController extends Controller
      * @param  \App\Models\Pengurus  $pengurus
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pengurus $pengurus)
+    public function edit($id)
     {
-        //
+        $data = Pengurus::find($id);
+        return response()->json($data);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -100,9 +102,30 @@ class PengurusController extends Controller
      * @param  \App\Models\Pengurus  $pengurus
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePengurusRequest $request, Pengurus $pengurus)
+    public function update(Request $request, $id)
     {
-        //
+
+        $pengurus = Pengurus::find($id);
+
+        $rules = [
+            'nama' => 'required',
+            'no_hp' => 'required',
+            'jabatan' => 'required',
+            'pernah_pelatihan' => 'required',
+        ];
+
+
+        if ($pengurus->nik !== $request->nik) {
+            $rules['nik'] = 'required|unique:penguruses,nik';
+        }
+        $validatedData = $request->validate($rules);
+
+        $validatedData['pikr_id'] = auth()->user()->id;
+
+        Pengurus::where('id', $id)->update($validatedData);
+        Alert::success('New Post has been added!');
+
+        return \redirect('/up/data/pengurus ');
     }
 
     /**
@@ -111,8 +134,9 @@ class PengurusController extends Controller
      * @param  \App\Models\Pengurus  $pengurus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pengurus $pengurus)
+    public function destroy($id)
     {
-        //
+        Pengurus::destroy($id);
+        return \redirect('/up/data/pengurus');
     }
 }

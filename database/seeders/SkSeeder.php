@@ -15,7 +15,7 @@ class SkSeeder extends Seeder
   public function run()
   {
     Sk::create([
-      "status" => "ada",
+      "pikr_id" => "25",
       "no_sk" => "25",
       "tanggal_sk" => "2012-12-12", // formatnya YYYY-MM-DD
       "dikeluarkan_oleh" => "OPD-KB"

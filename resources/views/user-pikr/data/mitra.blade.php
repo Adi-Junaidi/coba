@@ -171,12 +171,11 @@
                             <label for="bentukKerjasama">Bentuk Kerjasama</label>
                             <select class="form-select" id="bentukKerjasama" name="bentuk_kerjasama">
                                 @foreach ($bentuk_kerjasama as $b)
-                                    <option value="{{ $b }}">{{ $b }}</option>
-                                    {{-- @if ($b == old('bentuk_kerjasama'))
+                                    @if ($b == old('bentuk_kerjasama'))
                                         <option value="{{ $b }}" selected>{{ $b }}</option>
                                     @else
                                         <option value="{{ $b }}">{{ $b }}</option>
-                                    @endif --}}
+                                    @endif
                                 @endforeach
                             </select>
                         </div>

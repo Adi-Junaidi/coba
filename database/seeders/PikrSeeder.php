@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Pikr;
+use App\Models\Stepper;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -29,14 +30,15 @@ class PikrSeeder extends Seeder
       "alamat" => "Jl. Poigar",
       "basis" => "Pendidikan - SMA/Setara",
       "akun_medsos" => "Instagram (@pikr-assalam)",
-      "sumber_dana" => "lainnya",
-      "keterpaduan_kelompok" => true,
-      "pro_pn" => true,
-      "materi_lainnya" => "",
-      "sarana_lainnya" => "",
       "desa_id" => 1,
-      "sk_id" => 1,
       "pembina_id" => 1,
+    ]);
+
+    Stepper::create([
+      'pikr_id' => '24',
+      'step_1' => true,
+      'current_step' => 'step_1',
+      
     ]);
   }
 }

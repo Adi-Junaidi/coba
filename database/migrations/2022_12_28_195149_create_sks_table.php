@@ -15,10 +15,10 @@ class CreateSksTable extends Migration
     {
         Schema::create('sks', function (Blueprint $table) {
             $table->id();
-            $table->string('status');
-            $table->string('no_sk')->nullable();
-            $table->string('tanggal_sk')->nullable();
-            $table->string('dikeluarkan_oleh')->nullable();
+            $table->foreignId('pikr_id');
+            $table->string('no_sk');
+            $table->string('tanggal_sk');
+            $table->string('dikeluarkan_oleh');
             $table->timestamps();
         });
     }
