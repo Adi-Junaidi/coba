@@ -47,7 +47,7 @@
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="{{ Str::slug($s->nama, '_') }}"
-                                                value="0">
+                                                value="0" checked>
                                             <label class="form-check-label"> Tidak Ada </label>
                                         </div>
                                     </div>

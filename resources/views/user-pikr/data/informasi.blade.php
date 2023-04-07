@@ -37,7 +37,7 @@
                                 <div class="d-inline-block">
                                     <div class="form-check">
                                         <div class="checkbox">
-                                            <input type="checkbox" id="sk_checkbox" class="form-check-input">
+                                            <input type="checkbox" id="sk_checkbox" class="form-check-input" name="has_sk">
                                             <label for="sk_checkbox">Punya SK?</label>
                                         </div>
                                     </div>
@@ -58,11 +58,9 @@
                                 <div class="form-group">
                                     <label for="dikeluarkanOleh">Dikeluarkan Oleh</label>
                                     <select class="form-select" id="dikeluarkanOleh" name="dikeluarkan_oleh" disabled>
-                                        <option value="">--Pilih--</option>
-                                        <option value="Kepala Desa/Lurah">Kepala Desa/Lurah</option>
-                                        <option value="Camat">Camat</option>
-                                        <option value="OPD-KB">OPD-KB</option>
-                                        <option value="Bupati/Walikota">Bupati/Walikota</option>
+                                        @foreach ($dikeluarkan as $item)
+                                            <option value="{{ $item }}">{{ $item }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -78,8 +76,7 @@
                                     <li class="d-inline-block me-2 mb-1">
                                         <div class="form-check">
                                             <div class="checkbox">
-                                                <input type="checkbox" class="form-check-input" name="sumber_dana[]"
-                                                    value="APBN">
+                                                <input type="checkbox" class="form-check-input" name="sumber_dana[]" value="APBN">
                                                 <label>APBN</label>
                                             </div>
                                         </div>
@@ -121,11 +118,11 @@
                             <div class="form-group">
                                 <label for="keterpaduanKelompok">Keterpaduan Kelompok</label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="keterpaduan" value="1">
+                                    <input class="form-check-input" type="radio" name="keterpaduan_kelompok" value="1">
                                     <label class="form-check-label"> Ya </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="keterpaduan" value="0">
+                                    <input class="form-check-input" type="radio" name="keterpaduan_kelompok" value="0" checked>
                                     <label class="form-check-label"> Tidak </label>
                                 </div>
                             </div>
@@ -137,7 +134,7 @@
                                     <label class="form-check-label"> Ya </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="pro_pn" value="0">
+                                    <input class="form-check-input" type="radio" name="pro_pn" value="0" checked>
                                     <label class="form-check-label"> Tidak </label>
                                 </div>
                             </div>
@@ -163,10 +160,12 @@
 
 @push('scripts')
     <script>
-        $(':checkbox').change(function() {
+        $('#sk_checkbox').change(function() {
             if (this.checked) {
                 $('#form-sk :disabled').prop("disabled", false)
+                $(this).val(true)
             } else {
+                $(this).val('')
                 $('#form-sk :input').prop("disabled", true)
                 $('#form-sk :input').val('')
                 $('#form-sk select').prop("selectedIndex", 0)

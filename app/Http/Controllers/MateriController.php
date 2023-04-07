@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Materi;
 use App\Http\Requests\StoreMateriRequest;
 use App\Http\Requests\UpdateMateriRequest;
+use App\Models\MateriPikr;
 use Illuminate\Http\Request;
 
 class MateriController extends Controller
@@ -18,8 +19,7 @@ class MateriController extends Controller
     {
         $kategori = Materi::distinct()->pluck('kategori')->toArray();
         $materi = Materi::all();
-
-
+        
         return view('user-pikr/data/materi', [
             'title' => 'Materi',
             'kategori' => $kategori,
@@ -45,7 +45,11 @@ class MateriController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $materiData = $request->toArray();
+        $materiData['pikr_id'] = \auth()->user()->id;
+        MateriPikr::create($materiData);
+        return \redirect('/up/dashboard');
+
     }
 
     /**

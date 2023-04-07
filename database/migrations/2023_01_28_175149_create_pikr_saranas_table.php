@@ -13,10 +13,28 @@ class CreatePikrSaranasTable extends Migration
      */
     public function up()
     {
-        Schema::create('pikr_sarana', function (Blueprint $table) {
+
+        Schema::create('pikr_saranas', function (Blueprint $table) {
+            $sarana = [
+                "ruang_sekretariat",
+                "ruang_khusus_konseling",
+                "papan_nama",
+                "leaflet",
+                "poster",
+                "genre_kit",
+                "pedoman_pengelolaan_pik_r",
+                "modul_fasilitator_pik_r",
+                "buku_pegangan_ps",
+                "modul_tentang_kita",
+                "lembar_balik",
+                "buku_komik_berseri"
+            ];
+
             $table->foreignId('pikr_id');
-            $table->foreignId('sarana_id');
-            $table->string('status');
+            foreach ($sarana as $item) {
+                $table->boolean($item);
+            }
+            $table->timestamps();
         });
     }
 

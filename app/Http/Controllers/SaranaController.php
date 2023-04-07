@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Sarana;
 use App\Http\Requests\StoreSaranaRequest;
 use App\Http\Requests\UpdateSaranaRequest;
+use App\Models\PikrSarana;
 use Illuminate\Http\Request;
 
 class SaranaController extends Controller
@@ -45,6 +46,11 @@ class SaranaController extends Controller
      */
     public function store(Request $request)
     {
+        $saranaData = $request->toArray();
+        $saranaData['pikr_id'] = \auth()->user()->id;
+        PikrSarana::create($saranaData);
+        return \redirect('/up/dashboard');
+
         return $request;
     }
 

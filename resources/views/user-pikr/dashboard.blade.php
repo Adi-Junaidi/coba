@@ -16,7 +16,7 @@
                                 </div>
                                 <div class="col-10">
                                     <h6 class="text-muted font-semibold">Status Data PIK-R</h6>
-                                    <h4 class="mb-0 font-extrabold">Not Verified</h4>
+                                    <h4 class="mb-0 font-extrabold">{{ session('stepper')->current_step }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -43,4 +43,7 @@
         </div>
 
     </section>
+
+
 @endsection
+
