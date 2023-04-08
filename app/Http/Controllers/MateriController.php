@@ -6,6 +6,7 @@ use App\Models\Materi;
 use App\Http\Requests\StoreMateriRequest;
 use App\Http\Requests\UpdateMateriRequest;
 use App\Models\MateriPikr;
+use App\Models\Stepper;
 use Illuminate\Http\Request;
 
 class MateriController extends Controller
@@ -24,6 +25,7 @@ class MateriController extends Controller
             'title' => 'Materi',
             'kategori' => $kategori,
             'materi' => $materi,
+            'materi_pikr' => (MateriPikr::where('pikr_id', \auth()->user()->id)->first()) ?: '',
         ]);
     }
 
@@ -48,7 +50,8 @@ class MateriController extends Controller
         $materiData = $request->toArray();
         $materiData['pikr_id'] = \auth()->user()->id;
         MateriPikr::create($materiData);
-        return \redirect('/up/dashboard');
+        Stepper::where('pikr_id', auth()->user()->id)->update(['step_3'=> true]);
+        return \redirect('/up/data/materi');
 
     }
 
@@ -81,9 +84,12 @@ class MateriController extends Controller
      * @param  \App\Models\Materi  $materi
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateMateriRequest $request, Materi $materi)
+    public function update(Request $request)
     {
-        //
+        $id = \auth()->user()->id;
+
+        MateriPikr::where('pikr_id', $id)->update($request->except('_method', '_token'));
+        return \redirect('/up/data/materi');
     }
 
     /**

@@ -59,8 +59,9 @@
                         </a>
 
                         <ul class="submenu {{ Request::is('up/data*') ? 'active' : '' }}">
+
                             <li class="submenu-item {{ Request::is('up/data/identitas') ? 'active' : '' }}">
-                                <a href="/up/data/identitas">Identitas Kelompok</a>
+                                <a href="/up/data/identitas">Indentitas Kelompok</a>
                             </li>
 
                             <li class="submenu-item {{ Request::is('up/data/informasi') ? 'active' : '' }}">
@@ -84,24 +85,24 @@
                             </li>
                         </ul>
                     </li>
-                @else
-                    <li class="sidebar-item">
+                        <li class="sidebar-item">
+                            <a href="index.html" class="sidebar-link">
+                                <i class="bi bi-r-circle-fill"></i>
+                                <span>Register Kegiatan</span>
+                            </a>
+                        </li>
                         <a href="index.html" class="sidebar-link">
-                            <i class="bi bi-r-circle-fill"></i>
-                            <span>Register Kegiatan</span>
+                            <i class="bi bi-filetype-pdf"></i>
+                            <span>Register Artikel</span>
                         </a>
-                    </li>
-                    <a href="index.html" class="sidebar-link">
-                        <i class="bi bi-filetype-pdf"></i>
-                        <span>Register Artikel</span>
-                    </a>
-                    </li>
-                    </li>
-                    <a href="index.html" class="sidebar-link">
-                        <i class="bi bi-clipboard-check-fill"></i>
-                        <span>Artikel Diterima</span>
-                    </a>
-                    </li>
+                        </li>
+                        </li>
+                        <a href="index.html" class="sidebar-link">
+                            <i class="bi bi-clipboard-check-fill"></i>
+                            <span>Artikel Diterima</span>
+                        </a>
+                        </li>
+                @else
                 @endif
 
             </ul>

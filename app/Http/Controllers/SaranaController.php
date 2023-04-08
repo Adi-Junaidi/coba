@@ -20,7 +20,6 @@ class SaranaController extends Controller
         $kategori = Sarana::distinct()->pluck('kategori')->toArray();
         $sarana = Sarana::all();
 
-
         return view('user-pikr/data/sarana', [
             'title' => 'Sarana',
             'kategori' => $kategori,

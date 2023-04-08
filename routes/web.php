@@ -23,7 +23,7 @@ Route::get('/', function () {
     }else{
         return redirect('/dashboard');
     }
-});
+})->middleware('auth');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->middleware('guest');
@@ -53,6 +53,7 @@ Route::resource('/registrasi-kegiatan', RegistrasiKegiatanController::class)->mi
 
 Route::middleware('stepCheck')->group(function () {
     Route::get('/up/dashboard', [UserPikrController::class, 'dashboard']);
+    Route::get('/up/data/identitas', [UserPikrController::class, 'b_identitas']);
     Route::get('/up/data/informasi', [UserPikrController::class, 'b_informasi']);
     Route::post('/up/data/informasi', [UserPikrController::class, 's_informasi']);
     Route::post('/up/data/mitra/{id}', [MitraPikrController::class, 'update']);

@@ -6,7 +6,7 @@
 
 @section('content')
     <section class="row">
-        <h1 class="mb-3">Informasi Kelompok PIK-R</h1>
+        <h1 class="mb-3">Ketersediaan Materi PIK-R</h1>
         <div class="mb-5 p-4 bg-white shadow-sm">
             <div class="bs-stepper">
                 <div class="bs-stepper-header" role="tablist">
@@ -18,7 +18,7 @@
                                 <span class="bs-stepper-circle">{{ $loop->iteration }}</span>
                                 <span class="bs-stepper-label d-lg-inline-block d-none small">{{ $item }}</span>
                             </button>
-                        </div>
+                        </div> 
                         @if ($loop->last)
                         @else
                             <div class="line"></div>

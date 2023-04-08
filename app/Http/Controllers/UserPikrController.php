@@ -16,9 +16,20 @@ class UserPikrController extends Controller
         ]);
     }
 
+    public function b_identitas()
+    {
+        return view('user-pikr/data/identitas', [
+            'title' => 'Identitas',
+            'pikr_info' => Pikr::where('user_id', \auth()->user()->id)->first(),    
+        ]);
+    }
+
     public function b_informasi()
     {
-        $stepper = Stepper::where('pikr_id', \auth()->user()->id)->first();
+
+        if(!session('stepper')->step_1){
+            return \redirect('/up/data/dashboard');
+        }
 
         $dikeluarkan = [
             'Kepala Desa',
@@ -100,7 +111,7 @@ class UserPikrController extends Controller
         
         Sk::create($skData);
         
-        Pikr::where('pikr_id', $id)->update(['sk_id' => Sk::where('pikr_id', $id)->first()->id]);
+        Pikr::where('user_id', $id)->update(['sk_id' => Sk::where('pikr_id', $id)->first()->id]);
         return \redirect('/up/data/informasi');
     }
     
