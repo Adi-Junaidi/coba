@@ -10,7 +10,7 @@
                         <div class="card-body py-4-5 px-3">
                             <div class="row">
                                 <div class="col-2 d-flex justify-content-start">
-                                    <div class="stats-icon red mb-2">
+                                    <div class="stats-icon mb-2 {{ (session('stepper')->current_step == 'Complete') ? 'green' : 'red'}}">
                                         <i class="iconly-boldProfile"></i>
                                     </div>
                                 </div>

@@ -27,10 +27,6 @@ class UserPikrController extends Controller
     public function b_informasi()
     {
 
-        if(!session('stepper')->step_1){
-            return \redirect('/up/data/dashboard');
-        }
-
         $dikeluarkan = [
             'Kepala Desa',
             'Kepala Lurah',
@@ -93,9 +89,9 @@ class UserPikrController extends Controller
         }
 
         Pikr::where('user_id', $id)->update($informationData);
-        Stepper::where('pikr_id', $id)->update(['current_step' => 'step_2', 'step_2' => true]);
+        Stepper::where('pikr_id', $id)->update(['current_step' => 'Complete', 'informasi' => true]);
 
-        return \redirect('/up/data/informasi');
+        return \redirect('/up/data/informasi')->with('success', 'Data Berhasil Ditambahkan');
     }
 
     public function addSk(Request $request, $id)
@@ -112,7 +108,7 @@ class UserPikrController extends Controller
         Sk::create($skData);
         
         Pikr::where('user_id', $id)->update(['sk_id' => Sk::where('pikr_id', $id)->first()->id]);
-        return \redirect('/up/data/informasi');
+        return \redirect('/up/data/informasi')->with('success', 'Data berhasil ditambahkan');
     }
     
     public function updateSk(Request $request)
@@ -133,6 +129,6 @@ class UserPikrController extends Controller
         $skData['pikr_id'] = $id;
 
         Sk::where('pikr_id', $id)->update($skData);
-        return \redirect('/up/data/informasi');
+        return \redirect('/up/data/informasi')->with('success', 'Data berhasil diubah');
     }
 }

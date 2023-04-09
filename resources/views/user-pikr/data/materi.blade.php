@@ -8,7 +8,7 @@
     <section class="row">
         <h1 class="mb-3">Ketersediaan Materi PIK-R</h1>
         <div class="mb-5 p-4 bg-white shadow-sm">
-            @if (session('stepper')->step_3)
+            @if (session('stepper')->materi)
                 <div class="bs-stepper">
                     <div class="bs-stepper-header" role="tablist">
                         <!-- your steps here -->

@@ -20,7 +20,7 @@
         </div>
     @endif
     <section id="updateable" class="row">
-        @if (session('stepper')->step_2)
+        @if (session('stepper')->informasi)
             <div class="py-4 px-5 bg-white shadow-sm mb-3">
                 <h5>A. SK PIK-R</h5>
                 @if (!$sk)
