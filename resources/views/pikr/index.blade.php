@@ -107,9 +107,25 @@
                     <span class="fa-fw fas select-all"></span>
                   </button>
 
-                  <button class="btn btn-danger btn-sm" id="delete" data-bs-toggle="tooltip" data-bs-placement="bottom" type="button" title="Delete">
+                  <button class="btn btn-danger btn-sm" id="delete" data-bs-toggle="tooltip" data-bs-placement="bottom" type="button" title="Hapus">
                     <span class="fa-fw fas select-all"></span>
                   </button>
+
+                  @can('verify', $p)
+                    <form class="d-inline" action="/pikr/{{ $p->id }}/verify" method="post">
+                      @csrf
+
+                      @if ($p->verified)
+                        <button class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" type="submit" title="Verifikasi">
+                          <i class="fas fa-check"></i>
+                        </button>
+                      @else
+                        <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" type="submit" title="Batal Verifikasi">
+                          <i class="fas fa-times"></i>
+                        </button>
+                      @endif
+                    </form>
+                  @endcan
                 </td>
               </tr>
             @endforeach

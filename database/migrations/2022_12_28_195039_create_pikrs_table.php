@@ -18,18 +18,19 @@ class CreatePikrsTable extends Migration
       $table->foreignId('user_id');
       $table->foreignId('desa_id');
       $table->foreignId('sk_id')->nullable();
-      $table->foreignId('pembina_id'); // untuk jabatan dan jabatan lainnya itu merupakan properti dari pembina, jadi dia tersimpan di table pembina
+      $table->foreignId('pembina_id');
       $table->string('no_register');
-      $table->string('nama'); //
+      $table->string('nama');
       $table->string('no_urut');
-      $table->string('alamat'); //
-      $table->string('basis'); //
+      $table->string('alamat');
+      $table->string('basis');
       $table->string('sumber_dana')->default('Tidak Ada');
-      $table->string('akun_medsos')->nullable(); //
+      $table->string('akun_medsos')->nullable();
       $table->boolean('keterpaduan_kelompok')->default(false);
       $table->boolean('pro_pn')->default(false);
       $table->string('materi_lainnya')->default(false);
       $table->string('sarana_lainnya')->default(false);
+      $table->boolean('verified')->default(false);
       $table->timestamps();
     });
   }

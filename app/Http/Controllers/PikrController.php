@@ -95,6 +95,24 @@ class PikrController extends Controller
     //
   }
 
+  public function verify(Pikr $pikr)
+  {
+    $this->authorize('verify', $pikr);
+
+    if ($pikr->verified) {
+      $pikr->update([
+        "verified" => false
+      ]);
+
+      return back()->with('success', "PIK-R {$pikr->nama} berhasil diverifikasi");
+    }
+
+    $pikr->update([
+      "verified" => true
+    ]);
+    return back()->with('success', "Berhasil membatalkan verifikasi PIK-R {$pikr->nama}");
+  }
+
   public function api(Request $request)
   {
     if ($request->ajax()) {
