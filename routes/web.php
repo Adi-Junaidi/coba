@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\ArticleController;
 use App\Models\Kabkota;
 use App\Models\Kecamatan;
 use Illuminate\Support\Facades\Route;
@@ -13,9 +15,12 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MitraPikrController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\DesaController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PikrController;
 use App\Http\Controllers\RegistrasiKegiatanController;
 use App\Http\Controllers\SkController;
+use App\Models\Laporan;
+use App\Models\PelayananInformasi;
 
 Route::get('/', function () {
     if(auth()->user()->isPikr()){
@@ -51,7 +56,7 @@ Route::get('/api/pikr', [PikrController::class, 'api']);
 
 Route::resource('/registrasi-kegiatan', RegistrasiKegiatanController::class)->middleware('auth');
 
-Route::middleware('stepCheck')->group(function () {
+Route::middleware('stepCheck', 'auth')->group(function () {
     Route::get('/up/dashboard', [UserPikrController::class, 'dashboard']);
     Route::get('/up/data/identitas', [UserPikrController::class, 'b_identitas']);
     Route::get('/up/data/informasi', [UserPikrController::class, 'b_informasi']);
@@ -65,5 +70,12 @@ Route::middleware('stepCheck')->group(function () {
         '/up/data/mitra' => MitraPikrController::class,
         '/up/data/pengurus' => PengurusController::class,
     ]);
+    Route::resources([
+        '/up/register/kegiatan' => LaporanController::class,
+        '/up/article' => ArticleController::class,
+    ]);
+    Route::get('/kegiatan/pelayanan', [AjaxController::class, 'kegiatan_pelayanan']);
+    Route::get('/utility/check-slug', [ArticleController::class, 'checkSlug']);
 });
+
 

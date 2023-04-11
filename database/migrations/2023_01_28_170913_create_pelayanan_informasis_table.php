@@ -14,14 +14,15 @@ class CreatePelayananInformasisTable extends Migration
     public function up()
     {
         Schema::create('pelayanan_informasis', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
+            $table->foreignId('pikr_id');
             $table->foreignId('materi_id');
             $table->foreignId('laporan_id');
             $table->date('tanggal');
             $table->string('nama');
-            $table->string('materi_lainnya');
-            $table->string('jabatan_narsum');
+            $table->string('materi_lainnya')->nullable();
             $table->string('narsum');
+            $table->string('jabatan_narsum');
             $table->integer('jumlah_peserta');
             $table->timestamps();
         });

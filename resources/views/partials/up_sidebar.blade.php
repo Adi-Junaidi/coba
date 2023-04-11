@@ -85,23 +85,17 @@
                             </li>
                         </ul>
                     </li>
-                        <li class="sidebar-item">
-                            <a href="index.html" class="sidebar-link">
-                                <i class="bi bi-r-circle-fill"></i>
-                                <span>Register Kegiatan</span>
-                            </a>
-                        </li>
-                        <a href="index.html" class="sidebar-link">
+                    <li class="sidebar-item {{ Request::is('up/register/kegiatan') ? 'active' : '' }}">
+                        <a href="/up/register/kegiatan" class="sidebar-link">
+                            <i class="bi bi-r-circle-fill"></i>
+                            <span>Register Kegiatan</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item {{ Request::is('up/article*') ? 'active' : '' }}">
+                        <a href="/up/article" class="sidebar-link">
                             <i class="bi bi-filetype-pdf"></i>
-                            <span>Register Artikel</span>
+                            <span>Artikel</span>
                         </a>
-                        </li>
-                        </li>
-                        <a href="index.html" class="sidebar-link">
-                            <i class="bi bi-clipboard-check-fill"></i>
-                            <span>Artikel Diterima</span>
-                        </a>
-                        </li>
                 @else
                 @endif
 

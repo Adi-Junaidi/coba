@@ -11,9 +11,9 @@
     <link type="image/x-icon" href="{{ asset('dist') }}/assets/images/logo/favicon.svg" rel="shortcut icon">
     <link type="image/png" href="{{ asset('dist') }}/assets/images/logo/favicon.png" rel="shortcut icon">
     <link href="{{ asset('dist') }}/assets/css/shared/iconly.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
 
-    @stack('custom_css')
-    
+    @stack('custom_css')\
 
 </head>
 
@@ -29,25 +29,27 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <footer class="container-fluid">
-            <div class="footer clearfix text-muted mb-0">
-                <div class="float-end me-4">
-                    <p>2022 &copy; BKKBN</p>
-                </div>
+    <footer class="container-fluid">
+        <div class="footer clearfix text-muted mb-0">
+            <div class="float-end me-4">
+                <p>2022 &copy; BKKBN</p>
             </div>
-        </footer>
+        </div>
+    </footer>
 
-        <script src="{{ asset('dist') }}/assets/js/bootstrap.js"></script>
-        <script src="{{ asset('dist') }}/assets/js/app.js"></script>
+    <script src="{{ asset('dist') }}/assets/js/bootstrap.js"></script>
+    <script src="{{ asset('dist') }}/assets/js/app.js"></script>
 
-        <!-- Need: Apexcharts -->
-        <script src="{{ asset('dist') }}/assets/extensions/apexcharts/apexcharts.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-        
-        @stack('modal')
-        @stack('custom_js')
-        @stack('scripts')
+    <!-- Need: Apexcharts -->
+    <script src="{{ asset('dist') }}/assets/extensions/apexcharts/apexcharts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+
+    @stack('modal')
+    @stack('custom_js')
+    @stack('scripts')
 
 
 </body>
