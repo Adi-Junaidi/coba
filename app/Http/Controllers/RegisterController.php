@@ -24,8 +24,10 @@ class RegisterController extends Controller
     $validatedData = $request->validate([
       "nama" => "required|max:255",
       "username" => "required|min:5|max:255|unique:users",
-      "email" => "required|email:dns|unique:users",
+      // "email" => "required|email:dns|unique:users",
+      "email" => "required|email|unique:users",
       "password" => "required|min:8|max:255",
+      "passwordConfirm" => "required|min:8|max:255|same:password",
 
       // FIXME: perbaiki validasi
       "desa_id" => "required",
@@ -35,13 +37,14 @@ class RegisterController extends Controller
     ]);
 
     $validatedData["password"] = bcrypt($validatedData["password"]);
-
-    $user = User::create($validatedData);
-    $pembina = Pembina::where('nama', $validatedData['pembina']);
-    if ($pembina) {
-      // TODO: create new pembina `$pembina = Pembina::create()->id`;
+    $pembina = Pembina::where('nama', $validatedData['pembina'])->first();
+    if (!$pembina) {
+      $pembina = Pembina::create([
+        "nama" => $validatedData["pembina"]
+      ]);
     }
 
+    $user = User::create($validatedData);
     Pikr::create([
       "nama" => $user->nama,
       "user_id" => $user->id,

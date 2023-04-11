@@ -7,14 +7,51 @@
 @endsection
 
 @section('form')
+  @error('username')
+    <div class="alert alert-danger">{{ $message }}</div>
+  @enderror
+  @error('email')
+    <div class="alert alert-danger">{{ $message }}</div>
+  @enderror
+  @error('password')
+    <div class="alert alert-danger">{{ $message }}</div>
+  @enderror
+  @error('passwordConfirm')
+    <div class="alert alert-danger">{{ $message }}</div>
+  @enderror
+  @error('nama')
+    <div class="alert alert-danger">{{ $message }}</div>
+  @enderror
+  @error('basis')
+    <div class="alert alert-danger">{{ $message }}</div>
+  @enderror
+  @error('pembina')
+    <div class="alert alert-danger">{{ $message }}</div>
+  @enderror
+  @error('desa_id')
+    <div class="alert alert-danger">{{ $message }}</div>
+  @enderror
+  @error('alamat')
+    <div class="alert alert-danger">{{ $message }}</div>
+  @enderror
+
   <form class="login100-form validate-form p-b-33 p-t-5" id="stepper-form" action="/register" method="post" novalidate>
     @csrf
     <div class="bs-stepper">
       <div class="bs-stepper-header" role="tablist">
         <!-- your steps here -->
+        <div class="step" data-target="#account-part">
+          <button class="step-trigger" id="account-part-trigger" type="button" role="tab" aria-controls="account-part">
+            <span class="bs-stepper-circle">1</span>
+            <span class="bs-stepper-label">Akun</span>
+          </button>
+        </div>
+
+        <div class="line"></div>
+
         <div class="step" data-target="#identitas-part">
           <button class="step-trigger" id="identitas-part-trigger" type="button" role="tab" aria-controls="identitas-part">
-            <span class="bs-stepper-circle">1</span>
+            <span class="bs-stepper-circle">2</span>
             <span class="bs-stepper-label">Identitas</span>
           </button>
         </div>
@@ -23,46 +60,64 @@
 
         <div class="step" data-target="#alamat-part">
           <button class="step-trigger" id="alamat-part-trigger" type="button" role="tab" aria-controls="alamat-part">
-            <span class="bs-stepper-circle">2</span>
+            <span class="bs-stepper-circle">3</span>
             <span class="bs-stepper-label">Alamat</span>
           </button>
         </div>
-
-        <div class="line"></div>
-
-        <div class="step" data-target="#account-part">
-          <button class="step-trigger" id="account-part-trigger" type="button" role="tab" aria-controls="account-part">
-            <span class="bs-stepper-circle">3</span>
-            <span class="bs-stepper-label">Akun</span>
-          </button>
-        </div>
       </div>
+
       <div class="bs-stepper-content">
         <!-- your steps content here -->
+        <div class="content" id="account-part" role="tabpanel" aria-labelledby="account-part-trigger">
+          <div class="wrap-input100 validate-input" data-validate="Masukkan username">
+            <input class="input100" name="username" type="text" value="{{ old('username') }}" required placeholder="Username">
+            <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+          </div>
+
+          <div class="wrap-input100 validate-input" data-validate="Masukkan email yang valid">
+            <input class="input100" name="email" type="email" value="{{ old('email') }}" required placeholder="Email">
+            <span class="focus-input100" data-placeholder="&#xe818;"></span>
+          </div>
+
+          <div class="wrap-input100 validate-input" data-validate="Masukkan password">
+            <input class="input100" name="password" type="password" required placeholder="Masukkan Password">
+            <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+          </div>
+
+          <div class="wrap-input100 validate-input" data-validate="Konfirmasi password">
+            <input class="input100" name="passwordConfirm" type="password" required placeholder="Konfirmasi Password">
+            <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+          </div>
+
+          <div class="container-login100-form-btn m-t-32">
+            <button class="login100-form-btn primary" type="button" onclick="stepper_next()">Selanjutnya</button>
+          </div>
+        </div>
+
         <div class="content" id="identitas-part" role="tabpanel" aria-labelledby="identitas-part-trigger">
           <div class="wrap-input100 validate-input" data-validate="Masukkan nama PIK-R">
-            <input class="input100" name="nama" type="text" required placeholder="Nama PIK-R">
+            <input class="input100" name="nama" type="text" value="{{ old('nama') }}" required placeholder="Nama PIK-R">
             <span class="focus-input100" data-placeholder="&#xe82a;"></span>
           </div>
 
           <div class="wrap-input100 validate-input" data-validate="Masukkan basis PIK-R">
-            <select class="input100" name="Basis" type="text" required>
+            <select class="input100" name="basis" type="text" required>
               <option value="" hidden>Pilih Basis PIK-R</option>
               <optgroup label="Jalur Pendidikan">
-                <option value="SMP/Sederajat">Jalur Pendidikan - SMP/Sederajat</option>
-                <option value="SMA/Sederajat">Jalur Pendidikan - SMA/Sederajat</option>
-                <option value="Perguruan Tinggi">Jalur Pendidikan - Perguruan Tinggi</option>
+                <option value="SMP/Sederajat" @if (old('basis') === 'SMP/Sederajat') selected @endif>Jalur Pendidikan - SMP/Sederajat</option>
+                <option value="SMA/Sederajat" @if (old('basis') === 'SMA/Sederajat') selected @endif>Jalur Pendidikan - SMA/Sederajat</option>
+                <option value="Perguruan Tinggi" @if (old('basis') === 'Perguruan Tinggi') selected @endif>Jalur Pendidikan - Perguruan Tinggi</option>
               </optgroup>
               <optgroup label="Jalur Masyarakat">
-                <option value="Organisasi Keagamaan">Jalur Masyarakat - Organisasi Keagamaan</option>
-                <option value="LSM/Organisasi Kepemudaan/Organisasi Kemasyarakatan">Jalur Masyarakat - LSM/Organisasi Kepemudaan/Organisasi Kemasyarakatan</option>
+                <option value="Organisasi Keagamaan" @if (old('basis') === 'Organisasi Keagamaan') selected @endif>Jalur Masyarakat - Organisasi Keagamaan</option>
+                <option value="LSM/Organisasi Kepemudaan/Organisasi Kemasyarakatan" @if (old('basis') === 'LSM/Organisasi Kepemudaan/Organisasi Kemasyarakatan') selected @endif>Jalur Masyarakat - LSM/Organisasi Kepemudaan/Organisasi Kemasyarakatan</option>
               </optgroup>
             </select>
             <span class="focus-input100" data-placeholder="&#xe82a;"></span>
           </div>
 
           <div class="wrap-input100 validate-input" data-validate="Masukkan nama pembina">
-            <input class="input100" name="pembina" type="text" required list="list-pembina" placeholder="Nama pembina">
+            <input class="input100" name="pembina" type="text" value="{{ old('pembina') }}" required list="list-pembina" placeholder="Nama pembina">
             <span class="focus-input100" data-placeholder="&#xe82a;"></span>
             <datalist id="list-pembina">
               @foreach ($pembinas as $p)
@@ -72,6 +127,7 @@
           </div>
 
           <div class="container-login100-form-btn m-t-32">
+            <button class="login100-form-btn secondary" type="button" onclick="stepper_prev()">Sebelumnya</button>
             <button class="login100-form-btn primary" type="button" onclick="stepper_next()">Selanjutnya</button>
           </div>
         </div>
@@ -101,7 +157,7 @@
               </select>
             </fieldset>
             <fieldset class="form-group col-md-6">
-              <select class="form-control" id="ddDesa" name="ddDesa" disabled>
+              <select class="form-control" id="ddDesa" name="desa_id" disabled>
                 <option value="" hidden>Desa/Kelurahan</option>
               </select>
             </fieldset>
@@ -109,35 +165,8 @@
           {{-- End Dropdown --}}
 
           <div class="wrap-input100 validate-input" data-validate="Masukkan alamat">
-            <input class="input100" name="alamat" type="text" required placeholder="Masukkan alamat lengkap PIK-R">
+            <input class="input100" name="alamat" type="text" value="{{ old('alamat') }}" required placeholder="Masukkan alamat lengkap PIK-R">
             <span class="focus-input100" data-placeholder="&#xe82a;"></span>
-          </div>
-
-          <div class="container-login100-form-btn m-t-32">
-            <button class="login100-form-btn secondary" type="button" onclick="stepper_prev()">Sebelumnya</button>
-            <button class="login100-form-btn primary" type="button" onclick="stepper_next()">Selanjutnya</button>
-          </div>
-        </div>
-
-        <div class="content" id="account-part" role="tabpanel" aria-labelledby="account-part-trigger">
-          <div class="wrap-input100 validate-input" data-validate="Masukkan username">
-            <input class="input100" name="username" type="text" required placeholder="Username">
-            <span class="focus-input100" data-placeholder="&#xe82a;"></span>
-          </div>
-
-          <div class="wrap-input100 validate-input" data-validate="Masukkan email yang valid">
-            <input class="input100" name="email" type="email" required placeholder="Email">
-            <span class="focus-input100" data-placeholder="&#xe818;"></span>
-          </div>
-
-          <div class="wrap-input100 validate-input" data-validate="Masukkan password">
-            <input class="input100" name="password" type="password" required placeholder="Masukkan Password">
-            <span class="focus-input100" data-placeholder="&#xe80f;"></span>
-          </div>
-
-          <div class="wrap-input100 validate-input" data-validate="Konfirmasi password">
-            <input class="input100" name="passwordConfirm" type="password" required placeholder="Konfirmasi Password">
-            <span class="focus-input100" data-placeholder="&#xe80f;"></span>
           </div>
 
           <div class="container-login100-form-btn m-t-32">
@@ -206,15 +235,7 @@
               ddKecamatan.empty();
               ddKecamatan.append("<option value='' hidden>Kecamatan</option>");
               $.each(data, function(key, kecamatan) {
-                $('select[name="ddKecamatan"]').append(
-                  '<option value="' +
-                  kecamatan.id +
-                  '">' +
-                  kecamatan.kode +
-                  " | " +
-                  kecamatan.nama +
-                  "</option>"
-                );
+                ddKecamatan.append(`<option value="${kecamatan.id}">${kecamatan.kode} | ${kecamatan.nama}</option>`);
               });
               ddKecamatan.prop("disabled", false);
 
@@ -246,15 +267,7 @@
               ddDesa.empty();
               ddDesa.append("<option value='' hidden>Desa/Kelurahan</option>");
               $.each(data, function(key, desa) {
-                $('select[name="ddDesa"]').append(
-                  '<option value="' +
-                  desa.id +
-                  '">' +
-                  desa.kode +
-                  " | " +
-                  desa.nama +
-                  "</option>"
-                );
+                ddDesa.append(`<option value="${desa.id}">${desa.kode} | ${desa.nama}</option>`);
               });
               ddDesa.prop("disabled", false);
             } else {
@@ -266,18 +279,6 @@
       } else {
         ddDesa.empty();
         ddDesa.prop("disabled", true);
-      }
-    });
-
-    $("#ddDesa").on("change", function() {
-      const desaId = $(this).val();
-      const tombolCari = $("#tombolCari");
-      if (desaId) {
-        // Enable tombol cari
-        tombolCari.prop("disabled", false);
-      } else {
-        // Disable tombol cari
-        tombolCari.prop("disabled", false);
       }
     });
   </script>

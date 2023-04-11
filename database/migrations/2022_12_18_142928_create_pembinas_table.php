@@ -15,12 +15,12 @@ class CreatePembinasTable extends Migration
   {
     Schema::create('pembinas', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('user_id');
-      $table->foreignId('jabatan_id');
-      $table->foreignId('desa_id');
-      $table->string('no_register');
+      $table->foreignId('user_id')->nullable();
+      $table->foreignId('jabatan_id')->nullable();
+      $table->foreignId('desa_id')->nullable();
+      $table->string('no_register')->nullable();
       $table->string('nama');
-      $table->string('no_urut');
+      $table->string('no_urut')->nullable();
       $table->string('jabatan_lainnya')->nullable();
       $table->timestamps();
     });

@@ -34,11 +34,10 @@ class PikrSeeder extends Seeder
       "pembina_id" => 1,
     ]);
 
-    Stepper::create([
-      'pikr_id' => '24',
-      'step_1' => true,
-      'current_step' => 'step_1',
-      
-    ]);
+    // Stepper::create([
+    //   'pikr_id' => '24',
+    //   'step_1' => true,
+    //   'current_step' => 'step_1',
+    // ]);
   }
 }
