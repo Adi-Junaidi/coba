@@ -40,6 +40,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 
 Route::resource('/pembina', PembinaController::class)->middleware('auth');
 Route::resource('/pikr', PikrController::class)->middleware('auth');
+Route::post('/pikr/{pikr}/verify', [PikrController::class, 'verify'])->middleware('auth');
 
 
 Route::get('/api/kabkota/{kabkota}/kecamatans', fn (Kabkota $kabkota) => response()->json($kabkota->kecamatan));
