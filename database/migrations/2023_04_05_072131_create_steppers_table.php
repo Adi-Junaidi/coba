@@ -16,7 +16,7 @@ class CreateSteppersTable extends Migration
         Schema::create('steppers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pikr_id');
-            $table->boolean('step_1')->default(false);
+            $table->boolean('step_1')->default(true);
             $table->boolean('step_2')->default(false);
             $table->boolean('step_3')->default(false);
             $table->boolean('step_4')->default(false);

@@ -19,6 +19,8 @@
   <link type="text/css" href="/auth/vendor/daterangepicker/daterangepicker.css" rel="stylesheet">
   <link type="text/css" href="/auth/css/util.css" rel="stylesheet">
   <link type="text/css" href="/auth/css/main.css" rel="stylesheet">
+
+  @yield('styles')
 </head>
 
 <body>
@@ -26,6 +28,14 @@
     <div class="container-login100" style="background-image: url('/auth/images/bg-01.jpg');">
       <div class="wrap-login100 p-t-30 p-b-50">
         <span class="login100-form-title p-b-41">@yield('title')</span>
+
+        @if (session()->has('success'))
+          <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+
+        @if (session()->has('error'))
+          <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
 
         @yield('form')
       </div>
@@ -43,6 +53,8 @@
   <script src="/auth/vendor/daterangepicker/daterangepicker.js"></script>
   <script src="/auth/vendor/countdowntime/countdowntime.js"></script>
   <script src="/auth/js/main.js"></script>
+
+  @yield('scripts')
 </body>
 
 </html>
