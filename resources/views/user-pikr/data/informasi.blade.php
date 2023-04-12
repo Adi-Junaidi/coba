@@ -204,7 +204,6 @@
                                             disabled>
                                     </div>
 
-
                                     <div class="form-group">
                                         <label for="dikeluarkanOleh">Dikeluarkan Oleh</label>
                                         <select class="form-select" id="dikeluarkanOleh" name="dikeluarkan_oleh"

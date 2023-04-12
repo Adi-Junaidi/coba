@@ -63,4 +63,18 @@ class Pikr extends Model
   {
     return $this->belongsToMany(Mitra::class);
   }
+
+  public static function boot()
+  {
+    parent::boot();
+
+    // after create() method call this
+    static::created(function ($pikr) {
+      Stepper::create([
+        'pikr_id' => $pikr->user->id,
+        'step_1' => true,
+        'current_step' => 'step_1',
+      ]);
+    });
+  }
 }

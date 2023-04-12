@@ -34,9 +34,9 @@ class PikrSeeder extends Seeder
       "pembina_id" => 1,
     ]);
 
-    Stepper::create([
-      'pikr_id' => '24',
-      'identitas' => true,
-    ]);
+    //Stepper::create([
+    //  'pikr_id' => '24',
+    //  'identitas' => true,
+    //]);
   }
 }

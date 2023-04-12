@@ -8,6 +8,7 @@
 
   <link href="{{ asset('dist') }}/assets/css/main/app.css" rel="stylesheet">
   <link href="{{ asset('dist') }}/assets/css/main/app-dark.css" rel="stylesheet">
+  <link href="{{ asset('dist/assets/extensions/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
   <link type="image/x-icon" href="{{ asset('dist') }}/assets/images/logo/favicon.svg" rel="shortcut icon">
   <link type="image/png" href="{{ asset('dist') }}/assets/images/logo/favicon.png" rel="shortcut icon">
   <link href="{{ asset('dist') }}/assets/css/shared/iconly.css" rel="stylesheet">
@@ -52,7 +53,27 @@
   <script src="{{ asset('dist') }}/assets/js/app.js"></script>
 
   <!-- Need: Apexcharts -->
-  <script src="{{ asset('dist') }}/assets/extensions/apexcharts/apexcharts.min.js"></script>
+  {{-- <script src="{{ asset('dist') }}/assets/extensions/apexcharts/apexcharts.min.js"></script> --}}
+
+  <!-- FIXME: Sweetalert tidak tampil dengan bagus di mode gelap -->
+  <script src="{{ asset('/dist/assets/extensions/sweetalert2/sweetalert2.js') }}"></script>
+  @if (session()->has('success'))
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: '{{ session('success') }}'
+      });
+    </script>
+  @endif
+
+  @if (session()->has('error'))
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: '{{ session('error') }}'
+      });
+    </script>
+  @endif
 
   <!-- Page Script -->
   @yield('script')

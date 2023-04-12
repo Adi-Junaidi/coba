@@ -23,22 +23,22 @@ use App\Models\Laporan;
 use App\Models\PelayananInformasi;
 
 Route::get('/', function () {
-    if(auth()->user()->isPikr()){
-        return redirect('/up/dashboard');
-    }else{
-        return redirect('/dashboard');
-    }
+  if (auth()->user()->isPikr()) {
+    return redirect('/up/dashboard');
+  } else {
+    return redirect('/dashboard');
+  }
 })->middleware('auth');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->middleware('guest');
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
-Route::get('/register', [RegisterController::class, 'index']);
-Route::post('/register', [RegisterController::class, 'store']);
+Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
+Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
 
 Route::get('/main', function () {
-    return view('/main');
+  return view('/main');
 })->middleware('auth');
 
 
@@ -46,6 +46,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 
 Route::resource('/pembina', PembinaController::class)->middleware('auth');
 Route::resource('/pikr', PikrController::class)->middleware('auth');
+Route::post('/pikr/{pikr}/verify', [PikrController::class, 'verify'])->middleware('auth');
 
 
 Route::get('/api/kabkota/{kabkota}/kecamatans', fn (Kabkota $kabkota) => response()->json($kabkota->kecamatan));
@@ -77,5 +78,3 @@ Route::middleware('stepCheck', 'auth')->group(function () {
     Route::get('/kegiatan/pelayanan', [AjaxController::class, 'kegiatan_pelayanan']);
     Route::get('/utility/check-slug', [ArticleController::class, 'checkSlug']);
 });
-
-

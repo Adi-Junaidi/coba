@@ -97,7 +97,7 @@
                   {{-- Untuk data yang dikirimkan pada modal yang akan menampilkan informasi registrasi pik-r, belum sempat sy lengkapi --}}
 
                   <!-- Button trigger for form modal -->
-                  <button class="btn btn-info btn-sm" id="detail" data-bs-toggle="modal" data-bs-target="#modal1" data-noreg="{{ $p->no_register }}" data-nourut="{{ $p->no_urut }}" data-nama="{{ $p->nama }}" data-alamat="{{ $p->alamat }}" data-provinsi="{{ $p->desa->kecamatan->kabkota->provinsi->kode . ' | ' . $p->desa->kecamatan->kabkota->provinsi->nama }}" data-kabkota="{{ $p->desa->kecamatan->kabkota->kode . ' | ' . $p->desa->kecamatan->kabkota->nama }}" data-kecamatan="{{ $p->desa->kecamatan->kode . ' | ' . $p->desa->kecamatan->nama }}" data-desakel="{{ $p->desa->kode . ' | ' . $p->desa->nama }}" data-basis="{{ $p->basis }}" data-jabatan="{{ $p->pembina->jabatan->nama }}" data-namajabatan="{{ $p->pembina->nama }}" data-medsos="{{ $p->akun_medsos }}" data-sk="{{ $p->sk->status }}" data-nomorsk="{{ $p->sk->no_sk }}" data-tanggalsk="{{ $p->sk->tanggal }}" data-dikeluarkanoleh="{{ $p->sk->dikeluarkan_oleh }}" type="button">
+                  <button class="btn btn-info btn-sm" id="detail" data-bs-toggle="modal" data-bs-target="#modal1" data-noreg="{{ $p->no_register }}" data-nourut="{{ $p->no_urut }}" data-nama="{{ $p->nama }}" data-alamat="{{ $p->alamat }}" data-provinsi="{{ $p->desa->kecamatan->kabkota->provinsi->kode . ' | ' . $p->desa->kecamatan->kabkota->provinsi->nama }}" data-kabkota="{{ $p->desa->kecamatan->kabkota->kode . ' | ' . $p->desa->kecamatan->kabkota->nama }}" data-kecamatan="{{ $p->desa->kecamatan->kode . ' | ' . $p->desa->kecamatan->nama }}" data-desakel="{{ $p->desa->kode . ' | ' . $p->desa->nama }}" data-basis="{{ $p->basis }}" data-jabatan="{{ $p->pembina->jabatan->nama }}" data-namajabatan="{{ $p->pembina->nama }}" data-medsos="{{ $p->akun_medsos }}" data-sk="{{ $p->sk?->status }}" data-nomorsk="{{ $p->sk?->no_sk }}" data-tanggalsk="{{ $p->sk?->tanggal }}" data-dikeluarkanoleh="{{ $p->sk?->dikeluarkan_oleh }}" type="button">
                     <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="Detail">
                       <span class="fa-fw fas select-all"></span>
                     </span>
@@ -107,9 +107,25 @@
                     <span class="fa-fw fas select-all"></span>
                   </button>
 
-                  <button class="btn btn-danger btn-sm" id="delete" data-bs-toggle="tooltip" data-bs-placement="bottom" type="button" title="Delete">
+                  <button class="btn btn-danger btn-sm" id="delete" data-bs-toggle="tooltip" data-bs-placement="bottom" type="button" title="Hapus">
                     <span class="fa-fw fas select-all"></span>
                   </button>
+
+                  @can('verify', $p)
+                    <form class="d-inline" action="/pikr/{{ $p->id }}/verify" method="post">
+                      @csrf
+
+                      @if ($p->verified)
+                        <button class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" type="submit" title="Verifikasi">
+                          <i class="fas fa-check"></i>
+                        </button>
+                      @else
+                        <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" type="submit" title="Batal Verifikasi">
+                          <i class="fas fa-times"></i>
+                        </button>
+                      @endif
+                    </form>
+                  @endcan
                 </td>
               </tr>
             @endforeach
