@@ -118,6 +118,7 @@ class PengurusController extends Controller
         if ($pengurus->nik !== $request->nik) {
             $rules['nik'] = 'required|unique:penguruses,nik';
         }
+        
         $validatedData = $request->validate($rules);
 
         $validatedData['pikr_id'] = auth()->user()->id;

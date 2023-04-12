@@ -24,7 +24,7 @@ class CreateKonselingsTable extends Migration
             $table->integer('jumlah_rawal');
             $table->integer('jumlah_rtengah');
             $table->integer('jumlah_rakhir');
-            $table->string('materi_lainnya');
+            $table->string('materi_lainnya')->nullable();
             $table->timestamps();
         });
     }

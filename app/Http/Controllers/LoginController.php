@@ -24,7 +24,7 @@ class LoginController extends Controller
       $request->session()->regenerate();
 
       Alert::success('Login Successful!');
-
+      
       return redirect()->intended('/');
     } else {
       Alert::error('Login Failed!');

@@ -16,9 +16,16 @@ class UserPikrController extends Controller
         ]);
     }
 
+    public function b_identitas()
+    {
+        return view('user-pikr/data/identitas', [
+            'title' => 'Identitas',
+            'pikr_info' => Pikr::where('user_id', \auth()->user()->id)->first(),    
+        ]);
+    }
+
     public function b_informasi()
     {
-        $stepper = Stepper::where('pikr_id', \auth()->user()->id)->first();
 
         $dikeluarkan = [
             'Kepala Desa',
@@ -72,7 +79,7 @@ class UserPikrController extends Controller
             $skData['pikr_id'] = $id;
             Sk::create($skData);
 
-            $informationData['sk_id'] = Sk::where('pikr_id', $id)->get()->toArray()['id'];
+            $informationData['sk_id'] = Sk::where('pikr_id', $id)->first()->id;
         }
 
         if ($request->has('sumber_dana')) {
@@ -82,8 +89,46 @@ class UserPikrController extends Controller
         }
 
         Pikr::where('user_id', $id)->update($informationData);
-        Stepper::where('pikr_id', $id)->update(['current_step' => 'step_2', 'step_2' => true]);
+        Stepper::where('pikr_id', $id)->update(['current_step' => 'Complete', 'informasi' => true]);
 
-        return \redirect('/up/data/informasi');
+        return \redirect('/up/data/informasi')->with('success', 'Data Berhasil Ditambahkan');
+    }
+
+    public function addSk(Request $request, $id)
+    {
+        $sk_rules = [
+            'no_sk' => 'required|unique:sks,no_sk',
+            'tanggal_sk' => 'required',
+            'dikeluarkan_oleh' => 'required',
+        ];
+
+        $skData = $request->validate($sk_rules);
+        $skData['pikr_id'] = $id;
+        
+        Sk::create($skData);
+        
+        Pikr::where('user_id', $id)->update(['sk_id' => Sk::where('pikr_id', $id)->first()->id]);
+        return \redirect('/up/data/informasi')->with('success', 'Data berhasil ditambahkan');
+    }
+    
+    public function updateSk(Request $request)
+    {
+        $id = $request->pikr_id;
+        $sk_rules = [
+            'tanggal_sk' => 'required',
+            'dikeluarkan_oleh' => 'required',
+        ];
+        
+        $sk = Sk::where('pikr_id', $id)->first();
+        
+        if ($sk->no_sk !== $request->no_sk) {
+            $sk_rules['no_sk'] = 'required|unique:sks,no_sk';
+        }
+        
+        $skData = $request->validate($sk_rules);
+        $skData['pikr_id'] = $id;
+
+        Sk::where('pikr_id', $id)->update($skData);
+        return \redirect('/up/data/informasi')->with('success', 'Data berhasil diubah');
     }
 }

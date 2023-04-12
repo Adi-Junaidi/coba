@@ -14,9 +14,10 @@ class CreateLaporansTable extends Migration
     public function up()
     {
         Schema::create('laporans', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->foreignId('pikr_id');
-            $table->date('tanggal');
+            $table->string('bulan');
+            $table->string('tahun');
             $table->timestamps();
         });
     }

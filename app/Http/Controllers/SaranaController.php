@@ -6,6 +6,7 @@ use App\Models\Sarana;
 use App\Http\Requests\StoreSaranaRequest;
 use App\Http\Requests\UpdateSaranaRequest;
 use App\Models\PikrSarana;
+use App\Models\Stepper;
 use Illuminate\Http\Request;
 
 class SaranaController extends Controller
@@ -20,11 +21,11 @@ class SaranaController extends Controller
         $kategori = Sarana::distinct()->pluck('kategori')->toArray();
         $sarana = Sarana::all();
 
-
         return view('user-pikr/data/sarana', [
             'title' => 'Sarana',
             'kategori' => $kategori,
             'sarana' => $sarana,
+            'sarana_pikr' => PikrSarana::where('pikr_id', \auth()->user()->id)->first(),
         ]);
     }
 
@@ -49,6 +50,7 @@ class SaranaController extends Controller
         $saranaData = $request->toArray();
         $saranaData['pikr_id'] = \auth()->user()->id;
         PikrSarana::create($saranaData);
+        Stepper::where('pikr_id', \auth()->user()->id)->update(['sarana' => true]);
         return \redirect('/up/dashboard');
 
         return $request;
@@ -83,9 +85,12 @@ class SaranaController extends Controller
      * @param  \App\Models\Sarana  $sarana
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSaranaRequest $request, Sarana $sarana)
+    public function update(Request $request)
     {
-        //
+        $id = \auth()->user()->id;
+
+        PikrSarana::where('pikr_id', $id)->update($request->except('_method', '_token'));
+        return \redirect('/up/data/sarana');
     }
 
     /**

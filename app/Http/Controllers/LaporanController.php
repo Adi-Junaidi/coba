@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Laporan;
 use App\Http\Requests\StoreLaporanRequest;
 use App\Http\Requests\UpdateLaporanRequest;
+use App\Models\Materi;
+use Illuminate\Http\Request;
 
 class LaporanController extends Controller
 {
@@ -13,9 +15,38 @@ class LaporanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
-        //
+        $bulan = [
+            1 => 'Januari',
+            2 => 'Februari',
+            3 => 'Maret',
+            4 => 'April',
+            5 => 'Mei',
+            6 => 'Juni',
+            7 => 'Juli',
+            8 => 'Agustus',
+            9 => 'September',
+            10 => 'Oktober',
+            11 => 'November',
+            12 => 'Desember',
+        ];
+
+        $tahunIni = Laporan::where('pikr_id', \session('pikr_id'))->where('tahun', \date('Y'))->pluck('bulan')->toArray();
+        $tahunKemarin = Laporan::where('pikr_id', \session('pikr_id'))->where('tahun', \date('Y') - 1)->pluck('bulan')->toArray();
+
+        $data = [
+            'title' => "Register Kegiatan",
+            'bulan' => $bulan,
+            'tahunIni' => $tahunIni,
+            'tahunKemarin' => $tahunKemarin,
+            'laporan_s' => Laporan::where('pikr_id', \session('pikr_id'))->orderBy('bulan', 'asc')->get(),
+            'materi_s' => Materi::all()
+        ];
+
+        return \view('user-pikr/register/kegiatan', $data);
     }
 
     /**
@@ -34,9 +65,9 @@ class LaporanController extends Controller
      * @param  \App\Http\Requests\StoreLaporanRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreLaporanRequest $request)
+    public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**
