@@ -72,8 +72,7 @@ class Pikr extends Model
     static::created(function ($pikr) {
       Stepper::create([
         'pikr_id' => $pikr->user->id,
-        'step_1' => true,
-        'current_step' => 'step_1',
+        'identitas' => true,
       ]);
     });
   }
