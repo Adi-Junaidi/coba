@@ -38,21 +38,23 @@
                             @foreach ($laporan_s as $laporan)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $bulan[$laporan->bulan_lapor - 1]['nama']    . ' ' . $laporan->tahun_lapor }}</td>
-                                    <td><span class="badge bg-light-danger">{{ $laporan->status }}</span></td>
+                                    <td>{{ $bulan[$laporan->bulan_lapor - 1]['nama'] . ' ' . $laporan->tahun_lapor }}
+                                    </td>
+                                    <td><span
+                                            class="badge bg-light-{{ $laporan->status == 'Submited' ? 'warning' : 'danger' }}">{{ $laporan->status }}</span>
+                                    </td>
                                     <td>
-                                        <a href="/up/kegiatan/{{ $laporan->id }}" class="btn btn-info btn-sm">
-                                            <i class="bi bi-plus-circle me-md-2"></i>
-                                            <span class="d-none d-md-inline">Tambah Dokumen</span>
-                                        </a>
-                                        <button class="btn btn-warning btn-sm">
-                                            <i class="bi bi-pencil-square me-md-2"></i>
-                                            <span class="d-none d-md-inline">Edit</span>
-                                        </button>
-                                        <button class="btn btn-success btn-sm">
-                                            <i class="bi bi-fast-forward me-md-2"></i>
-                                            <span class="d-none d-md-inline">Submit</span>
-                                        </button>
+                                        @if ($laporan->status == 'Not Submited')
+                                            <a href="/up/kegiatan/{{ $laporan->id }}" class="btn btn-info btn-sm">
+                                                <i class="bi bi-plus-circle me-md-2"></i>
+                                                <span class="d-none d-md-inline">Tambah Dokumen</span>
+                                            </a>
+                                            <button class="btn btn-success btn-sm btn_submit" data-bs-toggle="modal"
+                                                data-bs-target="#submitModal" data-id="{{ $laporan->id }}">
+                                                <i class="bi bi-fast-forward me-md-2"></i>
+                                                <span class="d-none d-md-inline">Submit</span>
+                                            </button>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -129,6 +131,65 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade text-left" id="submitModal" tabindex="-1" aria-labelledby="" style="display: none;"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h5 class="modal-title white" id="myModalLabel1">
+                        Final Submit Register Kegiatan
+                    </h5>
+                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+
+                <form method="post">
+                    @method('patch')
+                    @csrf
+                    <div class="modal-body">
+                        <h3 class="text-secondary mb-4">Konfirmasi Data</h3>
+
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="tempat">Tempat</label>
+                                <input type="text" class="form-control" id="tempat"
+                                    value="{{ $pikr->desa->kecamatan->nama }}" readonly>
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <label for="tanggal">Tanggal</label>
+                                <input type="text" class="form-control" id="tanggal" value="{{ date('d/m/Y') }}"
+                                    disabled readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pembina">Pembina Kelompok</label>
+                            <input type="text" class="form-control" id="pembina"
+                                value="{{ $pikr->pembina->nama }}" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ketua">Ketua Kelompok</label>
+                            <input type="text" class="form-control" id="ketua"
+                                value="{{ $ketua_info ? $ketua_info->nama : 'Ketua Kelompok Belum Di Set' }}" readonly>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Final Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endpush
 
 @push('scripts')
@@ -157,90 +218,10 @@
                 $('.btn-submit').removeAttr('hidden')
             })
 
-            $('#submit-pelayanan').click(function() {
-                status = validate('pelayanan');
-                if (status == 'true') {
-                    console.log(getAllInput('pelayanan'));
-                    $.ajax({
-                        url: '/kegiatan/pelayanan',
-                        type: 'GET',
-                        data: getAllInput('pelayanan'),
-                        dataType: 'json',
-                        success: function(response) {
-
-                            console.log(response);
-                            // // Kosongkan isi tabel
-                            // $('#table-data tbody').empty();
-
-                            // // Tambahkan data ke tabel
-                            // $.each(response, function(index, value) {
-                            //     $('#table-data tbody').append('<tr><td>' + (index + 1) +
-                            //         '</td><td>' + value.nama + '</td><td>' + value
-                            //         .umur + '</td></tr>');
-                            // });
-                        },
-                        error: function(xhr, status, error) {
-                            console.log(xhr.responseText);
-                        }
-                    });
-                } else {
-                    console.log('o');
-                }
+            $('.btn_submit').click(function() {
+                const id = $(this).data('id')
+                $('#submitModal form').attr('action', '/up/kegiatan/' + id)
             })
-
         });
-    </script>
-
-    <script>
-        function errorAlert(text) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: text,
-            })
-        }
-
-        function validate(param) {
-
-            status = true
-
-            $("#" + param + "-part :input[type='number']").each(function() {
-                if ($(this).val() < 1) {
-                    errorAlert('Jumlah peserta tidak valid');
-                    status = false
-                }
-            })
-
-            $("#" + param + "-part :input").each(function() {
-                if ($(this).val() === '') {
-                    errorAlert('Harap semua field di isi');
-                    status = false
-                }
-            })
-
-            return status
-        }
-
-        function getAllInput(param) {
-            const data = {}
-            const key = [
-                'tanggal',
-                'nama',
-                'materi',
-                'materi_lainnya',
-                'jabatan_narsum',
-                'narsum_lainnya',
-                'narsum',
-                'jumlah_peserta',
-            ]
-            let x = 0
-
-            $("#" + param + "-part :input").each(function() {
-                data[key[x]] = ($(this).val())
-                x++
-            })
-
-            return data
-        }
     </script>
 @endpush

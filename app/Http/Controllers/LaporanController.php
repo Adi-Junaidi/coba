@@ -12,6 +12,7 @@ use App\Http\Requests\UpdateLaporanRequest;
 use App\Models\Konseling;
 use App\Models\KonselingKelompok;
 use App\Models\PelayananInformasi;
+use App\Models\Pikr;
 
 class LaporanController extends Controller
 {
@@ -48,7 +49,9 @@ class LaporanController extends Controller
             'tahunIni' => $tahunIni,
             'tahunKemarin' => $tahunKemarin,
             'laporan_s' => Laporan::where('pikr_id', \session('pikr_id'))->orderBy('bulan_lapor', 'asc')->get(),
-            'materi_s' => Materi::all()
+            'materi_s' => Materi::all(),
+            'pikr' => Pikr::find(\auth()->user()->pikr->id),
+            'ketua_info' => Pengurus::where('jabatan', 'Ketua')->first()
         ];
 
         return \view('user-pikr/kegiatan/index', $data);
@@ -137,9 +140,10 @@ class LaporanController extends Controller
      * @param  \App\Models\Laporan  $laporan
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateLaporanRequest $request, Laporan $laporan)
+    public function update(Laporan $kegiatan)
     {
-        //
+        $kegiatan->update(['status' => 'Submited']);
+        return \redirect()->back()->with('success', 'Data berhasil disubmit, silahkan menunggu konfirmasi lanjutan');
     }
 
     /**
