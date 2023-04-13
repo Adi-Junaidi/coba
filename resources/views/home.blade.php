@@ -2,7 +2,7 @@
 
 @section('main')
   <!-- Berita -->
-  <section class="py-5" id="berita">
+  <section class="py-5" id="artikel">
     <div class="container">
       <div class="d-flex w-75 align-items-center mx-auto mb-5 gap-5">
         <hr class="bg-primary" style="flex-grow: 1; height: 2px; border: none; opacity: 1" />
@@ -13,12 +13,12 @@
       <div class="row">
         @foreach ($articles as $article)
           <div class="col-12 col-sm-6 col-md-4">
-            <div class="card">
-              <img class="card-img-top" src="{{ uploads($article->image) }}" alt="{{ $article->title }}" />
+            <div class="card shadow">
+              <img class="card-img-top" src="{{ asset("storage/{$article->image}") }}" alt="{{ $article->title }}" style="aspect-ratio: 2/1; object-fit: cover;" />
               <div class="card-body">
                 <h5 class="card-title mb-0">{{ $article->title }}</h5>
                 <p class="text-muted fs-6">PIK-R: {{ $article->pikr->nama }}</p>
-                <p class="card-text">{{ $article->getTruncatedBody() }}</p>
+                {{-- <div class="card-text clamp">{!! $article->body !!}</div> --}}
                 <a class="btn icon btn-primary d-inline-flex align-items-center gap-2" href="/article/{{ $article->id }}/read">Selengkapnya<i class="bi bi-arrow-right d-flex align-items-center"></i></a>
               </div>
             </div>

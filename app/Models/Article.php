@@ -30,17 +30,4 @@ class Article extends Model
   {
     return $this->belongsTo(Pikr::class);
   }
-
-  public function getTruncatedBody($length = 150, $append = "&hellip;")
-  {
-    $string = trim($this->body);
-
-    if (strlen($string) > $length) {
-      $string = wordwrap($string, $length);
-      $string = explode('\n', $string, 2);
-      $string = $string[0] . $append;
-    }
-
-    return $string;
-  }
 }
