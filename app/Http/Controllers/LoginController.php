@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -20,11 +21,17 @@ class LoginController extends Controller
       'password' => 'required'
     ]);
 
+    $pikr = User::where('username', $credentials['username'])->first()?->pikr;
+    if ($pikr && !$pikr->verified) {
+      return back()->with('error', "{$pikr->nama} belum diverifikasi oleh PLKB setempat");
+    }
+
     if (Auth::attempt($credentials)) {
+
       $request->session()->regenerate();
 
       Alert::success('Login Successful!');
-      
+
       return redirect()->intended('/');
     } else {
       Alert::error('Login Failed!');

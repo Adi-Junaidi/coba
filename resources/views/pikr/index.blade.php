@@ -116,12 +116,12 @@
                       @csrf
 
                       @if ($p->verified)
-                        <button class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" type="submit" title="Verifikasi">
-                          <i class="fas fa-check"></i>
-                        </button>
-                      @else
                         <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" type="submit" title="Batal Verifikasi">
                           <i class="fas fa-times"></i>
+                        </button>
+                      @else
+                        <button class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" type="submit" title="Verifikasi">
+                          <i class="fas fa-check"></i>
                         </button>
                       @endif
                     </form>
