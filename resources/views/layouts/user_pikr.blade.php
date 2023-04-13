@@ -51,6 +51,18 @@
     @stack('custom_js')
     @stack('scripts')
 
+    @error('fail')
+        <script>
+            alert('{{ $message }}')
+        </script>
+    @enderror
+
+    @if(session()->has('success'))
+        <script>
+            alert('{{ session("success") }}')
+        </script>
+    @endif
+
 
 </body>
 

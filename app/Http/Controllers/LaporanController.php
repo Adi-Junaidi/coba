@@ -9,6 +9,8 @@ use App\Models\Pengurus;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreLaporanRequest;
 use App\Http\Requests\UpdateLaporanRequest;
+use App\Models\Konseling;
+use App\Models\KonselingKelompok;
 use App\Models\PelayananInformasi;
 
 class LaporanController extends Controller
@@ -92,6 +94,7 @@ class LaporanController extends Controller
     public function show(Laporan $kegiatan)
     {
         if(\session('pikr_id') != $kegiatan->pikr_id) abort(403);
+        if($kegiatan->status != "Not Submited") abort(403);
 
         $materi_s = Materi::all();
         $pembina_s = Pembina::all()->pluck('nama');
@@ -107,7 +110,10 @@ class LaporanController extends Controller
             'pembina_s' => $pembina_s,
             'narsum' => $narsum,
             'laporan' => $kegiatan,
-            'pelayanan_s' => PelayananInformasi::where('laporan_id', $kegiatan->id)->get()
+            'konseb_s' => Pengurus::where('jabatan', 'Konselor Sebaya')->get(),
+            'pelayanan_s' => PelayananInformasi::where('laporan_id', $kegiatan->id)->get(),
+            'ki_s' => Konseling::where('laporan_id', $kegiatan->id)->get(),
+            'kk_s' => KonselingKelompok::where('laporan_id', $kegiatan->id)->get(),
         ];
 
         return \view('user-pikr/kegiatan/create', $data);

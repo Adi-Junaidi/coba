@@ -65,7 +65,7 @@
         </div>
 
         <div class="row">
-            <div class="form-group col-sm-2">
+            <div class="form-group col-sm-4 col-md-3">
                 <label for="tanggal_pelayanan">Tanggal Kegiatan</label>
                 <input class="form-control @error('tanggal_pelayanan') is-invalid @enderror" id="tanggal_pelayanan"
                     name="tanggal_pelayanan" type="date" placeholder="Masukkan Judul Artikel"
@@ -75,7 +75,7 @@
                 @enderror
             </div>
 
-            <div class="form-group col-sm-10">
+            <div class="form-group col-sm-8 col-md-9">
                 <label for="jumlah_remaja">Jumlah Remaja Yang Mengikuti Kegiatan</label>
                 <input min="1" class="form-control @error('jumlah_remaja') is-invalid @enderror"
                     id="jumlah_remaja" name="jumlah_remaja" type="number" value="{{ old('jumlah_remaja') }}"
@@ -118,7 +118,7 @@
                             <td>{{ $pelayanan->narsum }}</td>
                             <td>{{ $pelayanan->jumlah_peserta }}</td>
                             <td>
-                                <button class="btn btn-danger delete_btn" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                <button class="btn btn-danger delete_btn_pelayanan" data-bs-toggle="modal" data-bs-target="#deleteModal"
                                     data-nama="{{ $pelayanan->nama }}" data-id="{{ $pelayanan->id }}">
                                     <i class="bi bi-trash3"></i>
                                 </button>
@@ -208,7 +208,7 @@
             }
         })
 
-        $('.delete_btn').click(function() {
+        $('.delete_btn_pelayanan').click(function() {
             const id = $(this).data('id')
             const nama = $(this).data('nama')
             $('#deleteModal form').attr('action', '/kegiatan/pelayanan/' + id)

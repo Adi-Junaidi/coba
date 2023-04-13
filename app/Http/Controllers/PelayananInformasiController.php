@@ -47,11 +47,11 @@ class PelayananInformasiController extends Controller
             'nama_narsum_pelayanan' => 'required',
         ];
         
-        $request->validate($rules);
-        
         if($request->materi_pelayanan == "Lainnya"){
             $rules['materi_pelayanan_lainnya'] = 'required';
         }
+        
+        $request->validate($rules);
         
         $storeData = [
             'pikr_id' => \session('pikr_id'),

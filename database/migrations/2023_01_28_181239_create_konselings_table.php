@@ -15,7 +15,7 @@ class CreateKonselingsTable extends Migration
     {
         Schema::create('konselings', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreignId('materi_id');
+            $table->foreignId('materi_id')->default(0);
             $table->foreignId('pengurus_id');
             $table->foreignId('laporan_id');
             $table->date('tanggal');
