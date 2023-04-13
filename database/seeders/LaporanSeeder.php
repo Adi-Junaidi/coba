@@ -16,18 +16,18 @@ class LaporanSeeder extends Seeder
     {
         Laporan::create([
             "pikr_id" => "1",
-            "bulan" => "5",
-            "tahun" => "2022",
+            "bulan_lapor" => "5",
+            "tahun_lapor" => "2022",
         ]);
         Laporan::create([
             "pikr_id" => "1",
-            "bulan" => "3",
-            "tahun" => "2022",
+            "bulan_lapor" => "3",
+            "tahun_lapor" => "2022",
         ]);
         Laporan::create([
             "pikr_id" => "1",
-            "bulan" => "4",
-            "tahun" => "2022",
+            "bulan_lapor" => "4",
+            "tahun_lapor" => "2022",
         ]);
 
     }

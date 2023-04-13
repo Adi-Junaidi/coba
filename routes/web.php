@@ -16,11 +16,9 @@ use App\Http\Controllers\MitraPikrController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\PelayananInformasiController;
 use App\Http\Controllers\PikrController;
 use App\Http\Controllers\RegistrasiKegiatanController;
-use App\Http\Controllers\SkController;
-use App\Models\Laporan;
-use App\Models\PelayananInformasi;
 
 Route::get('/', function () {
   if (auth()->user()->isPikr()) {
@@ -70,11 +68,13 @@ Route::middleware('stepCheck', 'auth')->group(function () {
         '/up/data/sarana' => SaranaController::class,
         '/up/data/mitra' => MitraPikrController::class,
         '/up/data/pengurus' => PengurusController::class,
-    ]);
-    Route::resources([
-        '/up/register/kegiatan' => LaporanController::class,
+        '/up/kegiatan' => LaporanController::class,
         '/up/article' => ArticleController::class,
+        '/kegiatan/pelayanan' => PelayananInformasiController::class,
     ]);
     Route::get('/kegiatan/pelayanan', [AjaxController::class, 'kegiatan_pelayanan']);
     Route::get('/utility/check-slug', [ArticleController::class, 'checkSlug']);
+    Route::get('/utility/getPendidikSebaya', [PelayananInformasiController::class, 'getPendidikSebaya']);
+    Route::get('/utility/getKonselorSebaya', [PelayananInformasiController::class, 'getKonselorSebaya']);
+    Route::get('/utility/getPLKB', [PelayananInformasiController::class, 'getPLKB']);
 });
