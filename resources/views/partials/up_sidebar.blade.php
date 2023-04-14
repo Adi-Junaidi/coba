@@ -51,53 +51,50 @@
                     </a>
                 </li>
 
-                @if (session('stepper')->current_step !== 'finish')
-                    <li class="sidebar-item has-sub {{ Request::is('up/data*') ? 'active' : '' }}">
-                        <a class='sidebar-link' href="#">
-                            <i class="bi bi-person-bounding-box"></i>
-                            <span>Data PIK-R</span>
-                        </a>
+                <li class="sidebar-item has-sub {{ Request::is('up/data*') ? 'active' : '' }}">
+                    <a class='sidebar-link' href="#">
+                        <i class="bi bi-person-bounding-box"></i>
+                        <span>Data PIK-R</span>
+                    </a>
 
-                        <ul class="submenu {{ Request::is('up/data*') ? 'active' : '' }}">
+                    <ul class="submenu {{ Request::is('up/data*') ? 'active' : '' }}">
 
-                            <li class="submenu-item {{ Request::is('up/data/identitas') ? 'active' : '' }}">
-                                <a href="/up/data/identitas">Indentitas Kelompok</a>
-                            </li>
+                        <li class="submenu-item {{ Request::is('up/data/identitas') ? 'active' : '' }}">
+                            <a href="/up/data/identitas">Indentitas Kelompok</a>
+                        </li>
 
-                            <li class="submenu-item {{ Request::is('up/data/informasi') ? 'active' : '' }}">
-                                <a href="/up/data/informasi">Informasi Kelompok</a>
-                            </li>
+                        <li class="submenu-item {{ Request::is('up/data/informasi') ? 'active' : '' }}">
+                            <a href="/up/data/informasi">Informasi Kelompok</a>
+                        </li>
 
-                            <li class="submenu-item {{ Request::is('up/data/materi') ? 'active' : '' }}">
-                                <a href="/up/data/materi">Ketersediaan Materi</a>
-                            </li>
+                        <li class="submenu-item {{ Request::is('up/data/materi') ? 'active' : '' }}">
+                            <a href="/up/data/materi">Ketersediaan Materi</a>
+                        </li>
 
-                            <li class="submenu-item {{ Request::is('up/data/sarana') ? 'active' : '' }}">
-                                <a href="/up/data/sarana">Ketersediaan Sarana</a>
-                            </li>
+                        <li class="submenu-item {{ Request::is('up/data/sarana') ? 'active' : '' }}">
+                            <a href="/up/data/sarana">Ketersediaan Sarana</a>
+                        </li>
 
-                            <li class="submenu-item {{ Request::is('up/data/mitra') ? 'active' : '' }}">
-                                <a href="/up/data/mitra">Mitra</a>
-                            </li>
+                        <li class="submenu-item {{ Request::is('up/data/mitra') ? 'active' : '' }}">
+                            <a href="/up/data/mitra">Mitra</a>
+                        </li>
 
-                            <li class="submenu-item {{ Request::is('up/data/pengurus') ? 'active' : '' }}">
-                                <a href="/up/data/pengurus">Pengurus</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-item {{ Request::is('up/register/kegiatan') ? 'active' : '' }}">
-                        <a href="/up/register/kegiatan" class="sidebar-link">
-                            <i class="bi bi-r-circle-fill"></i>
-                            <span>Register Kegiatan</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item {{ Request::is('up/article*') ? 'active' : '' }}">
-                        <a href="/up/article" class="sidebar-link">
-                            <i class="bi bi-filetype-pdf"></i>
-                            <span>Artikel</span>
-                        </a>
-                @else
-                @endif
+                        <li class="submenu-item {{ Request::is('up/data/pengurus') ? 'active' : '' }}">
+                            <a href="/up/data/pengurus">Pengurus</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item {{ Request::is('up/kegiatan*') ? 'active' : '' }}">
+                    <a href="/up/kegiatan" class="sidebar-link">
+                        <i class="bi bi-r-circle-fill"></i>
+                        <span>Register Kegiatan</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('up/article*') ? 'active' : '' }}">
+                    <a href="/up/article" class="sidebar-link">
+                        <i class="bi bi-filetype-pdf"></i>
+                        <span>Artikel</span>
+                    </a>
 
             </ul>
         </div>

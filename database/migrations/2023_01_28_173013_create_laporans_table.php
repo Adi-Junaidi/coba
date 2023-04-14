@@ -16,8 +16,9 @@ class CreateLaporansTable extends Migration
         Schema::create('laporans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pikr_id');
-            $table->string('bulan');
-            $table->string('tahun');
+            $table->string('bulan_lapor');
+            $table->string('tahun_lapor');
+            $table->string('status')->default('Not Submited');
             $table->timestamps();
         });
     }

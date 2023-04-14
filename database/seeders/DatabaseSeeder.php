@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
       MateriSeeder::class,
       SaranaSeeder::class,
       LaporanSeeder::class,
+      PengurusSeeder::class,
     ]);
   }
 }

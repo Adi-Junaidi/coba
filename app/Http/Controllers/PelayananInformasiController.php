@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\PelayananInformasi;
 use App\Http\Requests\StorePelayananInformasiRequest;
 use App\Http\Requests\UpdatePelayananInformasiRequest;
+use App\Models\Pembina;
+use App\Models\Pengurus;
+use Illuminate\Http\Request;
 
 class PelayananInformasiController extends Controller
 {
@@ -34,9 +37,41 @@ class PelayananInformasiController extends Controller
      * @param  \App\Http\Requests\StorePelayananInformasiRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePelayananInformasiRequest $request)
+    public function store(Request $request)
     {
-        //
+
+        $rules = [
+            'tanggal_pelayanan' => 'required',
+            'nama_pelayanan' => 'required',
+            'jumlah_remaja' => 'required|integer|min:1',
+            'nama_narsum_pelayanan' => 'required',
+        ];
+        
+        if($request->materi_pelayanan == "Lainnya"){
+            $rules['materi_pelayanan_lainnya'] = 'required';
+        }
+        
+        $request->validate($rules);
+        
+        $storeData = [
+            'pikr_id' => \session('pikr_id'),
+            'materi_id' => $request->materi_pelayanan,
+            'laporan_id' => $request->laporan_id,
+            'tanggal' => $request->tanggal_pelayanan,
+            'nama' => $request->nama_pelayanan,
+            'narsum' => $request->nama_narsum_pelayanan,
+            'jabatan_narsum' => $request->narsum_pelayanan,
+            'jumlah_peserta' => $request->jumlah_remaja,
+        ];
+        
+        if($request->materi_pelayanan == "Lainnya"){
+            $storeData['materi_id'] = 0;
+            $storeData['materi_lainnya'] = $request->materi_pelayanan_lainnya;
+        }
+
+        PelayananInformasi::create($storeData);
+
+        return \redirect()->back()->with('success', 'Pelayanan Informasi Berhasil Ditambahkan');
     }
 
     /**
@@ -79,8 +114,27 @@ class PelayananInformasiController extends Controller
      * @param  \App\Models\PelayananInformasi  $pelayananInformasi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PelayananInformasi $pelayananInformasi)
+    public function destroy(PelayananInformasi $pelayanan)
     {
-        //
+        $pelayanan->delete();
+        return \redirect()->back()->with('success'. 'Data Berhasil Dihapus');
+    }
+
+    public function getPendidikSebaya()
+    {
+        $data = Pengurus::where('jabatan', 'Pendidik Sebaya')->get();
+        return \response()->json($data);
+    }
+
+    public function getKonselorSebaya()
+    {
+        $data = Pengurus::where('jabatan', 'Konselor Sebaya')->get();
+        return \response()->json($data);
+    }
+
+    public function getPLKB()
+    {
+        $data = Pembina::all();
+        return \response()->json($data);
     }
 }

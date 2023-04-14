@@ -13,7 +13,7 @@
     <link href="{{ asset('dist') }}/assets/css/shared/iconly.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
 
-    @stack('custom_css')\
+    @stack('custom_css')
 
 </head>
 
@@ -50,6 +50,18 @@
     @stack('modal')
     @stack('custom_js')
     @stack('scripts')
+
+    @error('fail')
+        <script>
+            alert('{{ $message }}')
+        </script>
+    @enderror
+
+    @if(session()->has('success'))
+        <script>
+            alert('{{ session("success") }}')
+        </script>
+    @endif
 
 
 </body>

@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Materi;
 use App\Models\Laporan;
+use App\Models\Pembina;
+use App\Models\Pengurus;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreLaporanRequest;
 use App\Http\Requests\UpdateLaporanRequest;
-use App\Models\Materi;
-use Illuminate\Http\Request;
+use App\Models\Konseling;
+use App\Models\KonselingKelompok;
+use App\Models\PelayananInformasi;
+use App\Models\Pikr;
 
 class LaporanController extends Controller
 {
@@ -19,34 +25,36 @@ class LaporanController extends Controller
 
     public function index()
     {
-        $bulan = [
-            1 => 'Januari',
-            2 => 'Februari',
-            3 => 'Maret',
-            4 => 'April',
-            5 => 'Mei',
-            6 => 'Juni',
-            7 => 'Juli',
-            8 => 'Agustus',
-            9 => 'September',
-            10 => 'Oktober',
-            11 => 'November',
-            12 => 'Desember',
-        ];
+        $bulan = array(
+            array('value' => 1, 'nama' => 'Januari'),
+            array('value' => 2, 'nama' => 'Februari'),
+            array('value' => 3, 'nama' => 'Maret'),
+            array('value' => 4, 'nama' => 'April'),
+            array('value' => 5, 'nama' => 'Mei'),
+            array('value' => 6, 'nama' => 'Juni'),
+            array('value' => 7, 'nama' => 'Juli'),
+            array('value' => 8, 'nama' => 'Agustus'),
+            array('value' => 9, 'nama' => 'September'),
+            array('value' => 10, 'nama' => 'Oktober'),
+            array('value' => 11, 'nama' => 'November'),
+            array('value' => 12, 'nama' => 'Desember')
+        );
 
-        $tahunIni = Laporan::where('pikr_id', \session('pikr_id'))->where('tahun', \date('Y'))->pluck('bulan')->toArray();
-        $tahunKemarin = Laporan::where('pikr_id', \session('pikr_id'))->where('tahun', \date('Y') - 1)->pluck('bulan')->toArray();
+        $tahunIni = Laporan::where('pikr_id', \session('pikr_id'))->where('tahun_lapor', \date('Y'))->pluck('bulan_lapor')->toArray();
+        $tahunKemarin = Laporan::where('pikr_id', \session('pikr_id'))->where('tahun_lapor', \date('Y') - 1)->pluck('bulan_lapor')->toArray();
 
         $data = [
             'title' => "Register Kegiatan",
             'bulan' => $bulan,
             'tahunIni' => $tahunIni,
             'tahunKemarin' => $tahunKemarin,
-            'laporan_s' => Laporan::where('pikr_id', \session('pikr_id'))->orderBy('bulan', 'asc')->get(),
-            'materi_s' => Materi::all()
+            'laporan_s' => Laporan::where('pikr_id', \session('pikr_id'))->orderBy('bulan_lapor', 'asc')->get(),
+            'materi_s' => Materi::all(),
+            'pikr' => Pikr::find(\auth()->user()->pikr->id),
+            'ketua_info' => Pengurus::where('jabatan', 'Ketua')->first()
         ];
 
-        return \view('user-pikr/register/kegiatan', $data);
+        return \view('user-pikr/kegiatan/index', $data);
     }
 
     /**
@@ -67,7 +75,17 @@ class LaporanController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        // return $request;
+        $validateData =  $request->validate([
+            'bulan_lapor' => 'required',
+            'tahun_lapor' => 'required',
+        ]);
+
+        $validateData['pikr_id'] = \session('pikr_id');
+
+        Laporan::create($validateData);
+
+        return \redirect('/up/kegiatan')->with('success', 'Laporan berhasil ditambahkan');
     }
 
     /**
@@ -76,9 +94,32 @@ class LaporanController extends Controller
      * @param  \App\Models\Laporan  $laporan
      * @return \Illuminate\Http\Response
      */
-    public function show(Laporan $laporan)
+    public function show(Laporan $kegiatan)
     {
-        //
+        if(\session('pikr_id') != $kegiatan->pikr_id) abort(403);
+        if($kegiatan->status != "Not Submited") abort(403);
+
+        $materi_s = Materi::all();
+        $pembina_s = Pembina::all()->pluck('nama');
+        $narsum = [
+            'PKB/PLKB',
+            'Pendidik Sebaya',
+            'Konselor Sebaya',
+        ];
+            
+        $data = [
+            'title' => 'Tambah Kegiatan',
+            'materi_s' => $materi_s,
+            'pembina_s' => $pembina_s,
+            'narsum' => $narsum,
+            'laporan' => $kegiatan,
+            'konseb_s' => Pengurus::where('jabatan', 'Konselor Sebaya')->get(),
+            'pelayanan_s' => PelayananInformasi::where('laporan_id', $kegiatan->id)->get(),
+            'ki_s' => Konseling::where('laporan_id', $kegiatan->id)->get(),
+            'kk_s' => KonselingKelompok::where('laporan_id', $kegiatan->id)->get(),
+        ];
+
+        return \view('user-pikr/kegiatan/create', $data);
     }
 
     /**
@@ -99,9 +140,10 @@ class LaporanController extends Controller
      * @param  \App\Models\Laporan  $laporan
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateLaporanRequest $request, Laporan $laporan)
+    public function update(Laporan $kegiatan)
     {
-        //
+        $kegiatan->update(['status' => 'Submited']);
+        return \redirect()->back()->with('success', 'Data berhasil disubmit, silahkan menunggu konfirmasi lanjutan');
     }
 
     /**

@@ -16,7 +16,7 @@ class CreatePelayananInformasisTable extends Migration
         Schema::create('pelayanan_informasis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pikr_id');
-            $table->foreignId('materi_id');
+            $table->foreignId('materi_id')->default(0);
             $table->foreignId('laporan_id');
             $table->date('tanggal');
             $table->string('nama');
