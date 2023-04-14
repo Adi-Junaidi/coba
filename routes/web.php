@@ -34,8 +34,9 @@ Route::get('/', function () {
 });
 
 Route::get('/home', function () {
-  $articles = Article::all();
-  return view('home', compact('articles'));
+  return view('landing.home', [
+    'articles' => Article::orderBy('updated_at', 'desc')->get()
+  ]);
 })->middleware('guest');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
@@ -45,9 +46,9 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
 
-Route::get('/main', function () {
-  return view('/main');
-})->middleware('auth');
+Route::get('/articles', [ArticleController::class, 'index']);
+Route::get('/articles', [ArticleController::class, 'showAll']);
+Route::get('/articles/{article}', [ArticleController::class, 'show']);
 
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
