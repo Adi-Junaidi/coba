@@ -46,9 +46,13 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
 
+// Landing
 Route::get('/articles', [ArticleController::class, 'index']);
 Route::get('/articles', [ArticleController::class, 'showAll']);
 Route::get('/articles/{article}', [ArticleController::class, 'show']);
+Route::get('/leaderboard', function () {
+  return view('landing.leaderboard');
+});
 
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');

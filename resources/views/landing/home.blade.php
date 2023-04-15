@@ -27,6 +27,12 @@
         <h2 class="text-primary text-center">Pemeringkatan</h2>
         <hr class="bg-primary" style="flex-grow: 1; height: 2px; border: none; opacity: 1" />
       </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          @include('partials.leaderboard');
+        </div>
+      </div>
     </div>
   </section>
   <!-- End LeaderBoard -->
