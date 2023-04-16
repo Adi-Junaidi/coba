@@ -11,206 +11,112 @@
         <div class="mb-5 p-4 bg-white shadow-sm">
             <div class="form-group">
                 <label for="nama">Nama PIK-R</label>
-                <input class="form-control" id="nama" type="text"
-                    value="{{ $pikr_info->nama }}" disabled>
+                <input class="form-control" id="nama" type="text" value="{{ $pikr_info->nama }}" disabled>
             </div>
 
             <div class="form-group">
-                <label for="nama">Basis PIK-R</label>
-                <input class="form-control" id="nama" type="text"
-                    value="{{ $pikr_info->basis }}" disabled>
+                <label for="basis">Basis PIK-R</label>
+                <input class="form-control" id="basis" type="text" value="{{ $pikr_info->basis }}" disabled>
             </div>
 
             <div class="form-group">
-                <label for="nama">Sosial Media PIK-R</label>
-                <input class="form-control" id="nama" type="text"
-                    value="{{ $pikr_info->akun_medsos }}" disabled>
+                <label for="sosmed">Sosial Media PIK-R</label>
+                <input class="form-control" id="sosmed" type="text" value="{{ $pikr_info->akun_medsos }}"
+                 disabled>
             </div>
             <div class="row">
                 <div class="form-group col-sm-4">
                     <label for="alamat">Alamat</label>
-                    <input class="form-control" id="alamat" name="alamat" type="text"
+                    <input class="form-control" id="alamat" type="text"
                         value="{{ $pikr_info->alamat }}" disabled>
                 </div>
-    
+
                 <div class="form-group col-sm-4">
                     <label for="provinsi">Provinsi</label>
-                    <input class="form-control" id="provinsi" name="provinsi" type="text" value="{{ $pikr_info->desa->kecamatan->kabkota->provinsi->nama }}"
-                        disabled>
+                    <input class="form-control" id="provinsi" type="text"
+                        value="{{ $pikr_info->desa->kecamatan->kabkota->provinsi->nama }}" disabled>
                 </div>
-    
+
                 <div class="form-group col-sm-4">
                     <label for="kabkota">Kabupaten/Kota</label>
-                    <input class="form-control" id="kabkota" name="kabkota" type="text"
+                    <input class="form-control" id="kabkota" type="text"
                         value="{{ $pikr_info->desa->kecamatan->kabkota->nama }}" disabled>
                 </div>
-    
+
             </div>
             <div class="row">
-    
+
                 <div class="form-group col-sm-6">
                     <label for="kecamatan">Kecamatan</label>
-                    <input class="form-control" id="kecamatan" name="kecamatan" type="text"
+                    <input class="form-control" id="kecamatan" type="text"
                         value="{{ $pikr_info->desa->kecamatan->nama }}" disabled>
                 </div>
-    
+
                 <div class="form-group col-sm-6">
                     <label for="desa">Desa/Kelurahan</label>
-                    <input class="form-control" id="desa" name="desa_id" type="text"
+                    <input class="form-control" id="desa" type="text"
                         value="{{ $pikr_info->desa->nama }}" disabled>
                 </div>
             </div>
 
-
             <div class="mt-4">
-                <button class="btn btn-primary">Update</button>
+                <button data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-primary">Edit</button>
             </div>
 
         </div>
     </section>
 @endsection
 
+@push('modal')
+    <div class="modal fade text-left" id="editModal" tabindex="-1" aria-labelledby="" style="display: none;"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title white" id="myModalLabel1">Edit Data</h5>
+                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            <form method="post" action="/up/data/identitas/{{ $pikr_info->id }}">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="sosmed">Sosial Media PIK-R</label>
+                            <input class="form-control" id="sosmed" type="text"
+                                value="{{ $pikr_info->akun_medsos }}" name="sosmed">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-bs-dismiss="modal">
+                            <i class="bx bx-x d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Close</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+                            <i class="bx bx-check d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Update</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endpush
+
 @push('custom_js')
     <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
     <script src="/assets/js/bs-stepper.js"></script>
 @endpush
 
-{{-- <div class="bs-stepper">
-    <div class="bs-stepper-header" role="tablist">
-        <!-- your steps here -->
-        <div class="step" data-target="#identitas-part">
-            <button type="button" class="step-trigger" role="tab" aria-controls="identitas-part"
-                id="identitas-part-trigger">
-                <span class="bs-stepper-circle">1</span>
-                <span class="bs-stepper-label d-lg-inline-block d-none small">Identitas Kelompok</span>
-            </button>
-        </div>
-        <div class="line"></div>
-        <div class="step" data-target="#alamat-part">
-            <button type="button" class="step-trigger" role="tab" aria-controls="alamat-part"
-                id="alamat-part-trigger">
-                <span class="bs-stepper-circle">2</span>
-                <span class="bs-stepper-label d-lg-inline-block d-none small">Alamat Kelompok</span>
-            </button>
-        </div>
-
-    </div>
-
-    <div class="bs-stepper-content">
-        <!-- your steps content here -->
-        <div id="identitas-part" class="content" role="tabpanel" aria-labelledby="identitas-part-trigger">
-            <div class="form-group">
-                <label for="nama">Nama PIK-R</label>
-                <input class="form-control" id="nama" type="text"
-                    value="{{ $pikr_info->nama }}" disabled>
-            </div>
-
-            <div class="form-group">
-                <label for="nama">Basis PIK-R</label>
-                <input class="form-control" id="nama" type="text"
-                    value="{{ $pikr_info->basis }}" disabled>
-            </div>
-
-            <div class="form-group">
-                <label for="nama">Sosial Media PIK-R</label>
-                <input class="form-control" id="nama" type="text"
-                    value="{{ $pikr_info->akun_medsos }}" disabled>
-            </div>
-            
-            <div class="form-group">
-                <label for="basis">Basis PIK-R</label>
-                <select class="form-select" id="basis" name="basis">
-                    <option hidden>Pilih Basis PIK-R</option>
-                    <optgroup label="Jalur Pendidikan">
-                        <option value="SMP/Sederajat">Jalur Pendidikan - SMP/Sederajat</option>
-                        <option value="SMA/Sederajat">Jalur Pendidikan - SMA/Sederajat</option>
-                        <option value="Perguruan Tinggi">Jalur Pendidikan - Perguruan Tinggi</option>
-                    </optgroup>
-                    <optgroup label="Jalur Masyarakat">
-                        <option value="Organisasi Keagamaan">Jalur Masyarakat - Organisasi Keagamaan</option>
-                        <option value="LSM/Organisasi Kepemudaan/Organisasi Kemasyarakatan">Jalur Masyarakat -
-                            LSM/Organisasi Kepemudaan/Organisasi Kemasyarakatan</option>
-                    </optgroup>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="nama">Nama Pembina PIK-R</label>
-                <input class="form-control" id="nama" type="text"
-                    value="{{ $pikr_info->pembina->nama }}" disabled>
-            </div>
-
-            <div class="form-group">
-                <label for="pembina">Jabatan Pembina</label>
-                <select class="form-select" id="selectPembina">
-                    <option hidden>Pilih Jabatan</option>
-                    <option value="1">PKB/PLKB</option>
-                </select>
-            </div>
-
-
-            <div class="form-group">
-                <label for="punyaMedsos">Akun Media Sosial</label>
-                <select class="form-select" id="punyaMedsos">
-                    <option hidden>Punya Akun Media Sosial?</option>
-                    <option value="1">Ada</option>
-                    <option value="0">Tidak</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="akunMedsos">Nama Akun Media Sosial</label>
-                <input class="form-control" id="akunMedsos" name="akun_medsos" type="text"
-                    placeholder="Masukkan Nama Akun Media Sosial" disabled>
-            </div>
-
-            <button class="btn btn-primary mt-3" onclick="stepper.next()">Selanjutnya</button>
-        </div>
-
-
-        <div id="alamat-part" class="content" role="tabpanel" aria-labelledby="informasi-part-trigger">
-            <div class="form-group">
-                <label for="alamat">Alamat</label>
-                <input class="form-control" id="alamat" name="alamat" type="text"
-                    placeholder="Masukkan Alamat PIK-R">
-            </div>
-
-            <div class="form-group">
-                <label for="provinsi">Provinsi</label>
-                <input class="form-control" id="provinsi" name="provinsi" type="text" value="75 | Gorontalo"
-                    disabled>
-            </div>
-
-            <div class="form-group">
-                <label for="kabkota">Kabupaten/Kota</label>
-                <input class="form-control" id="kabkota" name="kabkota" type="text"
-                    value="71 | Kota Gorontalo" disabled>
-            </div>
-
-            <div class="form-group">
-                <label for="kecamatan">Kecamatan</label>
-                <input class="form-control" id="kecamatan" name="kecamatan" type="text"
-                    value="01 | Kota Barat" disabled>
-            </div>
-
-            <div class="form-group">
-                <label for="desa">Desa/Kelurahan</label>
-                <input class="form-control" id="desa" name="desa_id" type="text"
-                    value="01 | Buladu" disabled>
-            </div>
-
-            <div class="mt-4">
-                <button class="btn btn-outline-primary" onclick="stepper.previous()">Sebelumnya</button>
-                <button class="btn btn-primary" onclick="stepper.next()">Selanjutnya</button>
-            </div>
-        </div>
-
-        <div id="ketersediaan-part" class="content" role="tabpanel"
-            aria-labelledby="ketersediaan-part-trigger">
-        </div>
-        <div id="mitra-part" class="content" role="tabpanel" aria-labelledby="mitra-part-trigger">
-        </div>
-        <div id="pengurus-part" class="content" role="tabpanel" aria-labelledby="pengurus-part-trigger">
-        </div>
-    </div>
-</div> --}}
+@push('scripts')
+    <script>
+        // $('.btn-primary').click(function() {
+        //     $('#sosmed').removeAttr('disabled')
+        // })
+    </script>
+@endpush

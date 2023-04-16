@@ -53,13 +53,21 @@
 
     @error('fail')
         <script>
-            alert('{{ $message }}')
+            Swal.fire(
+                'Gagal',
+                '{{ $message }}',
+                'error'
+            )
         </script>
     @enderror
 
-    @if(session()->has('success'))
+    @if (session()->has('success'))
         <script>
-            alert('{{ session("success") }}')
+            Swal.fire(
+                'Berhasil',
+                '{{ session('success') }}',
+                'success'
+            )
         </script>
     @endif
 

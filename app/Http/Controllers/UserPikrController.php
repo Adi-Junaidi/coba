@@ -24,6 +24,12 @@ class UserPikrController extends Controller
         ]);
     }
 
+    public function updateIdentitas(Request $request, Pikr $pikr)
+    {
+        $pikr->update(['akun_medsos' => $request->sosmed]);
+        return \redirect()->back()->with('success', 'Data identitas kelompok berhasil di ubah');    
+    }
+
     public function b_informasi()
     {
 
