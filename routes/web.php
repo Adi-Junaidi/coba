@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\ArticleController;
 use App\Models\Kabkota;
 use App\Models\Kecamatan;
@@ -22,13 +21,23 @@ use App\Http\Controllers\PelayananInformasiController;
 use App\Http\Controllers\PikrController;
 use App\Http\Controllers\RegistrasiKegiatanController;
 
+use App\Models\Article;
+
 Route::get('/', function () {
-  if (auth()->user()->isPikr()) {
+  if (auth()->guest()) {
+    return redirect('/home');
+  } else if (auth()->user()->isPikr()) {
     return redirect('/up/dashboard');
   } else {
     return redirect('/dashboard');
   }
-})->middleware('auth');
+});
+
+Route::get('/home', function () {
+  return view('landing.home', [
+    'articles' => Article::orderBy('updated_at', 'desc')->get()
+  ]);
+})->middleware('guest');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->middleware('guest');
@@ -37,9 +46,13 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
 
-Route::get('/main', function () {
-  return view('/main');
-})->middleware('auth');
+// Landing
+Route::get('/articles', [ArticleController::class, 'index']);
+Route::get('/articles', [ArticleController::class, 'showAll']);
+Route::get('/articles/{article}', [ArticleController::class, 'show']);
+Route::get('/leaderboard', function () {
+  return view('landing.leaderboard');
+});
 
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
@@ -83,4 +96,5 @@ Route::middleware('stepCheck', 'auth')->group(function () {
     Route::get('/utility/getPendidikSebaya', [PelayananInformasiController::class, 'getPendidikSebaya']);
     Route::get('/utility/getKonselorSebaya', [PelayananInformasiController::class, 'getKonselorSebaya']);
     Route::get('/utility/getPLKB', [PelayananInformasiController::class, 'getPLKB']);
+
 });

@@ -48,6 +48,11 @@ class Pikr extends Model
     return $this->hasMany(Pengurus::class);
   }
 
+  public function articles()
+  {
+    return $this->hasMany(Article::class);
+  }
+
   // ini function utk many to many pada tabel materi
   public function materi()
   {

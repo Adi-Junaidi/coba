@@ -3,7 +3,11 @@
 Tuliskan secara jelas masalah-masalah, entah itu **error**, **bug**, ataupun fitur yang tidak berjalan dengan semestinya di sini.
 Kalau tahu sumber masalahnya dari file mana, boleh disebutkan di sini. Tuliskan juga action yang bisa mentrigger masalah tersebut (contohnya: ketika tombol `x` diklik maka akan timbul masalah `y`)
 
-## Login Admin
+## Login
+
+- [ ] Ubah skema warna (tombol, link) dari tampilan autentikasi (login dan register)
+
+## Admin
 
 - [ ] Tampilan form tambah pembina masih bisa diperbaiki `views/pikr/index.blade.php`
 - [ ] Tambahkan field **konfirmasi password** `views/pikr/index.blade.php`
