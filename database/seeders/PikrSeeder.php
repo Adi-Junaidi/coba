@@ -33,5 +33,22 @@ class PikrSeeder extends Seeder
       "desa_id" => 1,
       "pembina_id" => 1,
     ]);
+
+    Pikr::create([
+      "user_id" => User::create([
+        "nama" => "PIK-R As-asasaSalam",
+        "username" => "pikr",
+        "email" => "assalaaasm@gmail.com",
+        "password" => Hash::make("12345678")
+      ])->id,
+      "no_register" => "7571075003",
+      "nama" => "PIK-R As-Salam",
+      "no_urut" => "002",
+      "alamat" => "Jl. Poigar",
+      "basis" => "Pendidikan - SMA/Setara",
+      "akun_medsos" => "Instagram (@pikr-assalam)",
+      "desa_id" => 1,
+      "pembina_id" => 1,
+    ]);
   }
 }

@@ -61,6 +61,16 @@
         </script>
     @enderror
 
+    @if (session()->has('fail'))
+        <script>
+            Swal.fire(
+                'Gagal',
+                '{{ session('fail') }}',
+                'error'
+            )
+        </script>
+    @endif
+
     @if (session()->has('success'))
         <script>
             Swal.fire(

@@ -106,7 +106,7 @@ class LaporanController extends Controller
             'Pendidik Sebaya',
             'Konselor Sebaya',
         ];
-            
+
         $data = [
             'title' => 'Tambah Kegiatan',
             'materi_s' => $materi_s,

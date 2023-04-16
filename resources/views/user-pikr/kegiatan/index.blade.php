@@ -36,18 +36,28 @@
                         </thead>
                         <tbody>
                             @foreach ($laporan_s as $laporan)
+                                <?php
+                                
+                                if ($laporan->status == 'Submited') {
+                                    $status = 'warning';
+                                } elseif ($laporan->status == 'Verified') {
+                                    $status = 'success';
+                                } else {
+                                    $status = 'danger';
+                                }
+                                
+                                ?>
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $bulan[$laporan->bulan_lapor - 1]['nama'] . ' ' . $laporan->tahun_lapor }}
                                     </td>
-                                    <td><span
-                                            class="badge bg-light-{{ $laporan->status == 'Submited' ? 'warning' : 'danger' }}">{{ $laporan->status }}</span>
+                                    <td><span class="badge bg-light-{{ $status }}">{{ $laporan->status }}</span>
                                     </td>
                                     <td>
                                         @if ($laporan->status == 'Not Submited')
                                             <a href="/up/kegiatan/{{ $laporan->id }}" class="btn btn-info btn-sm">
                                                 <i class="bi bi-plus-circle me-md-2"></i>
-                                                <span class="d-none d-md-inline">Tambah Dokumen</span>
+                                                <span class="d-none d-md-inline">Tambah Kegiatan</span>
                                             </a>
                                             <button class="btn btn-success btn-sm btn_submit" data-bs-toggle="modal"
                                                 data-bs-target="#submitModal" data-id="{{ $laporan->id }}">
