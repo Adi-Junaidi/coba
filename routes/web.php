@@ -28,7 +28,7 @@ use App\Models\Article;
 Route::get('/', function () {
   if (auth()->guest()) {
     return redirect('/home');
-  } else if (auth()->user()->isPikr()) {
+  } elseif (auth()->user()->isPikr()) {
     return redirect('/up/dashboard');
   } else {
     return redirect('/dashboard');
@@ -55,17 +55,26 @@ Route::get('/leaderboard', function () {
   return view('landing.leaderboard');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
-Route::resource('/pembina', PembinaController::class)->middleware('auth');
-Route::resource('/pikr', PikrController::class)->middleware('auth');
-Route::post('/pikr/{pikr}/verify', [PikrController::class, 'verify'])->middleware('auth');
+// Dashboard
+Route::middleware('auth')->group(function () {
+  Route::get('/dashboard', [DashboardController::class, 'index']);
+  Route::resource('/pembina', PembinaController::class);
+  Route::resource('/pikr', PikrController::class);
+  Route::post('/pikr/{pikr}/verify', [PikrController::class, 'verify']);
+  Route::prefix('laporan')->group(function () {
+    Route::prefix('tahunan')->group(function () {
+      Route::get('/12a', [LaporanController::class, 'tahunan_a']);
+    });
+  });
+});
+
 Route::get('/api/kabkota/{kabkota}/kecamatans', fn (Kabkota $kabkota) => response()->json($kabkota->kecamatan));
 Route::get('/api/kecamatan/{kecamatan}/desas', fn (Kecamatan $kecamatan) => response()->json($kecamatan->desa));
 Route::get('/api/desa/{desa}', [DesaController::class, 'api']);
 Route::get('/api/pembina/', [PembinaController::class, 'api']);
 Route::get('/api/pikr', [PikrController::class, 'api']);
 
-Route::middleware('auth')->group(function(){
+Route::middleware('auth')->group(function () {
   Route::resources([
     '/up/article' => ArticleController::class,
     '/registrasi-kegiatan' => RegistrasiKegiatanController::class,
@@ -105,7 +114,8 @@ Route::middleware('stepCheck', 'auth',)->group(function () {
     ]);
     Route::get('/up/kegiatan/detail/{laporan}', [LaporanController::class, 'detail']);
   });
-
 });
+
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/', [HomeController::class, 'index']);

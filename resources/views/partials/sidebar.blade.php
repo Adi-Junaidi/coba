@@ -79,12 +79,12 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item {{ Request::is('registrasi-kegiatan*') ? 'active' : '' }}">
-                            <a class='sidebar-link' href="/registrasi-kegiatan">
-                                <i class="bi bi-envelope"></i>
-                                <span>Register Kegiatan</span>
-                            </a>
-                        </li>
+          <li class="sidebar-item {{ Request::is('registrasi-kegiatan*') ? 'active' : '' }}">
+              <a class='sidebar-link' href="/registrasi-kegiatan">
+                  <i class="bi bi-envelope"></i>
+                  <span>Register Kegiatan</span>
+              </a>
+          </li>
 
                         <li
                             class="sidebar-item has-sub {{ Request::is('validate*') ? 'active' : '' }}">
@@ -119,13 +119,40 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item">
-                        <a class='sidebar-link' href="#">
-                            <i class="bi bi-grid-1x2-fill"></i>
-                            <span>Laporan</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+          <li class="sidebar-title">Laporan</li>
+
+          <li class="sidebar-item has-sub {{ Request::is('laporan/bulanan/*') ? 'active' : '' }}">
+            <a class='sidebar-link' href="#">
+              <i class="bi bi-grid-1x2-fill"></i>
+              <span>Laporan Bulanan</span>
+            </a>
+
+            <ul class="submenu">
+              <li class="submenu-item">
+                <a href="#">Tabel 7A</a>
+              </li>
+              <li class="submenu-item">
+                <a href="#">Tabel 7B</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="sidebar-item has-sub {{ Request::is('laporan/tahunan/*') ? 'active' : '' }}">
+            <a class="sidebar-link" href="#">
+              <i class="bi bi-grid-1x2-fill"></i>
+              <span>Laporan Tahunan</span>
+            </a>
+
+            <ul class="submenu {{ Request::is('laporan/tahunan/*') ? 'active' : '' }}">
+              <li class="submenu-item {{ Request::is('laporan/tahunan/*') ? 'active' : '' }}">
+                <a href="/laporan/tahunan/12a">Tabel 12A</a>
+              </li>
+              <li class="submenu-item">
+                <a href="/laporan/tahunan/12b">Tabel 12B</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
+  </div>
