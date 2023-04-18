@@ -16,12 +16,14 @@ class CreatePointsTable extends Migration
         Schema::create('points', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pikr_id');
-            $table->integer('materi');
-            $table->integer('narasumber');
-            $table->integer('peserta_pelayanan');
-            $table->integer('peserta_ki');
-            $table->integer('peserta_kk');
-            $table->integer('artikel');
+            $table->integer('materi_pelayanan')->default(0);
+            $table->integer('narasumber_pelayanan')->default(0);
+            $table->integer('peserta_pelayanan')->default(0);
+            $table->integer('materi_ki')->default(0);
+            $table->integer('peserta_ki')->default(0);
+            $table->integer('materi_kk')->default(0);
+            $table->integer('peserta_kk')->default(0);
+            $table->integer('artikel')->default(0);
             $table->timestamps();
         });
     }

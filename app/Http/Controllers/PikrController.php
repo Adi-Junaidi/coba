@@ -104,13 +104,15 @@ class PikrController extends Controller
         "verified" => false
       ]);
 
-      return back()->with('success', "PIK-R {$pikr->nama} berhasil diverifikasi");
+      return back()->with('error', "Berhasil membatalkan verifikasi PIK-R {$pikr->nama}");
     }
 
     $pikr->update([
       "verified" => true
     ]);
-    return back()->with('success', "Berhasil membatalkan verifikasi PIK-R {$pikr->nama}");
+    
+
+    return back()->with('success', "PIK-R {$pikr->nama} berhasil diverifikasi");
   }
 
   public function api(Request $request)

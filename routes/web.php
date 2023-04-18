@@ -71,7 +71,6 @@ Route::resource('/registrasi-kegiatan', RegistrasiKegiatanController::class)->mi
 
 Route::middleware('stepCheck', 'auth',)->group(function () {
 
-
   Route::get('/up/dashboard', [UserPikrController::class, 'dashboard']);
   Route::get('/up/data/identitas', [UserPikrController::class, 'b_identitas']);
   Route::post('/up/data/identitas/{pikr}', [UserPikrController::class, 'updateIdentitas']);
