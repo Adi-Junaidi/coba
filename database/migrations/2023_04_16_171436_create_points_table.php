@@ -15,7 +15,7 @@ class CreatePointsTable extends Migration
     {
         Schema::create('points', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pikr_id');
+            $table->foreignId('laporan_id');
             $table->integer('materi_pelayanan')->default(0);
             $table->integer('narasumber_pelayanan')->default(0);
             $table->integer('peserta_pelayanan')->default(0);

@@ -66,6 +66,8 @@ class ArticleController extends Controller
       $validatedData['document'] = $request->file('document')->store('article-document');
     }
 
+    $validatedData['bulan_tahun'] = date('m-Y');
+
     Article::create($validatedData);
 
 

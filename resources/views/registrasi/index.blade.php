@@ -29,7 +29,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $report->pikr->nama }}</td>
                                 <td>
-                                    {{ $bulan[$report->bulan_lapor] . ' ' . $report->tahun_lapor }}
+                                    {{ $report->bulan_lapor . '-' . $report->tahun_lapor }}
                                 </td>
                                 <td>
                                     <!-- Button trigger for next table -->
