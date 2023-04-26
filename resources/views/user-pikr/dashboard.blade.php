@@ -32,8 +32,8 @@
                   </div>
                 </div>
                 <div class="col-10">
-                  <h6 class="text-muted font-semibold">Peringkat PIK-R</h6>
-                  <h4 class="mb-0 font-extrabold">0</h4>
+                  <h6 class="text-muted font-semibold">Peringkat PIK-R Bulan Ini</h6>
+                  <h4 class="mb-0 font-extrabold">{{ $peringkat }}</h4>
                 </div>
               </div>
             </div>

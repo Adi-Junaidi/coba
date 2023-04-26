@@ -53,6 +53,7 @@ class Pikr extends Model
     return $this->hasMany(Article::class);
   }
 
+
   // ini function utk many to many pada tabel materi
   public function materi()
   {
@@ -68,6 +69,7 @@ class Pikr extends Model
   {
     return $this->belongsToMany(Mitra::class);
   }
+
 
   public static function boot()
   {

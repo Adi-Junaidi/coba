@@ -96,8 +96,8 @@ class LaporanController extends Controller
      */
     public function show(Laporan $kegiatan)
     {
-        if(\session('pikr_id') != $kegiatan->pikr_id) abort(403);
-        if($kegiatan->status != "Not Submited") abort(403);
+        if (\session('pikr_id') != $kegiatan->pikr_id) abort(403);
+        if ($kegiatan->status != "Not Submited") abort(403);
 
         $materi_s = Materi::all();
         $pembina_s = Pembina::all()->pluck('nama');
@@ -155,5 +155,17 @@ class LaporanController extends Controller
     public function destroy(Laporan $laporan)
     {
         //
+    }
+
+    public function detail(Laporan $laporan)
+    {
+        if (\session('pikr_id') != $laporan->pikr_id) abort(403);
+        if ($laporan->status == "Not Submited") abort(403);
+
+        return view('user-pikr.kegiatan.detail', [
+            'pelayanan_s' => $laporan->pelayananInformasi()->get(),
+            'ki_s' => $laporan->konseling()->get(),
+            'kk_s' => $laporan->konselingKelompok()->get(),
+        ]);
     }
 }

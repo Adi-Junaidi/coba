@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sk;
 use App\Models\Pikr;
+use App\Models\Result;
 use App\Models\Stepper;
 use Illuminate\Http\Request;
 
@@ -11,8 +12,19 @@ class UserPikrController extends Controller
 {
     public function dashboard()
     {
-        return view('user-pikr/dashboard', [
+        $peringkat = 'Belum Mendapat Peringkat';
+
+        $bulan_ini = date('m-Y');
+        $results = Result::where('bulan_tahun', $bulan_ini)->orderBy('point', 'desc')->get();
+        $rank = $results->where('pikr_id', \auth()->user()->pikr->id);
+        
+        if($rank){
+            $peringkat = $rank->keys()->first() + 1;
+        }
+
+        return view('user-pikr.dashboard', [
             'title' => 'Dashboard',
+            'peringkat' =>$peringkat,
         ]);
     }
 

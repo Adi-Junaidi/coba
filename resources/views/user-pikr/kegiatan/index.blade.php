@@ -64,6 +64,11 @@
                                                 <i class="bi bi-fast-forward me-md-2"></i>
                                                 <span class="d-none d-md-inline">Submit</span>
                                             </button>
+                                        @else
+                                            <a href="/up/kegiatan/detail/{{ $laporan->id }}" class="btn btn-info btn-sm">
+                                                <i class="bi bi-eye me-md-2"></i>
+                                                <span class="d-none d-md-inline">Lihat</span>
+                                            </a>
                                         @endif
                                     </td>
                                 </tr>
@@ -200,6 +205,7 @@
             </div>
         </div>
     </div>
+
 @endpush
 
 @push('scripts')
