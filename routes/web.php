@@ -19,6 +19,7 @@ use App\Http\Controllers\KonselingKelompokController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PelayananInformasiController;
 use App\Http\Controllers\PikrController;
+use App\Http\Controllers\RankController;
 use App\Http\Controllers\RegistrasiKegiatanController;
 
 use App\Models\Article;
@@ -68,6 +69,8 @@ Route::get('/api/pembina/', [PembinaController::class, 'api']);
 Route::get('/api/pikr', [PikrController::class, 'api']);
 
 Route::resource('/registrasi-kegiatan', RegistrasiKegiatanController::class)->middleware('auth');
+Route::resource('/peringkat', RankController::class)->middleware('auth');
+Route::post('/peringkat/filter', [RankController::class, 'filter'])->middleware('auth');
 
 Route::middleware('stepCheck', 'auth',)->group(function () {
 
@@ -96,8 +99,6 @@ Route::middleware('stepCheck', 'auth',)->group(function () {
     ]);
     Route::get('/up/kegiatan/detail/{laporan}', [LaporanController::class, 'detail']);
   });
-
-
 
   Route::get('/utility/check-slug', [ArticleController::class, 'checkSlug']);
   Route::get('/utility/getPendidikSebaya', [PelayananInformasiController::class, 'getPendidikSebaya']);

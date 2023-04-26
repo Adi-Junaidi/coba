@@ -32,7 +32,7 @@ class UserPikrController extends Controller
     {
         return view('user-pikr/data/identitas', [
             'title' => 'Identitas',
-            'pikr_info' => Pikr::where('user_id', \auth()->user()->id)->first(),    
+            'pikr_info' => Pikr::where('user_id', auth()->user()->id)->first(),    
         ]);
     }
 

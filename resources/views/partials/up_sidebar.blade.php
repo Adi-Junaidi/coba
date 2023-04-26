@@ -95,7 +95,14 @@
                         <i class="bi bi-filetype-pdf"></i>
                         <span>Artikel</span>
                     </a>
+                </li>
 
+                <li class="sidebar-item {{ Request::is('peringkat*') ? 'active' : '' }}">
+                    <a href="/peringkat" class="sidebar-link">
+                        <i class="bi bi-arrow-down-up"></i>
+                        <span>Peringkat</span>
+                    </a>
+                </li>
             </ul>
         </div>
         <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
