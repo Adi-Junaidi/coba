@@ -29,8 +29,7 @@ class PembinaPolicy
    */
   public function viewAny(User $user)
   {
-    // either the user is Admin or is Pembina
-    return $user->isAdmin() || $user->isPembina();
+    return $user->isPembina();
   }
 
   /**

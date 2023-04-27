@@ -68,6 +68,11 @@ class PikrPolicy
     return $user->isPembina() && $user->pembina->desa->kecamatan->id === $pikr->desa->kecamatan->id;
   }
 
+  public function verifyPikr(User $user, Pikr $pikr)
+  {
+    return $user->isPembina() && $user->pembina->id === $pikr->pembina->id;
+  }
+
   /**
    * Determine whether the user can delete the model.
    *

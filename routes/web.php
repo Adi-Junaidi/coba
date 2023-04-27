@@ -21,7 +21,7 @@ use App\Http\Controllers\PelayananInformasiController;
 use App\Http\Controllers\PikrController;
 use App\Http\Controllers\RankController;
 use App\Http\Controllers\RegistrasiKegiatanController;
-
+use App\Http\Controllers\ValidationController;
 use App\Models\Article;
 
 Route::get('/', function () {
@@ -70,6 +70,8 @@ Route::get('/api/pikr', [PikrController::class, 'api']);
 
 Route::resource('/registrasi-kegiatan', RegistrasiKegiatanController::class)->middleware('auth');
 Route::resource('/peringkat', RankController::class)->middleware('auth');
+Route::get('/validate/pikr', [ValidationController::class, 'validatePikr'])->middleware('auth');
+Route::get('/validate/kegiatan', [ValidationController::class, 'validateKegiatan'])->middleware('auth');
 Route::post('/peringkat/filter', [RankController::class, 'filter'])->middleware('auth');
 
 Route::middleware('stepCheck', 'auth',)->group(function () {

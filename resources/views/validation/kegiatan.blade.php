@@ -45,10 +45,11 @@
                                     </button>
                                 </td>
                             </tr>
-                            @endforeach --}}
+                        @endforeach --}}
+
                         @foreach ($laporan as $report)
                             @can('valid_reports', $report)
-                                @if ($report->status == 'Verified')
+                                @if ($report->status == 'Submited')
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $report->pikr->nama }}</td>

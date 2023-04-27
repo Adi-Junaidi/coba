@@ -91,4 +91,9 @@ class LaporanPolicy
     {
         //
     }
+
+    public function valid_reports(User $user, Laporan $laporan)
+    {
+        return $user->isPembina() && $laporan->pikr->pembina->id == $user->pembina->id;
+    }
 }

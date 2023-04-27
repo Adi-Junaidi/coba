@@ -51,31 +51,59 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item has-sub {{ Request::is('pembina', 'pikr*') ? 'active' : '' }}">
-                        <a class='sidebar-link' href="#">
-                            <i class="bi bi-stack"></i>
-                            <span>Data Master</span>
-                        </a>
+                    @can('viewAll', \App\Models\Pembina::class)
+                        <li class="sidebar-item has-sub {{ Request::is('pembina', 'pikr*') ? 'active' : '' }}">
+                            <a class='sidebar-link' href="#">
+                                <i class="bi bi-stack"></i>
+                                <span>Data Master</span>
+                            </a>
 
-                        <ul class="submenu {{ Request::is('pembina', 'pikr*') ? 'active' : '' }}">
-                            @can('viewAll', \App\Models\Pembina::class)
+                            <ul class="submenu {{ Request::is('pembina', 'pikr*') ? 'active' : '' }}">
                                 <li class="submenu-item {{ Request::is('pembina') ? 'active' : '' }}">
                                     <a href="/pembina">Data Pembina</a>
                                 </li>
-                            @endcan
 
-                            <li class="submenu-item {{ Request::is('pikr*') ? 'active' : '' }}">
-                                <a href="/pikr">Data PIK-R</a>
-                            </li>
-                        </ul>
-                    </li>
+                                <li class="submenu-item {{ Request::is('pikr*') ? 'active' : '' }}">
+                                    <a href="/pikr">Data PIK-R</a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endcan
 
-                    <li class="sidebar-item {{ Request::is('registrasi-kegiatan') ? 'active' : '' }}">
-                        <a class='sidebar-link' href="/registrasi-kegiatan">
-                            <i class="bi bi-collection-fill"></i>
-                            <span>Register Kegiatan</span>
-                        </a>
-                    </li>
+
+                    @can('viewAny', App\Models\Pembina::class)
+                        <li class="sidebar-item {{ Request::is('pikr*') ? 'active' : '' }}">
+                            <a class='sidebar-link' href="/pikr">
+                                <i class="bi bi-people-fill"></i>
+                                <span>Data PIK-R</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item {{ Request::is('registrasi-kegiatan*') ? 'active' : '' }}">
+                            <a class='sidebar-link' href="/registrasi-kegiatan">
+                                <i class="bi bi-envelope"></i>
+                                <span>Register Kegiatan</span>
+                            </a>
+                        </li>
+
+                        <li
+                            class="sidebar-item has-sub {{ Request::is('validate*') ? 'active' : '' }}">
+                            <a class='sidebar-link' href="#">
+                                <i class="bi bi-stack"></i>
+                                <span>Validasi</span>
+                            </a>
+
+                            <ul class="submenu {{ Request::is('validate*') ? 'active' : '' }}">
+                                <li class="submenu-item {{ Request::is('validate/pikr') ? 'active' : '' }}">
+                                    <a href="/validate/pikr">PIK-R</a>
+                                </li>
+
+                                <li class="submenu-item {{ Request::is('validate/kegiatan') ? 'active' : '' }}">
+                                    <a href="/validate/kegiatan">Register Kegiatan</a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endcan
 
                     <li class="sidebar-item {{ Request::is('peringkat*') ? 'active' : '' }}">
                         <a href="/peringkat" class="sidebar-link">

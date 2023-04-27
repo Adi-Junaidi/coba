@@ -61,6 +61,7 @@ class RegistrasiKegiatanController extends Controller
       "desa" => Desa::all(),
       "kabkota" => Kabkota::all(),
       'bulan' => $bulan,
+      'laporan' => Laporan::all(),
     ]);
   }
 
