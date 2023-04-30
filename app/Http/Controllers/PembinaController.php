@@ -153,8 +153,14 @@ class PembinaController extends Controller
    */
   public function destroy(Pembina $pembina)
   {
+    
+    if($pembina->pikr->isNotEmpty()){
+      return \back()->with('fail', 'Tidak dapat menghapus pembina, terdapat PIK-R yang terkait dengan pembina tersebut');
+    }
+    
     $nama = $pembina->nama;
     $pembina->delete();
+    User::where('id', $pembina->user_id)->delete();
     return back()->with('success', 'Berhasil menghapus data pembina ' . $nama);
   }
 
