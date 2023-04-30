@@ -30,6 +30,10 @@ class RankController extends Controller
     
     public function filter(Request $request)
     {
+
+        if($request->bulan_tahun == 'null'){
+            return \back()->with('fail', 'Masukkan Bulan Tahun Valid');
+        }
         $bulanTahun = Result::select('bulan_tahun')->distinct()->orderBy('bulan_tahun', 'asc')->get();
         $rank = Result::where('bulan_tahun', $request->bulan_tahun)->orderBy('point', 'desc')->get(); 
         

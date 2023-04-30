@@ -75,6 +75,16 @@
     </script>
   @endif
 
+  @if (session()->has('fail'))
+        <script>
+            Swal.fire(
+                'Gagal',
+                '{{ session('fail') }}',
+                'error'
+            )
+        </script>
+    @endif
+
   <!-- Page Script -->
   @yield('script')
 </body>

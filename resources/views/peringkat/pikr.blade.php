@@ -10,7 +10,7 @@
                         <div class="col-lg-9">
                             <div class="form-group">
                                 <select name="bulan_tahun" id="" class="form-select">
-                                    <option hidden>--Pilih Periode Pemeringkatan--</option>
+                                    <option value="null" hidden>--Pilih Periode Pemeringkatan--</option>
                                     @foreach ($bulan_tahun as $item)
                                         <option value="{{ $item->bulan_tahun }}">{{ convertBulanTahun($item->bulan_tahun) }}
                                         </option>
