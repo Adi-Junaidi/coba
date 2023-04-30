@@ -91,7 +91,7 @@
                                         {{-- Untuk data yang dikirimkan pada modal yang akan menampilkan informasi registrasi pik-r, belum sempat sy lengkapi --}}
 
                                         <!-- Button trigger for form modal -->
-                                        <button class="btn btn-info btn-sm" id="detail" data-bs-toggle="modal"
+                                        {{-- <button class="btn btn-info btn-sm" id="detail" data-bs-toggle="modal"
                                             data-bs-target="#modal1" data-noreg="{{ $p->no_register }}"
                                             data-nourut="{{ $p->no_urut }}" data-nama="{{ $p->nama }}"
                                             data-alamat="{{ $p->alamat }}"
@@ -107,15 +107,47 @@
                                             <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="Detail">
                                                 <span class="fa-fw fas select-all"></span>
                                             </span>
-                                        </button>
+                                        </button> --}}
+                                        <a href="/pikr/{{ $p->id }}" class="btn btn-warning btn-sm"><i class="fas fa-fw"></i></a>
+                                    </td>
+                                </tr>
+                            @endcan
+                            @can('viewAny', $p)
+                                <tr>
+                                    <td>{{ $p->id }}</td>
+                                    <td>
+                                        <span id="noreg">{{ $p->no_register }}</span>
+                                    </td>
+                                    <td>
+                                        <span id="nama">{{ $p->nama }}</span>
+                                    </td>
+                                    <td>
+                                        <span id="basis">{{ $p->basis }}</span>
+                                    </td>
+                                    <td>
 
-                                        {{-- <button class="btn btn-warning btn-sm" id="edit" data-bs-toggle="tooltip" data-bs-placement="bottom" type="button" title="Edit">
-                    <span class="fa-fw fas select-all"></span>
-                  </button>
+                                        {{-- Untuk data yang dikirimkan pada modal yang akan menampilkan informasi registrasi pik-r, belum sempat sy lengkapi --}}
 
-                  <button class="btn btn-danger btn-sm" id="delete" data-bs-toggle="tooltip" data-bs-placement="bottom" type="button" title="Hapus">
-                    <span class="fa-fw fas select-all"></span>
-                  </button> --}}
+                                        <!-- Button trigger for form modal -->
+                                        {{-- <button class="btn btn-info btn-sm" id="detail" data-bs-toggle="modal"
+                                            data-bs-target="#modal1" data-noreg="{{ $p->no_register }}"
+                                            data-nourut="{{ $p->no_urut }}" data-nama="{{ $p->nama }}"
+                                            data-alamat="{{ $p->alamat }}"
+                                            data-provinsi="{{ $p->desa->kecamatan->kabkota->provinsi->kode . ' | ' . $p->desa->kecamatan->kabkota->provinsi->nama }}"
+                                            data-kabkota="{{ $p->desa->kecamatan->kabkota->kode . ' | ' . $p->desa->kecamatan->kabkota->nama }}"
+                                            data-kecamatan="{{ $p->desa->kecamatan->kode . ' | ' . $p->desa->kecamatan->nama }}"
+                                            data-desakel="{{ $p->desa->kode . ' | ' . $p->desa->nama }}"
+                                            data-basis="{{ $p->basis }}" data-jabatan="{{ $p->pembina->jabatan->nama }}"
+                                            data-namajabatan="{{ $p->pembina->nama }}" data-medsos="{{ $p->akun_medsos }}"
+                                            data-sk="{{ $p->sk?->status }}" data-nomorsk="{{ $p->sk?->no_sk }}"
+                                            data-tanggalsk="{{ $p->sk?->tanggal }}"
+                                            data-dikeluarkanoleh="{{ $p->sk?->dikeluarkan_oleh }}" type="button">
+                                            <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="Detail">
+                                                <span class="fa-fw fas select-all"></span>
+                                            </span>
+                                        </button> --}}
+
+                                        <a href="/pikr/{{ $p->id }}" class="btn btn-primary btn-sm"></a>
                                     </td>
                                 </tr>
                             @endcan
@@ -141,166 +173,7 @@
                 </div>
                 <form action="#">
                     <div class="modal-body">
-                        <h6 class="text-secondary mb-4">A. Identitas Kelompok</h6>
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="noRegister">No. Register</label>
-                            <div class="col-sm-4">
-                                <input class="form-control" id="noRegister" type="text" disabled readonly>
-                            </div>
-
-                            <label class="col-sm-2 col-form-label" for="noUrut">No. Urut PIK-R</label>
-                            <div class="col-sm-4">
-                                <input class="form-control" id="noUrut" type="text" value="02" disabled
-                                    readonly>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="nama">Nama</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" id="name" type="text" disabled readonly>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="alamat">Alamat</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" id="alamat" type="text" value="Jl. Poigar" disabled
-                                    readonly>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="alamat"></label>
-                            <label class="col-sm-1 col-form-label" for="provinsi">Provinsi</label>
-                            <div class="col-sm-3">
-                                <input class="form-control" id="provinsi" type="text" value="Gorontalo" disabled
-                                    readonly>
-                            </div>
-
-                            <label class="col-sm-1 col-form-label" for="kabupaten">Kab/Kota</label>
-                            <div class="col-sm-3">
-                                <input class="form-control" id="kabKota" type="text" value="Kota Gorontalo"
-                                    disabled readonly>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for=""></label>
-                            <label class="col-sm-1 col-form-label" for="kecamatan">Kecamatan</label>
-                            <div class="col-sm-3">
-                                <input class="form-control" id="kecamatan" type="text" value="Kota Tengah" disabled
-                                    readonly>
-                            </div>
-
-                            <label class="col-sm-1 col-form-label" for="desaKel">Desa/Kel</label>
-                            <div class="col-sm-3">
-                                <input class="form-control" id="desaKel" type="text" value="Liluwo" disabled
-                                    readonly>
-                            </div>
-                        </div>
-
-                        <div class="row mb-2">
-                            <label class="col-sm-2 col-form-label">Basis</label>
-                            <fieldset class="form-group col-sm-10">
-                                <select class="form-select" id="basicSelect" disabled>
-                                    <option value="">Pendidikan - SMA/Sederajat</option>
-                                </select>
-                            </fieldset>
-                        </div>
-
-                        <div class="row mb-2">
-                            <label class="col-sm-2 col-form-label">Jabatan</label>
-                            <fieldset class="form-group col-sm-4">
-                                <select class="form-select" id="basicSelect" disabled>
-                                    <option value="">PKB/PLKB</option>
-                                </select>
-                            </fieldset>
-
-                            <div class="col-sm-4">
-                                <input class="form-control" id="jabatanLainnya" type="text" placeholder="Lainnya"
-                                    disabled readonly>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="namaPembina">Nama Pembina</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" id="namaPembina" type="text"
-                                    value="Dewi H. Yasin, Amd.Kom" disabled readonly>
-                            </div>
-                        </div>
-
-                        <div class="row mb-2">
-                            <label class="col-sm-2 col-form-label">Akun Media Sosial</label>
-                            <fieldset class="form-group col-sm-4">
-                                <select class="form-select" id="basicSelect" disabled>
-                                    <option value="">Ada</option>
-                                </select>
-                            </fieldset>
-
-                            <div class="col-sm-4">
-                                <input class="form-control" id="akunMedsos" type="text"
-                                    value="Instagram (@pikr-assalam)" disabled readonly>
-                            </div>
-                        </div>
-
-                        <h6 class="text-secondary mb-4">B. Informasi Kelompok</h6>
-                        <div class="row mb-2">
-                            <label class="col-sm-2 col-form-label">SK Pengukuhan</label>
-                            <fieldset class="form-group col-sm-10">
-                                <select class="form-select" id="basicSelect" disabled>
-                                    <option value="">Ada</option>
-                                </select>
-                            </fieldset>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="nomorSK">Nomor</label>
-                            <div class="col-sm-4">
-                                <input class="form-control" id="nomorSK" type="text" value="25" disabled
-                                    readonly>
-                            </div>
-
-                            <label class="col-sm-2 col-form-label" for="tanggalSK">Tanggal</label>
-                            <div class="col-sm-4">
-                                <input class="form-control" id="tanggalSK" type="text" value="12 Desember 2012"
-                                    disabled readonly>
-                            </div>
-                        </div>
-
-                        <div class="row mb-2">
-                            <label class="col-sm-2 col-form-label">Dikeluarkan Oleh</label>
-                            <fieldset class="form-group col-sm-4">
-                                <select class="form-select" id="basicSelect" disabled>
-                                    <option value="">OPD-KB</option>
-                                </select>
-                            </fieldset>
-
-                            <label class="col-sm-2">Sumber Dana Kegiatan</label>
-                            <fieldset class="form-group col-sm-4">
-                                <select class="form-select" id="basicSelect" disabled>
-                                    <option value="">Lainnya</option>
-                                </select>
-                            </fieldset>
-                        </div>
-
-                        <div class="row mb-2">
-                            <label class="col-sm-2">Keterpaduan Kelompok</label>
-                            <fieldset class="form-group col-sm-4">
-                                <select class="form-select" id="basicSelect" disabled>
-                                    <option value="">Ada</option>
-                                </select>
-                            </fieldset>
-
-                            <label class="col-sm-2">Proyek Prioritas Nasional</label>
-                            <fieldset class="form-group col-sm-4">
-                                <select class="form-select" id="basicSelect" disabled>
-                                    <option value="">Ada</option>
-                                </select>
-                            </fieldset>
-                        </div>
-
+                        {{-- @include('pikr.detail.identitas') --}}
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-info" data-bs-target="#modal2" data-bs-toggle="modal" type="button">

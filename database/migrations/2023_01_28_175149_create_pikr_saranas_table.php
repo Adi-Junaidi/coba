@@ -29,7 +29,7 @@ class CreatePikrSaranasTable extends Migration
                 "lembar_balik",
                 "buku_komik_berseri"
             ];
-
+            $table->id();
             $table->foreignId('pikr_id');
             foreach ($sarana as $item) {
                 $table->boolean($item);

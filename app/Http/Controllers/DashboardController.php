@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Laporan;
 use App\Models\Pembina;
 use App\Models\Pikr;
 use Illuminate\Http\Request;
@@ -12,7 +13,8 @@ class DashboardController extends Controller
   {
     return view('dashboard', [
       "pembina" => Pembina::all(),
-      "pikr" => Pikr::all()
+      "pikr" => Pikr::all(),
+      'laporan' => Laporan::all()
     ]);
   }
 }

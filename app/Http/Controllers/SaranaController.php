@@ -48,9 +48,9 @@ class SaranaController extends Controller
     public function store(Request $request)
     {
         $saranaData = $request->toArray();
-        $saranaData['pikr_id'] = \auth()->user()->id;
+        $saranaData['pikr_id'] = auth()->user()->pikr->id;
         PikrSarana::create($saranaData);
-        Stepper::where('pikr_id', \auth()->user()->id)->update(['sarana' => true]);
+        Stepper::where('pikr_id', \auth()->user()->pikr->id)->update(['sarana' => true]);
         return \redirect('/up/data/sarana')->with('success', 'Berhasil Melengkapi Data Ketersediaan Sarana');
 
         return $request;

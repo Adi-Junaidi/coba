@@ -7,7 +7,9 @@ use App\Http\Requests\StorePikrRequest;
 use App\Http\Requests\UpdatePikrRequest;
 use App\Models\Desa;
 use App\Models\Kabkota;
+use App\Models\Materi;
 use App\Models\Pembina;
+use App\Models\Sarana;
 use Illuminate\Http\Request;
 
 class PikrController extends Controller
@@ -58,7 +60,15 @@ class PikrController extends Controller
    */
   public function show(Pikr $pikr)
   {
-    //
+    return \view('pikr.detail', [
+      'pikr_info' => $pikr,
+      'materi' => Materi::all(),
+      'materi_pikr' => $pikr->materi()->first(),
+      'sarana' => Sarana::all(),
+      'sarana_pikr' => $pikr->sarana()->first(),
+      'mitra_s' => $pikr->mitra()->get(),
+      'pengurus' => $pikr->pengurus()->get(),
+    ]);
   }
 
   /**

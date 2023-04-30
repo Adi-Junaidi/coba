@@ -25,7 +25,7 @@ class MateriController extends Controller
             'title' => 'Materi',
             'kategori' => $kategori,
             'materi' => $materi,
-            'materi_pikr' => (MateriPikr::where('pikr_id', \auth()->user()->id)->first()) ?: '',
+            'materi_pikr' => (MateriPikr::where('pikr_id', \auth()->user()->pikr->id)->first()) ?: '',
         ]);
     }
 
@@ -48,7 +48,7 @@ class MateriController extends Controller
     public function store(Request $request)
     {
         $materiData = $request->toArray();
-        $materiData['pikr_id'] = \auth()->user()->id;
+        $materiData['pikr_id'] = \auth()->user()->pikr->id;
         MateriPikr::create($materiData);
         Stepper::where('pikr_id', auth()->user()->id)->update(['materi'=> true]);
         return \redirect('/up/data/materi')->with('success', 'Berhasil Melengkapi Data Ketersediaan Materi');

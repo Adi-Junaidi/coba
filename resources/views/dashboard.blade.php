@@ -48,7 +48,19 @@
                                 </div>
                                 <div class="col-10">
                                     <h6 class="text-muted font-semibold">Register Kegiatan</h6>
-                                    <h4 class="mb-0 font-extrabold"></h4>
+                                    <h4 class="mb-0 font-extrabold">
+                                        @php
+                                            $count = 0;
+                                        @endphp
+                                        @foreach ($laporan as $item)
+                                            @can('valid_reports', $item)
+                                                @php
+                                                    $count += 1;
+                                                @endphp
+                                            @endcan
+                                        @endforeach
+                                        {{ $count }}
+                                    </h4>
                                 </div>
                             </div>
                         </div>
