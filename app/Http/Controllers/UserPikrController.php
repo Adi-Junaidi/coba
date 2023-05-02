@@ -18,8 +18,10 @@ class UserPikrController extends Controller
         $results = Result::where('bulan_tahun', $bulan_ini)->orderBy('point', 'desc')->get();
         $rank = $results->where('pikr_id', \auth()->user()->pikr->id);
         
-        if($rank){
+        if($rank->isNotEmpty()){
             $peringkat = $rank->keys()->first() + 1;
+        }else{
+            $peringkat = 'Belum mendapat peringkat';
         }
 
         return view('user-pikr.dashboard', [

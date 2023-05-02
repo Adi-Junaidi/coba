@@ -130,6 +130,16 @@ class RegistrasiKegiatanController extends Controller
     };
 
     $registrasi_kegiatan->update(['status' => 'Verified']);
+    $nama_pikr = $registrasi_kegiatan->pikr->nama;
+    
+    $dataEmail = [
+      'receiver' => $registrasi_kegiatan->pikr->user->email,
+      'title' => 'Verifikasi PIKR Berhasil',
+      'body' => "Akun $nama_pikr sudah bisa login"
+    ];
+
+    $send_email = new MailController();
+    $send_email->sendEmail($dataEmail);
 
     return \redirect()->back()->with('success', 'Berhasil melakukan verifikasi register kegiatan PIK-R');
   }

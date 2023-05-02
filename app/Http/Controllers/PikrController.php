@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pikr;
 use App\Http\Requests\StorePikrRequest;
 use App\Http\Requests\UpdatePikrRequest;
+use App\Mail\SendEmail;
 use App\Models\Desa;
 use App\Models\Kabkota;
 use App\Models\Materi;
@@ -107,6 +108,7 @@ class PikrController extends Controller
 
   public function verify(Pikr $pikr)
   {
+
     $this->authorize('verify', $pikr);
 
     if ($pikr->verified) {
@@ -114,13 +116,43 @@ class PikrController extends Controller
         "verified" => false
       ]);
 
+      $dataEmail = [
+        'receiver' => $pikr->user->email,
+        'title' => 'Membatalkan Verifikasi PIKR',
+        'body' => "Akun $pikr->nama sudah dicabut hak aksesnya, anda tidak dapat login di sistem informasi PIK-R"
+      ];
+  
+      $send_email = new MailController();
+      $send_email->sendEmail($dataEmail);
+
       return back()->with('error', "Berhasil membatalkan verifikasi PIK-R {$pikr->nama}");
     }
+
+    $provinsi = $pikr->desa->kecamatan->kabkota->provinsi->id;
+    $kabkota = $pikr->desa->kecamatan->kabkota->id;
+    $kecamatan = $pikr->desa->kecamatan->id;
+    $unique_code = '5';
+    $id = $pikr->id;
+
+    $no_register = \sprintf("%s%s%s%s%s", $provinsi, $kabkota, $kecamatan, $unique_code, $id);
+
+    $pikr->update([
+      'no_register' => $no_register,
+      'no_urut' => $id
+    ]);
 
     $pikr->update([
       "verified" => true
     ]);
-    
+
+    $dataEmail = [
+      'receiver' => $pikr->user->email,
+      'title' => 'Verifikasi PIKR Berhasil',
+      'body' => "Akun $pikr->nama sudah bisa login"
+    ];
+
+    $send_email = new MailController();
+    $send_email->sendEmail($dataEmail);
 
     return back()->with('success', "PIK-R {$pikr->nama} berhasil diverifikasi");
   }

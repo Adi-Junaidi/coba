@@ -50,8 +50,8 @@ class RegisterController extends Controller
       "user_id" => $user->id,
       "desa_id" => $validatedData["desa_id"],
       "pembina_id" => $pembina->id,
-      "no_register" => "750101B01", // FIXME: generate otomatis
-      "no_urut" => "99", // FIXME: generate otomatis
+      "no_register" => "", // FIXME: generate otomatis
+      "no_urut" => "", // FIXME: generate otomatis
       "alamat" => $validatedData["alamat"],
       "basis" => $validatedData["basis"],
     ]);
