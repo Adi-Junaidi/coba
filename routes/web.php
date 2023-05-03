@@ -68,8 +68,16 @@ Route::get('/api/desa/{desa}', [DesaController::class, 'api']);
 Route::get('/api/pembina/', [PembinaController::class, 'api']);
 Route::get('/api/pikr', [PikrController::class, 'api']);
 
-Route::resource('/registrasi-kegiatan', RegistrasiKegiatanController::class)->middleware('auth');
-Route::resource('/peringkat', RankController::class)->middleware('auth');
+Route::middleware('auth')->group(function(){
+  Route::resources([
+    '/up/article' => ArticleController::class,
+    '/registrasi-kegiatan' => RegistrasiKegiatanController::class,
+    '/peringkat' => RankController::class,
+  ]);
+
+  Route::get('/utility/getArticle/{article}', [ArticleController::class, 'getArticle']);
+});
+
 Route::get('/validate/pikr', [ValidationController::class, 'validatePikr'])->middleware('auth');
 Route::get('/validate/kegiatan', [ValidationController::class, 'validateKegiatan'])->middleware('auth');
 Route::post('/peringkat/filter', [RankController::class, 'filter'])->middleware('auth');
@@ -90,7 +98,6 @@ Route::middleware('stepCheck', 'auth',)->group(function () {
     '/up/data/sarana' => SaranaController::class,
     '/up/data/mitra' => MitraPikrController::class,
     '/up/data/pengurus' => PengurusController::class,
-    '/up/article' => ArticleController::class,
   ]);
   Route::middleware('pengurusCheck')->group(function () {
     Route::resources([
