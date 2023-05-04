@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Desa;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,7 +21,7 @@ class PembinaFactory extends Factory
       "nama" => $this->faker->name(),
       "no_urut" => $this->faker->randomNumber(2),
       "jabatan_id" => 1,
-      "desa_id" => mt_rand(1, 3)
+      "desa_id" => mt_rand(1, Desa::count())
     ];
   }
 }

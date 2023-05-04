@@ -31,6 +31,7 @@
       background-color: #fff;
       color: #000;
       font-size: 10px;
+      text-transform: uppercase;
     }
 
     tbody td {
@@ -56,17 +57,17 @@
 <table class="print" cellpadding="0" cellspacing="0" border="0">
   <thead>
     <tr>
-      <td colspan="14">
+      <td colspan="13">
         <span class="table-heading">JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA/MAHASISWA (PIK REMAJA)<br>BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN</span>
       </td>
     </tr>
     <tr>
-      <td colspan="14">
+      <td colspan="13">
         <span class="table-heading">TAHUN: 2023</span>
       </td>
     </tr>
     <tr>
-      <td style="text-align: left;" colspan="14">
+      <td style="text-align: left;" colspan="13">
         <span style="font-size: 12px;  font-weight: bold;">Prov: GORONTALO</span>
       </td>
     </tr>
@@ -92,9 +93,6 @@
       </th>
       <th rowspan="3">
         <span>jumlah pik remaja pro pn</span>
-      </th>
-      <th rowspan="3">
-        <span>jumlah pik remaja pada kampung kb</span>
       </th>
     </tr>
     <tr>
@@ -175,57 +173,86 @@
       <td style="background-color: #0099FF; border: 1px solid #fff;">
         <span style="color: #fff; font-size: 8px; ">13</span>
       </td>
-      <td style="background-color: #0099FF; border: 1px solid #fff;">
-        <span style="color: #fff; font-size: 8px; ">14</span>
-      </td>
     </tr>
   </thead>
 
   <tbody>
-    <tr>
-      <td>
-        <span>01</span>
-      </td>
-      <td style="text-align: left;">
-        <span>GORONTALO</span>
-      </td>
-      <td>
-        <span>94</span>
-      </td>
-      <td>
-        <span>84</span>
-      </td>
-      <td>
-        <span>10</span>
-      </td>
-      <td>
-        <span>22</span>
-      </td>
-      <td>
-        <span>20</span>
-      </td>
-      <td>
-        <span>2</span>
-      </td>
-      <td>
-        <span>5</span>
-      </td>
-      <td>
-        <span>45</span>
-      </td>
-      <td>
-        <span>5</span>
-      </td>
-      <td>
-        <span>14</span>
-      </td>
-      <td>
-        <span>32</span>
-      </td>
-      <td>
-        <span>53</span>
-      </td>
-    </tr>
+    @php
+      $totalPikr = 0;
+      $totalAdaSK = 0;
+      $totalAdaKeterpaduanKelompok = 0;
+      $totalPropn = 0;
+      $totalSmp = 0;
+      $totalSma = 0;
+      $totalPerguruanTinggi = 0;
+      $totalOrKeagamaan = 0;
+      $totalOrmas = 0;
+    @endphp
+    @foreach ($kabkotas as $kabkota)
+      @php
+        $pikrs = $kabkotaPikrs[$kabkota->id];
+        $total = $pikrs->count();
+        $adaSK = $pikrs->filter(fn($pikr) => !!$pikr->sk)->count();
+        $adaKeterpaduanKelompok = $pikrs->filter(fn($pikr) => !!$pikr->keterpaduan_kelompok)->count();
+        $smp = $pikrs->filter(fn($pikr) => $pikr->basis === 'Jalur Pendidikan - SMP/Sederajat')->count();
+        $sma = $pikrs->filter(fn($pikr) => $pikr->basis === 'Jalur Pendidikan - SMA/Sederajat')->count();
+        $perguruanTinggi = $pikrs->filter(fn($pikr) => $pikr->basis === 'Jalur Pendidikan - Perguruan Tinggi')->count();
+        $orKeagamaan = $pikrs->filter(fn($pikr) => $pikr->basis === 'Jalur Masyarakat - Organisasi Keagamaan')->count();
+        $ormas = $pikrs->filter(fn($pikr) => $pikr->basis === 'Jalur Masyarakat - LSM/Organisasi Kepemudaan/Organisasi Kemasyarakatan')->count();
+        $propn = $pikrs->filter(fn($pikr) => $pikr->pro_pn)->count();
+        
+        $totalPikr += $total;
+        $totalAdaSK += $adaSK;
+        $totalAdaKeterpaduanKelompok += $adaKeterpaduanKelompok;
+        $totalSmp += $smp;
+        $totalSma += $sma;
+        $totalPerguruanTinggi += $perguruanTinggi;
+        $totalOrKeagamaan += $orKeagamaan;
+        $totalOrmas += $ormas;
+        $totalPropn += $propn;
+      @endphp
+      <tr>
+        <td>
+          <span>{{ $kabkota->kode }}</span>
+        </td>
+        <td style="text-align: left;">
+          <span>{{ $kabkota->nama }}</span>
+        </td>
+        <td>
+          <span>{{ $total }}</span>
+        </td>
+        <td>
+          <span>{{ $adaSK }}</span>
+        </td>
+        <td>
+          <span>{{ $total - $adaSK }}</span>
+        </td>
+        <td>
+          <span>{{ $smp }}</span>
+        </td>
+        <td>
+          <span>{{ $sma }}</span>
+        </td>
+        <td>
+          <span>{{ $perguruanTinggi }}</span>
+        </td>
+        <td>
+          <span>{{ $orKeagamaan }}</span>
+        </td>
+        <td>
+          <span>{{ $ormas }}</span>
+        </td>
+        <td>
+          <span>{{ $adaKeterpaduanKelompok }}</span>
+        </td>
+        <td>
+          <span>{{ $total - $adaKeterpaduanKelompok }}</span>
+        </td>
+        <td>
+          <span>{{ $propn }}</span>
+        </td>
+      </tr>
+    @endforeach
   </tbody>
 
   <tfoot>
@@ -234,40 +261,37 @@
         <span style="font-weight: bold;">Jumlah Total</span>
       </td>
       <td>
-        <span>272</span>
+        <span>{{ $totalPikr }}</span>
       </td>
       <td>
-        <span>247</span>
+        <span>{{ $totalAdaSK }}</span>
       </td>
       <td>
-        <span>25</span>
+        <span>{{ $totalPikr - $totalAdaSK }}</span>
       </td>
       <td>
-        <span>68</span>
+        <span>{{ $totalSmp }}</span>
       </td>
       <td>
-        <span>83</span>
+        <span>{{ $totalSma }}</span>
       </td>
       <td>
-        <span>2</span>
+        <span>{{ $totalPerguruanTinggi }}</span>
       </td>
       <td>
-        <span>8</span>
+        <span>{{ $totalOrKeagamaan }}</span>
       </td>
       <td>
-        <span>111</span>
+        <span>{{ $totalOrmas }}</span>
       </td>
       <td>
-        <span>17</span>
+        <span>{{ $totalAdaKeterpaduanKelompok }}</span>
       </td>
       <td>
-        <span>30</span>
+        <span>{{ $totalPikr - $totalAdaKeterpaduanKelompok }}</span>
       </td>
       <td>
-        <span>139</span>
-      </td>
-      <td>
-        <span>149</span>
+        <span>{{ $totalPropn }}</span>
       </td>
     </tr>
   </tfoot>
