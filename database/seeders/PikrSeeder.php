@@ -33,5 +33,6 @@ class PikrSeeder extends Seeder
       "desa_id" => 1,
       "pembina_id" => 1,
     ]);
+
   }
 }

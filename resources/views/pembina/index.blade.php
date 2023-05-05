@@ -375,14 +375,5 @@
   <script src="/assets/js/pembina.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-  @if (session()->has('success'))
-    <script>
-      swal({
-        title: "Berhasil",
-        text: "{{ session('success') }}",
-        icon: "success",
-        button: true,
-      });
-    </script>
-  @endif
+  
 @endsection

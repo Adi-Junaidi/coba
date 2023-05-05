@@ -66,6 +66,8 @@ class ArticleController extends Controller
       $validatedData['document'] = $request->file('document')->store('article-document');
     }
 
+    $validatedData['bulan_tahun'] = date('m-Y');
+
     Article::create($validatedData);
 
 
@@ -181,4 +183,13 @@ class ArticleController extends Controller
     $slug = SlugService::createSlug(Article::class, 'slug', $request->title);
     return response()->json(['slug' => $slug]);
   }
+
+  public function getArticle(Article $article)
+  {
+    $article['nama_pikr'] = $article->pikr->nama;
+    $article['update'] = $article->updated_at->diffForHumans();
+    
+    return response()->json($article);
+  }
+
 }

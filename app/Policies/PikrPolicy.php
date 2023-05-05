@@ -18,7 +18,7 @@ class PikrPolicy
    */
   public function viewAny(User $user)
   {
-    //
+    return $user->isAdmin();
   }
 
   /**
@@ -66,6 +66,14 @@ class PikrPolicy
   public function verify(User $user, Pikr $pikr)
   {
     return $user->isPembina() && $user->pembina->desa->kecamatan->id === $pikr->desa->kecamatan->id;
+  }
+
+  public function verifyPikr(User $user, Pikr $pikr)
+  {
+    if($pikr->pembina == null){
+      return false;
+    }
+    return $user->isPembina() && $user->pembina->id === $pikr->pembina->id;
   }
 
   /**

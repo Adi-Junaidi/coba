@@ -18,7 +18,11 @@
 </head>
 
 <body>
-    @include('partials/up_sidebar')
+    @if (auth()->user()->isPikr())
+        @include('partials/up_sidebar')
+    @else
+        @include('partials/sidebar')
+    @endif
 
     <div class="container-fluid">
         @include('partials/up_navbar')
@@ -26,6 +30,7 @@
             <div id="main-content">
                 <div class="page-content">
                     @yield('content')
+
                 </div>
             </div>
         </div>
@@ -60,6 +65,16 @@
             )
         </script>
     @enderror
+
+    @if (session()->has('fail'))
+        <script>
+            Swal.fire(
+                'Gagal',
+                '{{ session('fail') }}',
+                'error'
+            )
+        </script>
+    @endif
 
     @if (session()->has('success'))
         <script>

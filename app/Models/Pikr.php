@@ -13,6 +13,16 @@ class Pikr extends Model
 
   // protected $with = ["materi"];
 
+  public function materi()
+  {
+    return $this->hasOne(MateriPikr::class);
+  } 
+
+  public function sarana()
+  {
+    return $this->hasOne(PikrSarana::class);
+  }
+
   public function user()
   {
     return $this->belongsTo(User::class);
@@ -53,21 +63,15 @@ class Pikr extends Model
     return $this->hasMany(Article::class);
   }
 
-  // ini function utk many to many pada tabel materi
-  public function materi()
-  {
-    return $this->belongsToMany(Materi::class);
-  }
+  
 
-  public function sarana()
-  {
-    return $this->belongsToMany(Sarana::class);
-  }
+  // ini function utk many to many pada tabel materi
 
   public function mitra()
   {
-    return $this->belongsToMany(Mitra::class);
+    return $this->hasMany(MitraPikr::class);
   }
+
 
   public static function boot()
   {

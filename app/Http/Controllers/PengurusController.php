@@ -28,10 +28,12 @@ class PengurusController extends Controller
             'Anggota',
         ];
 
+
+
         return view('user-pikr/data/pengurus', [
             'title' => 'Pengurus',
             'jabatan' => $jabatan,
-            'pengurus' => Pengurus::all(),
+            'pengurus' => Pengurus::where('pikr_id', auth()->user()->pikr->id)->get(),
         ]);
     }
 
@@ -53,7 +55,6 @@ class PengurusController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
 
         $validatedData = $request->validate([
             'nik' => 'required|unique:penguruses,nik',
@@ -63,12 +64,28 @@ class PengurusController extends Controller
             'pernah_pelatihan' => 'required',
         ]);
 
-        $validatedData['pikr_id'] = auth()->user()->id;
+        $uniqueJabatan = [
+            'Pembina',
+            'Ketua',
+            'Sekretaris',
+            'Bendahara',
+        ];
+
+        foreach ($uniqueJabatan as $item) {
+            if ($request->jabatan == $item) {
+                // Mengambil data pengurus dengan jabatan "ketua" dari database
+                $data = Pengurus::where('pikr_id', auth()->user()->pikr->id)->where('jabatan', $item)->first();
+                if($data){
+                    return back()->with('fail', 'Tidak dapat menyimpan data karena jabatan ' . $item . ' sudah ada pada pengurus lain');
+                }
+            }
+        }
+
+        $validatedData['pikr_id'] = auth()->user()->pikr->id;
 
         Pengurus::create($validatedData);
-        Alert::success('New Post has been added!');
 
-        return \redirect('/up/data/pengurus');
+        return \redirect('/up/data/pengurus')->with('success', 'Data pengurus berhasil ditambahkan!');
     }
 
     /**
@@ -118,7 +135,7 @@ class PengurusController extends Controller
         if ($pengurus->nik !== $request->nik) {
             $rules['nik'] = 'required|unique:penguruses,nik';
         }
-        
+
         $validatedData = $request->validate($rules);
 
         $validatedData['pikr_id'] = auth()->user()->id;

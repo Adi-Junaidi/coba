@@ -19,8 +19,9 @@ use App\Http\Controllers\KonselingKelompokController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PelayananInformasiController;
 use App\Http\Controllers\PikrController;
+use App\Http\Controllers\RankController;
 use App\Http\Controllers\RegistrasiKegiatanController;
-
+use App\Http\Controllers\ValidationController;
 use App\Models\Article;
 
 Route::get('/', function () {
@@ -54,7 +55,6 @@ Route::get('/leaderboard', function () {
   return view('landing.leaderboard');
 });
 
-
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
 Route::resource('/pembina', PembinaController::class)->middleware('auth');
@@ -68,33 +68,45 @@ Route::get('/api/desa/{desa}', [DesaController::class, 'api']);
 Route::get('/api/pembina/', [PembinaController::class, 'api']);
 Route::get('/api/pikr', [PikrController::class, 'api']);
 
-Route::resource('/registrasi-kegiatan', RegistrasiKegiatanController::class)->middleware('auth');
+Route::middleware('auth')->group(function(){
+  Route::resources([
+    '/up/article' => ArticleController::class,
+    '/registrasi-kegiatan' => RegistrasiKegiatanController::class,
+    '/peringkat' => RankController::class,
+  ]);
 
-Route::middleware('stepCheck', 'auth')->group(function () {
-    Route::get('/up/dashboard', [UserPikrController::class, 'dashboard']);
-    Route::get('/up/data/identitas', [UserPikrController::class, 'b_identitas']);
-    Route::post('/up/data/identitas/{pikr}', [UserPikrController::class, 'updateIdentitas']);
-    Route::get('/up/data/informasi', [UserPikrController::class, 'b_informasi']);
-    Route::post('/up/data/informasi', [UserPikrController::class, 's_informasi']);
-    Route::post('/up/data/mitra/{id}', [MitraPikrController::class, 'update']);
-    Route::post('/up/data/sk/{id}', [UserPikrController::class, 'addSk']);
-    Route::post('/up/data/update_sk', [UserPikrController::class, 'updateSk']);
+  Route::get('/utility/getArticle/{article}', [ArticleController::class, 'getArticle']);
+});
 
+Route::get('/validate/pikr', [ValidationController::class, 'validatePikr'])->middleware('auth');
+Route::get('/validate/kegiatan', [ValidationController::class, 'validateKegiatan'])->middleware('auth');
+Route::post('/peringkat/filter', [RankController::class, 'filter'])->middleware('auth');
+
+Route::middleware('stepCheck', 'auth',)->group(function () {
+
+  Route::get('/up/dashboard', [UserPikrController::class, 'dashboard']);
+  Route::get('/up/data/identitas', [UserPikrController::class, 'b_identitas']);
+  Route::post('/up/data/identitas/{pikr}', [UserPikrController::class, 'updateIdentitas']);
+  Route::get('/up/data/informasi', [UserPikrController::class, 'b_informasi']);
+  Route::post('/up/data/informasi', [UserPikrController::class, 's_informasi']);
+  Route::post('/up/data/mitra/{id}', [MitraPikrController::class, 'update']);
+  Route::post('/up/data/sk/{id}', [UserPikrController::class, 'addSk']);
+  Route::post('/up/data/update_sk', [UserPikrController::class, 'updateSk']);
+
+  Route::resources([
+    '/up/data/materi' => MateriController::class,
+    '/up/data/sarana' => SaranaController::class,
+    '/up/data/mitra' => MitraPikrController::class,
+    '/up/data/pengurus' => PengurusController::class,
+  ]);
+  Route::middleware('pengurusCheck')->group(function () {
     Route::resources([
-        '/up/data/materi' => MateriController::class,
-        '/up/data/sarana' => SaranaController::class,
-        '/up/data/mitra' => MitraPikrController::class,
-        '/up/data/pengurus' => PengurusController::class,
-        '/up/kegiatan' => LaporanController::class,
-        '/up/article' => ArticleController::class,
-        '/kegiatan/pelayanan' => PelayananInformasiController::class,
-        '/kegiatan/konseling/individu' => KonselingController::class,
-        '/kegiatan/konseling/kelompok' => KonselingKelompokController::class,
+      '/up/kegiatan' => LaporanController::class,
+      '/kegiatan/pelayanan' => PelayananInformasiController::class,
+      '/kegiatan/konseling/individu' => KonselingController::class,
+      '/kegiatan/konseling/kelompok' => KonselingKelompokController::class,
     ]);
-
-    Route::get('/utility/check-slug', [ArticleController::class, 'checkSlug']);
-    Route::get('/utility/getPendidikSebaya', [PelayananInformasiController::class, 'getPendidikSebaya']);
-    Route::get('/utility/getKonselorSebaya', [PelayananInformasiController::class, 'getKonselorSebaya']);
-    Route::get('/utility/getPLKB', [PelayananInformasiController::class, 'getPLKB']);
+    Route::get('/up/kegiatan/detail/{laporan}', [LaporanController::class, 'detail']);
+  });
 
 });

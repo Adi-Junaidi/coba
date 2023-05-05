@@ -37,4 +37,6 @@ class Pembina extends Model
   {
     return $this->hasMany(PelayananInformasi::class);
   }
+
+  
 }

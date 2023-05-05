@@ -104,11 +104,11 @@
                             <label>Jabatan</label>
                             <select class="form-select" name="jabatan">
                                 @foreach ($jabatan as $jab)
-                                    @if ($jab == old('jabatan'))
-                                        <option value="{{ $jab }}" selected>{{ $jab }}</option>
-                                    @else
-                                        <option value="{{ $jab }}">{{ $jab }}</option>
-                                    @endif
+                                @if ($jab)
+                                    
+                                @endif
+                                    <option value="{{ $jab }}" {{ old('jabatan') == $jab ? 'selected' : '' }}>
+                                        {{ $jab }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -319,7 +319,7 @@
             const nama = $(this).data('nama')
             $('#deleteModal form').attr('action', '/up/data/pengurus/' + id)
             $('#pengurus-nama').html(nama)
-            
+
         });
     </script>
 @endpush

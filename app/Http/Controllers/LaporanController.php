@@ -26,18 +26,18 @@ class LaporanController extends Controller
     public function index()
     {
         $bulan = array(
-            array('value' => 1, 'nama' => 'Januari'),
-            array('value' => 2, 'nama' => 'Februari'),
-            array('value' => 3, 'nama' => 'Maret'),
-            array('value' => 4, 'nama' => 'April'),
-            array('value' => 5, 'nama' => 'Mei'),
-            array('value' => 6, 'nama' => 'Juni'),
-            array('value' => 7, 'nama' => 'Juli'),
-            array('value' => 8, 'nama' => 'Agustus'),
-            array('value' => 9, 'nama' => 'September'),
-            array('value' => 10, 'nama' => 'Oktober'),
-            array('value' => 11, 'nama' => 'November'),
-            array('value' => 12, 'nama' => 'Desember')
+            array('value' => '01', 'nama' => 'Januari'),
+            array('value' => '02', 'nama' => 'Februari'),
+            array('value' => '03', 'nama' => 'Maret'),
+            array('value' => '04', 'nama' => 'April'),
+            array('value' => '05', 'nama' => 'Mei'),
+            array('value' => '06', 'nama' => 'Juni'),
+            array('value' => '07', 'nama' => 'Juli'),
+            array('value' => '08', 'nama' => 'Agustus'),
+            array('value' => '09', 'nama' => 'September'),
+            array('value' => '10', 'nama' => 'Oktober'),
+            array('value' => '11', 'nama' => 'November'),
+            array('value' => '12', 'nama' => 'Desember')
         );
 
         $tahunIni = Laporan::where('pikr_id', \session('pikr_id'))->where('tahun_lapor', \date('Y'))->pluck('bulan_lapor')->toArray();
@@ -96,8 +96,8 @@ class LaporanController extends Controller
      */
     public function show(Laporan $kegiatan)
     {
-        if(\session('pikr_id') != $kegiatan->pikr_id) abort(403);
-        if($kegiatan->status != "Not Submited") abort(403);
+        if (\session('pikr_id') != $kegiatan->pikr_id) abort(403);
+        if ($kegiatan->status != "Not Submited") abort(403);
 
         $materi_s = Materi::all();
         $pembina_s = Pembina::all()->pluck('nama');
@@ -106,7 +106,7 @@ class LaporanController extends Controller
             'Pendidik Sebaya',
             'Konselor Sebaya',
         ];
-            
+
         $data = [
             'title' => 'Tambah Kegiatan',
             'materi_s' => $materi_s,
@@ -155,5 +155,17 @@ class LaporanController extends Controller
     public function destroy(Laporan $laporan)
     {
         //
+    }
+
+    public function detail(Laporan $laporan)
+    {
+        if (\session('pikr_id') != $laporan->pikr_id) abort(403);
+        if ($laporan->status == "Not Submited") abort(403);
+
+        return view('user-pikr.kegiatan.detail', [
+            'pelayanan_s' => $laporan->pelayananInformasi()->get(),
+            'ki_s' => $laporan->konseling()->get(),
+            'kk_s' => $laporan->konselingKelompok()->get(),
+        ]);
     }
 }

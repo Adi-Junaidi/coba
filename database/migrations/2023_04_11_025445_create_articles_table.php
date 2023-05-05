@@ -21,6 +21,7 @@ class CreateArticlesTable extends Migration
             $table->text('body');
             $table->string('image');
             $table->string('document')->nullable();
+            $table->string('bulan_tahun');
             $table->timestamps();
         });
     }

@@ -1,17 +1,17 @@
 @extends('layouts.main', [
     'title' => 'Register Kegiatan',
     'heading' => 'Data Register Kegiatan PIK-R',
-    'breadcrumb' => ['Register Kegiatan', 'Laporan Per Bulan']
+    'breadcrumb' => ['Register Kegiatan', 'Laporan Per Bulan'],
 ])
 
 @section('link')
-  <link href="{{ asset('dist') }}/assets/css/pages/fontawesome.css" rel="stylesheet">
-  <link href="{{ asset('dist') }}/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-  <link href="{{ asset('dist') }}/assets/css/pages/datatables.css" rel="stylesheet">
+    <link href="{{ asset('dist') }}/assets/css/pages/fontawesome.css" rel="stylesheet">
+    <link href="{{ asset('dist') }}/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="{{ asset('dist') }}/assets/css/pages/datatables.css" rel="stylesheet">
 @endsection
 
 @section('container')
-  <section>
+    {{-- <section>
     <div class="card">
       <div class="card-body">
         <table class="table" id="table">
@@ -47,26 +47,30 @@
         </table>
       </div>
     </div>
-  </section>
+  </section> --}}
+
+    @include('registrasi.detail.pelayanan')
+    @include('registrasi.detail.konseling')
+    @include('registrasi.detail.konseling_kelompok')
 @endsection
 
 @section('script')
-  <script src="{{ asset('dist') }}/assets/extensions/jquery/jquery.min.js"></script>
-  <script src="/js/datatables.min.js"></script>
-  <script src="/assets/js/kegiatan.js"></script>
+    <script src="{{ asset('dist') }}/assets/extensions/jquery/jquery.min.js"></script>
+    <script src="/js/datatables.min.js"></script>
+    <script src="/assets/js/kegiatan.js"></script>
 
-  <script>
-    $(document).ready(function(){
-      $('#table').DataTable();
-    });
-  </script>
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable();
+        });
+    </script>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-      var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-      })
-    }, false);
-  </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+        }, false);
+    </script>
 @endsection

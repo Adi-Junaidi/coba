@@ -14,21 +14,21 @@ class LaporanSeeder extends Seeder
      */
     public function run()
     {
-        Laporan::create([
-            "pikr_id" => "1",
-            "bulan_lapor" => "5",
-            "tahun_lapor" => "2022",
-        ]);
-        Laporan::create([
-            "pikr_id" => "1",
-            "bulan_lapor" => "3",
-            "tahun_lapor" => "2022",
-        ]);
-        Laporan::create([
-            "pikr_id" => "1",
-            "bulan_lapor" => "4",
-            "tahun_lapor" => "2022",
-        ]);
+        // Laporan::create([
+        //     "pikr_id" => "1",
+        //     "bulan_lapor" => "5",
+        //     "tahun_lapor" => "2022",
+        // ]);
+        // Laporan::create([
+        //     "pikr_id" => "1",
+        //     "bulan_lapor" => "3",
+        //     "tahun_lapor" => "2022",
+        // ]);
+        // Laporan::create([
+        //     "pikr_id" => "1",
+        //     "bulan_lapor" => "4",
+        //     "tahun_lapor" => "2022",
+        // ]);
 
     }
 }

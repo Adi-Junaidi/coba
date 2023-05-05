@@ -57,7 +57,7 @@ class MitraPikrController extends Controller
             'bentuk_kerjasama' => 'required',
         ]);
 
-        $validatedData['pikr_id'] = auth()->user()->id;
+        $validatedData['pikr_id'] = auth()->user()->pikr->id;
 
         MitraPikr::create($validatedData);
         Alert::success('New Post has been added!');
@@ -102,7 +102,7 @@ class MitraPikrController extends Controller
             'mou' => 'required',
             'bentuk_kerjasama' => 'required',
         ]);
-        $validatedData['pikr_id'] = auth()->user()->id;
+        $validatedData['pikr_id'] = auth()->user()->pikr->id;
         
         $id = MitraPikr::find($id)->toArray()['id'];
 
