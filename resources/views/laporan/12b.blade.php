@@ -1,7 +1,7 @@
 @extends('layouts.main', [
-    'title' => 'Tabel 12A',
-    'heading' => 'Laporan Tahunan Tabel 12A',
-    'breadcrumb' => ['Laporan', 'Tahunan', 'Tabel 12A'],
+    'title' => 'Tabel 12B',
+    'heading' => 'Laporan Tahunan Tabel 12B',
+    'breadcrumb' => ['Laporan', 'Tahunan', 'Tabel 12B'],
 ])
 
 @section('link')
@@ -20,7 +20,7 @@
       <div class="card">
         <div class="card-body">
           <div class="overflow-auto">
-            @include('partials.exports.12a')
+            @include('partials.exports.12b')
           </div>
         </div>
       </div>

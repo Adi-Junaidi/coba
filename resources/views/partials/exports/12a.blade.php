@@ -48,13 +48,10 @@
     tfoot td {
       border: 1px solid #0AF0FC !important;
     }
-
-    /* FIXME: print pdf */
-    /*@media print {body *:not(:where(:has(.print), .print, .print *)) {display: none !important;} body *:has(.print) {margin: 0 !important;padding: 0 !important;}}*/
   </style>
 @endpush
 
-<table class="print" cellpadding="0" cellspacing="0" border="0">
+<table cellpadding="0" cellspacing="0" border="0">
   <thead>
     <tr>
       <td colspan="13">

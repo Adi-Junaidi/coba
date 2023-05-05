@@ -64,6 +64,7 @@ Route::middleware('auth')->group(function () {
   Route::prefix('laporan')->group(function () {
     Route::prefix('tahunan')->group(function () {
       Route::get('/12a', [LaporanController::class, 'tahunan_a']);
+      Route::get('/12b', [LaporanController::class, 'tahunan_b']);
     });
   });
 });

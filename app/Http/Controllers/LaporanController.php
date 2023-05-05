@@ -171,6 +171,23 @@ class LaporanController extends Controller
     return view('laporan.12a', compact('kabkotas', 'kabkotaPikrs'));
   }
 
+  public function tahunan_b()
+  {
+    $kabkotas = Kabkota::all();
+
+    // this is a MAGIC that groups PIK-R by KabKota
+    // It does work, don't 🚫 touch it
+    $kabkotaPikrs = $kabkotas->mapWithKeys(fn ($kabkota) => [
+      $kabkota->id => $kabkota->kecamatan->flatMap(fn ($kecamatan) => $kecamatan->pikrs)
+    ]);
+
+    $kabkotas->each(function ($kabkota) use ($kabkotaPikrs) {
+      $kabkota->pikrs = $kabkotaPikrs[$kabkota->id];
+    });
+
+    return view('laporan.12b', compact('kabkotas', 'kabkotaPikrs'));
+  }
+
   public function detail(Laporan $laporan)
   {
     if (\session('pikr_id') != $laporan->pikr_id) abort(403);
