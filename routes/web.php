@@ -109,8 +109,4 @@ Route::middleware('stepCheck', 'auth',)->group(function () {
     Route::get('/up/kegiatan/detail/{laporan}', [LaporanController::class, 'detail']);
   });
 
-  Route::get('/utility/check-slug', [ArticleController::class, 'checkSlug']);
-  Route::get('/utility/getPendidikSebaya', [PelayananInformasiController::class, 'getPendidikSebaya']);
-  Route::get('/utility/getKonselorSebaya', [PelayananInformasiController::class, 'getKonselorSebaya']);
-  Route::get('/utility/getPLKB', [PelayananInformasiController::class, 'getPLKB']);
 });
