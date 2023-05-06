@@ -14,6 +14,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MitraPikrController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\DesaController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KonselingController;
 use App\Http\Controllers\KonselingKelompokController;
 use App\Http\Controllers\LaporanController;
@@ -43,7 +44,6 @@ Route::get('/home', function () {
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->middleware('guest');
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
-
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
 
@@ -56,12 +56,9 @@ Route::get('/leaderboard', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
-
 Route::resource('/pembina', PembinaController::class)->middleware('auth');
 Route::resource('/pikr', PikrController::class)->middleware('auth');
 Route::post('/pikr/{pikr}/verify', [PikrController::class, 'verify'])->middleware('auth');
-
-
 Route::get('/api/kabkota/{kabkota}/kecamatans', fn (Kabkota $kabkota) => response()->json($kabkota->kecamatan));
 Route::get('/api/kecamatan/{kecamatan}/desas', fn (Kecamatan $kecamatan) => response()->json($kecamatan->desa));
 Route::get('/api/desa/{desa}', [DesaController::class, 'api']);
@@ -110,3 +107,5 @@ Route::middleware('stepCheck', 'auth',)->group(function () {
   });
 
 });
+
+Route::get('/', [HomeController::class, 'index']);
