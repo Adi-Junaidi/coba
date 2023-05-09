@@ -1,174 +1,139 @@
-@push('style')
-  <style>
-    table {
-      text-align: center;
-      vertical-align: middle;
-      line-height: 1.1640625;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    table :where(td, th) {
-      padding: .2em .6em;
-    }
-
-    thead th {
-      background-color: #085480;
-      color: #fff;
-      border: 1px solid #fff !important;
-    }
-
-    thead th span {
-      font-size: .6em;
-      text-transform: uppercase;
-    }
-
-    .table-heading {
-      font-size: 16px;
-      font-weight: bold;
-    }
-
-    tbody {
-      background-color: #fff;
-      color: #000;
-      font-size: 10px;
-      text-transform: uppercase;
-    }
-
-    tbody td {
-      border: 1px solid #0AF0FC !important;
-      padding: .5em 1em;
-    }
-
-    tfoot {
-      background-color: #085480;
-      color: #fff;
-      font-size: 12px;
-    }
-
-    tfoot td {
-      border: 1px solid #0AF0FC !important;
-    }
-  </style>
-@endpush
-
-<table cellpadding="0" cellspacing="0" border="0">
+<table style="empty-cells: show; width: 1008px; border-collapse: collapse; background-color: white;" cellpadding="0" cellspacing="0" border="0">
   <thead>
-    <tr>
-      <td colspan="13">
-        <span class="table-heading">JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA/MAHASISWA (PIK REMAJA)<br>BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN</span>
+    <tr style="height:0" valign="top">
+      <td style="width:80px"></td>
+      <td style="width:124px"></td>
+      <td style="width:66px"></td>
+      <td style="width:55px"></td>
+      <td style="width:55px"></td>
+      <td style="width:55px"></td>
+      <td style="width:55px"></td>
+      <td style="width:60px"></td>
+      <td style="width:60px"></td>
+      <td style="width:99px"></td>
+      <td style="width:55px"></td>
+      <td style="width:55px"></td>
+      <td style="width:88px"></td>
+    </tr>
+    <tr style="height:21px" valign="top">
+      <td style="white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;" colspan="13">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 16px; line-height: 1.1640625; font-weight: bold;">JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA/MAHASISWA (PIK REMAJA)</span>
       </td>
     </tr>
-    <tr>
-      <td colspan="13">
-        <span class="table-heading">TAHUN: 2023</span>
+    <tr style="height:21px" valign="top">
+      <td style="white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;" colspan="13">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 16px; line-height: 1.1640625; font-weight: bold;">BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN</span>
       </td>
     </tr>
-    <tr>
-      <td style="text-align: left;" colspan="13">
-        <span style="font-size: 12px;  font-weight: bold;">Prov: GORONTALO</span>
+    <tr style="height:25px" valign="top">
+      <td style="white-space: nowrap; text-indent: 0px; text-align: center;" colspan="13">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 16px; line-height: 1.1640625; font-weight: bold;">TAHUN: &nbsp; 2023</span>
       </td>
     </tr>
-
-    <tr>
-      <th rowspan="3">
-        <span>kode</span>
-      </th>
-      <th rowspan="3">
-        <span>kabupaten</span>
-      </th>
-      <th rowspan="3">
-        <span>jumlah pik remaja</span>
-      </th>
-      <th colspan="2">
-        <span>kepemilikan sk pengukuhan</span>
-      </th>
-      <th colspan="5">
-        <span>basis</span>
-      </th>
-      <th colspan="2">
-        <span>keterpaduan kelompok</span>
-      </th>
-      <th rowspan="3">
-        <span>jumlah pik remaja pro pn</span>
-      </th>
+    <tr style="height:26px" valign="top">
+      <td style="white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: left;" colspan="13">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 12px; line-height: 1.1640625; font-weight: bold;">Prov : &nbsp;GORONTALO</span>
+      </td>
     </tr>
-    <tr>
-      <th rowspan="2">
-        <span>ada</span>
-      </th>
-      <th rowspan="2">
-        <span>tidak</span>
-      </th>
-      <th colspan="3">
-        <span>jalur pendidikan</span>
-      </th>
-      <th colspan="2">
-        <span>jalur masyarakat</span>
-      </th>
-      <th rowspan="2">
-        <span>ya</span>
-      </th>
-      <th rowspan="2">
-        <span>tidak</span>
-      </th>
+    <tr style="height:30px" valign="top">
+      <td style="background-color: #085480; border: 1px solid #FFFFFF; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;" rowspan="3">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625; font-weight: bold;">KODE</span>
+      </td>
+      <td style="background-color: #085480; border: 1px solid #FFFFFF; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;" rowspan="3">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625; font-weight: bold;">KABUPATEN</span>
+      </td>
+      <td style="background-color: #085480; border: 1px solid #FFFFFF; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;" rowspan="3">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625; font-weight: bold;">JUMLAH PIK<br>REMAJA</span>
+      </td>
+      <td style="background-color: #085480; border: 1px solid #FFFFFF; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;" colspan="2">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625; font-weight: bold;">KEPEMILIKAN SK<br>PENGUKUHAN </span>
+      </td>
+      <td style="background-color: #085480; border: 1px solid #FFFFFF; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;" colspan="5">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625; font-weight: bold;">BASIS</span>
+      </td>
+      <td style="background-color: #085480; border: 1px solid #FFFFFF; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;" colspan="2">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625; font-weight: bold;">KETERPADUAN<br>KELOMPOK</span>
+      </td>
+      <td style="background-color: #085480; border: 1px solid #FFFFFF; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;" rowspan="3">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625; font-weight: bold;">JUMLAH PIK<br>REMAJA<br>PRO PN</span>
+      </td>
     </tr>
-    <tr>
-      <th>
-        <span>smp/ setara</span>
-      </th>
-      <th>
-        <span>sma/ setara</span>
-      </th>
-      <th>
-        <span>perguruan tinggi</span>
-      </th>
-      <th>
-        <span>organisasi keagamaan</span>
-      </th>
-      <th>
-        <span>lsm/ organisasi kepemudaan/ organisasi kemasyarakatan</span>
-      </th>
+    <tr style="height:30px" valign="top">
+      <td style="background-color: #085480; border: 1px solid #FFFFFF; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;" rowspan="2">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625; font-weight: bold;">ADA</span>
+      </td>
+      <td style="background-color: #085480; border: 1px solid #FFFFFF; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;" rowspan="2">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625; font-weight: bold;">TIDAK</span>
+      </td>
+      <td style="background-color: #085480; border: 1px solid #FFFFFF; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;" colspan="3">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625; font-weight: bold;">JALUR PENDIDIKAN</span>
+      </td>
+      <td style="background-color: #085480; border: 1px solid #FFFFFF; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;" colspan="2">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625; font-weight: bold;">JALUR MASYARAKAT</span>
+      </td>
+      <td style="background-color: #085480; border: 1px solid #FFFFFF; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;" rowspan="2">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625; font-weight: bold;">YA</span>
+      </td>
+      <td style="background-color: #085480; border: 1px solid #FFFFFF; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;" rowspan="2">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625; font-weight: bold;">TIDAK</span>
+      </td>
     </tr>
-
-    <tr>
-      <td style="background-color: #0099FF; border: 1px solid #fff;">
-        <span style="color: #fff; font-size: 8px; ">1</span>
+    <tr style="height:50px" valign="top">
+      <td style="background-color: #085480; border: 1px solid #FFFFFF; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625; font-weight: bold;">SMP/<br>SETARA</span>
       </td>
-      <td style="background-color: #0099FF; border: 1px solid #fff;">
-        <span style="color: #fff; font-size: 8px; ">2</span>
+      <td style="background-color: #085480; border: 1px solid #FFFFFF; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625; font-weight: bold;">SMA/<br>SETARA</span>
       </td>
-      <td style="background-color: #0099FF; border: 1px solid #fff;">
-        <span style="color: #fff; font-size: 8px; ">3</span>
+      <td style="background-color: #085480; border: 1px solid #FFFFFF; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625; font-weight: bold;">PERGURUAN<br>TINGGI</span>
       </td>
-      <td style="background-color: #0099FF; border: 1px solid #fff;">
-        <span style="color: #fff; font-size: 8px; ">4</span>
+      <td style="background-color: #085480; border: 1px solid #FFFFFF; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625; font-weight: bold;">ORGANISASI<br>KEAGAMAAN</span>
       </td>
-      <td style="background-color: #0099FF; border: 1px solid #fff;">
-        <span style="color: #fff; font-size: 8px; ">5</span>
+      <td style="background-color: #085480; border: 1px solid #FFFFFF; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625; font-weight: bold;">LSM/ ORGANISASI<br>KEPEMUDAAN/<br>ORGANISASI<br>KEMASYARAKATAN</span>
       </td>
-      <td style="background-color: #0099FF; border: 1px solid #fff;">
-        <span style="color: #fff; font-size: 8px; ">6</span>
+    </tr>
+    <tr style="height:17px" valign="top">
+      <td style="background-color: #0099FF; border: 1px solid #FFFCFC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625;">1</span>
       </td>
-      <td style="background-color: #0099FF; border: 1px solid #fff;">
-        <span style="color: #fff; font-size: 8px; ">7</span>
+      <td style="background-color: #0099FF; border: 1px solid #FFFCFC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625;">2</span>
       </td>
-      <td style="background-color: #0099FF; border: 1px solid #fff;">
-        <span style="color: #fff; font-size: 8px; ">8</span>
+      <td style="background-color: #0099FF; border: 1px solid #FFFCFC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625;">3</span>
       </td>
-      <td style="background-color: #0099FF; border: 1px solid #fff;">
-        <span style="color: #fff; font-size: 8px; ">9</span>
+      <td style="background-color: #0099FF; border: 1px solid #FFFCFC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625;">4</span>
       </td>
-      <td style="background-color: #0099FF; border: 1px solid #fff;">
-        <span style="color: #fff; font-size: 8px; ">10</span>
+      <td style="background-color: #0099FF; border: 1px solid #FFFCFC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625;">5</span>
       </td>
-      <td style="background-color: #0099FF; border: 1px solid #fff;">
-        <span style="color: #fff; font-size: 8px; ">11</span>
+      <td style="background-color: #0099FF; border: 1px solid #FFFCFC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625;">6</span>
       </td>
-      <td style="background-color: #0099FF; border: 1px solid #fff;">
-        <span style="color: #fff; font-size: 8px; ">12</span>
+      <td style="background-color: #0099FF; border: 1px solid #FFFCFC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625;">7</span>
       </td>
-      <td style="background-color: #0099FF; border: 1px solid #fff;">
-        <span style="color: #fff; font-size: 8px; ">13</span>
+      <td style="background-color: #0099FF; border: 1px solid #FFFCFC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625;">8</span>
+      </td>
+      <td style="background-color: #0099FF; border: 1px solid #FFFCFC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625;">9</span>
+      </td>
+      <td style="background-color: #0099FF; border: 1px solid #FFFCFC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625;">10</span>
+      </td>
+      <td style="background-color: #0099FF; border: 1px solid #FFFCFC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625;">11</span>
+      </td>
+      <td style="background-color: #0099FF; border: 1px solid #FFFCFC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625;">12</span>
+      </td>
+      <td style="background-color: #0099FF; border: 1px solid #FFFCFC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFCFC; font-size: 8px; line-height: 1.1640625;">13</span>
       </td>
     </tr>
   </thead>
@@ -208,87 +173,88 @@
         $totalOrmas += $ormas;
         $totalPropn += $propn;
       @endphp
-      <tr>
-        <td>
-          <span>{{ $kabkota->kode }}</span>
+
+      <tr style="height:30px" valign="top">
+        <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $kabkota->kode }}</span>
         </td>
-        <td style="text-align: left;">
-          <span>{{ $kabkota->nama }}</span>
+        <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: left;">
+          <div style="padding-left:5px;"><span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1; *line-height: normal;">{{ $kabkota->nama }}</span></div>
         </td>
-        <td>
-          <span>{{ $total }}</span>
+        <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $total }}</span>
         </td>
-        <td>
-          <span>{{ $adaSK }}</span>
+        <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $adaSK }}</span>
         </td>
-        <td>
-          <span>{{ $total - $adaSK }}</span>
+        <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $total - $adaSK }}</span>
         </td>
-        <td>
-          <span>{{ $smp }}</span>
+        <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $smp }}</span>
         </td>
-        <td>
-          <span>{{ $sma }}</span>
+        <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $sma }}</span>
         </td>
-        <td>
-          <span>{{ $perguruanTinggi }}</span>
+        <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $perguruanTinggi }}</span>
         </td>
-        <td>
-          <span>{{ $orKeagamaan }}</span>
+        <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $orKeagamaan }}</span>
         </td>
-        <td>
-          <span>{{ $ormas }}</span>
+        <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $ormas }}</span>
         </td>
-        <td>
-          <span>{{ $adaKeterpaduanKelompok }}</span>
+        <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $adaKeterpaduanKelompok }}</span>
         </td>
-        <td>
-          <span>{{ $total - $adaKeterpaduanKelompok }}</span>
+        <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $total - $adaKeterpaduanKelompok }}</span>
         </td>
-        <td>
-          <span>{{ $propn }}</span>
+        <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $propn }}</span>
         </td>
       </tr>
     @endforeach
   </tbody>
 
   <tfoot>
-    <tr>
-      <td colspan="2">
-        <span style="font-weight: bold;">Jumlah Total</span>
+    <tr style="height:30px" valign="top">
+      <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;" colspan="2">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 12px; line-height: 1.1640625; font-weight: bold;">Jumlah Total</span>
       </td>
-      <td>
-        <span>{{ $totalPikr }}</span>
+      <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">272</span>
       </td>
-      <td>
-        <span>{{ $totalAdaSK }}</span>
+      <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">250</span>
       </td>
-      <td>
-        <span>{{ $totalPikr - $totalAdaSK }}</span>
+      <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">22</span>
       </td>
-      <td>
-        <span>{{ $totalSmp }}</span>
+      <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">68</span>
       </td>
-      <td>
-        <span>{{ $totalSma }}</span>
+      <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">82</span>
       </td>
-      <td>
-        <span>{{ $totalPerguruanTinggi }}</span>
+      <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">2</span>
       </td>
-      <td>
-        <span>{{ $totalOrKeagamaan }}</span>
+      <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">8</span>
       </td>
-      <td>
-        <span>{{ $totalOrmas }}</span>
+      <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">112</span>
       </td>
-      <td>
-        <span>{{ $totalAdaKeterpaduanKelompok }}</span>
+      <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">13</span>
       </td>
-      <td>
-        <span>{{ $totalPikr - $totalAdaKeterpaduanKelompok }}</span>
+      <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">21</span>
       </td>
-      <td>
-        <span>{{ $totalPropn }}</span>
+      <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">139</span>
       </td>
     </tr>
   </tfoot>

@@ -29,8 +29,8 @@
       </div>
       <div class="col-6">
         <button class="btn btn-primary"><i class="fa fa-search"></i> Cari</button>
-        <button class="btn btn-danger"><i class="far fa-file-pdf"></i> Cetak</button>
-        <button class="btn btn-success"><i class="far fa-file-excel"></i> Cetak</button>
+        <a class="btn btn-danger" href="/laporan/tahunan/export/12a/pdf"><i class="far fa-file-pdf"></i> Cetak</a>
+        <a class="btn btn-success" href="/laporan/tahunan/export/12a/xlsx"><i class="far fa-file-excel"></i> Cetak</a>
       </div>
     </div>
   </div>

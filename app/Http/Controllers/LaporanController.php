@@ -16,6 +16,9 @@ use App\Models\KonselingKelompok;
 use App\Models\PelayananInformasi;
 use App\Models\Pikr;
 
+use App\Exports\Laporan12aExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class LaporanController extends Controller
 {
   /**
@@ -198,5 +201,17 @@ class LaporanController extends Controller
       'ki_s' => $laporan->konseling()->get(),
       'kk_s' => $laporan->konselingKelompok()->get(),
     ]);
+  }
+
+  // Export Excel
+  public function export_12a_xlsx()
+  {
+    return Excel::download(new Laporan12aExport, 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN 2023.xlsx');
+  }
+
+  // export pdf
+  public function export_12a_pdf()
+  {
+    return Excel::download(new Laporan12aExport, 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN 2023.pdf', \Maatwebsite\Excel\Excel::MPDF);
   }
 }
