@@ -35,6 +35,7 @@ class PikrSeeder extends Seeder
       "akun_medsos" => "Instagram (@pikr-assalam)",
       "desa_id" => 1,
       "pembina_id" => 1,
+      "verified" => true
     ]);
 
     Pikr::factory(Desa::count())->create();

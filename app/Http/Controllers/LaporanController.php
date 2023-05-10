@@ -177,7 +177,6 @@ class LaporanController extends Controller
   public function tahunan_b()
   {
     $kabkotas = Kabkota::all();
-
     // this is a MAGIC that groups PIK-R by KabKota
     // It does work, don't 🚫 touch it
     $kabkotaPikrs = $kabkotas->mapWithKeys(fn ($kabkota) => [
@@ -188,7 +187,7 @@ class LaporanController extends Controller
       $kabkota->pikrs = $kabkotaPikrs[$kabkota->id];
     });
 
-    return view('laporan.12b', compact('kabkotas', 'kabkotaPikrs'));
+    return view('laporan.12b', compact('kabkotas'));
   }
 
   public function detail(Laporan $laporan)
