@@ -21,7 +21,7 @@
                                     <th>Jabatan</th>
                                     <th>No. Handphone</th>
                                     <th>Ikut Pelatihan</th>
-                                    <th>Aksi</th>
+                                    <th style="width: 200px">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,10 +36,14 @@
                                         <td>
                                             <button type="button" class="btn btn-warning btn-sm edit_btn"
                                                 data-bs-toggle="modal" data-bs-target="#editModal"
-                                                data-id="{{ $p->id }}">Edit</button>
+                                                data-id="{{ $p->id }}">
+                                                <i class="bi bi-eye-fill"></i>
+                                            </button>
                                             <button type="button" class="btn btn-danger btn-sm delete_btn"
                                                 data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                data-nama="{{ $p->nama }}" data-id="{{ $p->id }}">Hapus</button>
+                                                data-nama="{{ $p->nama }}" data-id="{{ $p->id }}">
+                                                <i class="bi bi-trash3"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 @endforeach
