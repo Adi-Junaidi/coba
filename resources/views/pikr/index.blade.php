@@ -108,7 +108,8 @@
                                                 <span class="fa-fw fas select-all"></span>
                                             </span>
                                         </button> --}}
-                                        <a href="/pikr/{{ $p->id }}" class="btn btn-warning btn-sm"><i class="fas fa-fw"></i></a>
+                                        <a href="/pikr/{{ $p->id }}" class="btn btn-warning btn-sm"><i
+                                                class="bi bi-pencil-square"></i></a>
                                     </td>
                                 </tr>
                             @endcan
@@ -146,8 +147,12 @@
                                                 <span class="fa-fw fas select-all"></span>
                                             </span>
                                         </button> --}}
-
-                                        <a href="/pikr/{{ $p->id }}" class="btn btn-primary btn-sm"></a>
+                                        <a href="/pikr/{{ $p->id }}" class="btn btn-info btn-sm"
+                                            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Detail PIK-R"><i
+                                                class="bi bi-eye-fill"></i></a>
+                                        <button class="btn btn-sm btn-danger btn-delete" data-id="{{ $p->id }}" data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal"><i data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="Hapus PIK-R" class="bi bi-trash3"></i></button>
                                     </td>
                                 </tr>
                             @endcan
@@ -600,6 +605,45 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade text-left" id="deleteModal" tabindex="-1" aria-labelledby="" style="display: none;"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title white" id="myModalLabel1">
+                        Hapus Data PIK-R
+                    </h5>
+                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <b>Yakin ingin menghapus?</b> <br>
+                    Data yang sudah terhapus tidak dapat dikembalikan
+                </div>
+                <form method="post">
+                    @method('delete')
+                    @csrf
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-bs-dismiss="modal">
+                            <i class="bx bx-x d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Close</span>
+                        </button>
+                        <button type="submit" class="btn btn-danger ms-1" data-bs-dismiss="modal">
+                            <i class="bx bx-check d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Hapus</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
@@ -613,6 +657,13 @@
                 return new bootstrap.Tooltip(tooltipTriggerEl)
             })
         }, false);
+    </script>
+
+    <script>
+        $(document).on('click', '.btn-delete', function() {
+            const id = $(this).data('id')
+            $('#deleteModal form').attr('action', '/pikr/' + id)
+        });
     </script>
 
     <script src="/js/pikr.js"></script>
