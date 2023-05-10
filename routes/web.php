@@ -75,6 +75,8 @@ Route::middleware('auth')->group(function(){
     '/peringkat' => RankController::class,
   ]);
   Route::get('/utility/getArticle/{article}', [ArticleController::class, 'getArticle']);
+  Route::get('/utility/check-slug', [ArticleController::class, 'checkSlug']);
+
 });
 
 Route::get('/validate/pikr', [ValidationController::class, 'validatePikr'])->middleware('auth');
