@@ -103,7 +103,60 @@ class PikrController extends Controller
    */
   public function destroy(Pikr $pikr)
   {
-    //
+    if ($pikr->materi) {
+      $pikr->materi->delete();
+    }
+    if ($pikr->sarana) {
+      $pikr->sarana->delete();
+    }
+    if ($pikr->user) {
+      $pikr->user->delete();
+    }
+    if ($pikr->sk) {
+      $pikr->sk->delete();
+    }
+    if ($pikr->pengurus) {
+      $pikr->pengurus()->delete();
+    }
+    if ($pikr->articles) {
+      $pikr->articles()->delete();
+    }
+    if ($pikr->mitra) {
+      $pikr->mitra()->delete();
+    }
+    if ($pikr->stepper) {
+      $pikr->stepper->delete();
+    }
+    if ($pikr->result) {
+      $pikr->result->delete();
+    }
+
+    if ($pikr->laporan) {
+      foreach ($pikr->laporan as $laporan) {
+        foreach ($laporan->pelayananInformasi as $item) {
+          $item->delete();
+        }
+      }
+
+      foreach ($pikr->laporan as $laporan) {
+        foreach ($laporan->konseling as $item) {
+          $item->delete();
+        }
+      }
+
+      foreach ($pikr->laporan as $laporan) {
+        foreach ($laporan->konselingKelompok as $item) {
+          $item->delete();
+        }
+      }
+      foreach($pikr->laporan as $laporan){
+        $laporan->delete();
+      }
+    }
+
+    $pikr->delete();
+
+    return \back()->with('success', 'Semua Data yang berkaitan dengan PIK-R tersebut berhasil dihapus');
   }
 
   public function verify(Pikr $pikr)
@@ -121,7 +174,7 @@ class PikrController extends Controller
         'title' => 'Membatalkan Verifikasi PIKR',
         'body' => "Akun $pikr->nama sudah dicabut hak aksesnya, anda tidak dapat login di sistem informasi PIK-R"
       ];
-  
+
       $send_email = new MailController();
       $send_email->sendEmail($dataEmail);
 
