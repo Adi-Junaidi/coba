@@ -161,11 +161,23 @@ class LaporanController extends Controller
     {
         if (\session('pikr_id') != $laporan->pikr_id) abort(403);
         if ($laporan->status == "Not Submited") abort(403);
-
+        
         return view('user-pikr.kegiatan.detail', [
             'pelayanan_s' => $laporan->pelayananInformasi()->get(),
             'ki_s' => $laporan->konseling()->get(),
             'kk_s' => $laporan->konselingKelompok()->get(),
         ]);
+    }
+    
+    public function cancel(Laporan $laporan)
+    {
+        if (session('pikr_id') != $laporan->pikr_id) abort(403);
+        if ($laporan->status != "Submited") abort(403);
+
+        $laporan->update([
+            'status' => 'Not Submited',
+        ]);
+
+        return  back()->with('success', 'Berhasil membatalkan pengiriman registrasi kegiatan');
     }
 }

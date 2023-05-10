@@ -74,7 +74,6 @@ Route::middleware('auth')->group(function(){
     '/registrasi-kegiatan' => RegistrasiKegiatanController::class,
     '/peringkat' => RankController::class,
   ]);
-
   Route::get('/utility/getArticle/{article}', [ArticleController::class, 'getArticle']);
 });
 
@@ -83,7 +82,6 @@ Route::get('/validate/kegiatan', [ValidationController::class, 'validateKegiatan
 Route::post('/peringkat/filter', [RankController::class, 'filter'])->middleware('auth');
 
 Route::middleware('stepCheck', 'auth',)->group(function () {
-
   Route::get('/up/dashboard', [UserPikrController::class, 'dashboard']);
   Route::get('/up/data/identitas', [UserPikrController::class, 'b_identitas']);
   Route::post('/up/data/identitas/{pikr}', [UserPikrController::class, 'updateIdentitas']);
@@ -92,13 +90,14 @@ Route::middleware('stepCheck', 'auth',)->group(function () {
   Route::post('/up/data/mitra/{id}', [MitraPikrController::class, 'update']);
   Route::post('/up/data/sk/{id}', [UserPikrController::class, 'addSk']);
   Route::post('/up/data/update_sk', [UserPikrController::class, 'updateSk']);
-
+  
   Route::resources([
     '/up/data/materi' => MateriController::class,
     '/up/data/sarana' => SaranaController::class,
     '/up/data/mitra' => MitraPikrController::class,
     '/up/data/pengurus' => PengurusController::class,
   ]);
+  
   Route::middleware('pengurusCheck')->group(function () {
     Route::resources([
       '/up/kegiatan' => LaporanController::class,
@@ -107,6 +106,9 @@ Route::middleware('stepCheck', 'auth',)->group(function () {
       '/kegiatan/konseling/kelompok' => KonselingKelompokController::class,
     ]);
     Route::get('/up/kegiatan/detail/{laporan}', [LaporanController::class, 'detail']);
-  });
-
+    Route::get('/up/kegiatan/cancel/{laporan}', [LaporanController::class, 'cancel']);
+    Route::get('/utility/getPendidikSebaya', [PelayananInformasiController::class, 'getPendidikSebaya']);
+    Route::get('/utility/getKonselorSebaya', [PelayananInformasiController::class, 'getKonselorSebaya']);
+    Route::get('/utility/getPLKB', [PelayananInformasiController::class, 'getPLKB']);
+  }); 
 });
