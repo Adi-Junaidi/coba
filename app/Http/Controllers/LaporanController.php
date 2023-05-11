@@ -17,6 +17,7 @@ use App\Models\PelayananInformasi;
 use App\Models\Pikr;
 
 use App\Exports\Laporan12aExport;
+use App\Exports\Laporan12bExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class LaporanController extends Controller
@@ -171,7 +172,12 @@ class LaporanController extends Controller
       $kabkota->id => $kabkota->kecamatan->flatMap(fn ($kecamatan) => $kecamatan->pikrs)
     ]);
 
-    return view('laporan.12a', compact('kabkotas', 'kabkotaPikrs'));
+    $downloadLinks = [
+      "xlsx" => '/laporan/tahunan/export/12a/xlsx',
+      "pdf" => '/laporan/tahunan/export/12a/pdf',
+    ];
+
+    return view('laporan.12a', compact('kabkotas', 'kabkotaPikrs', 'downloadLinks'));
   }
 
   public function tahunan_b()
@@ -187,7 +193,12 @@ class LaporanController extends Controller
       $kabkota->pikrs = $kabkotaPikrs[$kabkota->id];
     });
 
-    return view('laporan.12b', compact('kabkotas'));
+    $downloadLinks = [
+      "xlsx" => '/laporan/tahunan/export/12b/xlsx',
+      "pdf" => '/laporan/tahunan/export/12b/pdf',
+    ];
+
+    return view('laporan.12b', compact('kabkotas', 'downloadLinks'));
   }
 
   public function detail(Laporan $laporan)
@@ -207,10 +218,18 @@ class LaporanController extends Controller
   {
     return Excel::download(new Laporan12aExport, 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN 2023.xlsx');
   }
+  public function export_12b_xlsx()
+  {
+    return Excel::download(new Laporan12bExport, 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN 2023.xlsx');
+  }
 
   // export pdf
   public function export_12a_pdf()
   {
     return Excel::download(new Laporan12aExport, 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN 2023.pdf', \Maatwebsite\Excel\Excel::MPDF);
+  }
+  public function export_12b_pdf()
+  {
+    return Excel::download(new Laporan12bExport, 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN 2023.pdf', \Maatwebsite\Excel\Excel::MPDF);
   }
 }

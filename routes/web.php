@@ -65,8 +65,18 @@ Route::middleware('auth')->group(function () {
     Route::prefix('tahunan')->group(function () {
       Route::get('/12a', [LaporanController::class, 'tahunan_a']);
       Route::get('/12b', [LaporanController::class, 'tahunan_b']);
-      Route::get('/export/12a/xlsx', [LaporanController::class, 'export_12a_xlsx']);
-      Route::get('/export/12a/pdf', [LaporanController::class, 'export_12a_pdf']);
+
+      Route::prefix('export')->group(function () {
+        Route::prefix('12a')->group(function () {
+          Route::get('/xlsx', [LaporanController::class, 'export_12a_xlsx']);
+          Route::get('/pdf', [LaporanController::class, 'export_12a_pdf']);
+        });
+
+        Route::prefix('12b')->group(function () {
+          Route::get('/xlsx', [LaporanController::class, 'export_12b_xlsx']);
+          Route::get('/pdf', [LaporanController::class, 'export_12b_pdf']);
+        });
+      });
     });
   });
 });

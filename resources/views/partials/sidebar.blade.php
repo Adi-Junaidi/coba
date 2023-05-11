@@ -144,10 +144,10 @@
             </a>
 
             <ul class="submenu {{ Request::is('laporan/tahunan/*') ? 'active' : '' }}">
-              <li class="submenu-item {{ Request::is('laporan/tahunan/*') ? 'active' : '' }}">
+              <li class="submenu-item {{ Request::is('laporan/tahunan/12a') ? 'active' : '' }}">
                 <a href="/laporan/tahunan/12a">Tabel 12A</a>
               </li>
-              <li class="submenu-item">
+              <li class="submenu-item {{ Request::is('laporan/tahunan/12b') ? 'active' : '' }}">
                 <a href="/laporan/tahunan/12b">Tabel 12B</a>
               </li>
             </ul>
