@@ -152,7 +152,9 @@
                                 <p class="card-text mb-0">
                                     {{ $article->getExcerpt() }}
                                 </p>
-                                <a class="small text-primary" href="/articles/{{ $article->slug }}">Selengkapnya</a>
+
+                                <a class="small text-primary" href="/article/{{ $article->slug }}">Selengkapnya</a>
+
                             </div>
                             <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                                 <div class="d-flex align-items-end justify-content-between">

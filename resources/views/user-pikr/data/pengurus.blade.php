@@ -15,11 +15,10 @@
                         <table class="table table-lg">
                             <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>NIK</th>
-                                    <th>Nama Lengkap</th>
                                     <th>Jabatan</th>
-                                    <th>No. Handphone</th>
+                                    <th>Nama Lengkap</th>
+                                    <th>NIK</th>
+                                    <th>No. Hp</th>
                                     <th>Ikut Pelatihan</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -27,19 +26,22 @@
                             <tbody>
                                 @foreach ($pengurus as $p)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $p->nik }}</td>
-                                        <td>{{ $p->nama }}</td>
                                         <td>{{ $p->jabatan }}</td>
+                                        <td>{{ $p->nama }}</td>
+                                        <td>{{ $p->nik }}</td>
                                         <td>{{ $p->no_hp }}</td>
                                         <td>{{ $p->pernah_pelatihan ? 'Pernah' : 'Tidak Pernah' }}</td>
                                         <td>
                                             <button type="button" class="btn btn-warning btn-sm edit_btn"
                                                 data-bs-toggle="modal" data-bs-target="#editModal"
-                                                data-id="{{ $p->id }}">Edit</button>
+                                                data-id="{{ $p->id }}">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </button>
                                             <button type="button" class="btn btn-danger btn-sm delete_btn"
                                                 data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                data-nama="{{ $p->nama }}" data-id="{{ $p->id }}">Hapus</button>
+                                                data-nama="{{ $p->nama }}" data-id="{{ $p->id }}">
+                                                <i class="bi bi-trash3"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -56,7 +58,7 @@
 @push('modal')
     <div class="modal fade text-left" id="addModal" tabindex="-1" aria-labelledby="" style="display: none;"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-primary">
                     <h5 class="modal-title white" id="myModalLabel1">
@@ -76,7 +78,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>NIK</label>
-                            <input class="form-control @error('nik') is-invalid @enderror"" type="text" name="nik"
+                            <input class="form-control @error('nik') is-invalid @enderror" type="text" name="nik"
                                 placeholder="Masukkan NIK" required value="{{ old('nik') }}">
                             @error('nik')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -85,7 +87,7 @@
 
                         <div class="form-group">
                             <label>Nama Lengkap</label>
-                            <input class="form-control" type="text" name="nama" placeholder="Masukkan Nama Lengkap"
+                            <input class="form-control @error('nama') is-invalid @enderror" type="text" name="nama" placeholder="Masukkan Nama Lengkap"
                                 required value="{{ old('nik') }}">
                             @error('nama')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -93,9 +95,9 @@
                         </div>
                         <div class="form-group">
                             <label>Nomor Handphone</label>
-                            <input class="form-control" type="text" name="no_hp" placeholder="Masukkan Nomor Handphone"
+                            <input class="form-control @error('no_hp') is-invalid @enderror" type="text" name="no_hp" placeholder="Masukkan Nomor Handphone"
                                 required value="{{ old('nik') }}">
-                            @error('nik')
+                            @error('no_hp')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -104,9 +106,6 @@
                             <label>Jabatan</label>
                             <select class="form-select" name="jabatan">
                                 @foreach ($jabatan as $jab)
-                                @if ($jab)
-                                    
-                                @endif
                                     <option value="{{ $jab }}" {{ old('jabatan') == $jab ? 'selected' : '' }}>
                                         {{ $jab }}</option>
                                 @endforeach
@@ -145,10 +144,11 @@
             </div>
         </div>
     </div>
+
     {{-- Edit Modal --}}
     <div class="modal fade text-left" id="editModal" tabindex="-1" aria-labelledby="" style="display: none;"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-warning">
                     <h5 class="modal-title white" id="myModalLabel1">
@@ -169,58 +169,36 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>NIK</label>
-                            <input class="form-control @error('nik') is-invalid @enderror"" type="text" name="nik"
-                                placeholder="Masukkan NIK" required value="{{ old('nik') }}">
-                            @error('nik')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                            <input class="form-control @error('e_nik') is-invalid @enderror"" type="text" name="e_nik"
+                                placeholder="Masukkan NIK" required>
+                                @error('e_nik')
+                                    <div class="invalid-feedback">{{$message}}</div>
+                                @enderror
                         </div>
 
                         <div class="form-group">
                             <label>Nama Lengkap</label>
-                            <input class="form-control" type="text" name="nama"
-                                placeholder="Masukkan Nama Lengkap" required value="{{ old('nik') }}">
-                            @error('nama')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                            <input class="form-control @error('e_nama') is-invalid @enderror"" type="text" name="e_nama"
+                                placeholder="Masukkan Nama Lengkap" required>
                         </div>
                         <div class="form-group">
                             <label>Nomor Handphone</label>
-                            <input class="form-control" type="text" name="no_hp"
-                                placeholder="Masukkan Nomor Handphone" required value="{{ old('nik') }}">
-                            @error('nik')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label>Jabatan</label>
-                            <select class="form-select" name="jabatan" id="jabatan">
-                                @foreach ($jabatan as $jab)
-                                    @if ($jab == old('jabatan'))
-                                        <option value="{{ $jab }}" selected>{{ $jab }}</option>
-                                    @else
-                                        <option value="{{ $jab }}">{{ $jab }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
+                            <input class="form-control @error('e_no_hp') is-invalid @enderror"" type="text" name="e_no_hp"
+                                placeholder="Masukkan Nomor Handphone" required>
                         </div>
 
                         <div class="form-group">
                             <label class="my-2">Pernah Ikut Pelatihan?</label>
                             <div class="form-check">
-                                <input class="form-check-input radio_1" type="radio" name="pernah_pelatihan"
-                                    value="1" {{ old('pernah_pelatihan') == '1' ? 'checked' : '' }}>
+                                <input class="form-check-input radio_1" type="radio" name="e_pernah_pelatihan"
+                                    value="1">
                                 <label class="form-check-label"> Pernah </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input radio_2" type="radio" name="pernah_pelatihan"
-                                    value="0" {{ old('pernah_pelatihan') == '0' ? 'checked' : '' }}>
+                                <input class="form-check-input radio_2" type="radio" name="e_pernah_pelatihan"
+                                    value="0">
                                 <label class="form-check-label"> Tidak Pernah </label>
                             </div>
-                            @error('pernah_pelatihan')
-                                <div class="small text-danger">Tidak boleh dikosongkan</div>
-                            @enderror
                         </div>
 
                     </div>
@@ -285,9 +263,11 @@
 @if ($errors->any())
     @push('scripts')
         <script>
-            $(document).ready(function() {
-                $('#addModal').modal('show');
-            });
+            Swal.fire(
+                'Gagal',
+                'Harap periksa kembali form yang dimasukkan, terdapat kesalahan saat memasukkan data',
+                'error'
+            )
         </script>
     @endpush
 @endif
@@ -301,9 +281,9 @@
                 url: '/up/data/pengurus/' + id + '/edit',
                 type: 'GET',
                 success: function(response) {
-                    $('#editModal input[name="nik"]').val(response.nik);
-                    $('#editModal input[name="nama"]').val(response.nama);
-                    $('#editModal input[name="no_hp"]').val(response.no_hp);
+                    $('#editModal input[name="e_nik"]').val(response.nik);
+                    $('#editModal input[name="e_nama"]').val(response.nama);
+                    $('#editModal input[name="e_no_hp"]').val(response.no_hp);
                     if (response.pernah_pelatihan == 1) {
                         $('#editModal .radio_1').attr('checked', true)
                     } else {

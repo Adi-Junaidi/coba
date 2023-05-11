@@ -70,6 +70,7 @@ class PikrPolicy
 
   public function verifyPikr(User $user, Pikr $pikr)
   {
+
     if ($pikr->pembina == null) {
       return false;
     }

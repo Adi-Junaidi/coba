@@ -57,9 +57,9 @@ class PengurusController extends Controller
     {
 
         $validatedData = $request->validate([
-            'nik' => 'required|unique:penguruses,nik',
+            'nik' => 'required|unique:penguruses,nik|numeric',
             'nama' => 'required',
-            'no_hp' => 'required',
+            'no_hp' => 'required|numeric',
             'jabatan' => 'required',
             'pernah_pelatihan' => 'required',
         ]);
@@ -119,31 +119,30 @@ class PengurusController extends Controller
      * @param  \App\Models\Pengurus  $pengurus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Pengurus $penguru)
     {
-
-        $pengurus = Pengurus::find($id);
-
         $rules = [
-            'nama' => 'required',
-            'no_hp' => 'required',
-            'jabatan' => 'required',
-            'pernah_pelatihan' => 'required',
+            'e_nama' => 'required',
+            'e_no_hp' => 'required|numeric',
+            'e_pernah_pelatihan' => 'required',
         ];
 
 
-        if ($pengurus->nik !== $request->nik) {
-            $rules['nik'] = 'required|unique:penguruses,nik';
+        if ($penguru->nik !== $request->e_nik) {
+            $rules['e_nik'] = 'required|unique:penguruses,nik|numeric';
         }
 
         $validatedData = $request->validate($rules);
+        $updateData = [];
 
-        $validatedData['pikr_id'] = auth()->user()->id;
+        foreach($validatedData as $key => $data){
+            $newKey = substr($key, 2);
+            $updateData[$newKey] = $data;
+        }
 
-        Pengurus::where('id', $id)->update($validatedData);
-        Alert::success('New Post has been added!');
+        $penguru->update($updateData);
 
-        return \redirect('/up/data/pengurus ');
+        return redirect('/up/data/pengurus')->with('success', 'Berhasil merubah data pengurus');
     }
 
     /**

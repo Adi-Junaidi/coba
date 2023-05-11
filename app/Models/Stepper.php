@@ -10,4 +10,9 @@ class Stepper extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function pikr()
+    {
+        return $this->belongsTo(Pikr::class);
+    }
 }

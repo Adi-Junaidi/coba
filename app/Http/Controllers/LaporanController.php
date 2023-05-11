@@ -201,17 +201,6 @@ class LaporanController extends Controller
     return view('laporan.12b', compact('kabkotas', 'downloadLinks'));
   }
 
-  public function detail(Laporan $laporan)
-  {
-    if (\session('pikr_id') != $laporan->pikr_id) abort(403);
-    if ($laporan->status == "Not Submited") abort(403);
-
-    return view('user-pikr.kegiatan.detail', [
-      'pelayanan_s' => $laporan->pelayananInformasi()->get(),
-      'ki_s' => $laporan->konseling()->get(),
-      'kk_s' => $laporan->konselingKelompok()->get(),
-    ]);
-  }
 
   // Export Excel
   public function export_12a_xlsx()
@@ -232,4 +221,30 @@ class LaporanController extends Controller
   {
     return Excel::download(new Laporan12bExport, 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN 2023.pdf', \Maatwebsite\Excel\Excel::MPDF);
   }
+  
+  
+  public function detail(Laporan $laporan)
+    {
+        if (\session('pikr_id') != $laporan->pikr_id) abort(403);
+        if ($laporan->status == "Not Submited") abort(403);
+        
+        return view('user-pikr.kegiatan.detail', [
+            'pelayanan_s' => $laporan->pelayananInformasi()->get(),
+            'ki_s' => $laporan->konseling()->get(),
+            'kk_s' => $laporan->konselingKelompok()->get(),
+        ]);
+    }
+    
+    public function cancel(Laporan $laporan)
+    {
+        if (session('pikr_id') != $laporan->pikr_id) abort(403);
+        if ($laporan->status != "Submited") abort(403);
+
+        $laporan->update([
+            'status' => 'Not Submited',
+        ]);
+
+        return  back()->with('success', 'Berhasil membatalkan pengiriman registrasi kegiatan');
+    }
+
 }

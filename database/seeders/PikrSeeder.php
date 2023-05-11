@@ -39,5 +39,6 @@ class PikrSeeder extends Seeder
     ]);
 
     Pikr::factory(Desa::count())->create();
+
   }
 }
