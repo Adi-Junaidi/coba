@@ -35,7 +35,11 @@ Route::get('/', function () {
   }
 });
 
-Route::get('/home', [HomeController::class, 'index'])->middleware('guest');
+Route::middleware('guest')->group(function () {
+  Route::get('/home', [HomeController::class, 'index']);
+  Route::get('/article/{article}', [HomeController::class, 'article']);
+});
+
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->middleware('guest');
@@ -44,13 +48,12 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
 
-// Landing
-Route::get('/articles', [ArticleController::class, 'index']);
-Route::get('/articles', [ArticleController::class, 'showAll']);
-Route::get('/articles/{article}', [ArticleController::class, 'show']);
-Route::get('/leaderboard', function () {
-  return view('landing.leaderboard');
-});
+// // Landing
+// Route::get('/articles', [ArticleController::class, 'showAll']);
+// Route::get('/articles/{article}', [ArticleController::class, 'show']);
+// Route::get('/leaderboard', function () {
+//   return view('landing.leaderboard');
+// });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
@@ -65,7 +68,7 @@ Route::get('/api/desa/{desa}', [DesaController::class, 'api']);
 Route::get('/api/pembina/', [PembinaController::class, 'api']);
 Route::get('/api/pikr', [PikrController::class, 'api']);
 
-Route::middleware('auth')->group(function(){
+Route::middleware('auth')->group(function () {
   Route::resources([
     '/up/article' => ArticleController::class,
     '/registrasi-kegiatan' => RegistrasiKegiatanController::class,
@@ -73,7 +76,6 @@ Route::middleware('auth')->group(function(){
   ]);
   Route::get('/utility/getArticle/{article}', [ArticleController::class, 'getArticle']);
   Route::get('/utility/check-slug', [ArticleController::class, 'checkSlug']);
-
 });
 
 Route::get('/validate/pikr', [ValidationController::class, 'validatePikr'])->middleware('auth');
@@ -89,14 +91,14 @@ Route::middleware('stepCheck', 'auth',)->group(function () {
   Route::post('/up/data/mitra/{id}', [MitraPikrController::class, 'update']);
   Route::post('/up/data/sk/{id}', [UserPikrController::class, 'addSk']);
   Route::post('/up/data/update_sk', [UserPikrController::class, 'updateSk']);
-  
+
   Route::resources([
     '/up/data/materi' => MateriController::class,
     '/up/data/sarana' => SaranaController::class,
     '/up/data/mitra' => MitraPikrController::class,
     '/up/data/pengurus' => PengurusController::class,
   ]);
-  
+
   Route::middleware('pengurusCheck')->group(function () {
     Route::resources([
       '/up/kegiatan' => LaporanController::class,
@@ -109,5 +111,5 @@ Route::middleware('stepCheck', 'auth',)->group(function () {
     Route::get('/utility/getPendidikSebaya', [PelayananInformasiController::class, 'getPendidikSebaya']);
     Route::get('/utility/getKonselorSebaya', [PelayananInformasiController::class, 'getKonselorSebaya']);
     Route::get('/utility/getPLKB', [PelayananInformasiController::class, 'getPLKB']);
-  }); 
+  });
 });

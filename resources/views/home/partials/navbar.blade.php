@@ -1,5 +1,5 @@
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg {{ Request::is('articles/*') ? 'navbar-dark bg-dark' : '' }}">
+<nav class="navbar navbar-expand-lg {{ Request::is('article/*') ? 'navbar-dark bg-dark' : '' }}">
     <div class="container px-5">
         <a class="navbar-brand" href="index.html">SI-PIKR</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
