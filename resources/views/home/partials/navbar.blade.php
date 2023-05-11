@@ -9,9 +9,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="/">Home</a>
+                    <a class="nav-link {{ Request::is('home') ? 'active' : '' }}" href="/home">Home</a>
                 </li>
-                @if (Request::is('/'))
+                @if (Request::is('home'))
                     <li class="nav-item">
                         <a class="nav-link" href="#features">Tentang</a>
                     </li>
