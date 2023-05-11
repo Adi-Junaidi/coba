@@ -108,8 +108,13 @@
                                                 <span class="fa-fw fas select-all"></span>
                                             </span>
                                         </button> --}}
-                                        <a href="/pikr/{{ $p->id }}" class="btn btn-warning btn-sm"><i
-                                                class="bi bi-pencil-square"></i></a>
+                                        <a href="/pikr/{{ $p->id }}" class="btn btn-info btn-sm">
+                                            <i class="bi bi-eye-fill"></i>
+                                        </a>
+                                        <button class="btn btn-sm btn-danger btn-delete" data-id="{{ $p->id }}"
+                                            data-bs-toggle="modal" data-bs-target="#deleteModal"><i data-bs-toggle="tooltip"
+                                                data-bs-placement="top" title="Hapus PIK-R" class="bi bi-trash3"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             @endcan
@@ -150,9 +155,25 @@
                                         <a href="/pikr/{{ $p->id }}" class="btn btn-info btn-sm"
                                             data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Detail PIK-R"><i
                                                 class="bi bi-eye-fill"></i></a>
-                                        <button class="btn btn-sm btn-danger btn-delete" data-id="{{ $p->id }}" data-bs-toggle="modal"
-                                            data-bs-target="#deleteModal"><i data-bs-toggle="tooltip" data-bs-placement="top"
-                                                title="Hapus PIK-R" class="bi bi-trash3"></i></button>
+                                        <button class="btn btn-sm btn-danger btn-delete" data-id="{{ $p->id }}"
+                                            data-bs-toggle="modal" data-bs-target="#deleteModal"><i data-bs-toggle="tooltip"
+                                                data-bs-placement="top" title="Hapus PIK-R" class="bi bi-trash3"></i></button>
+
+                                        <div class="dropdown d-inline">
+                                            <button class="btn btn-warning btn-sm dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                Edit
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><button data-bs-toggle="modal" data-bs-target="#identitasModal"
+                                                        class="dropdown-item">Identitas PIK-R</button></li>
+                                                <li><a class="dropdown-item" href="#">Informasi PIK-R</a></li>
+                                                <li><a class="dropdown-item" href="#">Materi PIK-R</a></li>
+                                                <li><a class="dropdown-item" href="#">Sarana PIK-R</a></li>
+                                                <li><a class="dropdown-item" href="#">Mitra PIK-R</a></li>
+                                                <li><a class="dropdown-item" href="#">Pengurus PIK-R</a></li>
+                                            </ul>
+                                        </div>
                                     </td>
                                 </tr>
                             @endcan
@@ -166,27 +187,78 @@
 
 {{-- Ini bagian modal detail data registrasi PIK-R nya --}}
 @section('modals')
-    <!-- Modal Identitas dan Informasi Kelompok -->
-    <div class="modal fade" id="modal1" role="dialog" aria-labelledby="modal1" aria-hidden="true" tabindex="-1">
-        <div class="modal-dialog modal-xl" role="document">
+    <div class="modal fade text-left" id="identitasModal" tabindex="-1" aria-labelledby="" style="display: none;"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header bg-info">
-                    <h4 class="modal-title text-light" id="judulModal">Detail Data Registrasi PIK-R</h4>
-                    <button class="close" data-bs-dismiss="modal" type="button" aria-label="Close">
-                        <i data-feather="x"></i>
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title white">
+                        Identitas PIK-R
+                    </h5>
+                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
                     </button>
                 </div>
-                <form action="#">
-                    <div class="modal-body">
-                        {{-- @include('pikr.detail.identitas') --}}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="nama">Nama PIK-R</label>
+                        <input class="form-control" name="nama" type="text">
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-info" data-bs-target="#modal2" data-bs-toggle="modal" type="button">
-                            <i class="bx bx-x d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Selanjutnya <span class="fa-fw fas select-all"></span></span>
-                        </button>
+
+                    <div class="form-group">
+                        <label for="basis">Basis PIK-R</label>
+                        <input class="form-control" name="basis" type="text">
                     </div>
-                </form>
+
+                    <div class="form-group">
+                        <label for="sosmed">Sosial Media PIK-R</label>
+                        <input class="form-control" name="sosmed" type="text">
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label for="alamat">Alamat</label>
+                            <input class="form-control" name="alamat" type="text">
+                        </div>
+
+                        <div class="form-group col-sm-4">
+                            <label for="provinsi">Provinsi</label>
+                            <input class="form-control" name="provinsi" type="text">
+                        </div>
+
+                        <div class="form-group col-sm-4">
+                            <label for="kabkota">Kabupaten/Kota</label>
+                            <input class="form-control" name="kabkota" type="text">
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="form-group col-sm-6">
+                            <label for="kecamatan">Kecamatan</label>
+                            <input class="form-control" name="kecamatan" type="text">
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label for="desa">Desa/Kelurahan</label>
+                            <input class="form-control" name="desa" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-bs-dismiss="modal">
+                        <i class="bx bx-x d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Close</span>
+                    </button>
+                    <button type="submit" class="btn btn-warning ms-1" data-bs-dismiss="modal">
+                        <i class="bx bx-check d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Simpan</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
