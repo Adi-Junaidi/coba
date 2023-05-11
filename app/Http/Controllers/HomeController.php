@@ -16,7 +16,7 @@ class HomeController extends Controller
             'ranks' => Result::where('bulan_tahun', date('m-Y'))->orderBy('point', 'desc')->get(),
         ]);
     }
-    
+   
     public function article(Article $article)
     {
         return \view('home.detail', [
@@ -25,4 +25,5 @@ class HomeController extends Controller
         ]);
         
     }
+
 }

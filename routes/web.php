@@ -28,7 +28,7 @@ use App\Models\Article;
 Route::get('/', function () {
   if (auth()->guest()) {
     return redirect('/home');
-  } else if (auth()->user()->isPikr()) {
+  } elseif (auth()->user()->isPikr()) {
     return redirect('/up/dashboard');
   } else {
     return redirect('/dashboard');
@@ -44,23 +44,43 @@ Route::middleware('guest')->group(function () {
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->middleware('guest');
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
-
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
 
-// // Landing
+
+// Landing
+// Route::get('/articles', [ArticleController::class, 'index']);
 // Route::get('/articles', [ArticleController::class, 'showAll']);
 // Route::get('/articles/{article}', [ArticleController::class, 'show']);
 // Route::get('/leaderboard', function () {
 //   return view('landing.leaderboard');
 // });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+// Dashboard
+Route::middleware('auth')->group(function () {
+  Route::get('/dashboard', [DashboardController::class, 'index']);
+  Route::resource('/pembina', PembinaController::class);
+  Route::resource('/pikr', PikrController::class);
+  Route::post('/pikr/{pikr}/verify', [PikrController::class, 'verify']);
+  Route::prefix('laporan')->group(function () {
+    Route::prefix('tahunan')->group(function () {
+      Route::get('/12a', [LaporanController::class, 'tahunan_a']);
+      Route::get('/12b', [LaporanController::class, 'tahunan_b']);
 
-Route::resource('/pembina', PembinaController::class)->middleware('auth');
-Route::resource('/pikr', PikrController::class)->middleware('auth');
-Route::post('/pikr/{pikr}/verify', [PikrController::class, 'verify'])->middleware('auth');
+      Route::prefix('export')->group(function () {
+        Route::prefix('12a')->group(function () {
+          Route::get('/xlsx', [LaporanController::class, 'export_12a_xlsx']);
+          Route::get('/pdf', [LaporanController::class, 'export_12a_pdf']);
+        });
 
+        Route::prefix('12b')->group(function () {
+          Route::get('/xlsx', [LaporanController::class, 'export_12b_xlsx']);
+          Route::get('/pdf', [LaporanController::class, 'export_12b_pdf']);
+        });
+      });
+    });
+  });
+});
 
 Route::get('/api/kabkota/{kabkota}/kecamatans', fn (Kabkota $kabkota) => response()->json($kabkota->kecamatan));
 Route::get('/api/kecamatan/{kecamatan}/desas', fn (Kecamatan $kecamatan) => response()->json($kecamatan->desa));
@@ -74,6 +94,7 @@ Route::middleware('auth')->group(function () {
     '/registrasi-kegiatan' => RegistrasiKegiatanController::class,
     '/peringkat' => RankController::class,
   ]);
+
   Route::get('/utility/getArticle/{article}', [ArticleController::class, 'getArticle']);
   Route::get('/utility/check-slug', [ArticleController::class, 'checkSlug']);
 });
@@ -107,9 +128,11 @@ Route::middleware('stepCheck', 'auth',)->group(function () {
       '/kegiatan/konseling/kelompok' => KonselingKelompokController::class,
     ]);
     Route::get('/up/kegiatan/detail/{laporan}', [LaporanController::class, 'detail']);
+
     Route::get('/up/kegiatan/cancel/{laporan}', [LaporanController::class, 'cancel']);
     Route::get('/utility/getPendidikSebaya', [PelayananInformasiController::class, 'getPendidikSebaya']);
     Route::get('/utility/getKonselorSebaya', [PelayananInformasiController::class, 'getKonselorSebaya']);
     Route::get('/utility/getPLKB', [PelayananInformasiController::class, 'getPLKB']);
   });
 });
+

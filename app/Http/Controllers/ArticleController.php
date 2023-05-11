@@ -82,7 +82,10 @@ class ArticleController extends Controller
    */
   public function show(Article $article)
   {
-    return view('landing.article', compact('article'));
+    return view('home.detail', [
+      'title' => 'Detail Artikel',
+      'article' => $article,
+    ]);
   }
 
   /**

@@ -16,7 +16,8 @@ class Pikr extends Model
   public function materi()
   {
     return $this->hasOne(MateriPikr::class);
-  }
+
+  } 
 
   public function result()
   {
@@ -73,9 +74,6 @@ class Pikr extends Model
   {
     return $this->hasMany(Article::class);
   }
-
-
-
 
   // ini function utk many to many pada tabel materi
 

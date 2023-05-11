@@ -7,18 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kecamatan extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    protected $guarded = ["id"];
-    protected $with = ["kabkota"];
+  protected $guarded = ["id"];
+  protected $with = ["kabkota"];
 
-    public function desa()
-    {
-        return $this->hasMany(Desa::class);
-    }
+  public function desa()
+  {
+    return $this->hasMany(Desa::class);
+  }
 
-    public function kabkota()
-    {
-        return $this->belongsTo(Kabkota::class);
-    }
+  public function pikrs()
+  {
+    return $this->hasManyThrough(Pikr::class, Desa::class);
+  }
+
+  public function kabkota()
+  {
+    return $this->belongsTo(Kabkota::class);
+  }
 }

@@ -5,6 +5,7 @@
 ])
 
 @section('container')
+
     <section class="row">
         <div class="col-12">
             <div class="row">
@@ -68,6 +69,6 @@
                 </div>
             </div>
         </div>
-
     </section>
+
 @endsection

@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Desa;
+use App\Models\Pembina;
 use App\Models\Pikr;
 use App\Models\Stepper;
 use App\Models\User;
+use Database\Factories\PikrFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -28,11 +31,14 @@ class PikrSeeder extends Seeder
       "nama" => "PIK-R As-Salam",
       "no_urut" => "002",
       "alamat" => "Jl. Poigar",
-      "basis" => "Pendidikan - SMA/Setara",
+      "basis" => "Jalur Pendidikan - SMA/Sederajat",
       "akun_medsos" => "Instagram (@pikr-assalam)",
       "desa_id" => 1,
       "pembina_id" => 1,
+      "verified" => true
     ]);
+
+    Pikr::factory(Desa::count())->create();
 
   }
 }

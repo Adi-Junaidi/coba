@@ -15,6 +15,8 @@
 
   <!-- Page Style -->
   @yield('link')
+
+  @stack('style')
 </head>
 
 <body>

@@ -108,6 +108,7 @@
                                                 <span class="fa-fw fas select-all"></span>
                                             </span>
                                         </button> --}}
+
                                         <a href="/pikr/{{ $p->id }}" class="btn btn-info btn-sm">
                                             <i class="bi bi-eye-fill"></i>
                                         </a>
@@ -152,6 +153,7 @@
                                                 <span class="fa-fw fas select-all"></span>
                                             </span>
                                         </button> --}}
+
                                         <a href="/pikr/{{ $p->id }}" class="btn btn-info btn-sm"
                                             data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Detail PIK-R"><i
                                                 class="bi bi-eye-fill"></i></a>
@@ -174,6 +176,7 @@
                                                 <li><a class="dropdown-item" href="#">Pengurus PIK-R</a></li>
                                             </ul>
                                         </div>
+
                                     </td>
                                 </tr>
                             @endcan
@@ -187,6 +190,7 @@
 
 {{-- Ini bagian modal detail data registrasi PIK-R nya --}}
 @section('modals')
+
     <div class="modal fade text-left" id="identitasModal" tabindex="-1" aria-labelledby="" style="display: none;"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -265,6 +269,7 @@
 
     <!-- Modal Materi dan Sarana PIK-R -->
     <div class="modal fade" id="modal2" role="dialog" aria-labelledby="modal2" aria-hidden="true" tabindex="-1">
+
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-info">
@@ -275,6 +280,7 @@
                 </div>
                 <form action="#">
                     <div class="modal-body">
+
                         <h6 class="text-secondary mb-4">C. Ketersediaan Materi PIK-R</h6>
                         <h6 class="text-secondary mb-0">1. Kesehatan Remaja</h6>
                         <div class="row mb-2">
@@ -507,11 +513,13 @@
                                         class="fa-fw fas select-all"></span></span>
                             </button>
                         </div>
+
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
 
     <!-- Modal Mitra PIK-R -->
     <div class="modal fade" id="modal3" role="dialog" aria-labelledby="modal3" aria-hidden="true" tabindex="-1">
@@ -664,6 +672,7 @@
                         </div>
 
                         <div>
+
                             <button class="btn btn-light-secondary" data-bs-target="#modal5" data-bs-toggle="modal"
                                 type="button">
                                 <i class="bx bx-x d-block d-sm-none"></i>
@@ -711,10 +720,12 @@
                             <i class="bx bx-check d-block d-sm-none"></i>
                             <span class="d-none d-sm-block">Hapus</span>
                         </button>
+
                     </div>
                 </form>
             </div>
         </div>
+
     </div>
 @endsection
 
@@ -730,6 +741,7 @@
             })
         }, false);
     </script>
+
 
     <script>
         $(document).on('click', '.btn-delete', function() {

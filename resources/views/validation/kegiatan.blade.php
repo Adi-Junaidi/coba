@@ -64,6 +64,7 @@
                                                     <span class="fa-fw fas select-all"></span>
                                                 </span>
                                             </a>
+
                                             <button class="btn btn-sm btn-success verify-btn" data-id="{{ $report->id }}" data-bs-toggle="modal" data-bs-target="#verifyModal">
                                                 <i class="bi bi-check-all"></i>
                                             </button>

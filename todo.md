@@ -21,6 +21,44 @@
 - [ ] SK
 - [x] Kabupaten/Kota
 - [ ] Kecamatan
+  - [x] Kabupaten Gorontalo
+  - [x] Kabupaten Boalemo
+  - [ ] Kabupaten Bone Bolango
+  - [ ] Kabupaten Pohuwato
+  - [ ] Kabupaten Gorontalo Utara
+  - [ ] Kota Gorontalo
 - [ ] Kelurahan/Desa
+  - [x] Kabupaten Gorontalo
+    - [x] Limboto
+    - [x] Telaga
+    - [x] Batudaa
+    - [x] Tibawa
+    - [x] Batudaa Pantai
+    - [x] Boliyohuto
+    - [x] Telaga Biru
+    - [x] Bongomeme
+    - [x] Tolangohula
+    - [x] Mootilango
+    - [x] Pulubala
+    - [x] Limboto Barat
+    - [x] Tilango
+    - [x] Tabongo
+    - [x] Biluhu
+    - [x] Asparaga
+    - [x] Talaga Jaya
+    - [x] Bilato
+    - [x] Dungaliyo
+  - [x] Kabupaten Boalemo
+    - [x] Paguyaman
+    - [x] Wonosari
+    - [x] Dulupi
+    - [x] Tilamuta
+    - [x] Mananggu
+    - [x] Botumoito
+    - [x] Paguyaman Pantai
+  - [ ] Kabupaten Bone Bolango
+  - [ ] Kabupaten Pohuwato
+  - [ ] Kabupaten Gorontalo Utara
+  - [ ] Kota Gorontalo
 
 [Referensi Seeder](http://aplikasi.bkkbn.go.id/pikrm/Report/LaporanPIKRM.aspx)

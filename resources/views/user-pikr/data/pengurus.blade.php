@@ -106,8 +106,6 @@
                             <label>Jabatan</label>
                             <select class="form-select" name="jabatan">
                                 @foreach ($jabatan as $jab)
-                                    @if ($jab)
-                                    @endif
                                     <option value="{{ $jab }}" {{ old('jabatan') == $jab ? 'selected' : '' }}>
                                         {{ $jab }}</option>
                                 @endforeach

@@ -55,9 +55,11 @@
                                     </td>
                                     <td>
                                         @if ($laporan->status == 'Not Submited')
+
                                             <a href="/up/kegiatan/{{ $laporan->id }}" class="btn btn-info btn-sm"
                                                 data-toggle="tooltip" data-placement="top" title="Tambah Kegiatan">
                                                 <i class="bi bi-plus-circle"></i>
+
                                             </a>
                                             <button class="btn btn-success btn-sm btn_submit" data-bs-toggle="modal"
                                                 data-bs-target="#submitModal" data-id="{{ $laporan->id }}"
@@ -65,6 +67,7 @@
                                                 <i class="bi bi-fast-forward"></i>
                                             </button>
                                         @else
+
                                             <a href="/up/kegiatan/detail/{{ $laporan->id }}" class="btn btn-info btn-sm"
                                                 data-toggle="tooltip" data-placement="top" title="Lihat Kegiatan">
                                                 <i class="bi bi-eye"></i>

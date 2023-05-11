@@ -64,7 +64,6 @@ class PengurusController extends Controller
             'pernah_pelatihan' => 'required',
         ]);
 
-
         $uniqueJabatan = [
             'Pembina',
             'Ketua',
