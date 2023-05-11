@@ -14,6 +14,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MitraPikrController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\DesaController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KonselingController;
 use App\Http\Controllers\KonselingKelompokController;
 use App\Http\Controllers\LaporanController;
@@ -34,11 +35,7 @@ Route::get('/', function () {
   }
 });
 
-Route::get('/home', function () {
-  return view('landing.home', [
-    'articles' => Article::orderBy('updated_at', 'desc')->get()
-  ]);
-})->middleware('guest');
+Route::get('/home', [HomeController::class, 'index'])->middleware('guest');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->middleware('guest');
