@@ -161,22 +161,6 @@
                                             data-bs-toggle="modal" data-bs-target="#deleteModal"><i data-bs-toggle="tooltip"
                                                 data-bs-placement="top" title="Hapus PIK-R" class="bi bi-trash3"></i></button>
 
-                                        <div class="dropdown d-inline">
-                                            <button class="btn btn-warning btn-sm dropdown-toggle" type="button"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                Edit
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><button data-bs-toggle="modal" data-bs-target="#identitasModal"
-                                                        class="dropdown-item">Identitas PIK-R</button></li>
-                                                <li><a class="dropdown-item" href="#">Informasi PIK-R</a></li>
-                                                <li><a class="dropdown-item" href="#">Materi PIK-R</a></li>
-                                                <li><a class="dropdown-item" href="#">Sarana PIK-R</a></li>
-                                                <li><a class="dropdown-item" href="#">Mitra PIK-R</a></li>
-                                                <li><a class="dropdown-item" href="#">Pengurus PIK-R</a></li>
-                                            </ul>
-                                        </div>
-
                                     </td>
                                 </tr>
                             @endcan
