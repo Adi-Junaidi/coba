@@ -8,24 +8,7 @@
 
     <div class="form-group">
         <label for="basis">Basis PIK-R</label>
-        <select name="basis" id="basis" class="form-select" disabled>
-            <optgroup label="Jalur Pendidikan">
-                <option value="SMP/Sederajat" {{ $pikr_info->basis == 'SMP/Sederajat' ? 'selected' : '' }}>Jalur
-                    Pendidikan - SMP/Sederajat</option>
-                <option value="SMA/Sederajat" {{ $pikr_info->basis == 'SMA/Sederajat' ? 'selected' : '' }}>Jalur
-                    Pendidikan - SMA/Sederajat</option>
-                <option value="Perguruan Tinggi" {{ $pikr_info->basis == 'Perguruan Tinggi' ? 'selected' : '' }}>Jalur
-                    Pendidikan - Perguruan Tinggi</option>
-            </optgroup>
-            <optgroup label="Jalur Masyarakat">
-                <option value="Organisasi Keagamaan"
-                    {{ $pikr_info->basis == 'Organisasi Keagamaan' ? 'selected' : '' }}>Jalur Masyarakat - Organisasi
-                    Keagamaan</option>
-                <option value="LSM/Organisasi Kepemudaan/Organisasi Kemasyarakatan"
-                    {{ $pikr_info->basis == 'LSM/Organisasi Kepemudaan/Organisasi Kemasyarakatan' ? 'selected' : '' }}>
-                    Jalur Masyarakat - LSM/Organisasi Kepemudaan/Organisasi Kemasyarakatan</option>
-            </optgroup>
-        </select>
+        <input class="form-control" name="basis" type="text" value="{{ $pikr_info->basis }}" disabled>
     </div>
 
     <div class="form-group">
@@ -74,24 +57,24 @@
             <button type="submit" class="btn btn-success btn-submit" hidden>Submit</button>
         </div>
     </div>
-
-    @push('scripts')
-        <script>
-            $(function() {
-                $('#identitas .btn-edit').click(function() {
-                    $('#identitas .btn-cancel').removeAttr('hidden')
-                    $('#identitas .btn-submit').removeAttr('hidden')
-                    $('input[name=sosmed]').removeAttr('disabled')
-                    $(this).attr('hidden', true)
-                    // alert('oke')
-                })
-
-                $('#identitas .btn-cancel').click(function() {
-                    $('input[name=sosmed]').attr('disabled', true)
-                    $(this).attr('hidden', true)
-                    $('#identitas .btn-submit').attr('hidden', true)
-                    $('#identitas .btn-edit').removeAttr('hidden')
-                })
+</form>
+@push('scripts')
+    <script>
+        $(function() {
+            $('#identitas .btn-edit').click(function() {
+                $('#identitas .btn-cancel').removeAttr('hidden')
+                $('#identitas .btn-submit').removeAttr('hidden')
+                $('input[name=sosmed]').removeAttr('disabled')
+                $(this).attr('hidden', true)
+                // alert('oke')
             })
-        </script>
-    @endpush
+
+            $('#identitas .btn-cancel').click(function() {
+                $('input[name=sosmed]').attr('disabled', true)
+                $(this).attr('hidden', true)
+                $('#identitas .btn-submit').attr('hidden', true)
+                $('#identitas .btn-edit').removeAttr('hidden')
+            })
+        })
+    </script>
+@endpush

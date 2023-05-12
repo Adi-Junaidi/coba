@@ -99,7 +99,11 @@ class PikrController extends Controller
   public function update(Request $request, Pikr $pikr)
   {
     if($request->has('sosmed')) $pikr->update(['akun_medsos' => $request->sosmed]);
-    return \back()->with('success', 'Berhasil mengubah akun sosmed PIK-R');
+    if($request->has('pro_pn')) $pikr->update(['pro_pn' => $request->pro_pn]);
+    if($request->has('sumber_dana')) $pikr->update(['sumber_dana' => $request->sumber_dana]);
+    if($request->has('keterpaduan_kelompok')) $pikr->update(['keterpaduan_kelompok' => $request->keterpaduan_kelompok]);
+
+    return \back()->with('success', 'Berhasil mengubah data PIK-R');
   }
 
   /**
