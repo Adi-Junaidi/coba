@@ -139,31 +139,60 @@
   </thead>
 
   <tbody>
+    @php
+      $total = [
+          'pikr' => 0,
+          'hasMateri' => 0,
+          'hasMateriLainnya' => 0,
+          'hasGenreKit' => 0,
+          'hasSaranaLainnya' => 0,
+          'hasMitra' => 0,
+          'pendidikSebaya' => 0,
+          'pendidikSebayaHasPelatihan' => 0,
+          'pendidikSebayaHasNotPelatihan' => 0,
+          'konselorSebaya' => 0,
+          'konselorSebayaHasPelatihan' => 0,
+          'konselorSebayaHasNotPelatihan' => 0,
+      ];
+    @endphp
     @foreach ($kabkotas as $kabkota)
       @php
-        $total = $kabkota->pikrs->count();
-        $hasMateri = $kabkota->pikrs->filter(fn($pikr) => $pikr->materi);
-        $hasMateriLainnya = $kabkota->pikrs->filter(fn($pikr) => $pikr->materi_lainnya === '1');
-        $hasGenreKit = $kabkota->pikrs->filter(fn($pikr) => $pikr->sarana && $pikr->sarana->genre_kit);
-        $hasSaranaLainnya = $kabkota->pikrs->filter(fn($pikr) => $pikr->sarana && collect($pikr->sarana->getAttributes())->some(1));
-        $hasMitra = $kabkota->pikrs->filter(fn($pikr) => $pikr->mitra->count());
-        $penguruses = $kabkota->pikrs->flatMap(fn($pikr) => $pikr->pengurus);
+        $pikrs = $kabkota->pikrs;
+        $hasMateri = $pikrs->filter(fn($pikr) => $pikr->materi);
+        $hasMateriLainnya = $pikrs->filter(fn($pikr) => $pikr->materi_lainnya === '1');
+        $hasGenreKit = $pikrs->filter(fn($pikr) => $pikr->sarana && $pikr->sarana->genre_kit);
+        $hasSaranaLainnya = $pikrs->filter(fn($pikr) => $pikr->sarana && collect($pikr->sarana->getAttributes())->some(1));
+        $hasMitra = $pikrs->filter(fn($pikr) => $pikr->mitra->count());
+        $penguruses = $pikrs->flatMap(fn($pikr) => $pikr->pengurus);
         $pendidikSebayas = $penguruses->filter(fn($pengurus) => $pengurus->jabatan === 'Pendidik Sebaya');
         $pendidikSebayasHasPelatihan = $pendidikSebayas->filter(fn($pendidikSebaya) => $pendidikSebaya->pernah_pelatihan);
         $pendidikSebayasHasNotPelatihan = $pendidikSebayas->filter(fn($pendidikSebaya) => !$pendidikSebaya->pernah_pelatihan);
         $konselorSebayas = $penguruses->filter(fn($pengurus) => $pengurus->jabatan === 'Konselor Sebaya');
         $konselorSebayasHasPelatihan = $konselorSebayas->filter(fn($konselorSebaya) => $konselorSebaya->pernah_pelatihan);
         $konselorSebayasHasNotPelatihan = $konselorSebayas->filter(fn($konselorSebaya) => !$konselorSebaya->pernah_pelatihan);
+        
+        $total['pikr'] += $pikrs->count();
+        $total['hasMateri'] += $hasMateri->count();
+        $total['hasMateriLainnya'] += $hasMateriLainnya->count();
+        $total['hasGenreKit'] += $hasGenreKit->count();
+        $total['hasSaranaLainnya'] += $hasSaranaLainnya->count();
+        $total['hasMitra'] += $hasMitra->count();
+        $total['pendidikSebaya'] += $pendidikSebayas->count();
+        $total['pendidikSebayaHasPelatihan'] += $pendidikSebayasHasPelatihan->count();
+        $total['pendidikSebayaHasNotPelatihan'] += $pendidikSebayasHasNotPelatihan->count();
+        $total['konselorSebaya'] += $konselorSebayas->count();
+        $total['konselorSebayaHasPelatihan'] += $konselorSebayasHasPelatihan->count();
+        $total['konselorSebayaHasNotPelatihan'] += $konselorSebayasHasNotPelatihan->count();
       @endphp
       <tr style="height:30px" valign="top">
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
           <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $kabkota->kode }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: left;">
-          <div style="padding-left:5px;"><span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1; *line-height: normal;">{{ str_replace('KABUPATEN ', '', strtoupper($kabkota->nama)) }}</span></div>
+          <div style="padding-left:5px;"><span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1; *line-height: normal;">{{ $kabkota->parsedNama() }}</span></div>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $total }}</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $pikrs->count() }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
           <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $hasMateri->count() }}</span>
@@ -208,40 +237,40 @@
         <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 12px; line-height: 1.1640625; font-weight: bold;">Jumlah Total</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">272</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['pikr'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">231</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['hasMateri'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">30</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['hasMateriLainnya'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">81</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['hasGenreKit'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;" colspan="2">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">35</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['hasSaranaLainnya'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">0</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['hasMitra'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">705</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['pendidikSebaya'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">15</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['pendidikSebayaHasPelatihan'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">376</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['pendidikSebayaHasNotPelatihan'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">226</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['konselorSebaya'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">7</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['konselorSebayaHasPelatihan'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">154</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['konselorSebayaHasNotPelatihan'] }}</span>
       </td>
     </tr>
   </tfoot>

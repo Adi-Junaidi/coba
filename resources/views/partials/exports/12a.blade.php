@@ -140,38 +140,39 @@
 
   <tbody>
     @php
-      $totalPikr = 0;
-      $totalAdaSK = 0;
-      $totalAdaKeterpaduanKelompok = 0;
-      $totalPropn = 0;
-      $totalSmp = 0;
-      $totalSma = 0;
-      $totalPerguruanTinggi = 0;
-      $totalOrKeagamaan = 0;
-      $totalOrmas = 0;
+      $total = [
+          'pikrs' => 0,
+          'hasSK' => 0,
+          'isSMP' => 0,
+          'isSMA' => 0,
+          'isPerguruanTinggi' => 0,
+          'isOrganisasiKeagamaan' => 0,
+          'isOrmas' => 0,
+          'hasKeterpaduanKelompok' => 0,
+          'hasPropn' => 0,
+      ];
     @endphp
     @foreach ($kabkotas as $kabkota)
       @php
-        $pikrs = $kabkotaPikrs[$kabkota->id];
-        $total = $pikrs->count();
-        $adaSK = $pikrs->filter(fn($pikr) => !!$pikr->sk)->count();
-        $adaKeterpaduanKelompok = $pikrs->filter(fn($pikr) => !!$pikr->keterpaduan_kelompok)->count();
-        $smp = $pikrs->filter(fn($pikr) => $pikr->basis === 'Jalur Pendidikan - SMP/Sederajat')->count();
-        $sma = $pikrs->filter(fn($pikr) => $pikr->basis === 'Jalur Pendidikan - SMA/Sederajat')->count();
-        $perguruanTinggi = $pikrs->filter(fn($pikr) => $pikr->basis === 'Jalur Pendidikan - Perguruan Tinggi')->count();
-        $orKeagamaan = $pikrs->filter(fn($pikr) => $pikr->basis === 'Jalur Masyarakat - Organisasi Keagamaan')->count();
-        $ormas = $pikrs->filter(fn($pikr) => $pikr->basis === 'Jalur Masyarakat - LSM/Organisasi Kepemudaan/Organisasi Kemasyarakatan')->count();
-        $propn = $pikrs->filter(fn($pikr) => $pikr->pro_pn)->count();
+        $pikrs = $kabkota->pikrs;
+        $hasSK = $pikrs->filter(fn($pikr) => !!$pikr->sk);
+        $isSMP = $pikrs->filter(fn($pikr) => $pikr->basis === 'Jalur Pendidikan - SMP/Sederajat');
+        $isSMA = $pikrs->filter(fn($pikr) => $pikr->basis === 'Jalur Pendidikan - SMA/Sederajat');
+        $isPerguruanTinggi = $pikrs->filter(fn($pikr) => $pikr->basis === 'Jalur Pendidikan - Perguruan Tinggi');
+        $isOrganisasiKeagamaan = $pikrs->filter(fn($pikr) => $pikr->basis === 'Jalur Masyarakat - Organisasi Keagamaan');
+        $isOrmas = $pikrs->filter(fn($pikr) => $pikr->basis === 'Jalur Masyarakat - LSM/Organisasi Kepemudaan/Organisasi Kemasyarakatan');
+        $hasKeterpaduanKelompok = $pikrs->filter(fn($pikr) => !!$pikr->keterpaduan_kelompok);
+        $hasPropn = $pikrs->filter(fn($pikr) => $pikr->pro_pn);
         
-        $totalPikr += $total;
-        $totalAdaSK += $adaSK;
-        $totalAdaKeterpaduanKelompok += $adaKeterpaduanKelompok;
-        $totalSmp += $smp;
-        $totalSma += $sma;
-        $totalPerguruanTinggi += $perguruanTinggi;
-        $totalOrKeagamaan += $orKeagamaan;
-        $totalOrmas += $ormas;
-        $totalPropn += $propn;
+        $total['pikrs'] += $pikrs->count();
+        $total['hasSK'] += $hasSK->count();
+        $total['isSMP'] += $isSMP->count();
+        $total['isSMA'] += $isSMA->count();
+        $total['isPerguruanTinggi'] += $isPerguruanTinggi->count();
+        $total['isOrganisasiKeagamaan'] += $isOrganisasiKeagamaan->count();
+        $total['isOrmas'] += $isOrmas->count();
+        $total['hasKeterpaduanKelompok'] += $hasKeterpaduanKelompok->count();
+        $total['hasPropn'] += $hasPropn->count();
       @endphp
 
       <tr style="height:30px" valign="top">
@@ -179,40 +180,40 @@
           <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $kabkota->kode }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: left;">
-          <div style="padding-left:5px;"><span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1; *line-height: normal;">{{ $kabkota->nama }}</span></div>
+          <div style="padding-left:5px;"><span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1; *line-height: normal;">{{ $kabkota->parsedNama() }}</span></div>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $total }}</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $pikrs->count() }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $adaSK }}</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $hasSK->count() }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $total - $adaSK }}</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $pikrs->count() - $hasSK->count() }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $smp }}</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $isSMP->count() }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $sma }}</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $isSMA->count() }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $perguruanTinggi }}</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $isPerguruanTinggi->count() }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $orKeagamaan }}</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $isOrganisasiKeagamaan->count() }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $ormas }}</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $isOrmas->count() }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $adaKeterpaduanKelompok }}</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $hasKeterpaduanKelompok->count() }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $total - $adaKeterpaduanKelompok }}</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $pikrs->count() - $hasKeterpaduanKelompok->count() }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $propn }}</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $hasPropn->count() }}</span>
         </td>
       </tr>
     @endforeach
@@ -224,37 +225,37 @@
         <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 12px; line-height: 1.1640625; font-weight: bold;">Jumlah Total</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">272</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['pikrs'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">250</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['hasSK'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">22</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['pikrs'] - $total['hasSK'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">68</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['isSMP'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">82</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['isSMA'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">2</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['isPerguruanTinggi'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">8</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['isOrganisasiKeagamaan'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">112</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['isOrmas'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">13</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['hasKeterpaduanKelompok'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">21</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['pikrs'] - $total['hasKeterpaduanKelompok'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">139</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['hasPropn'] }}</span>
       </td>
     </tr>
   </tfoot>

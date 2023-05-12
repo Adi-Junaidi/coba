@@ -32,4 +32,26 @@ class Kabkota extends Model
   {
     return $this->belongsTo(Provinsi::class);
   }
+
+  // custom method
+  public function parsedNama()
+  {
+    return str_replace('KABUPATEN ', '', strtoupper($this->nama));
+  }
+
+  public static function withPikrs()
+  {
+    $kabkotas = Kabkota::all();
+    // this is a ✨MAGIC✨ that groups PIK-R by KabKota
+    // It works, don't 🚫 touch it
+    $kabkotaPikrs = $kabkotas->mapWithKeys(fn ($kabkota) => [
+      $kabkota->id => $kabkota->kecamatan->flatMap(fn ($kecamatan) => $kecamatan->pikrs)
+    ]);
+
+    $kabkotas->each(function ($kabkota) use ($kabkotaPikrs) {
+      $kabkota->pikrs = $kabkotaPikrs[$kabkota->id];
+    });
+
+    return $kabkotas;
+  }
 }
