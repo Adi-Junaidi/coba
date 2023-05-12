@@ -60,7 +60,7 @@
 
                             <ul class="submenu {{ Request::is('pembina', 'pikr*') ? 'active' : '' }}">
                                 <li class="submenu-item {{ Request::is('pembina') ? 'active' : '' }}">
-                                    <a href="/pembina">Data Pembina</a>
+                                    <a href="/pembina">Data PLKB</a>
                                 </li>
 
                                 <li class="submenu-item {{ Request::is('pikr*') ? 'active' : '' }}">
