@@ -1,7 +1,7 @@
 @extends('layouts.main', [
     'title' => 'Data Pembina',
     'heading' => 'Data Pembina',
-    'breadcrumb' => ['Data Master', 'Data Pembina'],
+    'breadcrumb' => ['Data Master', 'Data PLKB'],
 ])
 
 @section('link')

@@ -21,5 +21,6 @@
     </div>
 
     <div class="mt-3 text-center">Belum punya akun? <a href="/register">Daftar</a></div>
+    <div class="text-center">Kembali ke menu <a href="/">Home</a></div>
   </form>
 @endsection
