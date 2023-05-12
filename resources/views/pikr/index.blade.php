@@ -74,7 +74,7 @@
                     {{-- tabel pik-r --}}
                     <tbody>
                         @foreach ($pikr as $p)
-                            @can('verifyPikr', $p)
+                            @can('verify', $p)
                                 <tr>
                                     <td>{{ $p->id }}</td>
                                     <td>

@@ -71,7 +71,7 @@
                                                 $count = 0;
                                             @endphp
                                             @foreach ($pikr as $p)
-                                                @can('verifyPikr', $p)
+                                                @can('verify', $p)
                                                     @php
                                                         $count += 1;
                                                     @endphp
