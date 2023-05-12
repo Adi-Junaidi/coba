@@ -1,6 +1,4 @@
 <form id="form-identitas" method="post" action="/pikr/{{ $pikr_info->id }}">
-    @dd($pikr_info->desa->kecamatan->kabkota->provinsi)
-
     @csrf
     @method('patch')
     <div class="form-group">
@@ -42,11 +40,8 @@
 
         <div class="form-group col-sm-4">
             <label for="provinsi">Provinsi</label>
-            <select name="provinsi" id="provinsi" class="form-select" disabled>
-                @foreach ($pikr_info->desa->kecamatan->kabkota->provinsi as $item)
-                    <option {{ $pikr_info->desa->kecamatan->kabkota->provinsi->id == $item->id ? 'selected' : '' }}>{{ $item->nama }}</option>
-                @endforeach
-            </select>
+            <input class="form-control" name="provinsi" type="text"
+                value="{{ $pikr_info->desa->kecamatan->kabkota->provinsi->nama }}" disabled>
 
         </div>
 
@@ -86,13 +81,13 @@
                 $('#identitas .btn-edit').click(function() {
                     $('#identitas .btn-cancel').removeAttr('hidden')
                     $('#identitas .btn-submit').removeAttr('hidden')
-                    $('#form-identitas :disabled').removeAttr('disabled')
+                    $('input[name=sosmed]').removeAttr('disabled')
                     $(this).attr('hidden', true)
                     // alert('oke')
                 })
 
                 $('#identitas .btn-cancel').click(function() {
-                    $('#form-identitas :enabled').attr('disabled', true)
+                    $('input[name=sosmed]').attr('disabled', true)
                     $(this).attr('hidden', true)
                     $('#identitas .btn-submit').attr('hidden', true)
                     $('#identitas .btn-edit').removeAttr('hidden')
