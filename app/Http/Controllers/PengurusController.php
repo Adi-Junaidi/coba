@@ -111,6 +111,11 @@ class PengurusController extends Controller
         return response()->json($data);
     }
 
+    public function getData(Pengurus $pengurus)
+    {
+        return \response()->json($pengurus);
+    }
+
 
     /**
      * Update the specified resource in storage.
@@ -142,7 +147,7 @@ class PengurusController extends Controller
 
         $penguru->update($updateData);
 
-        return redirect('/up/data/pengurus')->with('success', 'Berhasil merubah data pengurus');
+        return back()->with('success', 'Berhasil merubah data pengurus');
     }
 
     /**
@@ -151,9 +156,9 @@ class PengurusController extends Controller
      * @param  \App\Models\Pengurus  $pengurus
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Pengurus $penguru)
     {
-        Pengurus::destroy($id);
-        return \redirect('/up/data/pengurus');
+        $penguru->delete();
+        return \back()->with('success', 'Berhasil menghapus data');
     }
 }
