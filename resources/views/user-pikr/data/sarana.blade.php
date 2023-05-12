@@ -30,7 +30,7 @@
 
                     <div class="bs-stepper-content">
                         <!-- your steps content here -->
-                        <form action="/up/data/sarana/{{ auth()->user()->id }}" method="post">
+                        <form action="/up/data/sarana/{{ $sarana_pikr->id }}" method="post">
                             @foreach ($kategori as $item)
                                 <div id="{{ Str::slug($item) }}-part" class="content" role="tabpanel"
                                     aria-labelledby="{{ Str::slug($item) }}-part-trigger">
@@ -92,7 +92,7 @@
                                         class="bs-stepper-label d-lg-inline-block d-none small">{{ $item }}</span>
                                 </button>
                             </div>
-                            @if ($loop->last)
+          materi                  @if ($loop->last)
                             @else
                                 <div class="line"></div>
                             @endif

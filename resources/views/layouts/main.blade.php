@@ -53,6 +53,7 @@
 
   <script src="{{ asset('dist') }}/assets/js/bootstrap.js"></script>
   <script src="{{ asset('dist') }}/assets/js/app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <!-- Need: Apexcharts -->
   {{-- <script src="{{ asset('dist') }}/assets/extensions/apexcharts/apexcharts.min.js"></script> --}}
@@ -88,6 +89,7 @@
     @endif
 
   <!-- Page Script -->
+  @stack('scripts')
   @yield('script')
 </body>
 

@@ -23,7 +23,6 @@ use App\Http\Controllers\PikrController;
 use App\Http\Controllers\RankController;
 use App\Http\Controllers\RegistrasiKegiatanController;
 use App\Http\Controllers\ValidationController;
-use App\Models\Article;
 
 Route::get('/', function () {
   if (auth()->guest()) {
@@ -94,6 +93,15 @@ Route::middleware('auth')->group(function () {
     '/registrasi-kegiatan' => RegistrasiKegiatanController::class,
     '/peringkat' => RankController::class,
   ]);
+
+  Route::post('/materi/{materi}', [MateriController::class, 'update']);
+  Route::post('/sarana/{sarana}', [SaranaController::class, 'update']);
+  Route::post('/pengurus/{penguru}', [PengurusController::class, 'update']);
+  Route::post('/pengurus/delete/{penguru}', [PengurusController::class, 'destroy']);
+  Route::get('/pengurus/getData/{pengurus}', [PengurusController::class, 'getData']);
+  Route::get('/mitra/getData/{mitra}', [MitraPikrController::class, 'getData']);
+  Route::post('/mitra/{mitra}', [MitraPikrController::class, 'updateByAdmin']);
+  Route::post('/mitra/delete/{mitra}', [MitraPikrController::class, 'destroyByAdmin']);
 
   Route::get('/utility/getArticle/{article}', [ArticleController::class, 'getArticle']);
   Route::get('/utility/check-slug', [ArticleController::class, 'checkSlug']);

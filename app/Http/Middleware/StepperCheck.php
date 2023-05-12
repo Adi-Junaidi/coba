@@ -19,7 +19,7 @@ class StepperCheck
   public function handle(Request $request, Closure $next)
   {
     $pikr_id = auth()->user()->pikr->id;
-    $stepper = Stepper::where('pikr_id', \auth()->user()->id)->first();
+    $stepper = Stepper::where('pikr_id', \auth()->user()->pikr->id)->first();
     session(['stepper' => $stepper, 'pikr_id' => $pikr_id]);
 
     return $next($request);

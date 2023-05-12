@@ -8,8 +8,10 @@ use App\Http\Requests\UpdatePikrRequest;
 use App\Mail\SendEmail;
 use App\Models\Desa;
 use App\Models\Kabkota;
+use App\Models\Kecamatan;
 use App\Models\Materi;
 use App\Models\Pembina;
+use App\Models\Provinsi;
 use App\Models\Sarana;
 use Illuminate\Http\Request;
 
@@ -61,6 +63,11 @@ class PikrController extends Controller
    */
   public function show(Pikr $pikr)
   {
+    $bentuk_kerjasama = [
+      'Sponsorship',
+      'Narasumber',
+    ];
+
     return \view('pikr.detail', [
       'pikr_info' => $pikr,
       'materi' => Materi::all(),
@@ -69,6 +76,11 @@ class PikrController extends Controller
       'sarana_pikr' => $pikr->sarana()->first(),
       'mitra_s' => $pikr->mitra()->get(),
       'pengurus' => $pikr->pengurus()->get(),
+      'provinsi' => Provinsi::all(),
+      'kabkota' => Kabkota::all(),
+      'kecamatan' => Kecamatan::all(),
+      'desa' => Desa::all(),
+      'bentuk_kerjasama' => $bentuk_kerjasama,
     ]);
   }
 
@@ -90,9 +102,14 @@ class PikrController extends Controller
    * @param  \App\Models\Pikr  $pikr
    * @return \Illuminate\Http\Response
    */
-  public function update(UpdatePikrRequest $request, Pikr $pikr)
+  public function update(Request $request, Pikr $pikr)
   {
-    //
+    if ($request->has('sosmed')) $pikr->update(['akun_medsos' => $request->sosmed]);
+    if ($request->has('pro_pn')) $pikr->update(['pro_pn' => $request->pro_pn]);
+    if ($request->has('sumber_dana')) $pikr->update(['sumber_dana' => $request->sumber_dana]);
+    if ($request->has('keterpaduan_kelompok')) $pikr->update(['keterpaduan_kelompok' => $request->keterpaduan_kelompok]);
+
+    return \back()->with('success', 'Berhasil mengubah data PIK-R');
   }
 
   /**
@@ -149,7 +166,7 @@ class PikrController extends Controller
           $item->delete();
         }
       }
-      foreach($pikr->laporan as $laporan){
+      foreach ($pikr->laporan as $laporan) {
         $laporan->delete();
       }
     }

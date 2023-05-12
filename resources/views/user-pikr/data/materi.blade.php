@@ -29,7 +29,7 @@
 
                     <div class="bs-stepper-content">
                         <!-- your steps content here -->
-                        <form action="/up/data/materi/{{ auth()->user()->id }}" method="post">
+                        <form action="/up/data/materi/{{ $materi_pikr->id }}" method="post">
                             @foreach ($kategori as $item)
                                 <div id="{{ Str::slug($item) }}-part" class="content" role="tabpanel"
                                     aria-labelledby="{{ Str::slug($item) }}-part-trigger">
