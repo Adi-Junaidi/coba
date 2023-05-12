@@ -187,11 +187,19 @@ class LaporanController extends Controller
     return view('laporan.12b', compact('kabkotas', 'downloadLinks'));
   }
 
-  public function bulanan_a()
+  public function bulanan_a(Request $request)
   {
     $kabkotas = Kabkota::withPikrs();
 
-    return view('laporan.7a', compact('kabkotas'));
+    $currentMonth = date('m');
+    $filters = [
+      "kabkota_id" => $request->kb,
+      "kecamatan_id" => $request->kc,
+      "bulan" => $request->b ? $request->b : $currentMonth,
+      "tahun" => $request->t
+    ];
+
+    return view('laporan.7a', compact('kabkotas', 'filters'));
   }
 
 

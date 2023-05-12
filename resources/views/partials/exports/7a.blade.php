@@ -93,13 +93,35 @@
     @php
       $total = [
           'pikrs' => 0,
+          'reported' => 0,
+          'percentage' => 0,
+          'servedPKBR' => 0,
+          'servedLainnya' => 0,
       ];
+      
     @endphp
     @foreach ($kabkotas as $kabkota)
       @php
         $pikrs = $kabkota->pikrs;
+        // pikr yang melapor pasti memiliki setidaknya satu laporan yang verified di bulan yang dipilih
+        $reported = $pikrs->filter(fn($pikr) => $pikr->verified_laporans->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan'])->count() > 0);
+        
+        // pikr yang menyajikan materi PKBR dan materi Lainnya
+        // it's painful I know, but at least it works I'm okay for now
+        $servedPKBR = $pikrs->filter(fn($pikr) => $pikr->verified_laporans->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan'])->contains(fn($laporan) => $laporan->pelayananInformasi->contains(fn($pelayananInformasi) => !!$pelayananInformasi->materi) || $laporan->konseling->contains(fn($konseling) => !!$konseling->materi) || $laporan->konselingKelompok->contains(fn($konselingKelompok) => !!$konselingKelompok->materi)));
+        $servedLainnya = $pikrs->filter(fn($pikr) => $pikr->verified_laporans->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan'])->contains(fn($laporan) => $laporan->pelayananInformasi->contains(fn($pelayananInformasi) => !!$pelayananInformasi->materi_lainnya) || $laporan->konseling->contains(fn($konseling) => !!$konseling->materi_lainnya) || $laporan->konselingKelompok->contains(fn($konselingKelompok) => !!$konselingKelompok->materi_lainnya)));
+        
+        $percentage = 0;
+        // avoid division by zero
+        if ($pikrs->count() > 0) {
+            $percentage = ($reported->count() / $pikrs->count()) * 100;
+        }
         
         $total['pikrs'] += $pikrs->count();
+        $total['reported'] += $reported->count();
+        $total['percentage'] += $percentage;
+        $total['servedPKBR'] += $servedPKBR->count();
+        $total['servedLainnya'] += $servedLainnya->count();
       @endphp
       <tr style="height:30px" valign="top">
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
@@ -112,16 +134,16 @@
           <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $pikrs->count() }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">8</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $reported->count() }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">8.42</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ number_format($percentage, 2, '.', '') }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">8</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $servedPKBR->count() }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">0</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $servedLainnya->count() }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
           <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">8</span>
@@ -145,16 +167,16 @@
         <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['pikrs'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">59</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['reported'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">21.61</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ number_format($total['percentage'], 2, '.', '') }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">28</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['servedPKBR'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">3</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['servedLainnya'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
         <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">31</span>

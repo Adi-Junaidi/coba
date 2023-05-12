@@ -6,13 +6,17 @@
 2. Button validasi hanya dapat diakses oleh pembina yang berada di kecamatan yang sama dengan PIK-R
 3. Method Verify hanya dapat diakses dengan request method POST
 
+## Refactor
+
+- [ ] Download semua asset online untuk digunakan secara offline
+
 ## Login
 
 - [ ] Tampilkan pesan error di view jika gagal melakukan login
 
-### Faker
+### Factory
 
-- [ ] PIK-R
+- [x] PIK-R
 - [ ] SK
 
 # Seeder
