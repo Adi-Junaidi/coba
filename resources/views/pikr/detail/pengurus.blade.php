@@ -1,7 +1,7 @@
 @if ($pengurus->isEmpty())
     <p>Tidak Ada Pengurus</p>
 @else
-    <div class="table-responsive">
+    <div id="table-pengurus" class="table-responsive">
         <table class="table table-lg">
             <thead>
                 <tr>
@@ -155,7 +155,7 @@
 
 @push('scripts')
     <script>
-        $(document).on('click', '.edit_btn', function() {
+        $(document).on('click', '#table-pengurus .edit_btn', function() {
             const id = $(this).data('id');
             $('#editModal form').attr('action', '/pengurus/' + id);
             $.ajax({
@@ -175,7 +175,7 @@
             });
         });
 
-        $(document).on('click', '.delete_btn', function() {
+        $(document).on('click', '#table-pengurus .delete_btn', function() {
             const id = $(this).data('id')
             const nama = $(this).data('nama')
             $('#deleteModal form').attr('action', '/pengurus/delete/' + id)

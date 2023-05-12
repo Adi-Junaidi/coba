@@ -23,8 +23,6 @@ use App\Http\Controllers\PikrController;
 use App\Http\Controllers\RankController;
 use App\Http\Controllers\RegistrasiKegiatanController;
 use App\Http\Controllers\ValidationController;
-use App\Models\Article;
-use App\Models\Pengurus;
 
 Route::get('/', function () {
   if (auth()->guest()) {
@@ -101,6 +99,9 @@ Route::middleware('auth')->group(function () {
   Route::post('/pengurus/{penguru}', [PengurusController::class, 'update']);
   Route::post('/pengurus/delete/{penguru}', [PengurusController::class, 'destroy']);
   Route::get('/pengurus/getData/{pengurus}', [PengurusController::class, 'getData']);
+  Route::get('/mitra/getData/{mitra}', [MitraPikrController::class, 'getData']);
+  Route::post('/mitra/{mitra}', [MitraPikrController::class, 'updateByAdmin']);
+  Route::post('/mitra/delete/{mitra}', [MitraPikrController::class, 'destroyByAdmin']);
 
   Route::get('/utility/getArticle/{article}', [ArticleController::class, 'getArticle']);
   Route::get('/utility/check-slug', [ArticleController::class, 'checkSlug']);

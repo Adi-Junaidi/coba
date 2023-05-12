@@ -112,6 +112,12 @@ class MitraPikrController extends Controller
 
         return \redirect('/up/data/mitra');
     }
+
+    public function updateByAdmin(Request $request, MitraPikr $mitra)
+    {
+        $mitra->update($request->except('_token'));
+        return \back()->with('success', 'Berhasil mengubah data mitra pikr');
+    }
     
     /**
      * Remove the specified resource from storage.
@@ -123,5 +129,16 @@ class MitraPikrController extends Controller
     {
         MitraPikr::destroy($id);
         return \redirect('/up/data/mitra');
+    }
+
+    public function destroyByAdmin(MitraPikr $mitra)
+    {
+        $mitra->delete();
+        return \back()->with('success', 'Berhasil menghapus data mitra pikr');
+    }
+
+    public function getData(MitraPikr $mitra)
+    {
+        return \response()->json($mitra);
     }
 }
