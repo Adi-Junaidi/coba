@@ -95,6 +95,8 @@ Route::middleware('auth')->group(function () {
     '/peringkat' => RankController::class,
   ]);
 
+  Route::post('/materi/{materi}', [MateriController::class, 'update']);
+
   Route::get('/utility/getArticle/{article}', [ArticleController::class, 'getArticle']);
   Route::get('/utility/check-slug', [ArticleController::class, 'checkSlug']);
 });

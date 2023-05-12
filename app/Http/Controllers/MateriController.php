@@ -84,12 +84,10 @@ class MateriController extends Controller
      * @param  \App\Models\Materi  $materi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, MateriPikr $materi)
     {
-        $id = \auth()->user()->id;
-
-        MateriPikr::where('pikr_id', $id)->update($request->except('_method', '_token'));
-        return \redirect('/up/data/materi')->with('success', 'Berhasil Mengubah Data Ketersediaan Materi');
+        $materi->update($request->except('_method', '_token'));
+        return \back()->with('success', 'Berhasil Mengubah Data Ketersediaan Materi');
     }
 
     /**
@@ -102,4 +100,5 @@ class MateriController extends Controller
     {
         //
     }
+
 }
