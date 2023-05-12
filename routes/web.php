@@ -79,6 +79,10 @@ Route::middleware('auth')->group(function () {
         });
       });
     });
+
+    Route::prefix('bulanan')->group(function () {
+      Route::get('/7a', [LaporanController::class, 'bulanan_a']);
+    });
   });
 });
 

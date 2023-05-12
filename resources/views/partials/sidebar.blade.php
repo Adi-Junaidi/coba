@@ -129,7 +129,7 @@
 
             <ul class="submenu">
               <li class="submenu-item">
-                <a href="#">Tabel 7A</a>
+                <a href="/laporan/bulanan/7a">Tabel 7A</a>
               </li>
               <li class="submenu-item">
                 <a href="#">Tabel 7B</a>

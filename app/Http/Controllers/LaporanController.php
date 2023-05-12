@@ -187,6 +187,13 @@ class LaporanController extends Controller
     return view('laporan.12b', compact('kabkotas', 'downloadLinks'));
   }
 
+  public function bulanan_a()
+  {
+    $kabkotas = Kabkota::withPikrs();
+
+    return view('laporan.7a', compact('kabkotas'));
+  }
+
 
   // Export Excel
   public function export_12a_xlsx()
