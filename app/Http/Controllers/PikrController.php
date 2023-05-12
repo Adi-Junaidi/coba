@@ -198,9 +198,9 @@ class PikrController extends Controller
       return back()->with('error', "Berhasil membatalkan verifikasi PIK-R {$pikr->nama}");
     }
 
-    $provinsi = $pikr->desa->kecamatan->kabkota->provinsi->id;
-    $kabkota = $pikr->desa->kecamatan->kabkota->id;
-    $kecamatan = $pikr->desa->kecamatan->id;
+    $provinsi = $pikr->desa->kecamatan->kabkota->provinsi->kode;
+    $kabkota = $pikr->desa->kecamatan->kabkota->kode;
+    $kecamatan = $pikr->desa->kecamatan->kode;
     $unique_code = '5';
     $id = $pikr->id;
 
