@@ -25,7 +25,7 @@ class SaranaController extends Controller
             'title' => 'Sarana',
             'kategori' => $kategori,
             'sarana' => $sarana,
-            'sarana_pikr' => PikrSarana::where('pikr_id', \auth()->user()->id)->first(),
+            'sarana_pikr' => PikrSarana::where('pikr_id', auth()->user()->pikr->id)->first(),
         ]);
     }
 
@@ -85,12 +85,10 @@ class SaranaController extends Controller
      * @param  \App\Models\Sarana  $sarana
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, PikrSarana $sarana)
     {
-        $id = \auth()->user()->id;
-
-        PikrSarana::where('pikr_id', $id)->update($request->except('_method', '_token'));
-        return \redirect('/up/data/sarana')->with('success', 'Berhasil Mengubah Data Ketersediaan Sarana');
+        $sarana->update($request->except('_method', '_token'));
+        return \back()->with('success', 'Berhasil Mengubah Data Ketersediaan Sarana');
     }
 
     /**

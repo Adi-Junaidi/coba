@@ -96,6 +96,7 @@ Route::middleware('auth')->group(function () {
   ]);
 
   Route::post('/materi/{materi}', [MateriController::class, 'update']);
+  Route::post('/sarana/{sarana}', [SaranaController::class, 'update']);
 
   Route::get('/utility/getArticle/{article}', [ArticleController::class, 'getArticle']);
   Route::get('/utility/check-slug', [ArticleController::class, 'checkSlug']);

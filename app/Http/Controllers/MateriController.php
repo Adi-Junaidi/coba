@@ -50,7 +50,7 @@ class MateriController extends Controller
         $materiData = $request->toArray();
         $materiData['pikr_id'] = \auth()->user()->pikr->id;
         MateriPikr::create($materiData);
-        Stepper::where('pikr_id', auth()->user()->id)->update(['materi'=> true]);
+        Stepper::where('pikr_id', auth()->user()->pikr->id)->update(['materi'=> true]);
         return \redirect('/up/data/materi')->with('success', 'Berhasil Melengkapi Data Ketersediaan Materi');
 
     }
