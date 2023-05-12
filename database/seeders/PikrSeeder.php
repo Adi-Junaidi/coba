@@ -31,7 +31,7 @@ class PikrSeeder extends Seeder
       "nama" => "PIK-R As-Salam",
       "no_urut" => "002",
       "alamat" => "Jl. Poigar",
-      "basis" => "Jalur Pendidikan - SMA/Sederajat",
+      "basis" => "SMA/Sederajat",
       "akun_medsos" => "Instagram (@pikr-assalam)",
       "desa_id" => 1,
       "pembina_id" => 1,

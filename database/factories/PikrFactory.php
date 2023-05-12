@@ -17,11 +17,11 @@ class PikrFactory extends Factory
   public function definition()
   {
     $basis = [
-      "Jalur Pendidikan - SMP/Sederajat",
-      "Jalur Pendidikan - SMA/Sederajat",
-      "Jalur Pendidikan - Perguruan Tinggi",
-      "Jalur Masyarakat - Organisasi Keagamaan",
-      "Jalur Masyarakat - LSM/Organisasi Kepemudaan/Organisasi Kemasyarakatan"
+      "SMP/Sederajat",
+      "SMA/Sederajat",
+      "Perguruan Tinggi",
+      "Organisasi Keagamaan",
+      "LSM/Organisasi Kepemudaan/Organisasi Kemasyarakatan"
     ];
     $basis = $basis[mt_rand(0, count($basis) - 1)];
 

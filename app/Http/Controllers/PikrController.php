@@ -8,8 +8,10 @@ use App\Http\Requests\UpdatePikrRequest;
 use App\Mail\SendEmail;
 use App\Models\Desa;
 use App\Models\Kabkota;
+use App\Models\Kecamatan;
 use App\Models\Materi;
 use App\Models\Pembina;
+use App\Models\Provinsi;
 use App\Models\Sarana;
 use Illuminate\Http\Request;
 
@@ -69,6 +71,10 @@ class PikrController extends Controller
       'sarana_pikr' => $pikr->sarana()->first(),
       'mitra_s' => $pikr->mitra()->get(),
       'pengurus' => $pikr->pengurus()->get(),
+      'provinsi' => Provinsi::all(),
+      'kabkota' => Kabkota::all(),
+      'kecamatan' => Kecamatan::all(),
+      'desa' => Desa::all(),
     ]);
   }
 
@@ -90,9 +96,9 @@ class PikrController extends Controller
    * @param  \App\Models\Pikr  $pikr
    * @return \Illuminate\Http\Response
    */
-  public function update(UpdatePikrRequest $request, Pikr $pikr)
+  public function update(Request $request, Pikr $pikr)
   {
-    //
+    return $request;
   }
 
   /**
