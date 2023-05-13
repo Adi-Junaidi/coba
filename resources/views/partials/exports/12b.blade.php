@@ -149,7 +149,8 @@
     @endphp
     @forelse ($areas as $area)
       @php
-        $pikrs = $area->pikrs;
+        // pikr yang diambil hanya pikr yang dicreate setelah tahun $filters['tahun']
+        $pikrs = $area->pikrs->filter(fn($pikr) => $pikr->created_at->lte(Carbon\Carbon::createFromFormat('Y', $filters['tahun'])));
         $hasMateri = $pikrs->filter(fn($pikr) => $pikr->materi);
         $hasMateriLainnya = $pikrs->filter(fn($pikr) => $pikr->materi_lainnya === '1');
         $hasGenreKit = $pikrs->filter(fn($pikr) => $pikr->sarana && $pikr->sarana->genre_kit);

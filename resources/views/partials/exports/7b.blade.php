@@ -164,7 +164,7 @@
     @endphp
     @forelse ($areas as $area)
       @php
-        $laporans = $area->pikrs->flatMap(fn($pikr) => $pikr->verified_laporans)->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan']['kode']);
+        $laporans = $area->pikrs->flatMap(fn($pikr) => $pikr->verified_laporans)->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan']['kode'] && $laporan->tahun_lapor === $filters['tahun']);
         $konselingIndividus = $laporans->flatMap(fn($laporan) => $laporan->konseling);
         $konselingKelompoks = $laporans->flatMap(fn($laporan) => $laporan->konselingKelompok);
         

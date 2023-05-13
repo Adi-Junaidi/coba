@@ -120,7 +120,7 @@
       @php
         $pikrs = $area->pikrs;
         // pikr yang melapor pasti memiliki setidaknya satu laporan yang verified di bulan yang dipilih
-        $reported = $pikrs->filter(fn($pikr) => $pikr->verified_laporans->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan']['kode'])->count() > 0);
+        $reported = $pikrs->filter(fn($pikr) => $pikr->verified_laporans->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan']['kode'] && $laporan->tahun_lapor === $filters['tahun'])->count() > 0);
         
         $percentage = 0;
         // avoid division by zero
@@ -130,10 +130,10 @@
         
         // pikr yang menyajikan materi PKBR dan materi Lainnya
         // it's painful I know, but at least it works I'm okay for now
-        $servedPKBR = $pikrs->filter(fn($pikr) => $pikr->verified_laporans->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan']['kode'])->contains(fn($laporan) => $laporan->pelayananInformasi->contains(fn($pelayananInformasi) => !!$pelayananInformasi->materi) || $laporan->konseling->contains(fn($konseling) => !!$konseling->materi) || $laporan->konselingKelompok->contains(fn($konselingKelompok) => !!$konselingKelompok->materi)));
-        $servedLainnya = $pikrs->filter(fn($pikr) => $pikr->verified_laporans->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan']['kode'])->contains(fn($laporan) => $laporan->pelayananInformasi->contains(fn($pelayananInformasi) => !!$pelayananInformasi->materi_lainnya) || $laporan->konseling->contains(fn($konseling) => !!$konseling->materi_lainnya) || $laporan->konselingKelompok->contains(fn($konselingKelompok) => !!$konselingKelompok->materi_lainnya)));
+        $servedPKBR = $pikrs->filter(fn($pikr) => $pikr->verified_laporans->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan']['kode'] && $laporan->tahun_lapor === $filters['tahun'])->contains(fn($laporan) => $laporan->pelayananInformasi->contains(fn($pelayananInformasi) => !!$pelayananInformasi->materi) || $laporan->konseling->contains(fn($konseling) => !!$konseling->materi) || $laporan->konselingKelompok->contains(fn($konselingKelompok) => !!$konselingKelompok->materi)));
+        $servedLainnya = $pikrs->filter(fn($pikr) => $pikr->verified_laporans->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan']['kode'] && $laporan->tahun_lapor === $filters['tahun'])->contains(fn($laporan) => $laporan->pelayananInformasi->contains(fn($pelayananInformasi) => !!$pelayananInformasi->materi_lainnya) || $laporan->konseling->contains(fn($konseling) => !!$konseling->materi_lainnya) || $laporan->konselingKelompok->contains(fn($konselingKelompok) => !!$konselingKelompok->materi_lainnya)));
         
-        $laporans = $pikrs->flatMap(fn($pikrs) => $pikrs->verified_laporans)->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan']['kode']);
+        $laporans = $pikrs->flatMap(fn($pikrs) => $pikrs->verified_laporans)->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan']['kode'] && $laporan->tahun_lapor === $filters['tahun']);
         $jumlahPertemuan = $laporans->reduce(fn($total, $laporan) => $total + $laporan->pelayananInformasi->count() + $laporan->konseling->count() + $laporan->konselingKelompok->count()) ?? 0;
         $jumlahRemaja = $laporans->reduce(fn($total, $laporan) => $total + $laporan->pelayananInformasi->reduce(fn($total, $pelayananInformasi) => $total + $pelayananInformasi->jumlah_peserta) + $laporan->konseling->reduce(fn($total, $konseling) => $total + $konseling->jumlah_cowok + $konseling->jumlah_cewek) + $laporan->konselingKelompok->reduce(fn($total, $konselingKelompok) => $total + $konselingKelompok->jumlah_cowok + $konselingKelompok->jumlah_cewek)) ?? 0;
         $jumlahPertemuanPKBR = $laporans->reduce(fn($total, $laporan) => $total + $laporan->pelayananInformasi->filter(fn($pelayananInformasi) => !!$pelayananInformasi->materi)->count() + $laporan->konseling->filter(fn($konseling) => !!$konseling->materi)->count() + $laporan->konselingKelompok->filter(fn($konselingKelompok) => !!$konselingKelompok->materi)->count()) ?? 0;

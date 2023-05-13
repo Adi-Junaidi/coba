@@ -148,7 +148,8 @@
     @endphp
     @forelse ($areas as $area)
       @php
-        $pikrs = $area->pikrs;
+        // pikr yang diambil hanya pikr yang dicreate setelah tahun $filters['tahun']
+        $pikrs = $area->pikrs->filter(fn($pikr) => $pikr->created_at->lte(Carbon\Carbon::createFromFormat('Y', $filters['tahun'])));
         $hasSK = $pikrs->filter(fn($pikr) => !!$pikr->sk);
         $isSMP = $pikrs->filter(fn($pikr) => $pikr->basis === 'Jalur Pendidikan - SMP/Sederajat');
         $isSMA = $pikrs->filter(fn($pikr) => $pikr->basis === 'Jalur Pendidikan - SMA/Sederajat');
