@@ -22,36 +22,19 @@ class Kabkota extends Model
     return $this->hasManyThrough(Desa::class, Kecamatan::class);
   }
 
-  // FIXME: fungsi ini malah mengembalikan data dari tabel pikr sebagai model Desa instead of Pikr
-  public function pikrs()
-  {
-    return $this->desas()->join('pikrs', 'desas.id', '=', 'pikrs.desa_id')->select('*');
-  }
-
   public function provinsi()
   {
     return $this->belongsTo(Provinsi::class);
   }
 
-  // custom method
+  // ==== Accessor ====
   public function getParsedNamaAttribute()
   {
     return str_replace('KABUPATEN ', '', strtoupper($this->nama));
   }
-
-  public static function withPikrs()
+  // accessor alternatif untuk relasi One to Many Kabupaten dan PIK-R
+  public function getPikrsAttribute()
   {
-    $kabkotas = Kabkota::all();
-    // this is a ✨MAGIC✨ that groups PIK-R by KabKota
-    // It works, don't 🚫 touch it
-    $kabkotaPikrs = $kabkotas->mapWithKeys(fn ($kabkota) => [
-      $kabkota->id => $kabkota->kecamatan->flatMap(fn ($kecamatan) => $kecamatan->pikrs)
-    ]);
-
-    $kabkotas->each(function ($kabkota) use ($kabkotaPikrs) {
-      $kabkota->pikrs = $kabkotaPikrs[$kabkota->id];
-    });
-
-    return $kabkotas;
+    return $this->kecamatan->flatMap(fn ($kecamatan) => $kecamatan->pikrs);
   }
 }

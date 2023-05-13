@@ -10,10 +10,6 @@ Kalau tahu sumber masalahnya dari file mana, boleh disebutkan di sini. Tuliskan 
 
 - [ ] Ubah skema warna (tombol, link) dari tampilan autentikasi (login dan register)
 
-## Laporan
-
-- [ ] Jangan gunakan fixed width untuk tabel
-
 ## Admin
 
 - [ ] Tampilan form tambah pembina masih bisa diperbaiki `views/pikr/index.blade.php`

@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body">
-    <form action="" method="get">
+    <form>
       <div class="row mb-4">
         <div class="col-2"><label for="kb">Kab/Kota</label></div>
         <div class="col-4">
@@ -27,8 +27,8 @@
         <div class="col-2"><label>Periode</label></div>
         <div class="col-2">
           <select class="form-select" id="b" name="b">
-            @foreach ($months as $m)
-              <option value="{{ $loop->iteration <= 9 ? '0' . $loop->iteration : $loop->iteration }}" {{ $month === $m ? 'selected' : '' }}>{{ $m }}</option>
+            @foreach ($months as $month)
+              <option value="{{ $loop->iteration <= 9 ? '0' . $loop->iteration : $loop->iteration }}" {{ $filters['bulan']['nama'] === $month ? 'selected' : '' }}>{{ $month }}</option>
             @endforeach
           </select>
         </div>

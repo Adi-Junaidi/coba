@@ -165,100 +165,104 @@ class LaporanController extends Controller
     //
   }
 
-  public function tahunan_a()
+  public function tahunan_a(Request $request)
   {
-    $kabkotas = Kabkota::withPikrs();
-
-    $downloadLinks = [
-      "xlsx" => '/laporan/tahunan/export/12a/xlsx',
-      "pdf" => '/laporan/tahunan/export/12a/pdf',
+    $kabkotas = Kabkota::all();
+    $filters = [
+      'kabkota_id' => $request->kb,
+      'kecamatan_id' => $request->kc,
+      'tahun' => $request->t ?? date('Y')
     ];
 
-    return view('laporan.12a', compact('kabkotas', 'downloadLinks'));
+    switch ($request->export) {
+      case 'xslx':
+        return Excel::download(new Laporan12aExport, "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN $filters[tahun].xlsx");
+
+      case 'pdf':
+        return Excel::download(new Laporan12aExport, "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN $filters[tahun].pdf", \Maatwebsite\Excel\Excel::MPDF);
+
+      default:
+        return view('laporan.12a', compact('kabkotas', 'filters'));
+    }
   }
 
-  public function tahunan_b()
+  public function tahunan_b(Request $request)
   {
-    $kabkotas = Kabkota::withPikrs();
-
-    $downloadLinks = [
-      "xlsx" => '/laporan/tahunan/export/12b/xlsx',
-      "pdf" => '/laporan/tahunan/export/12b/pdf',
+    $kabkotas = Kabkota::all();
+    $filters = [
+      'kabkota_id' => $request->kb,
+      'kecamatan_id' => $request->kc,
+      'tahun' => $request->t ?? date('Y')
     ];
 
-    return view('laporan.12b', compact('kabkotas', 'downloadLinks'));
+    switch ($request->export) {
+      case 'xslx':
+        return Excel::download(new Laporan12bExport, "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN $filters[tahun].xlsx");
+
+      case 'pdf':
+        return Excel::download(new Laporan12bExport, "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN $filters[tahun].pdf", \Maatwebsite\Excel\Excel::MPDF);
+
+      default:
+        return view('laporan.12b', compact('kabkotas', 'filters'));
+    }
   }
 
   public function bulanan_a(Request $request)
   {
-    $kabkotas = Kabkota::withPikrs();
+    $kabkotas = Kabkota::all();
 
     $filters = [
       "kabkota_id" => $request->kb,
       "kecamatan_id" => $request->kc,
-      "bulan" => $request->b ?? date('m'),
+      "bulan" => [
+        "kode" => $request->b ?? date('m'),
+        "nama" => ""
+      ],
       "tahun" => $request->t ?? date('Y')
     ];
 
     $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-    $month = $months[$filters['bulan'] - 1];
+    $filters['bulan']['nama'] = $months[$filters['bulan']['kode'] - 1];
 
     switch ($request->export) {
       case 'xlsx':
-        return Excel::download(new Laporan7aExport($kabkotas, $filters, $month), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) YANG MELAKUKAN PERTEMUAN DAN REMAJA HADIR PERTEMUAN BULAN $month $filters[tahun].xlsx");
+        return Excel::download(new Laporan7aExport($kabkotas, $filters), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) YANG MELAKUKAN PERTEMUAN DAN REMAJA HADIR PERTEMUAN BULAN {$filters['bulan']['nama']} {$filters['tahun']}.xlsx");
 
       case 'pdf':
-        return Excel::download(new Laporan7aExport($kabkotas, $filters, $month), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) YANG MELAKUKAN PERTEMUAN DAN REMAJA HADIR PERTEMUAN BULAN $month $filters[tahun].pdf", \Maatwebsite\Excel\Excel::MPDF);
+        return Excel::download(new Laporan7aExport($kabkotas, $filters), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) YANG MELAKUKAN PERTEMUAN DAN REMAJA HADIR PERTEMUAN BULAN {$filters['bulan']['nama']} {$filters['tahun']}.pdf", \Maatwebsite\Excel\Excel::MPDF);
 
       default:
-        return view('laporan.7a', compact('kabkotas', 'filters', 'months', 'month'));
+        return view('laporan.7a', compact('kabkotas', 'filters', 'months'));
     }
   }
 
   public function bulanan_b(Request $request)
   {
-    $kabkotas = Kabkota::withPikrs();
+    $kabkotas = Kabkota::all();
 
     $filters = [
       "kabkota_id" => $request->kb,
       "kecamatan_id" => $request->kc,
-      "bulan" => $request->b ?? date('m'),
+      "bulan" => [
+        "kode" => $request->b ?? date('m'),
+        "nama" => ""
+      ],
       "tahun" => $request->t ?? date('Y')
     ];
 
     $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-    $month = $months[$filters['bulan'] - 1];
+    $filters['bulan']['nama'] = $months[$filters['bulan']['kode'] - 1];
 
     switch ($request->export) {
       case 'xlsx':
-        return Excel::download(new Laporan7bExport($kabkotas, $filters, $month), "JUMLAH REMAJA HADIR KONSELING PADA PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) BULAN $month $filters[tahun].xlsx");
+        return Excel::download(new Laporan7bExport($kabkotas, $filters), "JUMLAH REMAJA HADIR KONSELING PADA PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) BULAN {$filters['bulan']['nama']} {$filters['tahun']}.xlsx");
 
       case 'pdf':
-        return Excel::download(new Laporan7bExport($kabkotas, $filters, $month), "JUMLAH REMAJA HADIR KONSELING PADA PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) BULAN $month $filters[tahun].pdf", \Maatwebsite\Excel\Excel::MPDF);
+        return Excel::download(new Laporan7bExport($kabkotas, $filters), "JUMLAH REMAJA HADIR KONSELING PADA PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) BULAN {$filters['bulan']['nama']} {$filters['tahun']}.pdf", \Maatwebsite\Excel\Excel::MPDF);
 
       default:
-        return view('laporan.7b', compact('kabkotas', 'filters', 'months', 'month'));
+        return view('laporan.7b', compact('kabkotas', 'filters', 'months'));
     }
-  }
-
-  // Export Excel
-  public function export_12a_xlsx()
-  {
-    return Excel::download(new Laporan12aExport, 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN 2023.xlsx');
-  }
-  public function export_12b_xlsx()
-  {
-    return Excel::download(new Laporan12bExport, 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN 2023.xlsx');
-  }
-
-  // export pdf
-  public function export_12a_pdf()
-  {
-    return Excel::download(new Laporan12aExport, 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN 2023.pdf', \Maatwebsite\Excel\Excel::MPDF);
-  }
-  public function export_12b_pdf()
-  {
-    return Excel::download(new Laporan12bExport, 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN 2023.pdf', \Maatwebsite\Excel\Excel::MPDF);
   }
 
   public function detail(Laporan $laporan)
