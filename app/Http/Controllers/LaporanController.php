@@ -174,11 +174,17 @@ class LaporanController extends Controller
     ];
 
     $kabkotas = Kabkota::all();
+    $kecamatan = null;
     $kabkota = null;
     $areas = $kabkotas;
     if ($filters['kabkota_id']) {
       $kabkota = Kabkota::find($filters['kabkota_id']);
       $areas = $kabkota->kecamatan;
+
+      if ($filters['kecamatan_id']) {
+        $kecamatan = Kecamatan::find($filters['kecamatan_id']);
+        $areas = $kecamatan->desa;
+      }
     }
 
     switch ($request->export) {
@@ -189,7 +195,7 @@ class LaporanController extends Controller
         return Excel::download(new Laporan12aExport($kabkota, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN $filters[tahun].pdf", \Maatwebsite\Excel\Excel::MPDF);
 
       default:
-        return view('laporan.12a', compact('kabkotas', 'kabkota', 'filters', 'areas'));
+        return view('laporan.12a', compact('kabkotas', 'kabkota', 'kecamatan', 'filters', 'areas'));
     }
   }
 
@@ -202,11 +208,17 @@ class LaporanController extends Controller
     ];
 
     $kabkotas = Kabkota::all();
+    $kecamatan = null;
     $kabkota = null;
     $areas = $kabkotas;
     if ($filters['kabkota_id']) {
       $kabkota = Kabkota::find($filters['kabkota_id']);
       $areas = $kabkota->kecamatan;
+
+      if ($filters['kecamatan_id']) {
+        $kecamatan = Kecamatan::find($filters['kecamatan_id']);
+        $areas = $kecamatan->desa;
+      }
     }
 
     switch ($request->export) {
@@ -217,7 +229,7 @@ class LaporanController extends Controller
         return Excel::download(new Laporan12bExport($kabkota, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN $filters[tahun].pdf", \Maatwebsite\Excel\Excel::MPDF);
 
       default:
-        return view('laporan.12b', compact('kabkotas', 'kabkota', 'filters', 'areas'));
+        return view('laporan.12b', compact('kabkotas', 'kabkota', 'kecamatan', 'filters', 'areas'));
     }
   }
 
@@ -234,11 +246,17 @@ class LaporanController extends Controller
     ];
 
     $kabkotas = Kabkota::all();
+    $kecamatan = null;
     $kabkota = null;
     $areas = $kabkotas;
     if ($filters['kabkota_id']) {
       $kabkota = Kabkota::find($filters['kabkota_id']);
       $areas = $kabkota->kecamatan;
+
+      if ($filters['kecamatan_id']) {
+        $kecamatan = Kecamatan::find($filters['kecamatan_id']);
+        $areas = $kecamatan->desa;
+      }
     }
 
     $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
@@ -252,7 +270,7 @@ class LaporanController extends Controller
         return Excel::download(new Laporan7aExport($kabkota, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) YANG MELAKUKAN PERTEMUAN DAN REMAJA HADIR PERTEMUAN BULAN {$filters['bulan']['nama']} {$filters['tahun']}.pdf", \Maatwebsite\Excel\Excel::MPDF);
 
       default:
-        return view('laporan.7a', compact('kabkotas', 'kabkota', 'filters', 'months', 'areas'));
+        return view('laporan.7a', compact('kabkotas', 'kabkota', 'kecamatan', 'filters', 'months', 'areas'));
     }
   }
 
@@ -269,11 +287,17 @@ class LaporanController extends Controller
     ];
 
     $kabkotas = Kabkota::all();
+    $kecamatan = null;
     $kabkota = null;
     $areas = $kabkotas;
     if ($filters['kabkota_id']) {
       $kabkota = Kabkota::find($filters['kabkota_id']);
       $areas = $kabkota->kecamatan;
+
+      if ($filters['kecamatan_id']) {
+        $kecamatan = Kecamatan::find($filters['kecamatan_id']);
+        $areas = $kecamatan->desa;
+      }
     }
 
     $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
@@ -287,7 +311,7 @@ class LaporanController extends Controller
         return Excel::download(new Laporan7bExport($kabkota, $filters, $areas), "JUMLAH REMAJA HADIR KONSELING PADA PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) BULAN {$filters['bulan']['nama']} {$filters['tahun']}.pdf", \Maatwebsite\Excel\Excel::MPDF);
 
       default:
-        return view('laporan.7b', compact('kabkotas', 'kabkota', 'filters', 'months', 'areas'));
+        return view('laporan.7b', compact('kabkotas', 'kabkota', 'kecamatan', 'filters', 'months', 'areas'));
     }
   }
 

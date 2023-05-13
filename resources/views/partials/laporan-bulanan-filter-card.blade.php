@@ -6,19 +6,20 @@
         <div class="col-4">
           <select class="form-select" id="kb" name="kb">
             <option value="">Filter Kab/Kota</option>
-            @foreach ($kabkotas as $kabkota)
-              <option value="{{ $kabkota->id }}" {{ $kabkota->id == $filters['kabkota_id'] ? 'selected' : '' }}>{{ $kabkota->kode }} | {{ $kabkota->nama }}</option>
+            @foreach ($kabkotas as $item)
+              <option value="{{ $item->id }}" {{ $item->id == $filters['kabkota_id'] ? 'selected' : '' }}>{{ $item->kode }} | {{ $item->nama }}</option>
             @endforeach
           </select>
         </div>
         <div class="col-2"><label for="kc">Kecamatan</label></div>
         <div class="col-4">
-          <select class="form-select" id="kc" name="kc" disabled>
+          <select class="form-select" id="kc" name="kc" {{ !$filters['kabkota_id'] ? 'disabled' : '' }}>
             <option value="">Filter Kecamatan</option>
-            <!-- TODO: diisi dengan ajax -->
-            {{-- @foreach ($kecamatans as $kecamatan)
-                  <option value="{{ $kecamatan->id }}">{{ $kecamatan->kode }} | {{ $kecamatan->nama }}</option>
-                @endforeach --}}
+            @if ($filters['kabkota_id'])
+              @foreach ($kabkota->kecamatan as $item)
+                <option value="{{ $item->id }}" {{ $item->id == $filters['kecamatan_id'] ? 'selected' : '' }}>{{ $item->kode }} | {{ $item->nama }}</option>
+              @endforeach
+            @endif
           </select>
         </div>
       </div>
@@ -42,3 +43,36 @@
     </form>
   </div>
 </div>
+
+@push('script')
+  <!-- It needs jQuery -->
+  <script src="http://localhost:8000/dist/assets/extensions/jquery/jquery.min.js"></script>
+
+  <script>
+    $("#kb").on("change", function() {
+      const kabkotaID = $(this).val();
+      const selectKecamatan = $("#kc");
+
+      selectKecamatan.empty();
+      selectKecamatan.append('<option value="">Filter Kecamatan</option>');
+
+      if (kabkotaID) {
+        $.ajax({
+          type: "get",
+          url: `/api/kabkota/${kabkotaID}/kecamatans/`,
+          dataType: "json",
+          success: function(data) {
+            if (data) {
+              $.each(data, (key, kecamatan) => selectKecamatan.append(`'<option value="${kecamatan.id}">${kecamatan.kode} | ${kecamatan.nama}</option>`));
+              selectKecamatan.prop("disabled", false);
+            } else {
+              selectKecamatan.prop("disabled", true);
+            }
+          },
+        });
+      } else {
+        selectKecamatan.prop("disabled", true);
+      }
+    });
+  </script>
+@endpush

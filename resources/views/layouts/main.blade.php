@@ -89,6 +89,8 @@
 
   <!-- Page Script -->
   @yield('script')
+
+  @stack('script')
 </body>
 
 </html>

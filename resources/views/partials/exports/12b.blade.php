@@ -21,6 +21,13 @@
           <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 12px; line-height: 1.1640625; font-weight: bold;">Kab: {{ $kabkota->parsedNama }}</span>
         </td>
       </tr>
+      @if ($filters['kecamatan_id'])
+        <tr style="height:26px" valign="top">
+          <td style="text-indent: 0px; vertical-align: middle;text-align: left;" colspan="14">
+            <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 12px; line-height: 1.1640625; font-weight: bold;">Kec: {{ $kecamatan->parsedNama }}</span>
+          </td>
+        </tr>
+      @endif
     @endif
     <tr style="height:30px" valign="top">
       <td style="background-color: #085480; border: 1px solid #FFFFFF; text-indent: 0px; vertical-align: middle;text-align: center;" rowspan="2">
