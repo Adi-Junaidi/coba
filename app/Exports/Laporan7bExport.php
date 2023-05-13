@@ -7,20 +7,23 @@ use Maatwebsite\Excel\Concerns\FromView;
 
 class Laporan7bExport implements FromView
 {
-  private $kabkotas;
   private $filters;
+  private $kabkota;
+  private $areas;
 
-  public function __construct($kabkotas, $filters)
+  public function __construct($kabkota, $filters, $areas)
   {
-    $this->kabkotas = $kabkotas;
+    $this->kabkota = $kabkota;
     $this->filters = $filters;
+    $this->areas = $areas;
   }
 
   public function view(): View
   {
-    $kabkotas = $this->kabkotas;
+    $kabkota = $this->kabkota;
     $filters = $this->filters;
+    $areas = $this->areas;
 
-    return view('partials.exports.7b', compact('kabkotas', 'filters'));
+    return view('partials.exports.7b', compact('kabkota', 'filters', 'areas'));
   }
 }
