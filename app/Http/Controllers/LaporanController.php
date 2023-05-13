@@ -18,6 +18,7 @@ use App\Models\Pikr;
 
 use App\Exports\Laporan12aExport;
 use App\Exports\Laporan12bExport;
+use App\Exports\Laporan7aExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class LaporanController extends Controller
@@ -194,14 +195,23 @@ class LaporanController extends Controller
     $filters = [
       "kabkota_id" => $request->kb,
       "kecamatan_id" => $request->kc,
-      "bulan" => $request->b ? $request->b : date('m'),
-      "tahun" => $request->t ? $request->t : date('Y')
+      "bulan" => $request->b ?? date('m'),
+      "tahun" => $request->t ?? date('Y')
     ];
 
     $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     $month = $months[$filters['bulan'] - 1];
 
-    return view('laporan.7a', compact('kabkotas', 'filters', 'months', 'month'));
+    switch ($request->export) {
+      case 'xlsx':
+        return Excel::download(new Laporan7aExport($kabkotas, $filters, $month), 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) YANG MELAKUKAN PERTEMUAN DAN REMAJA HADIR PERTEMUAN BULAN MEI 2023.xlsx');
+
+      case 'pdf':
+        return Excel::download(new Laporan7aExport($kabkotas, $filters, $month), 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) YANG MELAKUKAN PERTEMUAN DAN REMAJA HADIR PERTEMUAN BULAN MEI 2023.pdf', \Maatwebsite\Excel\Excel::MPDF);
+
+      default:
+        return view('laporan.7a', compact('kabkotas', 'filters', 'months', 'month'));
+    }
   }
 
   public function bulanan_b(Request $request)
@@ -211,8 +221,8 @@ class LaporanController extends Controller
     $filters = [
       "kabkota_id" => $request->kb,
       "kecamatan_id" => $request->kc,
-      "bulan" => $request->b ? $request->b : date('m'),
-      "tahun" => $request->t ? $request->t : date('Y')
+      "bulan" => $request->b ?? date('m'),
+      "tahun" => $request->t ?? date('Y')
     ];
 
     $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
@@ -220,7 +230,6 @@ class LaporanController extends Controller
 
     return view('laporan.7b', compact('kabkotas', 'filters', 'months', 'month'));
   }
-
 
   // Export Excel
   public function export_12a_xlsx()
@@ -241,8 +250,7 @@ class LaporanController extends Controller
   {
     return Excel::download(new Laporan12bExport, 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN 2023.pdf', \Maatwebsite\Excel\Excel::MPDF);
   }
-  
-  
+
   public function detail(Laporan $laporan)
     {
         if (\session('pikr_id') != $laporan->pikr_id) abort(403);
@@ -266,5 +274,4 @@ class LaporanController extends Controller
 
         return  back()->with('success', 'Berhasil membatalkan pengiriman registrasi kegiatan');
     }
-
 }

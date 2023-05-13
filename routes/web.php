@@ -140,4 +140,3 @@ Route::middleware('stepCheck', 'auth',)->group(function () {
     Route::get('/utility/getPLKB', [PelayananInformasiController::class, 'getPLKB']);
   });
 });
-

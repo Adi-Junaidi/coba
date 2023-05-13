@@ -35,8 +35,8 @@
         <div class="col-2"><input class="form-control" id="t" name="t" type="number" value="{{ $filters['tahun'] }}" min="2000" max="9999" placeholde="Tahun"></div>
         <div class="col-6">
           <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> Cari</button>
-          <a class="btn btn-danger" href="#"><i class="far fa-file-pdf"></i> Cetak</a>
-          <a class="btn btn-success" href="#"><i class="far fa-file-excel"></i> Cetak</a>
+          <button class="btn btn-danger" name="export" type="submit" value="pdf"><i class="far fa-file-pdf"></i> Cetak</button>
+          <button class="btn btn-success" name="export" type="submit" value="xlsx"><i class="far fa-file-excel"></i> Cetak</button>
         </div>
       </div>
     </form>
