@@ -3,6 +3,9 @@
 Tuliskan secara jelas masalah-masalah, entah itu **error**, **bug**, ataupun fitur yang tidak berjalan dengan semestinya di sini.
 Kalau tahu sumber masalahnya dari file mana, boleh disebutkan di sini. Tuliskan juga action yang bisa mentrigger masalah tersebut (contohnya: ketika tombol `x` diklik maka akan timbul masalah `y`)
 
+- [ ] Gunakan label untuk setiap pasangan `label - radio button` di halaman `materi` dan `sarana` user: pikr
+- [ ] Typo di halaman `edit sarana` user: pikr
+
 ## Login
 
 - [ ] Ubah skema warna (tombol, link) dari tampilan autentikasi (login dan register)
