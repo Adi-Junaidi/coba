@@ -22,8 +22,14 @@ class Desa extends Model
         return $this->belongsTo(Kecamatan::class);
     }
 
-    public function pikr()
+    public function pikrs()
     {
         return $this->hasMany(Pikr::class);
     }
+
+  // ==== Accessor ====
+  public function getParsedNamaAttribute()
+  {
+    return str_replace('DESA ', '', strtoupper($this->nama));
+  }
 }

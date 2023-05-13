@@ -127,12 +127,12 @@
               <span>Laporan Bulanan</span>
             </a>
 
-            <ul class="submenu">
-              <li class="submenu-item">
-                <a href="#">Tabel 7A</a>
+            <ul class="submenu {{ Request::is('laporan/bulanan/*') ? 'active' : '' }}">
+              <li class="submenu-item {{ Request::is('laporan/bulanan/7a') ? 'active' : '' }}">
+                <a href="/laporan/bulanan/7a">Tabel 7A</a>
               </li>
-              <li class="submenu-item">
-                <a href="#">Tabel 7B</a>
+              <li class="submenu-item {{ Request::is('laporan/bulanan/7b') ? 'active' : '' }}">
+                <a href="/laporan/bulanan/7b">Tabel 7B</a>
               </li>
             </ul>
           </li>

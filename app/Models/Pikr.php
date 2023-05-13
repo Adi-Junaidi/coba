@@ -82,6 +82,12 @@ class Pikr extends Model
     return $this->hasMany(MitraPikr::class);
   }
 
+  // ==== Accessor ====
+  public function getVerifiedLaporansAttribute()
+  {
+    return $this->laporan->filter(fn ($laporan) => $laporan->status === "Verified");
+  }
+
 
   public static function boot()
   {

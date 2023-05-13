@@ -65,18 +65,11 @@ Route::middleware('auth')->group(function () {
     Route::prefix('tahunan')->group(function () {
       Route::get('/12a', [LaporanController::class, 'tahunan_a']);
       Route::get('/12b', [LaporanController::class, 'tahunan_b']);
+    });
 
-      Route::prefix('export')->group(function () {
-        Route::prefix('12a')->group(function () {
-          Route::get('/xlsx', [LaporanController::class, 'export_12a_xlsx']);
-          Route::get('/pdf', [LaporanController::class, 'export_12a_pdf']);
-        });
-
-        Route::prefix('12b')->group(function () {
-          Route::get('/xlsx', [LaporanController::class, 'export_12b_xlsx']);
-          Route::get('/pdf', [LaporanController::class, 'export_12b_pdf']);
-        });
-      });
+    Route::prefix('bulanan')->group(function () {
+      Route::get('/7a', [LaporanController::class, 'bulanan_a']);
+      Route::get('/7b', [LaporanController::class, 'bulanan_b']);
     });
   });
 });
@@ -143,4 +136,3 @@ Route::middleware('stepCheck', 'auth',)->group(function () {
     Route::get('/utility/getPLKB', [PelayananInformasiController::class, 'getPLKB']);
   });
 });
-
