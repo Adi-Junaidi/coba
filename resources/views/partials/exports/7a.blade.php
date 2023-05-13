@@ -15,6 +15,13 @@
         <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 12px; line-height: 1.1640625; font-weight: bold;">Prov: GORONTALO</span>
       </td>
     </tr>
+    @if ($filters['kabkota_id'])
+      <tr style="height:26px" valign="top">
+        <td style="text-indent: 0px; vertical-align: middle; text-align: left;" colspan="10">
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 12px; line-height: 1.1640625; font-weight: bold;">Kab: {{ $kabkota->parsedNama }}</span>
+        </td>
+      </tr>
+    @endif
     <tr style="height:30px" valign="top">
       <td style="background-color: #085480; border: 1px solid #FFFFFF; text-indent: 0px; vertical-align: middle; text-align: center;" rowspan="2">
         <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 8px; line-height: 1.1640625; font-weight: bold;">KODE</span>
@@ -101,11 +108,10 @@
           'jumlahRemaja' => 0,
           'jumlahPertemuanPKBR' => 0,
       ];
-      
     @endphp
-    @foreach ($kabkotas as $kabkota)
+    @forelse ($areas as $area)
       @php
-        $pikrs = $kabkota->pikrs;
+        $pikrs = $area->pikrs;
         // pikr yang melapor pasti memiliki setidaknya satu laporan yang verified di bulan yang dipilih
         $reported = $pikrs->filter(fn($pikr) => $pikr->verified_laporans->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan']['kode'])->count() > 0);
         
@@ -136,10 +142,10 @@
       @endphp
       <tr style="height:30px" valign="top">
         <td style="border: 1px solid #0AF0FC; text-indent: 0px; vertical-align: middle; text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $kabkota->kode }}</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $area->kode }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; text-indent: 0px; vertical-align: middle; text-align: left;">
-          <div style="padding-left:5px;"><span style="white-space: nowrap; font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1; *line-height: normal;">{{ $kabkota->parsedNama }}</span></div>
+          <div style="padding-left:5px;"><span style="white-space: nowrap; font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1; *line-height: normal;">{{ $area->parsedNama }}</span></div>
         </td>
         <td style="border: 1px solid #0AF0FC; text-indent: 0px; vertical-align: middle; text-align: center;">
           <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $pikrs->count() }}</span>
@@ -166,7 +172,13 @@
           <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $jumlahPertemuanPKBR }}</span>
         </td>
       </tr>
-    @endforeach
+    @empty
+      <tr style="height:30px" valign="top">
+        <td style="border: 1px solid #0AF0FC; text-indent: 0px; vertical-align: middle; text-align: center;" colspan="10">
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">Tidak ada data</span>
+        </td>
+      </tr>
+    @endforelse
   </tbody>
 
   <tfoot>

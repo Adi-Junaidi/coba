@@ -15,6 +15,13 @@
         <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 12px; line-height: 1.1640625; font-weight: bold;">Prov: GORONTALO</span>
       </td>
     </tr>
+    @if ($filters['kabkota_id'])
+      <tr style="height:26px" valign="top">
+        <td style="text-indent: 0px; vertical-align: middle; text-align: left;" colspan="14">
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 12px; line-height: 1.1640625; font-weight: bold;">Kab: {{ $kabkota->parsedNama }}</span>
+        </td>
+      </tr>
+    @endif
     <tr style="height:31px" valign="top">
       <td style="background-color: #085480; border: 1px solid #FFFFFF; text-indent: 0px; vertical-align: middle; text-align: center;" rowspan="3">
         <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 8px; line-height: 1.1640625; font-weight: bold;">KODE</span>
@@ -148,9 +155,9 @@
           ],
       ];
     @endphp
-    @foreach ($kabkotas as $kabkota)
+    @forelse ($areas as $area)
       @php
-        $laporans = $kabkota->pikrs->flatMap(fn($pikr) => $pikr->verified_laporans)->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan']['kode']);
+        $laporans = $area->pikrs->flatMap(fn($pikr) => $pikr->verified_laporans)->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan']['kode']);
         $konselingIndividus = $laporans->flatMap(fn($laporan) => $laporan->konseling);
         $konselingKelompoks = $laporans->flatMap(fn($laporan) => $laporan->konselingKelompok);
         
@@ -185,10 +192,10 @@
       @endphp
       <tr style="height:30px" valign="top">
         <td style="border: 1px solid #0AF0FC; text-indent: 0px; vertical-align: middle; text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $kabkota->kode }}</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $area->kode }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; text-indent: 0px; vertical-align: middle; text-align: left;">
-          <div style="padding-left:5px;"><span style="white-space: nowrap; font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1; *line-height: normal;">{{ $kabkota->parsedNama }}</span></div>
+          <div style="padding-left:5px;"><span style="white-space: nowrap; font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1; *line-height: normal;">{{ $area->parsedNama }}</span></div>
         </td>
         <td style="border: 1px solid #0AF0FC; text-indent: 0px; vertical-align: middle; text-align: center;">
           <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $konselingIndividuCowok }}</span>
@@ -227,7 +234,13 @@
           <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $konselingKelompokTotal }}</span>
         </td>
       </tr>
-    @endforeach
+    @empty
+      <tr style="height:30px" valign="top">
+        <td style="border: 1px solid #0AF0FC; text-indent: 0px; vertical-align: middle; text-align: center;" colspan="14">
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">Tidak ada data</span>
+        </td>
+      </tr>
+    @endforelse
   </tbody>
 
   <tfoot>

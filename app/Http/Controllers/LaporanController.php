@@ -167,12 +167,19 @@ class LaporanController extends Controller
 
   public function tahunan_a(Request $request)
   {
-    $kabkotas = Kabkota::all();
     $filters = [
       'kabkota_id' => $request->kb,
       'kecamatan_id' => $request->kc,
       'tahun' => $request->t ?? date('Y')
     ];
+
+    $kabkotas = Kabkota::all();
+    $kabkota = null;
+    $areas = $kabkotas;
+    if ($filters['kabkota_id']) {
+      $kabkota = Kabkota::find($filters['kabkota_id']);
+      $areas = $kabkota->kecamatan;
+    }
 
     switch ($request->export) {
       case 'xslx':
@@ -182,18 +189,25 @@ class LaporanController extends Controller
         return Excel::download(new Laporan12aExport, "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN $filters[tahun].pdf", \Maatwebsite\Excel\Excel::MPDF);
 
       default:
-        return view('laporan.12a', compact('kabkotas', 'filters'));
+        return view('laporan.12a', compact('kabkotas', 'kabkota', 'filters', 'areas'));
     }
   }
 
   public function tahunan_b(Request $request)
   {
-    $kabkotas = Kabkota::all();
     $filters = [
       'kabkota_id' => $request->kb,
       'kecamatan_id' => $request->kc,
       'tahun' => $request->t ?? date('Y')
     ];
+
+    $kabkotas = Kabkota::all();
+    $kabkota = null;
+    $areas = $kabkotas;
+    if ($filters['kabkota_id']) {
+      $kabkota = Kabkota::find($filters['kabkota_id']);
+      $areas = $kabkota->kecamatan;
+    }
 
     switch ($request->export) {
       case 'xslx':
@@ -203,14 +217,12 @@ class LaporanController extends Controller
         return Excel::download(new Laporan12bExport, "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN $filters[tahun].pdf", \Maatwebsite\Excel\Excel::MPDF);
 
       default:
-        return view('laporan.12b', compact('kabkotas', 'filters'));
+        return view('laporan.12b', compact('kabkotas', 'kabkota', 'filters', 'areas'));
     }
   }
 
   public function bulanan_a(Request $request)
   {
-    $kabkotas = Kabkota::all();
-
     $filters = [
       "kabkota_id" => $request->kb,
       "kecamatan_id" => $request->kc,
@@ -220,6 +232,14 @@ class LaporanController extends Controller
       ],
       "tahun" => $request->t ?? date('Y')
     ];
+
+    $kabkotas = Kabkota::all();
+    $kabkota = null;
+    $areas = $kabkotas;
+    if ($filters['kabkota_id']) {
+      $kabkota = Kabkota::find($filters['kabkota_id']);
+      $areas = $kabkota->kecamatan;
+    }
 
     $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     $filters['bulan']['nama'] = $months[$filters['bulan']['kode'] - 1];
@@ -232,14 +252,12 @@ class LaporanController extends Controller
         return Excel::download(new Laporan7aExport($kabkotas, $filters), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) YANG MELAKUKAN PERTEMUAN DAN REMAJA HADIR PERTEMUAN BULAN {$filters['bulan']['nama']} {$filters['tahun']}.pdf", \Maatwebsite\Excel\Excel::MPDF);
 
       default:
-        return view('laporan.7a', compact('kabkotas', 'filters', 'months'));
+        return view('laporan.7a', compact('kabkotas', 'kabkota', 'filters', 'months', 'areas'));
     }
   }
 
   public function bulanan_b(Request $request)
   {
-    $kabkotas = Kabkota::all();
-
     $filters = [
       "kabkota_id" => $request->kb,
       "kecamatan_id" => $request->kc,
@@ -249,6 +267,14 @@ class LaporanController extends Controller
       ],
       "tahun" => $request->t ?? date('Y')
     ];
+
+    $kabkotas = Kabkota::all();
+    $kabkota = null;
+    $areas = $kabkotas;
+    if ($filters['kabkota_id']) {
+      $kabkota = Kabkota::find($filters['kabkota_id']);
+      $areas = $kabkota->kecamatan;
+    }
 
     $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     $filters['bulan']['nama'] = $months[$filters['bulan']['kode'] - 1];
@@ -261,7 +287,7 @@ class LaporanController extends Controller
         return Excel::download(new Laporan7bExport($kabkotas, $filters), "JUMLAH REMAJA HADIR KONSELING PADA PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) BULAN {$filters['bulan']['nama']} {$filters['tahun']}.pdf", \Maatwebsite\Excel\Excel::MPDF);
 
       default:
-        return view('laporan.7b', compact('kabkotas', 'filters', 'months'));
+        return view('laporan.7b', compact('kabkotas', 'kabkota', 'filters', 'months', 'areas'));
     }
   }
 

@@ -10,7 +10,7 @@ class Laporan12bExport implements FromView
 {
   public function view(): View
   {
-    $kabkotas = Kabkota::withPikrs();
+    $kabkotas = Kabkota::all();
 
     return view('partials.exports.12b', compact('kabkotas'));
   }
