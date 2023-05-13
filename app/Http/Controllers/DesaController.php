@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Desa;
 use App\Http\Requests\StoreDesaRequest;
 use App\Http\Requests\UpdateDesaRequest;
+use App\Models\Pikr;
 use Illuminate\Http\Request;
 
 class DesaController extends Controller
@@ -14,9 +15,9 @@ class DesaController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function getPikr(Desa $desa)
   {
-    //
+    return \response()->json($desa->pikr);
   }
 
   /**

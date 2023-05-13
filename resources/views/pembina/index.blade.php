@@ -18,44 +18,52 @@
       </div>
 
       <div class="card-body">
-        <div class="row">
-          <label class="col-md-3" for="ddProvinsi">Provinsi</label>
-          <fieldset class="form-group col-md-3">
-            <select class="form-select" id="ddProvinsi" disabled>
-              <option data-kode="{{ $provinsi->kode }}" selected>{{ $provinsi->kode . ' | ' . $provinsi->nama }}</option>
-            </select>
-          </fieldset>
-
-          <label class="col-md-3" for="ddKabKota">Kabupaten/Kota</label>
-          <fieldset class="form-group col-md-3">
-            <select class="form-select" id="ddKabKota" name="ddKabKota">
-              <option hidden>Kabupaten/Kota</option>
-              @foreach ($kabkota as $p)
-                <option data-kode="{{ $p->kode }}" value="{{ $p->id }}">{{ $p->kode . ' | ' . $p->nama }}</option>
-              @endforeach
-            </select>
-          </fieldset>
-        </div>
 
         <div class="row">
-          <label class="col-md-3" for="ddKecamatan">Kecamatan</label>
-          <fieldset class="form-group col-md-3">
-            <select class="form-select" id="ddKecamatan" name="ddKecamatan" disabled>
-              <option hidden>Kecamatan</option>
-            </select>
-          </fieldset>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="provinsi">Provinsi</label>
+              <select name="provinsi" id="provinsi" class="form-select">
+                <option value="{{ $provinsi->nama }}">{{ $provinsi->nama }}</option>
+              </select>
+            </div>
+          </div>
 
-          <label class="col-md-3" for="ddDesa">Desa/Kelurahan</label>
-          <fieldset class="form-group col-md-3">
-            <select class="form-select" id="ddDesa" name="ddDesa" disabled>
-              <option hidden>Desa/Kelurahan</option>
-            </select>
-          </fieldset>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="provinsi">Kabupatan/Kota</label>
+              <select name="kabkota" id="kabkota" class="form-select">
+                <option hidden>Pilih Kabupaten</option>
+                @foreach ($provinsi->kabkota as $item)
+                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+
         </div>
 
-        <div class="d-grid gap-2">
-          <button class="btn btn-primary" id="btnCari" type="submit" disabled>Cari</button>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="kecamatan">Kecamatan</label>
+              <select name="kecamatan" id="kecamatan" class="form-select" disabled>
+                <option hidden>Pilih Kecamatan</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="form-group">
+              <label for="desa">Desa</label>
+              <select name="desa" id="desa" class="form-select" disabled>
+                <option hidden>Pilih Desa</option>
+              </select>
+            </div>
+          </div>
+
         </div>
+
       </div>
     </div>
   </section>
