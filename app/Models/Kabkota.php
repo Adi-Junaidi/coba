@@ -34,7 +34,7 @@ class Kabkota extends Model
   }
 
   // custom method
-  public function parsedNama()
+  public function getParsedNamaAttribute()
   {
     return str_replace('KABUPATEN ', '', strtoupper($this->nama));
   }

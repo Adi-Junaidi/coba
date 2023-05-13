@@ -82,6 +82,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('bulanan')->group(function () {
       Route::get('/7a', [LaporanController::class, 'bulanan_a']);
+      Route::get('/7b', [LaporanController::class, 'bulanan_b']);
     });
   });
 });

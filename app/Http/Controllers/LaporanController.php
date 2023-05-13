@@ -204,6 +204,23 @@ class LaporanController extends Controller
     return view('laporan.7a', compact('kabkotas', 'filters', 'months', 'month'));
   }
 
+  public function bulanan_b(Request $request)
+  {
+    $kabkotas = Kabkota::withPikrs();
+
+    $filters = [
+      "kabkota_id" => $request->kb,
+      "kecamatan_id" => $request->kc,
+      "bulan" => $request->b ? $request->b : date('m'),
+      "tahun" => $request->t ? $request->t : date('Y')
+    ];
+
+    $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    $month = $months[$filters['bulan'] - 1];
+
+    return view('laporan.7b', compact('kabkotas', 'filters', 'months', 'month'));
+  }
+
 
   // Export Excel
   public function export_12a_xlsx()
