@@ -19,6 +19,7 @@ use App\Models\Pikr;
 use App\Exports\Laporan12aExport;
 use App\Exports\Laporan12bExport;
 use App\Exports\Laporan7aExport;
+use App\Exports\Laporan7bExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class LaporanController extends Controller
@@ -204,10 +205,10 @@ class LaporanController extends Controller
 
     switch ($request->export) {
       case 'xlsx':
-        return Excel::download(new Laporan7aExport($kabkotas, $filters, $month), 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) YANG MELAKUKAN PERTEMUAN DAN REMAJA HADIR PERTEMUAN BULAN MEI 2023.xlsx');
+        return Excel::download(new Laporan7aExport($kabkotas, $filters, $month), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) YANG MELAKUKAN PERTEMUAN DAN REMAJA HADIR PERTEMUAN BULAN $month $filters[tahun].xlsx");
 
       case 'pdf':
-        return Excel::download(new Laporan7aExport($kabkotas, $filters, $month), 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) YANG MELAKUKAN PERTEMUAN DAN REMAJA HADIR PERTEMUAN BULAN MEI 2023.pdf', \Maatwebsite\Excel\Excel::MPDF);
+        return Excel::download(new Laporan7aExport($kabkotas, $filters, $month), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) YANG MELAKUKAN PERTEMUAN DAN REMAJA HADIR PERTEMUAN BULAN $month $filters[tahun].pdf", \Maatwebsite\Excel\Excel::MPDF);
 
       default:
         return view('laporan.7a', compact('kabkotas', 'filters', 'months', 'month'));
@@ -228,7 +229,16 @@ class LaporanController extends Controller
     $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     $month = $months[$filters['bulan'] - 1];
 
-    return view('laporan.7b', compact('kabkotas', 'filters', 'months', 'month'));
+    switch ($request->export) {
+      case 'xlsx':
+        return Excel::download(new Laporan7bExport($kabkotas, $filters, $month), "JUMLAH REMAJA HADIR KONSELING PADA PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) BULAN $month $filters[tahun].xlsx");
+
+      case 'pdf':
+        return Excel::download(new Laporan7bExport($kabkotas, $filters, $month), "JUMLAH REMAJA HADIR KONSELING PADA PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) BULAN $month $filters[tahun].pdf", \Maatwebsite\Excel\Excel::MPDF);
+
+      default:
+        return view('laporan.7b', compact('kabkotas', 'filters', 'months', 'month'));
+    }
   }
 
   // Export Excel
