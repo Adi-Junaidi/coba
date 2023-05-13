@@ -14,7 +14,7 @@
         <div class="col-2"><label for="kc">Kecamatan</label></div>
         <div class="col-4">
           <select class="form-select" id="kc" name="kc" {{ !$filters['kabkota_id'] ? 'disabled' : '' }}>
-            <option hidden>Filter Kecamatan</option>
+            <option value="">Filter Kecamatan</option>
             @if ($filters['kabkota_id'])
               @foreach ($kabkota->kecamatan as $item)
                 <option value="{{ $item->id }}" {{ $item->id == $filters['kecamatan_id'] ? 'selected' : '' }}>{{ $item->kode }} | {{ $item->nama }}</option>

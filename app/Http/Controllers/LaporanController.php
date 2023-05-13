@@ -189,10 +189,10 @@ class LaporanController extends Controller
 
     switch ($request->export) {
       case 'xslx':
-        return Excel::download(new Laporan12aExport($kabkota, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN $filters[tahun].xlsx");
+        return Excel::download(new Laporan12aExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN $filters[tahun].xlsx");
 
       case 'pdf':
-        return Excel::download(new Laporan12aExport($kabkota, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN $filters[tahun].pdf", \Maatwebsite\Excel\Excel::MPDF);
+        return Excel::download(new Laporan12aExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN $filters[tahun].pdf", \Maatwebsite\Excel\Excel::MPDF);
 
       default:
         return view('laporan.12a', compact('kabkotas', 'kabkota', 'kecamatan', 'filters', 'areas'));
@@ -223,10 +223,10 @@ class LaporanController extends Controller
 
     switch ($request->export) {
       case 'xslx':
-        return Excel::download(new Laporan12bExport($kabkota, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN $filters[tahun].xlsx");
+        return Excel::download(new Laporan12bExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN $filters[tahun].xlsx");
 
       case 'pdf':
-        return Excel::download(new Laporan12bExport($kabkota, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN $filters[tahun].pdf", \Maatwebsite\Excel\Excel::MPDF);
+        return Excel::download(new Laporan12bExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN $filters[tahun].pdf", \Maatwebsite\Excel\Excel::MPDF);
 
       default:
         return view('laporan.12b', compact('kabkotas', 'kabkota', 'kecamatan', 'filters', 'areas'));
@@ -264,10 +264,10 @@ class LaporanController extends Controller
 
     switch ($request->export) {
       case 'xlsx':
-        return Excel::download(new Laporan7aExport($kabkota, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) YANG MELAKUKAN PERTEMUAN DAN REMAJA HADIR PERTEMUAN BULAN {$filters['bulan']['nama']} {$filters['tahun']}.xlsx");
+        return Excel::download(new Laporan7aExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) YANG MELAKUKAN PERTEMUAN DAN REMAJA HADIR PERTEMUAN BULAN {$filters['bulan']['nama']} {$filters['tahun']}.xlsx");
 
       case 'pdf':
-        return Excel::download(new Laporan7aExport($kabkota, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) YANG MELAKUKAN PERTEMUAN DAN REMAJA HADIR PERTEMUAN BULAN {$filters['bulan']['nama']} {$filters['tahun']}.pdf", \Maatwebsite\Excel\Excel::MPDF);
+        return Excel::download(new Laporan7aExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) YANG MELAKUKAN PERTEMUAN DAN REMAJA HADIR PERTEMUAN BULAN {$filters['bulan']['nama']} {$filters['tahun']}.pdf", \Maatwebsite\Excel\Excel::MPDF);
 
       default:
         return view('laporan.7a', compact('kabkotas', 'kabkota', 'kecamatan', 'filters', 'months', 'areas'));
@@ -305,10 +305,10 @@ class LaporanController extends Controller
 
     switch ($request->export) {
       case 'xlsx':
-        return Excel::download(new Laporan7bExport($kabkota, $filters, $areas), "JUMLAH REMAJA HADIR KONSELING PADA PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) BULAN {$filters['bulan']['nama']} {$filters['tahun']}.xlsx");
+        return Excel::download(new Laporan7bExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH REMAJA HADIR KONSELING PADA PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) BULAN {$filters['bulan']['nama']} {$filters['tahun']}.xlsx");
 
       case 'pdf':
-        return Excel::download(new Laporan7bExport($kabkota, $filters, $areas), "JUMLAH REMAJA HADIR KONSELING PADA PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) BULAN {$filters['bulan']['nama']} {$filters['tahun']}.pdf", \Maatwebsite\Excel\Excel::MPDF);
+        return Excel::download(new Laporan7bExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH REMAJA HADIR KONSELING PADA PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) BULAN {$filters['bulan']['nama']} {$filters['tahun']}.pdf", \Maatwebsite\Excel\Excel::MPDF);
 
       default:
         return view('laporan.7b', compact('kabkotas', 'kabkota', 'kecamatan', 'filters', 'months', 'areas'));

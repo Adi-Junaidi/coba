@@ -34,7 +34,7 @@
         <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 8px; line-height: 1.1640625; font-weight: bold;">KODE</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #FFFFFF; text-indent: 0px; vertical-align: middle; text-align: center;" rowspan="3">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 8px; line-height: 1.1640625; font-weight: bold;">KABUPATEN</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 8px; line-height: 1.1640625; font-weight: bold;">{{ $filters['kabkota_id'] ? ($filters['kecamatan_id'] ? 'DESA' : 'KECAMATAN') : 'KABUPATEN' }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #FFFFFF; text-indent: 0px; vertical-align: middle; text-align: center;" colspan="6">
         <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 8px; line-height: 1.1640625; font-weight: bold;">JUMLAH REMAJA YANG MENDAPAT KONSELING INDIVIDU</span>
