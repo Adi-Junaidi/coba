@@ -7,7 +7,7 @@
     </tr>
     <tr style="height:26px" valign="top">
       <td style="white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;" colspan="10">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 16px; line-height: 1.1640625; font-weight: bold;">BULAN: MEI - 2023</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 16px; line-height: 1.1640625; font-weight: bold;">BULAN: {{ $month }} - {{ $filters['tahun'] }}</span>
       </td>
     </tr>
     <tr style="height:26px" valign="top">
@@ -97,6 +97,9 @@
           'percentage' => 0,
           'servedPKBR' => 0,
           'servedLainnya' => 0,
+          'jumlahPertemuan' => 0,
+          'jumlahRemaja' => 0,
+          'jumlahPertemuanPKBR' => 0,
       ];
       
     @endphp
@@ -106,22 +109,30 @@
         // pikr yang melapor pasti memiliki setidaknya satu laporan yang verified di bulan yang dipilih
         $reported = $pikrs->filter(fn($pikr) => $pikr->verified_laporans->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan'])->count() > 0);
         
-        // pikr yang menyajikan materi PKBR dan materi Lainnya
-        // it's painful I know, but at least it works I'm okay for now
-        $servedPKBR = $pikrs->filter(fn($pikr) => $pikr->verified_laporans->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan'])->contains(fn($laporan) => $laporan->pelayananInformasi->contains(fn($pelayananInformasi) => !!$pelayananInformasi->materi) || $laporan->konseling->contains(fn($konseling) => !!$konseling->materi) || $laporan->konselingKelompok->contains(fn($konselingKelompok) => !!$konselingKelompok->materi)));
-        $servedLainnya = $pikrs->filter(fn($pikr) => $pikr->verified_laporans->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan'])->contains(fn($laporan) => $laporan->pelayananInformasi->contains(fn($pelayananInformasi) => !!$pelayananInformasi->materi_lainnya) || $laporan->konseling->contains(fn($konseling) => !!$konseling->materi_lainnya) || $laporan->konselingKelompok->contains(fn($konselingKelompok) => !!$konselingKelompok->materi_lainnya)));
-        
         $percentage = 0;
         // avoid division by zero
         if ($pikrs->count() > 0) {
             $percentage = ($reported->count() / $pikrs->count()) * 100;
         }
         
+        // pikr yang menyajikan materi PKBR dan materi Lainnya
+        // it's painful I know, but at least it works I'm okay for now
+        $servedPKBR = $pikrs->filter(fn($pikr) => $pikr->verified_laporans->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan'])->contains(fn($laporan) => $laporan->pelayananInformasi->contains(fn($pelayananInformasi) => !!$pelayananInformasi->materi) || $laporan->konseling->contains(fn($konseling) => !!$konseling->materi) || $laporan->konselingKelompok->contains(fn($konselingKelompok) => !!$konselingKelompok->materi)));
+        $servedLainnya = $pikrs->filter(fn($pikr) => $pikr->verified_laporans->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan'])->contains(fn($laporan) => $laporan->pelayananInformasi->contains(fn($pelayananInformasi) => !!$pelayananInformasi->materi_lainnya) || $laporan->konseling->contains(fn($konseling) => !!$konseling->materi_lainnya) || $laporan->konselingKelompok->contains(fn($konselingKelompok) => !!$konselingKelompok->materi_lainnya)));
+        
+        $laporans = $pikrs->flatMap(fn($pikrs) => $pikrs->verified_laporans)->filter(fn($laporan) => $laporan->bulan_lapor === $filters['bulan']);
+        $jumlahPertemuan = $laporans->reduce(fn($total, $laporan) => $total + $laporan->pelayananInformasi->count() + $laporan->konseling->count() + $laporan->konselingKelompok->count()) ?? 0;
+        $jumlahRemaja = $laporans->reduce(fn($total, $laporan) => $total + $laporan->pelayananInformasi->reduce(fn($total, $pelayananInformasi) => $total + $pelayananInformasi->jumlah_peserta) + $laporan->konseling->reduce(fn($total, $konseling) => $total + $konseling->jumlah_cowok + $konseling->jumlah_cewek) + $laporan->konselingKelompok->reduce(fn($total, $konselingKelompok) => $total + $konselingKelompok->jumlah_cowok + $konselingKelompok->jumlah_cewek)) ?? 0;
+        $jumlahPertemuanPKBR = $laporans->reduce(fn($total, $laporan) => $total + $laporan->pelayananInformasi->filter(fn($pelayananInformasi) => !!$pelayananInformasi->materi)->count() + $laporan->konseling->filter(fn($konseling) => !!$konseling->materi)->count() + $laporan->konselingKelompok->filter(fn($konselingKelompok) => !!$konselingKelompok->materi)->count()) ?? 0;
+        
         $total['pikrs'] += $pikrs->count();
         $total['reported'] += $reported->count();
         $total['percentage'] += $percentage;
         $total['servedPKBR'] += $servedPKBR->count();
         $total['servedLainnya'] += $servedLainnya->count();
+        $total['jumlahPertemuan'] += $jumlahPertemuan;
+        $total['jumlahRemaja'] += $jumlahRemaja;
+        $total['jumlahPertemuanPKBR'] += $jumlahPertemuanPKBR;
       @endphp
       <tr style="height:30px" valign="top">
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
@@ -146,13 +157,13 @@
           <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $servedLainnya->count() }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">8</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $jumlahPertemuan }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">69</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $jumlahRemaja }}</span>
         </td>
         <td style="border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">8</span>
+          <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #000000; font-size: 10px; line-height: 1.1640625;">{{ $jumlahPertemuanPKBR }}</span>
         </td>
       </tr>
     @endforeach
@@ -179,13 +190,13 @@
         <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['servedLainnya'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">31</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['jumlahPertemuan'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">433</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['jumlahRemaja'] }}</span>
       </td>
       <td style="background-color: #085480; border: 1px solid #0AF0FC; white-space: nowrap; text-indent: 0px;  vertical-align: middle;text-align: center;">
-        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">28</span>
+        <span style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; line-height: 1.1640625;">{{ $total['jumlahPertemuanPKBR'] }}</span>
       </td>
     </tr>
   </tfoot>

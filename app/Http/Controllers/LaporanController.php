@@ -191,15 +191,17 @@ class LaporanController extends Controller
   {
     $kabkotas = Kabkota::withPikrs();
 
-    $currentMonth = date('m');
     $filters = [
       "kabkota_id" => $request->kb,
       "kecamatan_id" => $request->kc,
-      "bulan" => $request->b ? $request->b : $currentMonth,
-      "tahun" => $request->t
+      "bulan" => $request->b ? $request->b : date('m'),
+      "tahun" => $request->t ? $request->t : date('Y')
     ];
 
-    return view('laporan.7a', compact('kabkotas', 'filters'));
+    $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    $month = $months[$filters['bulan'] - 1];
+
+    return view('laporan.7a', compact('kabkotas', 'filters', 'months', 'month'));
   }
 
 
