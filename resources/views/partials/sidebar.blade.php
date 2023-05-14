@@ -68,6 +68,19 @@
                                 </li>
                             </ul>
                         </li>
+
+                        <li class="sidebar-item has-sub {{ Request::is('spk*') ? 'active' : '' }}">
+                            <a class='sidebar-link' href="#">
+                                <i class="bi bi-stack"></i>
+                                <span>SPK</span>
+                            </a>
+
+                            <ul class="submenu {{ Request::is('spk*') ? 'active' : '' }}">
+                                <li class="submenu-item {{ Request::is('spk/kriteria') ? 'active' : '' }}">
+                                    <a href="/spk/criteria">Kriteria</a>
+                                </li>
+                            </ul>
+                        </li>
                     @endcan
 
 
