@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -16,18 +17,16 @@ class Pikr extends Model
   public function materi()
   {
     return $this->hasOne(MateriPikr::class);
-
-  } 
+  }
 
   public function result()
   {
     return $this->hasOne(Result::class);
   }
-  
+
   public function stepper()
   {
     return $this->hasOne(Stepper::class);
-    
   }
 
   public function sarana()
@@ -88,6 +87,11 @@ class Pikr extends Model
     return $this->laporan->filter(fn ($laporan) => $laporan->status === "Verified");
   }
 
+  // ==== Custom Method ====
+  public function createdAfter($year)
+  {
+    return $this->created_at->lte(Carbon::createFromFormat('Y', $year));
+  }
 
   public static function boot()
   {
