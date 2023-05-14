@@ -192,7 +192,7 @@ class LaporanController extends Controller
 
   public function tahunan_a(Request $request)
   {
-    if (!auth()->user->isAdmin) {
+    if (!auth()->user()->isAdmin()) {
       return back()->with('error', 'Anda tidak berwenang mengakses halaman ini');
     }
 
@@ -218,7 +218,7 @@ class LaporanController extends Controller
 
   public function tahunan_b(Request $request)
   {
-    if (!auth()->user->isAdmin) {
+    if (!auth()->user()->isAdmin()) {
       return back()->with('error', 'Anda tidak berwenang mengakses halaman ini');
     }
 
@@ -244,7 +244,7 @@ class LaporanController extends Controller
 
   public function bulanan_a(Request $request)
   {
-    if (!auth()->user->isAdmin) {
+    if (!auth()->user()->isAdmin()) {
       return back()->with('error', 'Anda tidak berwenang mengakses halaman ini');
     }
 
@@ -291,7 +291,7 @@ class LaporanController extends Controller
 
   public function bulanan_b(Request $request)
   {
-    if (!auth()->user->isAdmin) {
+    if (!auth()->user()->isAdmin()) {
       return back()->with('error', 'Anda tidak berwenang mengakses halaman ini');
     }
 
@@ -337,26 +337,26 @@ class LaporanController extends Controller
   }
 
   public function detail(Laporan $laporan)
-    {
-        if (\session('pikr_id') != $laporan->pikr_id) abort(403);
-        if ($laporan->status == "Not Submited") abort(403);
-        
-        return view('user-pikr.kegiatan.detail', [
-            'pelayanan_s' => $laporan->pelayananInformasi()->get(),
-            'ki_s' => $laporan->konseling()->get(),
-            'kk_s' => $laporan->konselingKelompok()->get(),
-        ]);
-    }
-    
-    public function cancel(Laporan $laporan)
-    {
-        if (session('pikr_id') != $laporan->pikr_id) abort(403);
-        if ($laporan->status != "Submited") abort(403);
+  {
+    if (\session('pikr_id') != $laporan->pikr_id) abort(403);
+    if ($laporan->status == "Not Submited") abort(403);
 
-        $laporan->update([
-            'status' => 'Not Submited',
-        ]);
+    return view('user-pikr.kegiatan.detail', [
+      'pelayanan_s' => $laporan->pelayananInformasi()->get(),
+      'ki_s' => $laporan->konseling()->get(),
+      'kk_s' => $laporan->konselingKelompok()->get(),
+    ]);
+  }
 
-        return  back()->with('success', 'Berhasil membatalkan pengiriman registrasi kegiatan');
-    }
+  public function cancel(Laporan $laporan)
+  {
+    if (session('pikr_id') != $laporan->pikr_id) abort(403);
+    if ($laporan->status != "Submited") abort(403);
+
+    $laporan->update([
+      'status' => 'Not Submited',
+    ]);
+
+    return  back()->with('success', 'Berhasil membatalkan pengiriman registrasi kegiatan');
+  }
 }
