@@ -165,7 +165,7 @@ class LaporanController extends Controller
     //
   }
 
-  public function tahunan_a(Request $request)
+  private function filterTahunan(Request $request)
   {
     $filters = [
       'kabkota_id' => $request->kb,
@@ -186,6 +186,23 @@ class LaporanController extends Controller
         $areas = $kecamatan->desa;
       }
     }
+
+    return compact('kabkotas', 'kabkota', 'kecamatan', 'filters', 'areas');
+  }
+
+  public function tahunan_a(Request $request)
+  {
+    if (!auth()->user->isAdmin) {
+      return back()->with('error', 'Anda tidak berwenang mengakses halaman ini');
+    }
+
+    $this->authorize('viewAny', Laporan::class);
+
+    $data = $this->filterTahunan($request);
+    $kabkota = $data['kabkota'];
+    $kecamatan = $data['kecamatan'];
+    $filters = $data['filters'];
+    $areas = $data['areas'];
 
     switch ($request->export) {
       case 'xslx':
@@ -195,31 +212,23 @@ class LaporanController extends Controller
         return Excel::download(new Laporan12aExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN $filters[tahun].pdf", \Maatwebsite\Excel\Excel::MPDF);
 
       default:
-        return view('laporan.12a', compact('kabkotas', 'kabkota', 'kecamatan', 'filters', 'areas'));
+        return view('laporan.12a', $data);
     }
   }
 
   public function tahunan_b(Request $request)
   {
-    $filters = [
-      'kabkota_id' => $request->kb,
-      'kecamatan_id' => $request->kc,
-      'tahun' => $request->t ?? date('Y')
-    ];
-
-    $kabkotas = Kabkota::all();
-    $kecamatan = null;
-    $kabkota = null;
-    $areas = $kabkotas;
-    if ($filters['kabkota_id']) {
-      $kabkota = Kabkota::find($filters['kabkota_id']);
-      $areas = $kabkota->kecamatan;
-
-      if ($filters['kecamatan_id']) {
-        $kecamatan = Kecamatan::find($filters['kecamatan_id']);
-        $areas = $kecamatan->desa;
-      }
+    if (!auth()->user->isAdmin) {
+      return back()->with('error', 'Anda tidak berwenang mengakses halaman ini');
     }
+
+    $this->authorize('viewAny', Laporan::class);
+
+    $data = $this->filterTahunan($request);
+    $kabkota = $data['kabkota'];
+    $kecamatan = $data['kecamatan'];
+    $filters = $data['filters'];
+    $areas = $data['areas'];
 
     switch ($request->export) {
       case 'xslx':
@@ -229,12 +238,18 @@ class LaporanController extends Controller
         return Excel::download(new Laporan12bExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN $filters[tahun].pdf", \Maatwebsite\Excel\Excel::MPDF);
 
       default:
-        return view('laporan.12b', compact('kabkotas', 'kabkota', 'kecamatan', 'filters', 'areas'));
+        return view('laporan.12b', $data);
     }
   }
 
   public function bulanan_a(Request $request)
   {
+    if (!auth()->user->isAdmin) {
+      return back()->with('error', 'Anda tidak berwenang mengakses halaman ini');
+    }
+
+    $this->authorize('viewAny', Laporan::class);
+
     $filters = [
       "kabkota_id" => $request->kb,
       "kecamatan_id" => $request->kc,
@@ -276,6 +291,12 @@ class LaporanController extends Controller
 
   public function bulanan_b(Request $request)
   {
+    if (!auth()->user->isAdmin) {
+      return back()->with('error', 'Anda tidak berwenang mengakses halaman ini');
+    }
+
+    $this->authorize('viewAny', Laporan::class);
+
     $filters = [
       "kabkota_id" => $request->kb,
       "kecamatan_id" => $request->kc,
