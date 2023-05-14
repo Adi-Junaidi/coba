@@ -6,6 +6,10 @@ $(document).ready(function () {
         targets: "_all",
       },
     ],
+
+    oLanguage: {
+      sEmptyTable: "Data Pembina tidak ditemukan",
+    },
   });
 
   const btnCari = $("#btnCari");
@@ -14,6 +18,27 @@ $(document).ready(function () {
   const ddKecamatan = $("#ddKecamatan");
   const ddDesa = $("#ddDesa");
   const formUpdate = $("#formUpdate");
+
+  function updateNoRegister(nomorUrut) {
+    console.log(nomorUrut);
+    const kodeJabatan = "B";
+    const kodeProvinsi = $("#ddProvinsi").find(":selected").data("kode");
+    const kodeKabKot = ddKabKota.find(":selected").data("kode");
+    const kodeKecamatan = ddKecamatan.find(":selected").data("kode");
+
+    const noRegister = `${kodeProvinsi}${kodeKabKot}${kodeKecamatan}${kodeJabatan}${nomorUrut}`;
+
+    $("#tambah__noRegister").val(noRegister);
+    $("#tambah__noUrut").val(nomorUrut);
+  }
+
+  function getNomorUrut(kecamatanId) {
+    return $.ajax({
+      type: "get",
+      url: `/api/kecamatan/${kecamatanId}/no_urut/`,
+      dataType: "json",
+    });
+  }
 
   // modal untuk menampilkan detail data pembina
   $(document).on("click", ".btnDetail", function () {
@@ -106,7 +131,7 @@ $(document).ready(function () {
     }
   });
 
-  ddKecamatan.on("change", function () {
+  ddKecamatan.on("change", async function () {
     const kecamatanId = $(this).val();
     const namaKecamatan = $(this).find(":selected").text();
 
@@ -135,6 +160,8 @@ $(document).ready(function () {
           }
         },
       });
+      const nomorUrut = await getNomorUrut(kecamatanId);
+      updateNoRegister(nomorUrut);
     } else {
       ddDesa.empty();
       ddDesa.prop("disabled", true);
@@ -152,64 +179,11 @@ $(document).ready(function () {
       btnTambah.prop("disabled", false);
 
       $("#tambah__desaKel").val(namaDesa);
+      $("#hidden__desaKel").val(desaId);
     } else {
       btnCari.prop("disabled", true);
       btnTambah.prop("disabled", true);
     }
-  });
-
-  // generate nomor registrasi ketika jabatan dipilih
-  $("#tambah__jabatan").on("change", function () {
-    if ($(this).val() !== "Lainnya") {
-      const kodeJabatan = $(this).find(":selected").data("kode");
-      const kodeProvinsi = $("#ddProvinsi").find(":selected").data("kode");
-      const kodeKabKot = ddKabKota.find(":selected").data("kode");
-      const kodeKecamatan = ddKecamatan.find(":selected").data("kode");
-      const nomorUrut = "01";
-
-      const noRegister =
-        "" +
-        kodeProvinsi +
-        kodeKabKot +
-        kodeKecamatan +
-        kodeJabatan +
-        nomorUrut;
-
-      $("#tambah__noRegister").val(noRegister);
-    }
-  });
-
-  $("#formTambah").on("submit", function (e) {
-    e.preventDefault();
-    $.ajax({
-      type: "post",
-      url: "/pembina",
-      data: {
-        username: $("#tambah__username").val(),
-        email: $("#tambah__email").val(),
-        password: $("#tambah__password").val(),
-        nama: $("#tambah__nama").val(),
-        jabatanId: $("#tambah__jabatan").val(),
-        desaId: ddDesa.val(),
-        _token: CSRF,
-      },
-      dataType: "json",
-      encode: true,
-      success: function (data) {
-        $("#tambah__nama").val("");
-        $("#tambah__jabatan").val("");
-        swal({
-          title: "Berhasil",
-          text: "Data Berhasil Ditambahkan",
-          icon: "success",
-          button: true,
-        });
-
-        getPembina({
-          desa: ddDesa.val(),
-        });
-      },
-    });
   });
 
   function getPembina(data) {
@@ -218,9 +192,13 @@ $(document).ready(function () {
       url: "/api/pembina",
       data,
       success: function (data) {
-        tablePembina
-          .clear()
-          .rows.add(
+        tablePembina.clear();
+        if (data.error) {
+          tablePembina.draw();
+          return;
+        }
+        tablePembina.rows
+          .add(
             data.map((d, i) => [
               i + 1,
               d.no_register,

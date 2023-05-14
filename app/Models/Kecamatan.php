@@ -22,6 +22,11 @@ class Kecamatan extends Model
     return $this->hasManyThrough(Pikr::class, Desa::class);
   }
 
+  public function pembinas()
+  {
+    return $this->hasManyThrough(Pembina::class, Desa::class);
+  }
+
   public function kabkota()
   {
     return $this->belongsTo(Kabkota::class);
@@ -31,5 +36,16 @@ class Kecamatan extends Model
   public function getParsedNamaAttribute()
   {
     return str_replace('KECAMATAN ', '', strtoupper($this->nama));
+  }
+
+  // ==== Custom Method ====
+  public function getNomorUrut()
+  {
+    $lastNomorUrut = $this->pembinas->reduce(fn ($max, $pembina) => (int)$pembina->no_urut > (int)$max ? $pembina->no_urut : $max, "00");
+    $nomorUrut = (int)$lastNomorUrut + 1;
+    if ($nomorUrut < 10) {
+      $nomorUrut = "0$nomorUrut";
+    }
+    return $nomorUrut;
   }
 }

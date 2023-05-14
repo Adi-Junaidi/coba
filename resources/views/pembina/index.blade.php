@@ -30,7 +30,7 @@
           <fieldset class="form-group col-md-3">
             <select class="form-select" id="ddKabKota" name="ddKabKota">
               <option hidden>Kabupaten/Kota</option>
-              @foreach ($kabkota as $p)
+              @foreach ($kabkotas as $p)
                 <option data-kode="{{ $p->kode }}" value="{{ $p->id }}">{{ $p->kode . ' | ' . $p->nama }}</option>
               @endforeach
             </select>
@@ -92,103 +92,152 @@
 
 @section('modals')
   <!-- Modal Create -->
-  <div class="modal fade text-left" id="modalCreate" role="dialog" aria-labelledby="judulModalCreate" aria-hidden="true" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
-      <div class="modal-content">
-        <div class="modal-header bg-primary">
-          <h4 class="modal-title text-light" id="judulModalCreate">Tambah Pembina</h4>
-          <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Tutup"></button>
-        </div>
+  <form id="formTambah" action="/pembina" method="post">
+    @csrf
+    <div class="modal fade text-left" id="modalCreate" role="dialog" aria-labelledby="judulModalCreate" aria-hidden="true" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <h4 class="modal-title text-light" id="judulModalCreate">Tambah Pembina</h4>
+            <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Tutup"></button>
+          </div>
 
-        <form id="formTambah">
-          @csrf
           <div class="modal-body">
-            <div class="row mb-3">
-
-              <!-- Untuk kebutuhan login -->
-              <label class="col-sm-2 col-form-label" for="tambah__username">Username</label>
-              <div class="col-sm-4">
-                <input class="form-control" id="tambah__username" type="text" placeholder="Username untuk login">
+            <!-- Akun -->
+            <div class="row my-3">
+              <div class="col">
+                <h5>Akun</h5>
               </div>
-              <label class="col-sm-2 col-form-label" for="tambah__email">Email</label>
-              <div class="col-sm-4">
-                <input class="form-control" id="tambah__email" type="email" placeholder="Masukkan email">
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label for="tambah__username">Username</label>
               </div>
-              <label class="col-sm-2 col-form-label" for="tambah__password">Password</label>
-              <div class="col-sm-4">
-                <input class="form-control" id="tambah__password" type="password" placeholder="Masukkan password">
+              <div class="col-md-8 form-group">
+                <input class="form-control" id="tambah__username" name="username" type="text" placeholder="Username">
               </div>
-
-              <label class="col-sm-2 col-form-label" for="tambah__noRegister">No. Register</label>
-              <div class="col-sm-4">
-                <input class="form-control" id="tambah__noRegister" type="text" placeholder="Pilih jabatan terlebih dahulu" readonly disabled>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label for="tambah__email">Email</label>
               </div>
-
-              <label class="col-sm-2 col-form-label" for="tambah__noUrut">No. Urut Pembina</label>
-              <div class="col-sm-4">
-                <input class="form-control" id="tambah__noUrut" type="text" value="02" readonly disabled>
+              <div class="col-md-8 form-group">
+                <input class="form-control" id="tambah__email" name="email" type="email" placeholder="Email">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label for="tambah__password">Password</label>
+              </div>
+              <div class="col-md-8 form-group">
+                <input class="form-control" id="tambah__password" name="password" type="password" placeholder="Password">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label for="tambah__konfirmasiPassword">Konfirmasi Password</label>
+              </div>
+              <div class="col-md-8 form-group">
+                <input class="form-control" id="tambah__konfirmasiPassword" name="konfirmasiPassword" type="password" placeholder="Konfirmasi Password">
               </div>
             </div>
 
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label" for="tambah__nama">Nama</label>
-              <div class="col-sm-4">
-                <input class="form-control" id="tambah__nama" type="text" placeholder="Nama Pembina">
+            <!-- Identitas Pribadi -->
+            <div class="row my-3">
+              <div class="col">
+                <hr />
+                <h5>Identitas Pribadi</h5>
               </div>
-
-              <label class="col-sm-2 col-form-label" for="tambah__jabatan">Jabatan</label>
-              <div class="col-sm-4">
-                <select class="form-select" id="tambah__jabatan" required>
-                  <option value="" hidden>Pilih Jabatan</option>
-                  @foreach ($jabatans as $jabatan)
-                    <option data-kode="{{ $jabatan->kode }}" value="{{ $jabatan->id }}">{{ $jabatan->nama }}</option>
-                  @endforeach
-                  {{-- <option value="Lainnya">Lainnya</option> --}}
-                </select>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label for="tambah__nama">Nama Lengkap</label>
+              </div>
+              <div class="col-md-8 form-group">
+                <input class="form-control" id="tambah__nama" name="nama" type="text" placeholder="Nama Lengkap">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label for="tambah__jabatan">Jabatan</label>
+              </div>
+              <div class="col-md-8 form-group">
+                <input class="form-control" id="tambah__jabatan" name="jabatan" type="text" value="PKB/PLKB" placeholder="Jabatan" readonly disabled />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label for="tambah__noUrut">No. Urut Pembina</label>
+              </div>
+              <div class="col-md-8 form-group">
+                <input class="form-control" id="tambah__noUrut" name="noUrut" type="text" value="02" placeholder="No. Urut Pembina" readonly disabled>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label for="tambah__noRegister">No. Register</label>
+              </div>
+              <div class="col-md-8 form-group">
+                <input class="form-control" id="tambah__noRegister" name="noRegister" type="text" value="000000A00" placeholder="No. Register" readonly disabled>
               </div>
             </div>
 
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label" for="tambah__alamat">Alamat</label>
-              <label class="col-sm-2 col-form-label" for="tambah__provinsi">Provinsi</label>
-              <div class="col-sm-3">
-                <input class="form-control" id="tambah__provinsi" type="text" value="{{ $provinsi->kode . ' | ' . $provinsi->nama }}" readonly disabled>
-              </div>
-
-              <label class="col-sm-2 col-form-label" for="tambah__kabKota">Kab/Kota</label>
-              <div class="col-sm-3">
-                <input class="form-control" id="tambah__kabKota" type="text" readonly disabled>
+            <!-- Alamat -->
+            <div class="row my-3">
+              <div class="col">
+                <hr />
+                <h5>Alamat</h5>
               </div>
             </div>
-
-            <div class="row mb-3">
-              <div class="col-sm-2 col-form-label"></div>
-
-              <label class="col-sm-2 col-form-label" for="tambah__kecamatan">Kecamatan</label>
-              <div class="col-sm-3">
-                <input class="form-control" id="tambah__kecamatan" type="text" readonly disabled>
+            <div class="row">
+              <div class="col-md-4">
+                <label for="tambah__provinsi">Provinsi</label>
               </div>
-
-              <label class="col-sm-2 col-form-label" for="tambah__desaKel">Desa/Kel</label>
-              <div class="col-sm-3">
-                <input class="form-control" id="tambah__desaKel" type="text" readonly disabled>
+              <div class="col-md-8 form-group">
+                <input class="form-control" id="tambah__provinsi" name="provinsi" type="text" value="{{ $provinsi->kode . ' | ' . $provinsi->nama }}" placeholder="Provinsi" readonly disabled>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label for="tambah__kabKota">Kab/Kota</label>
+              </div>
+              <div class="col-md-8 form-group">
+                <input class="form-control" id="tambah__kabKota" name="kabKota" type="text" placeholder="Kab/Kota" readonly disabled />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label for="tambah__kecamatan">Kecamatan</label>
+              </div>
+              <div class="col-md-8 form-group">
+                <input class="form-control" id="tambah__kecamatan" name="kecamatan" type="text" placeholder="Kecamatan" readonly disabled />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label for="tambah__desaKel">Desa/Kel</label>
+              </div>
+              <div class="col-md-8 form-group">
+                <input class="form-control" id="tambah__desaKel" name="desaKel" type="text" placeholder="Desa/Kel" readonly disabled />
+                <input id="hidden__desaKel" name="desa_id" type="hidden">
               </div>
             </div>
           </div>
+
           <div class="modal-footer">
             <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
               <i class="bx bx-x d-block d-sm-none"></i>
               <span class="d-none d-sm-block">Batal</span>
             </button>
-            <button class="btn btn-primary" data-bs-dismiss="modal" type="submit">
+            <button class="btn btn-primary" type="submit">
               <i class="bx bx-x d-block d-sm-none"></i>
               <span class="d-none d-sm-block">Simpan</span>
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
-  </div>
+  </form>
 
   <!-- Modal Update -->
   <div class="modal fade text-left" id="modalUpdate" role="dialog" aria-labelledby="judulModalUpdate" aria-hidden="true" tabindex="-1">
@@ -374,6 +423,4 @@
   </script>
   <script src="/assets/js/pembina.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-  
 @endsection

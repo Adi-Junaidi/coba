@@ -76,6 +76,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/api/kabkota/{kabkota}/kecamatans', fn (Kabkota $kabkota) => response()->json($kabkota->kecamatan));
 Route::get('/api/kecamatan/{kecamatan}/desas', fn (Kecamatan $kecamatan) => response()->json($kecamatan->desa));
+Route::get('/api/kecamatan/{kecamatan}/no_urut', fn (Kecamatan $kecamatan) => response()->json($kecamatan->getNomorUrut()));
 Route::get('/api/desa/{desa}', [DesaController::class, 'api']);
 Route::get('/api/pembina/', [PembinaController::class, 'api']);
 Route::get('/api/pikr', [PikrController::class, 'api']);
