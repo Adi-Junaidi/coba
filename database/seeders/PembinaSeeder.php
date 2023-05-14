@@ -23,9 +23,7 @@ class PembinaSeeder extends Seeder
         "email" => "pembina1@gmail.com",
         "password" => Hash::make('12345678'),
       ])->id,
-      "no_register" => "757101B02",
       "nama" => "Dewi H. Yasin, Amd.Kom",
-      "no_urut" => "02",
       "jabatan_id" => "1",
       "desa_id" => "1"
     ]);
@@ -37,9 +35,7 @@ class PembinaSeeder extends Seeder
         "email" => "pembina2@gmail.com",
         "password" => Hash::make('12345678'),
       ])->id,
-      "no_register" => "757102B01",
       "nama" => "Mirah Delima, SKM",
-      "no_urut" => "01",
       "jabatan_id" => "1",
       "desa_id" => "2"
     ]);

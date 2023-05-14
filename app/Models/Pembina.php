@@ -38,5 +38,29 @@ class Pembina extends Model
     return $this->hasMany(PelayananInformasi::class);
   }
 
-  
+  public static function boot()
+  {
+    parent::boot();
+
+    // secara otomatis men-generate nomor urut dan nomor registrasi untuk setiap pembina yang baru dibuat
+    static::created(function ($pembina) {
+      $desa = $pembina->desa;
+      $kecamatan = $desa->kecamatan;
+      $kabkota = $kecamatan->kabkota;
+      $provinsi = $kabkota->provinsi;
+
+      $kodeJabatan = $pembina->jabatan->kode;
+      $kodeProvinsi = $provinsi->kode;
+      $kodeKabKot = $kabkota->kode;
+      $kodeKecamatan = $kecamatan->kode;
+      $nomorUrut = $kecamatan->getNomorUrut();
+
+      $noRegister = $kodeProvinsi . $kodeKabKot . $kodeKecamatan . $kodeJabatan . $nomorUrut;
+
+      $pembina->update([
+        'no_urut' => $nomorUrut,
+        'no_register' => $noRegister,
+      ]);
+    });
+  }
 }

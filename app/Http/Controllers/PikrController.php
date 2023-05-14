@@ -120,6 +120,7 @@ class PikrController extends Controller
    */
   public function destroy(Pikr $pikr)
   {
+    // FIXME: Bagian ini masih bisa dilakukan refactoring agar lebih singkat
     if ($pikr->materi) {
       $pikr->materi->delete();
     }
