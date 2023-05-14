@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CriteriaController;
 use App\Models\Kabkota;
 use App\Models\Kecamatan;
 use Illuminate\Support\Facades\Route;
@@ -85,6 +86,7 @@ Route::middleware('auth')->group(function () {
     '/up/article' => ArticleController::class,
     '/registrasi-kegiatan' => RegistrasiKegiatanController::class,
     '/peringkat' => RankController::class,
+    '/spk/criteria' => CriteriaController::class,
   ]);
 
   Route::post('/materi/{materi}', [MateriController::class, 'update']);
