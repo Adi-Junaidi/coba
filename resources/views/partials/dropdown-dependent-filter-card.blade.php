@@ -1,7 +1,7 @@
 <section class="section">
   <div class="card">
     <div class="card-header">
-      <h4 class="card-title">Pencarian Berdasarkan Alamat Pembina</h4>
+      <h4 class="card-title">Pencarian Berdasarkan Alamat {{ $objek }}</h4>
     </div>
 
     <div class="card-body">

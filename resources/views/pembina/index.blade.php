@@ -20,7 +20,7 @@
     @enderror
   @endforeach
 
-  @include('partials.pembina-filter-card')
+  @include('partials.dropdown-dependent-filter-card', ['objek' => 'Pembina'])
 
   <section class="section">
     <div class="card">
