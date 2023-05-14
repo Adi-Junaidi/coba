@@ -121,15 +121,9 @@ class PembinaController extends Controller
    */
   public function update(Request $request, Pembina $pembina)
   {
-    // FIXME: perbaiki validasi
-    $validated = $request->validate([
-      'nama' => 'required',
-      'jabatan_id' => 'required'
-    ]);
+    $validated = $request->validate(['nama' => 'required']);
 
-    $pembina->nama = $validated["nama"];
-    $pembina->jabatan_id = $validated['jabatan_id'];
-    $pembina->save();
+    $pembina->update(['nama' => $validated["nama"]]);
 
     return back()->with('success', 'Berhasil mengupdate data pembina ' . $validated["nama"]);
   }
