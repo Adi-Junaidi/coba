@@ -22,6 +22,8 @@ class MitraPikrController extends Controller
         $bentuk_kerjasama = [
             'Sponsorship',
             'Narasumber',
+            'Rujukan',
+            'Lainnya',
         ];
 
 
