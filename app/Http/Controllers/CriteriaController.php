@@ -95,7 +95,7 @@ class CriteriaController extends Controller
 
         $criterias = Criteria::all();
 
-        $total = $request->bobot;
+        $total = 0;
         foreach($criterias as $criteria){
             $total += $criteria->bobot;
         }
