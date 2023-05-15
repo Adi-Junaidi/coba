@@ -79,14 +79,14 @@
   @endif
 
   @if (session()->has('fail'))
-        <script>
-            Swal.fire(
-                'Gagal',
-                '{{ session('fail') }}',
-                'error'
-            )
-        </script>
-    @endif
+    <script>
+      Swal.fire(
+        'Gagal',
+        '{{ session('fail') }}',
+        'error'
+      )
+    </script>
+  @endif
 
   <!-- Page Script -->
   @stack('scripts')
