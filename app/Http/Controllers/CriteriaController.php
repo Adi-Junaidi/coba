@@ -90,9 +90,26 @@ class CriteriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, Criteria $criterion)
+    {   
+
+        $criterias = Criteria::all();
+
+        $total = $request->bobot;
+        foreach($criterias as $criteria){
+            $total += $criteria->bobot;
+        }
+
+        foreach($criterias as $criteria){
+            $criteria->update(['normalisasi' => $criteria->bobot/$total]);
+        }
+
+        $criterion->update([
+            'bobot' => $request->bobot,
+            'normalisasi' => $request->bobot/$total
+        ]);
+        
+        return back()->with('success', 'Berhasil mengubah bobot kriteria');
     }
 
     /**

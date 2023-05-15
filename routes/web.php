@@ -82,11 +82,13 @@ Route::get('/api/pembina/', [PembinaController::class, 'api']);
 Route::get('/api/pikr', [PikrController::class, 'api']);
 
 Route::middleware('auth')->group(function () {
+
+  Route::resource('/spk/criteria', CriteriaController::class)->middleware('can:viewAll,App\Models\Pembina');
+
   Route::resources([
     '/up/article' => ArticleController::class,
     '/registrasi-kegiatan' => RegistrasiKegiatanController::class,
     '/peringkat' => RankController::class,
-    '/spk/criteria' => CriteriaController::class,
   ]);
 
   Route::post('/materi/{materi}', [MateriController::class, 'update']);

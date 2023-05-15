@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Laporan extends Model
@@ -30,8 +31,4 @@ class Laporan extends Model
         return $this->hasMany(KonselingKelompok::class);
     }
 
-    public function point() : HasOne
-    {
-        return $this->hasOne(Point::class);
-    }
 }

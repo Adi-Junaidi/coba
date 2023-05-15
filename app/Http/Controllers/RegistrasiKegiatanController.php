@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Criteria;
 use App\Models\Desa;
 use App\Models\Pikr;
 use App\Models\Point;
@@ -123,15 +124,16 @@ class RegistrasiKegiatanController extends Controller
   public function update(Request $request, Laporan $registrasi_kegiatan)
   {
 
-    $point = $this->countPoint($registrasi_kegiatan);
+    // Proses input poin ke db points
+    $point = $this->setPoint($registrasi_kegiatan);
 
-    if (!$this->setResult($point, $registrasi_kegiatan)) {
+    if (!$this->setResult($registrasi_kegiatan)) {
       return \redirect()->back()->with('fail', 'Gagal melakukan verifikasi register kegiatan PIK-R');
     };
 
     $registrasi_kegiatan->update(['status' => 'Verified']);
     $nama_pikr = $registrasi_kegiatan->pikr->nama;
-    
+
     $dataEmail = [
       'receiver' => $registrasi_kegiatan->pikr->user->email,
       'title' => 'Verifikasi PIKR Berhasil',
@@ -156,181 +158,260 @@ class RegistrasiKegiatanController extends Controller
   }
 
 
-  protected function countPoint($registrasi_kegiatan)
+  // protected function countPoint($registrasi_kegiatan)
+  // {
+  //   if (Point::where('laporan_id', $registrasi_kegiatan->id)->first() == null) {
+  //     Point::create([
+  //       'laporan_id' => $registrasi_kegiatan->id,
+  //     ]);
+  //   }
+
+  //   $point = $registrasi_kegiatan->point()->first()->toArray();
+  //   $point = Arr::except($point, ['id', 'created_at', 'updated_at']);
+
+  //   $pelayanan_s = $registrasi_kegiatan->pelayananInformasi()->get();
+
+  //   if ($pelayanan_s != null) {
+  //     foreach ($pelayanan_s as $pelayanan) {
+
+  //       if ($pelayanan->materi_id != 0) {
+  //         $point['materi_pelayanan'] += 2;
+  //       } else {
+  //         $point['materi_pelayanan'] += 1;
+  //       }
+
+  //       if ($pelayanan->jabatan_narsum != 'Lainnya') {
+  //         $point['narasumber_pelayanan'] += 2;
+  //       } else {
+  //         $point['narasumber_pelayanan'] += 1;
+  //       }
+
+  //       $point['peserta_pelayanan'] += $pelayanan->jumlah_peserta;
+  //     }
+
+  //     $jumlah_peserta = 0;
+
+  //     if ($point['peserta_pelayanan'] > 500) {
+  //       $jumlah_peserta = 5;
+  //     } else if ($point['peserta_pelayanan'] > 300) {
+  //       $jumlah_peserta = 4;
+  //     } else if ($point['peserta_pelayanan'] > 150) {
+  //       $jumlah_peserta = 3;
+  //     } else if ($point['peserta_pelayanan'] > 50) {
+  //       $jumlah_peserta = 2;
+  //     } else {
+  //       $jumlah_peserta = 1;
+  //     }
+
+  //     $point['peserta_pelayanan'] = $jumlah_peserta;
+  //   }
+
+
+  //   $ki_s = $registrasi_kegiatan->konseling()->get();
+  //   if ($ki_s != null) {
+  //     foreach ($ki_s as $ki) {
+
+  //       if ($ki->materi_id != 0) {
+  //         $point['materi_ki'] += 2;
+  //       } else {
+  //         $point['materi_ki'] += 1;
+  //       }
+
+  //       $point['peserta_ki'] += $ki->jumlah_cowok + $ki->jumlah_cewek;
+  //     }
+
+  //     $jumlah_peserta = 0;
+
+  //     if ($point['peserta_ki'] > 500) {
+  //       $jumlah_peserta = 5;
+  //     } else if ($point['peserta_ki'] > 300) {
+  //       $jumlah_peserta = 4;
+  //     } else if ($point['peserta_ki'] > 150) {
+  //       $jumlah_peserta = 3;
+  //     } else if ($point['peserta_ki'] > 50) {
+  //       $jumlah_peserta = 2;
+  //     } else {
+  //       $jumlah_peserta = 1;
+  //     }
+
+  //     $point['peserta_ki'] = $jumlah_peserta;
+  //   }
+
+  //   $kk_s = $registrasi_kegiatan->konselingKelompok()->get();
+  //   if ($kk_s != null) {
+  //     foreach ($kk_s as $kk) {
+  //       if ($kk->materi_id != 0) {
+  //         $point['materi_kk'] += 2;
+  //       } else {
+  //         $point['materi_kk'] += 1;
+  //       }
+
+  //       $point['peserta_kk'] += $kk->jumlah_cowok + $kk->jumlah_cewek;
+  //     }
+
+  //     $jumlah_peserta = 0;
+
+  //     if ($point['peserta_kk'] > 500) {
+  //       $jumlah_peserta = 5;
+  //     } else if ($point['peserta_kk'] > 300) {
+  //       $jumlah_peserta = 4;
+  //     } else if ($point['peserta_kk'] > 150) {
+  //       $jumlah_peserta = 3;
+  //     } else if ($point['peserta_kk'] > 50) {
+  //       $jumlah_peserta = 2;
+  //     } else {
+  //       $jumlah_peserta = 1;
+  //     }
+
+  //     $point['peserta_kk'] = $jumlah_peserta;
+  //   }
+
+  //   $bulanTahun = "$registrasi_kegiatan->bulan_lapor-$registrasi_kegiatan->tahun_lapor";
+  //   $jumlah_artikel = Article::where(['pikr_id' => $registrasi_kegiatan->pikr->id, 'bulan_tahun' => $bulanTahun])->count();
+
+  //   $point_artikel = 0;
+
+  //   if ($jumlah_artikel > 25) {
+  //     $point_artikel = 5;
+  //   } else if ($jumlah_artikel > 15) {
+  //     $point_artikel = 4;
+  //   } else if ($jumlah_artikel > 8) {
+  //     $point_artikel = 3;
+  //   } else if ($jumlah_artikel > 3) {
+  //     $point_artikel = 2;
+  //   } else {
+  //     $point_artikel = 1;
+  //   }
+
+  //   $point['artikel'] = $point_artikel;
+
+  //   return $point;
+  // }
+
+  protected function setPoint($registrasi_kegiatan)
   {
-    if (Point::where('laporan_id', $registrasi_kegiatan->id)->first() == null) {
+    foreach (Criteria::all() as $criteria) {
+      $point = 0;
+      
+      switch (strtolower($criteria->nama)) {
+        case 'materi pelayanan':
+          foreach ($registrasi_kegiatan->pelayananInformasi as $kegiatan) {
+            if ($kegiatan->materi_lainnya == null) {
+              $point += 2;
+            } else {
+              $point += 1;
+            }
+          }
+          break;
+
+        case 'narasumber pelayanan':
+          foreach ($registrasi_kegiatan->pelayananInformasi as $kegiatan) {
+            if ($kegiatan->jabatan_narsum == "Lainnya") {
+              $point += 1;
+            } else {
+              $point += 2;
+            }
+          }
+          break;
+
+        case 'peserta pelayanan':
+          foreach ($registrasi_kegiatan->pelayananInformasi as $kegiatan) {
+            $point += $kegiatan->jumlah_peserta;
+          }
+          break;
+
+        case 'materi konseling individu':
+          foreach ($registrasi_kegiatan->konseling as $kegiatan) {
+            if ($kegiatan->materi_id == 0) {
+              $point += 1;
+            } else {
+              $point += 2;
+            }
+          }
+          break;
+
+        case 'peserta konseling individu':
+          foreach ($registrasi_kegiatan->konseling as $kegiatan) {
+            $jumlah_peserta = $kegiatan->jumlah_cowok + $kegiatan->jumlah_cewek;
+            $point += $jumlah_peserta;
+          }
+          break;
+
+        case 'materi konseling kelompok':
+          foreach ($registrasi_kegiatan->konselingKelompok as $kegiatan) {
+            if ($kegiatan->materi_id == 0) {
+              $point += 1;
+            } else {
+              $point += 2;
+            }
+          }
+          break;
+
+        case 'peserta konseling kelompok':
+          foreach ($registrasi_kegiatan->konselingKelompok as $kegiatan) {
+            $jumlah_peserta = $kegiatan->jumlah_cowok + $kegiatan->jumlah_cewek;
+            $point += $jumlah_peserta;
+          }
+          break;
+
+        default:
+          break;
+      }
+      
       Point::create([
-        'laporan_id' => $registrasi_kegiatan->id,
+        'pikr_id' => $registrasi_kegiatan->pikr->id,
+        'criteria_id' => $criteria->id,
+        'bulan_tahun' => sprintf("%s-%s", $registrasi_kegiatan->bulan_lapor, $registrasi_kegiatan->tahun_lapor),
+        'point' => $point,
       ]);
     }
-
-    $point = $registrasi_kegiatan->point()->first()->toArray();
-    $point = Arr::except($point, ['id', 'created_at', 'updated_at']);
-
-    $pelayanan_s = $registrasi_kegiatan->pelayananInformasi()->get();
-
-    if ($pelayanan_s != null) {
-      foreach ($pelayanan_s as $pelayanan) {
-
-        if ($pelayanan->materi_id != 0) {
-          $point['materi_pelayanan'] += 2;
-        } else {
-          $point['materi_pelayanan'] += 1;
-        }
-
-        if ($pelayanan->jabatan_narsum != 'Lainnya') {
-          $point['narasumber_pelayanan'] += 2;
-        } else {
-          $point['narasumber_pelayanan'] += 1;
-        }
-
-        $point['peserta_pelayanan'] += $pelayanan->jumlah_peserta;
-      }
-
-      $jumlah_peserta = 0;
-
-      if ($point['peserta_pelayanan'] > 500) {
-        $jumlah_peserta = 5;
-      } else if ($point['peserta_pelayanan'] > 300) {
-        $jumlah_peserta = 4;
-      } else if ($point['peserta_pelayanan'] > 150) {
-        $jumlah_peserta = 3;
-      } else if ($point['peserta_pelayanan'] > 50) {
-        $jumlah_peserta = 2;
-      } else {
-        $jumlah_peserta = 1;
-      }
-
-      $point['peserta_pelayanan'] = $jumlah_peserta;
-    }
-
-
-    $ki_s = $registrasi_kegiatan->konseling()->get();
-    if ($ki_s != null) {
-      foreach ($ki_s as $ki) {
-
-        if ($ki->materi_id != 0) {
-          $point['materi_ki'] += 2;
-        } else {
-          $point['materi_ki'] += 1;
-        }
-
-        $point['peserta_ki'] += $ki->jumlah_cowok + $ki->jumlah_cewek;
-      }
-
-      $jumlah_peserta = 0;
-
-      if ($point['peserta_ki'] > 500) {
-        $jumlah_peserta = 5;
-      } else if ($point['peserta_ki'] > 300) {
-        $jumlah_peserta = 4;
-      } else if ($point['peserta_ki'] > 150) {
-        $jumlah_peserta = 3;
-      } else if ($point['peserta_ki'] > 50) {
-        $jumlah_peserta = 2;
-      } else {
-        $jumlah_peserta = 1;
-      }
-
-      $point['peserta_ki'] = $jumlah_peserta;
-    }
-
-    $kk_s = $registrasi_kegiatan->konselingKelompok()->get();
-    if ($kk_s != null) {
-      foreach ($kk_s as $kk) {
-        if ($kk->materi_id != 0) {
-          $point['materi_kk'] += 2;
-        } else {
-          $point['materi_kk'] += 1;
-        }
-
-        $point['peserta_kk'] += $kk->jumlah_cowok + $kk->jumlah_cewek;
-      }
-
-      $jumlah_peserta = 0;
-
-      if ($point['peserta_kk'] > 500) {
-        $jumlah_peserta = 5;
-      } else if ($point['peserta_kk'] > 300) {
-        $jumlah_peserta = 4;
-      } else if ($point['peserta_kk'] > 150) {
-        $jumlah_peserta = 3;
-      } else if ($point['peserta_kk'] > 50) {
-        $jumlah_peserta = 2;
-      } else {
-        $jumlah_peserta = 1;
-      }
-
-      $point['peserta_kk'] = $jumlah_peserta;
-    }
-    
-    $bulanTahun = "$registrasi_kegiatan->bulan_lapor-$registrasi_kegiatan->tahun_lapor";
-    $jumlah_artikel = Article::where(['pikr_id' => $registrasi_kegiatan->pikr->id, 'bulan_tahun' => $bulanTahun])->count();
-    
-    $point_artikel = 0;
-    
-    if ($jumlah_artikel > 25) {
-      $point_artikel = 5;
-    } else if ($jumlah_artikel > 15) {
-      $point_artikel = 4;
-    } else if ($jumlah_artikel > 8) {
-      $point_artikel = 3;
-    } else if ($jumlah_artikel > 3) {
-      $point_artikel = 2;
-    } else {
-      $point_artikel = 1;
-    }
-
-    $point['artikel'] = $point_artikel;
-
-    return $point;
   }
 
-  protected function setResult($point, $registrasi_kegiatan)
-  {
-    $bulanTahun = "$registrasi_kegiatan->bulan_lapor-$registrasi_kegiatan->tahun_lapor";
+  // protected function setResult($registrasi_kegiatan)
+  // {
+  //   $bulanTahun = "$registrasi_kegiatan->bulan_lapor-$registrasi_kegiatan->tahun_lapor";
 
-    $pembagi = [
-      'materi_pelayanan' => 2,
-      'narasumber_pelayanan' => 2,
-      "peserta_pelayanan" => 5,
-      "materi_ki" => 2,
-      "peserta_ki" => 5,
-      "materi_kk" => 2,
-      "peserta_kk" => 5,
-      "artikel" => 5,
-    ];
+  //   $pembagi = [
+  //     'materi_pelayanan' => 2,
+  //     'narasumber_pelayanan' => 2,
+  //     "peserta_pelayanan" => 5,
+  //     "materi_ki" => 2,
+  //     "peserta_ki" => 5,
+  //     "materi_kk" => 2,
+  //     "peserta_kk" => 5,
+  //     "artikel" => 5,
+  //   ];
 
-    $bobot = [
-      'materi_pelayanan' => 0.05,
-      'narasumber_pelayanan' => 0.05,
-      "peserta_pelayanan" => 0.3,
-      "materi_ki" => 0.05,
-      "peserta_ki" => 0.1,
-      "materi_kk" => 0.05,
-      "peserta_kk" => 0.25,
-      "artikel" => 0.2,
-    ];
+  //   $bobot = [
+  //     'materi_pelayanan' => 0.05,
+  //     'narasumber_pelayanan' => 0.05,
+  //     "peserta_pelayanan" => 0.3,
+  //     "materi_ki" => 0.05,
+  //     "peserta_ki" => 0.1,
+  //     "materi_kk" => 0.05,
+  //     "peserta_kk" => 0.25,
+  //     "artikel" => 0.2,
+  //   ];
 
-    $normalisasi = [];
+  //   $normalisasi = [];
 
-    foreach($pembagi as $key => $value){
-      $normalisasi[$key] = $point[$key] / $pembagi[$key];
-    }
+  //   foreach($pembagi as $key => $value){
+  //     $normalisasi[$key] = $point[$key] / $pembagi[$key];
+  //   }
 
-    $result = 0;
+  //   $result = 0;
 
-    foreach($normalisasi as $key => $value){
-      $result += $normalisasi[$key] * $bobot[$key];
-    }
+  //   foreach($normalisasi as $key => $value){
+  //     $result += $normalisasi[$key] * $bobot[$key];
+  //   }
 
-    Result::create([
-      'pikr_id' => $registrasi_kegiatan->pikr->id,
-      'bulan_tahun' => $bulanTahun,
-      'point' => $result,
-    ]);
+  //   Result::create([
+  //     'pikr_id' => $registrasi_kegiatan->pikr->id,
+  //     'bulan_tahun' => $bulanTahun,
+  //     'point' => $result,
+  //   ]);
 
-    return true;
-    
-  }
+  //   return true;
+
+  // }
 }
