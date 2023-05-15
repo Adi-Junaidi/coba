@@ -30,12 +30,34 @@
         <span class="login100-form-title p-b-41">@yield('title')</span>
 
         @if (session()->has('success'))
-          <div class="alert alert-success">{{ session('success') }}</div>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button class="close" data-dismiss="alert" type="button" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
         @endif
 
         @if (session()->has('error'))
-          <div class="alert alert-danger">{{ session('error') }}</div>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button class="close" data-dismiss="alert" type="button" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
         @endif
+
+        @foreach (['username', 'email', 'password', 'passwordConfirm', 'nama', 'basis', 'pengelola', 'desa_id', 'alamat'] as $field)
+          @error($field)
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ $message }}
+              <button class="close" data-dismiss="alert" type="button" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          @enderror
+        @endforeach
+        @yield('alert')
 
         @yield('form')
       </div>
@@ -53,6 +75,7 @@
   <script src="/auth/vendor/daterangepicker/daterangepicker.js"></script>
   <script src="/auth/vendor/countdowntime/countdowntime.js"></script>
   <script src="/auth/js/main.js"></script>
+
 
   @yield('scripts')
 </body>

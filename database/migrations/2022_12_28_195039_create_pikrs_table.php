@@ -19,9 +19,9 @@ class CreatePikrsTable extends Migration
       $table->foreignId('desa_id');
       $table->foreignId('sk_id')->nullable();
       $table->foreignId('pembina_id');
-      $table->string('no_register');
+      $table->string('no_register')->nullable();
       $table->string('nama');
-      $table->string('no_urut');
+      $table->string('no_urut')->nullable();
       $table->string('alamat');
       $table->string('basis');
       $table->string('sumber_dana')->default('Tidak Ada');
