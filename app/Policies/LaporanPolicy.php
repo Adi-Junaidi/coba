@@ -97,6 +97,7 @@ class LaporanPolicy
         if ($laporan->pikr->pembina == null) {
             return false;
         }
-        return $user->isPembina() && $laporan->pikr->pembina->id == $user->pembina->id;
+        
+        return $user->isPembina() && $laporan->pikr->desa->kecamatan->id == $user->pembina->desa->kecamatan->id;
     }
 }

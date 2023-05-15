@@ -13,9 +13,9 @@ class KabkotaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getData(Kabkota $kabkota)
     {
-        //
+        return response()->json($kabkota->kecamatan);
     }
 
     /**

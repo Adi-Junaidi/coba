@@ -16,6 +16,8 @@ use App\Http\Controllers\MitraPikrController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KabkotaController;
+use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KonselingController;
 use App\Http\Controllers\KonselingKelompokController;
 use App\Http\Controllers\LaporanController;
@@ -83,11 +85,13 @@ Route::get('/api/pembina/', [PembinaController::class, 'api']);
 Route::get('/api/pikr', [PikrController::class, 'api']);
 
 Route::middleware('auth')->group(function () {
+
+  Route::resource('/spk/criteria', CriteriaController::class)->middleware('can:viewAll,App\Models\Pembina');
+
   Route::resources([
     '/up/article' => ArticleController::class,
     '/registrasi-kegiatan' => RegistrasiKegiatanController::class,
     '/peringkat' => RankController::class,
-    '/spk/criteria' => CriteriaController::class,
   ]);
 
   Route::post('/materi/{materi}', [MateriController::class, 'update']);
@@ -98,6 +102,10 @@ Route::middleware('auth')->group(function () {
   Route::get('/mitra/getData/{mitra}', [MitraPikrController::class, 'getData']);
   Route::post('/mitra/{mitra}', [MitraPikrController::class, 'updateByAdmin']);
   Route::post('/mitra/delete/{mitra}', [MitraPikrController::class, 'destroyByAdmin']);
+
+  Route::get('/kecamatan/getData/{kabkota}', [KabkotaController::class, 'getData']);
+  Route::get('/desa/getData/{kecamatan}', [KecamatanController::class, 'getData']);
+  Route::get('/desa/getPikr/{desa}', [DesaController::class, 'getPikr']);
 
   Route::get('/utility/getArticle/{article}', [ArticleController::class, 'getArticle']);
   Route::get('/utility/check-slug', [ArticleController::class, 'checkSlug']);

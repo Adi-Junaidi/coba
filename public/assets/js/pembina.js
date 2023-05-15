@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
   const tablePembina = $("#tablePembina").DataTable({
     columnDefs: [
@@ -18,11 +19,17 @@ $(document).ready(function () {
   const ddKecamatan = $("#ddKecamatan");
   const ddDesa = $("#ddDesa");
 
-  btnCari.on("click", function () {
-    getPembina({
-      desa: ddDesa.val(),
-    });
-  });
+
+//     $("#detail__noRegister").val(noreg);
+//     $("#detail__noUrut").val(nourut);
+//     $("#detail__nama").val(nama);
+//     $("#detail__provinsi").val(provinsi);
+//     $("#detail__kabKota").val(kabkota);
+//     $("#detail__kecamatan").val(kecamatan);
+//     $("#detail__desaKel").val(desakel);
+//     $("#detail__position").val(jabatan);
+//   });
+
 
   // dropdown dependent
   ddKabKota.on("change", function () {
@@ -51,9 +58,14 @@ $(document).ready(function () {
         if (!data) return;
 
         btnTambah.prop("disabled", true);
+
+      },
+      error: function (xhr, status, error) {
+        alert(error);
       },
     });
   });
+
 
   ddDesa.on("change", function () {
     btnTambah.prop("disabled", false);
@@ -94,4 +106,5 @@ $(document).ready(function () {
       },
     });
   }
+
 });

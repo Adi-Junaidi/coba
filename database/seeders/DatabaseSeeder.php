@@ -34,6 +34,8 @@ class DatabaseSeeder extends Seeder
       SaranaSeeder::class,
       LaporanSeeder::class,
       PengurusSeeder::class,
+      CriteriaSeeder::class,
+      PointSeeder::class,
     ]);
   }
 }
