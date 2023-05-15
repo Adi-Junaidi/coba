@@ -15,21 +15,21 @@ class CriteriaSeeder extends Seeder
     public function run()
     {
         Criteria::create([
-            "nama" => "Materi Pelayanan",
+            "nama" => "Materi Pelayanan Informasi",
             "status" => "benefit",
             "bobot" => 0,
             "normalisasi" => 0
         ]);
         
         Criteria::create([
-            "nama" => "Narasumber Pelayanan",
+            "nama" => "Narasumber Pelayanan Informasi",
             "status" => "benefit",
             "bobot" => 0,
             "normalisasi" => 0
         ]);
         
         Criteria::create([
-            "nama" => "Peserta Pelayanan",
+            "nama" => "Peserta Pelayanan Informasi",
             "status" => "benefit",
             "bobot" => 0,
             "normalisasi" => 0
