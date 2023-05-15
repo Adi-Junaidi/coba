@@ -98,6 +98,11 @@ class Pikr extends Model
     return $this->created_at->lte(Carbon::createFromFormat('Y', $year));
   }
 
+  public static function allVerified()
+  {
+    return Pikr::where('verified', 1)->get();
+  }
+
   public static function boot()
   {
     parent::boot();

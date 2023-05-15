@@ -13,7 +13,7 @@ class DashboardController extends Controller
   {
     return view('dashboard', [
       "pembina" => Pembina::all(),
-      "pikr" => Pikr::all(),
+      "pikr" => Pikr::allVerified(),
       'laporan' => Laporan::all()
     ]);
   }
