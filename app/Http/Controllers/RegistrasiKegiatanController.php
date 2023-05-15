@@ -259,27 +259,32 @@ class RegistrasiKegiatanController extends Controller
 
   protected function setResult($data)
   {
+    // Membuat data result sebagai inisiasi awal dari laporan yang dimasukkan
     Result::create([
       'pikr_id' => $data['pikr_id'],
       'bulan_tahun' => $data['bulan_tahun'],
       'point' => 0,
     ]);
 
+    // Menentukan pembagi tiap criteria berdasarkan bulan_tahun laporan yang dimasukkan
     $pembagi = [
-      'criteria_1' => Point::where('criteria_id', 1)->max('point'),
-      'criteria_2' => Point::where('criteria_id', 2)->max('point'),
-      'criteria_3' => Point::where('criteria_id', 3)->max('point'),
-      'criteria_4' => Point::where('criteria_id', 4)->max('point'),
-      'criteria_5' => Point::where('criteria_id', 5)->max('point'),
-      'criteria_6' => Point::where('criteria_id', 6)->max('point'),
-      'criteria_7' => Point::where('criteria_id', 7)->max('point'),
-      'criteria_8' => Point::where('criteria_id', 8)->max('point'),
+      'criteria_1' => Point::where('criteria_id', 1)->where('bulan_tahun', $data['bulan_tahun'])->max('point'),
+      'criteria_2' => Point::where('criteria_id', 2)->where('bulan_tahun', $data['bulan_tahun'])->max('point'),
+      'criteria_3' => Point::where('criteria_id', 3)->where('bulan_tahun', $data['bulan_tahun'])->max('point'),
+      'criteria_4' => Point::where('criteria_id', 4)->where('bulan_tahun', $data['bulan_tahun'])->max('point'),
+      'criteria_5' => Point::where('criteria_id', 5)->where('bulan_tahun', $data['bulan_tahun'])->max('point'),
+      'criteria_6' => Point::where('criteria_id', 6)->where('bulan_tahun', $data['bulan_tahun'])->max('point'),
+      'criteria_7' => Point::where('criteria_id', 7)->where('bulan_tahun', $data['bulan_tahun'])->max('point'),
+      'criteria_8' => Point::where('criteria_id', 8)->where('bulan_tahun', $data['bulan_tahun'])->max('point'),
     ];
 
-    $pikr_id = Point::pluck('pikr_id')->unique()->values()->toArray();
+    
+    // Mengambil pikr yang sudah memasukkan laporan
+    $pikr_id = Point::where('bulan_tahun', $data['bulan_tahun'])->pluck('pikr_id')->unique()->values()->toArray();
+    // dd($pikr_id);
 
     for ($i = 0; $i < count($pikr_id); $i++) {
-      $point = Point::where('pikr_id', $pikr_id[$i])->get();
+      $point = Point::where('pikr_id', $pikr_id[$i])->where('bulan_tahun', $data['bulan_tahun'])->get();
       $normalisasi = [];
 
       foreach ($point as $p) {
@@ -310,7 +315,7 @@ class RegistrasiKegiatanController extends Controller
         }
       }
 
-      Result::where('pikr_id', $pikr_id[$i])->update([
+      Result::where('pikr_id', $pikr_id[$i])->where('bulan_tahun', $data['bulan_tahun'])->update([
         'point' => $hasil,
       ]);
 
