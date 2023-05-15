@@ -198,10 +198,12 @@
 
 
             } else if ($(this).val() == 'Pendidik Sebaya') {
-                makeSelectPelayanan('/utility/getPendidikSebaya')
-
+                const id = {{ auth()->user()->pikr->id }};
+                makeSelectPelayanan('/utility/getPendidikSebaya?id=' + id)
+                
             } else if ($(this).val() == 'Konselor Sebaya') {
-                makeSelectPelayanan('/utility/getKonselorSebaya')
+                const id = {{ auth()->user()->pikr->id }};
+                makeSelectPelayanan('/utility/getKonselorSebaya?id=' + id)
 
             } else {
                 makeSelectPelayanan('/utility/getPLKB')

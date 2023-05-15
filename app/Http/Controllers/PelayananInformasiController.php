@@ -122,13 +122,14 @@ class PelayananInformasiController extends Controller
 
     public function getPendidikSebaya()
     {
-        $data = Pengurus::where('jabatan', 'Pendidik Sebaya')->get();
+        
+        $data = Pengurus::where('jabatan', 'Pendidik Sebaya')->where('pikr_id', $_GET['id'])->get();
         return \response()->json($data);
     }
 
     public function getKonselorSebaya()
     {
-        $data = Pengurus::where('jabatan', 'Konselor Sebaya')->get();
+        $data = Pengurus::where('jabatan', 'Konselor Sebaya')->where('pikr_id', $_GET['id'])->get();
         return \response()->json($data);
     }
 

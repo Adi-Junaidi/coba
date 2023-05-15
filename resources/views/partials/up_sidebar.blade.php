@@ -60,7 +60,7 @@
                     <ul class="submenu {{ Request::is('up/data*') ? 'active' : '' }}">
 
                         <li class="submenu-item {{ Request::is('up/data/identitas') ? 'active' : '' }}">
-                            <a href="/up/data/identitas">Indentitas Kelompok</a>
+                            <a href="/up/data/identitas">Identitas Kelompok</a>
                         </li>
 
                         <li class="submenu-item {{ Request::is('up/data/informasi') ? 'active' : '' }}">
