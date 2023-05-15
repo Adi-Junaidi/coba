@@ -26,4 +26,10 @@ class Kecamatan extends Model
   {
     return $this->belongsTo(Kabkota::class);
   }
+
+  // ==== Accessor ====
+  public function getParsedNamaAttribute()
+  {
+    return str_replace('KECAMATAN ', '', strtoupper($this->nama));
+  }
 }

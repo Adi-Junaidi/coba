@@ -68,6 +68,19 @@
                                 </li>
                             </ul>
                         </li>
+
+                        <li class="sidebar-item has-sub {{ Request::is('spk*') ? 'active' : '' }}">
+                            <a class='sidebar-link' href="#">
+                                <i class="bi bi-stack"></i>
+                                <span>SPK</span>
+                            </a>
+
+                            <ul class="submenu {{ Request::is('spk*') ? 'active' : '' }}">
+                                <li class="submenu-item {{ Request::is('spk/kriteria') ? 'active' : '' }}">
+                                    <a href="/spk/criteria">Kriteria</a>
+                                </li>
+                            </ul>
+                        </li>
                     @endcan
 
 
@@ -119,39 +132,41 @@
                         </a>
                     </li>
 
-          <li class="sidebar-title">Laporan</li>
+          @can('viewAny', App\Models\Laporan::class)
+            <li class="sidebar-title">Laporan</li>
 
-          <li class="sidebar-item has-sub {{ Request::is('laporan/bulanan/*') ? 'active' : '' }}">
-            <a class='sidebar-link' href="#">
-              <i class="bi bi-grid-1x2-fill"></i>
-              <span>Laporan Bulanan</span>
-            </a>
+            <li class="sidebar-item has-sub {{ Request::is('laporan/bulanan/*') ? 'active' : '' }}">
+              <a class='sidebar-link' href="#">
+                <i class="bi bi-grid-1x2-fill"></i>
+                <span>Laporan Bulanan</span>
+              </a>
 
-            <ul class="submenu">
-              <li class="submenu-item">
-                <a href="#">Tabel 7A</a>
-              </li>
-              <li class="submenu-item">
-                <a href="#">Tabel 7B</a>
-              </li>
-            </ul>
-          </li>
+              <ul class="submenu {{ Request::is('laporan/bulanan/*') ? 'active' : '' }}">
+                <li class="submenu-item {{ Request::is('laporan/bulanan/7a') ? 'active' : '' }}">
+                  <a href="/laporan/bulanan/7a">Tabel 7A</a>
+                </li>
+                <li class="submenu-item {{ Request::is('laporan/bulanan/7b') ? 'active' : '' }}">
+                  <a href="/laporan/bulanan/7b">Tabel 7B</a>
+                </li>
+              </ul>
+            </li>
 
-          <li class="sidebar-item has-sub {{ Request::is('laporan/tahunan/*') ? 'active' : '' }}">
-            <a class="sidebar-link" href="#">
-              <i class="bi bi-grid-1x2-fill"></i>
-              <span>Laporan Tahunan</span>
-            </a>
+            <li class="sidebar-item has-sub {{ Request::is('laporan/tahunan/*') ? 'active' : '' }}">
+              <a class="sidebar-link" href="#">
+                <i class="bi bi-grid-1x2-fill"></i>
+                <span>Laporan Tahunan</span>
+              </a>
 
-            <ul class="submenu {{ Request::is('laporan/tahunan/*') ? 'active' : '' }}">
-              <li class="submenu-item {{ Request::is('laporan/tahunan/12a') ? 'active' : '' }}">
-                <a href="/laporan/tahunan/12a">Tabel 12A</a>
-              </li>
-              <li class="submenu-item {{ Request::is('laporan/tahunan/12b') ? 'active' : '' }}">
-                <a href="/laporan/tahunan/12b">Tabel 12B</a>
-              </li>
-            </ul>
-          </li>
+              <ul class="submenu {{ Request::is('laporan/tahunan/*') ? 'active' : '' }}">
+                <li class="submenu-item {{ Request::is('laporan/tahunan/12a') ? 'active' : '' }}">
+                  <a href="/laporan/tahunan/12a">Tabel 12A</a>
+                </li>
+                <li class="submenu-item {{ Request::is('laporan/tahunan/12b') ? 'active' : '' }}">
+                  <a href="/laporan/tahunan/12b">Tabel 12B</a>
+                </li>
+              </ul>
+            </li>
+          @endcan
         </ul>
       </div>
 

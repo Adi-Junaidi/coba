@@ -11,7 +11,7 @@
 @section('container')
   <section class="row">
     <div class="col">
-      @include('partials.laporan-filter-card')
+      @include('partials.laporan-tahunan-filter-card')
     </div>
   </section>
 

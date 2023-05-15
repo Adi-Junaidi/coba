@@ -18,6 +18,8 @@ use App\Models\Pikr;
 
 use App\Exports\Laporan12aExport;
 use App\Exports\Laporan12bExport;
+use App\Exports\Laporan7aExport;
+use App\Exports\Laporan7bExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class LaporanController extends Controller
@@ -163,88 +165,198 @@ class LaporanController extends Controller
     //
   }
 
-  public function tahunan_a()
+  private function filterTahunan(Request $request)
   {
-    $kabkotas = Kabkota::all();
-    // this is a MAGIC that groups PIK-R by KabKota
-    // It does work, don't 🚫 touch it
-    $kabkotaPikrs = $kabkotas->mapWithKeys(fn ($kabkota) => [
-      $kabkota->id => $kabkota->kecamatan->flatMap(fn ($kecamatan) => $kecamatan->pikrs)
-    ]);
-
-    $downloadLinks = [
-      "xlsx" => '/laporan/tahunan/export/12a/xlsx',
-      "pdf" => '/laporan/tahunan/export/12a/pdf',
+    $filters = [
+      'kabkota_id' => $request->kb,
+      'kecamatan_id' => $request->kc,
+      'tahun' => $request->t ?? date('Y')
     ];
 
-    return view('laporan.12a', compact('kabkotas', 'kabkotaPikrs', 'downloadLinks'));
+    $kabkotas = Kabkota::all();
+    $kecamatan = null;
+    $kabkota = null;
+    $areas = $kabkotas;
+    if ($filters['kabkota_id']) {
+      $kabkota = Kabkota::find($filters['kabkota_id']);
+      $areas = $kabkota->kecamatan;
+
+      if ($filters['kecamatan_id']) {
+        $kecamatan = Kecamatan::find($filters['kecamatan_id']);
+        $areas = $kecamatan->desa;
+      }
+    }
+
+    return compact('kabkotas', 'kabkota', 'kecamatan', 'filters', 'areas');
   }
 
-  public function tahunan_b()
+  public function tahunan_a(Request $request)
   {
-    $kabkotas = Kabkota::all();
-    // this is a MAGIC that groups PIK-R by KabKota
-    // It does work, don't 🚫 touch it
-    $kabkotaPikrs = $kabkotas->mapWithKeys(fn ($kabkota) => [
-      $kabkota->id => $kabkota->kecamatan->flatMap(fn ($kecamatan) => $kecamatan->pikrs)
-    ]);
+    if (!auth()->user()->isAdmin()) {
+      return back()->with('error', 'Anda tidak berwenang mengakses halaman ini');
+    }
 
-    $kabkotas->each(function ($kabkota) use ($kabkotaPikrs) {
-      $kabkota->pikrs = $kabkotaPikrs[$kabkota->id];
-    });
+    $this->authorize('viewAny', Laporan::class);
 
-    $downloadLinks = [
-      "xlsx" => '/laporan/tahunan/export/12b/xlsx',
-      "pdf" => '/laporan/tahunan/export/12b/pdf',
+    $data = $this->filterTahunan($request);
+    $kabkota = $data['kabkota'];
+    $kecamatan = $data['kecamatan'];
+    $filters = $data['filters'];
+    $areas = $data['areas'];
+
+    switch ($request->export) {
+      case 'xslx':
+        return Excel::download(new Laporan12aExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN $filters[tahun].xlsx");
+
+      case 'pdf':
+        return Excel::download(new Laporan12aExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN $filters[tahun].pdf", \Maatwebsite\Excel\Excel::MPDF);
+
+      default:
+        return view('laporan.12a', $data);
+    }
+  }
+
+  public function tahunan_b(Request $request)
+  {
+    if (!auth()->user()->isAdmin()) {
+      return back()->with('error', 'Anda tidak berwenang mengakses halaman ini');
+    }
+
+    $this->authorize('viewAny', Laporan::class);
+
+    $data = $this->filterTahunan($request);
+    $kabkota = $data['kabkota'];
+    $kecamatan = $data['kecamatan'];
+    $filters = $data['filters'];
+    $areas = $data['areas'];
+
+    switch ($request->export) {
+      case 'xslx':
+        return Excel::download(new Laporan12bExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN $filters[tahun].xlsx");
+
+      case 'pdf':
+        return Excel::download(new Laporan12bExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN $filters[tahun].pdf", \Maatwebsite\Excel\Excel::MPDF);
+
+      default:
+        return view('laporan.12b', $data);
+    }
+  }
+
+  public function bulanan_a(Request $request)
+  {
+    if (!auth()->user()->isAdmin()) {
+      return back()->with('error', 'Anda tidak berwenang mengakses halaman ini');
+    }
+
+    $this->authorize('viewAny', Laporan::class);
+
+    $filters = [
+      "kabkota_id" => $request->kb,
+      "kecamatan_id" => $request->kc,
+      "bulan" => [
+        "kode" => $request->b ?? date('m'),
+        "nama" => ""
+      ],
+      "tahun" => $request->t ?? date('Y')
     ];
 
-    return view('laporan.12b', compact('kabkotas', 'downloadLinks'));
+    $kabkotas = Kabkota::all();
+    $kecamatan = null;
+    $kabkota = null;
+    $areas = $kabkotas;
+    if ($filters['kabkota_id']) {
+      $kabkota = Kabkota::find($filters['kabkota_id']);
+      $areas = $kabkota->kecamatan;
+
+      if ($filters['kecamatan_id']) {
+        $kecamatan = Kecamatan::find($filters['kecamatan_id']);
+        $areas = $kecamatan->desa;
+      }
+    }
+
+    $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    $filters['bulan']['nama'] = $months[$filters['bulan']['kode'] - 1];
+
+    switch ($request->export) {
+      case 'xlsx':
+        return Excel::download(new Laporan7aExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) YANG MELAKUKAN PERTEMUAN DAN REMAJA HADIR PERTEMUAN BULAN {$filters['bulan']['nama']} {$filters['tahun']}.xlsx");
+
+      case 'pdf':
+        return Excel::download(new Laporan7aExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) YANG MELAKUKAN PERTEMUAN DAN REMAJA HADIR PERTEMUAN BULAN {$filters['bulan']['nama']} {$filters['tahun']}.pdf", \Maatwebsite\Excel\Excel::MPDF);
+
+      default:
+        return view('laporan.7a', compact('kabkotas', 'kabkota', 'kecamatan', 'filters', 'months', 'areas'));
+    }
   }
 
+  public function bulanan_b(Request $request)
+  {
+    if (!auth()->user()->isAdmin()) {
+      return back()->with('error', 'Anda tidak berwenang mengakses halaman ini');
+    }
 
-  // Export Excel
-  public function export_12a_xlsx()
-  {
-    return Excel::download(new Laporan12aExport, 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN 2023.xlsx');
-  }
-  public function export_12b_xlsx()
-  {
-    return Excel::download(new Laporan12bExport, 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN 2023.xlsx');
+    $this->authorize('viewAny', Laporan::class);
+
+    $filters = [
+      "kabkota_id" => $request->kb,
+      "kecamatan_id" => $request->kc,
+      "bulan" => [
+        "kode" => $request->b ?? date('m'),
+        "nama" => ""
+      ],
+      "tahun" => $request->t ?? date('Y')
+    ];
+
+    $kabkotas = Kabkota::all();
+    $kecamatan = null;
+    $kabkota = null;
+    $areas = $kabkotas;
+    if ($filters['kabkota_id']) {
+      $kabkota = Kabkota::find($filters['kabkota_id']);
+      $areas = $kabkota->kecamatan;
+
+      if ($filters['kecamatan_id']) {
+        $kecamatan = Kecamatan::find($filters['kecamatan_id']);
+        $areas = $kecamatan->desa;
+      }
+    }
+
+    $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    $filters['bulan']['nama'] = $months[$filters['bulan']['kode'] - 1];
+
+    switch ($request->export) {
+      case 'xlsx':
+        return Excel::download(new Laporan7bExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH REMAJA HADIR KONSELING PADA PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) BULAN {$filters['bulan']['nama']} {$filters['tahun']}.xlsx");
+
+      case 'pdf':
+        return Excel::download(new Laporan7bExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH REMAJA HADIR KONSELING PADA PUSAT INFORMASI DAN KONSELING REMAJA DAN MAHASISWA (PIK REMAJA) BULAN {$filters['bulan']['nama']} {$filters['tahun']}.pdf", \Maatwebsite\Excel\Excel::MPDF);
+
+      default:
+        return view('laporan.7b', compact('kabkotas', 'kabkota', 'kecamatan', 'filters', 'months', 'areas'));
+    }
   }
 
-  // export pdf
-  public function export_12a_pdf()
-  {
-    return Excel::download(new Laporan12aExport, 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN 2023.pdf', \Maatwebsite\Excel\Excel::MPDF);
-  }
-  public function export_12b_pdf()
-  {
-    return Excel::download(new Laporan12bExport, 'JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN 2023.pdf', \Maatwebsite\Excel\Excel::MPDF);
-  }
-  
-  
   public function detail(Laporan $laporan)
-    {
-        if (\session('pikr_id') != $laporan->pikr_id) abort(403);
-        if ($laporan->status == "Not Submited") abort(403);
-        
-        return view('user-pikr.kegiatan.detail', [
-            'pelayanan_s' => $laporan->pelayananInformasi()->get(),
-            'ki_s' => $laporan->konseling()->get(),
-            'kk_s' => $laporan->konselingKelompok()->get(),
-        ]);
-    }
-    
-    public function cancel(Laporan $laporan)
-    {
-        if (session('pikr_id') != $laporan->pikr_id) abort(403);
-        if ($laporan->status != "Submited") abort(403);
+  {
+    if (\session('pikr_id') != $laporan->pikr_id) abort(403);
+    if ($laporan->status == "Not Submited") abort(403);
 
-        $laporan->update([
-            'status' => 'Not Submited',
-        ]);
+    return view('user-pikr.kegiatan.detail', [
+      'pelayanan_s' => $laporan->pelayananInformasi()->get(),
+      'ki_s' => $laporan->konseling()->get(),
+      'kk_s' => $laporan->konselingKelompok()->get(),
+    ]);
+  }
 
-        return  back()->with('success', 'Berhasil membatalkan pengiriman registrasi kegiatan');
-    }
+  public function cancel(Laporan $laporan)
+  {
+    if (session('pikr_id') != $laporan->pikr_id) abort(403);
+    if ($laporan->status != "Submited") abort(403);
 
+    $laporan->update([
+      'status' => 'Not Submited',
+    ]);
+
+    return  back()->with('success', 'Berhasil membatalkan pengiriman registrasi kegiatan');
+  }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePointsTable extends Migration
+class CreateCriteriasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreatePointsTable extends Migration
      */
     public function up()
     {
-        Schema::create('points', function (Blueprint $table) {
+        Schema::create('criterias', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pikr_id');
-            $table->foreignId('criteria_id');
-            $table->string('bulan_tahun');
-            $table->decimal('point');
+            $table->string('nama');
+            $table->string('status');
+            $table->decimal('bobot');
+            $table->decimal('normalisasi');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreatePointsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('points');
+        Schema::dropIfExists('criterias');
     }
 }

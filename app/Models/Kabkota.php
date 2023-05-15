@@ -22,14 +22,19 @@ class Kabkota extends Model
     return $this->hasManyThrough(Desa::class, Kecamatan::class);
   }
 
-  // FIXME: fungsi ini malah mengembalikan data dari tabel pikr sebagai model Desa instead of Pikr
-  public function pikrs()
-  {
-    return $this->desas()->join('pikrs', 'desas.id', '=', 'pikrs.desa_id')->select('*');
-  }
-
   public function provinsi()
   {
     return $this->belongsTo(Provinsi::class);
+  }
+
+  // ==== Accessor ====
+  public function getParsedNamaAttribute()
+  {
+    return str_replace('KABUPATEN ', '', strtoupper($this->nama));
+  }
+  // accessor alternatif untuk relasi One to Many Kabupaten dan PIK-R
+  public function getPikrsAttribute()
+  {
+    return $this->kecamatan->flatMap(fn ($kecamatan) => $kecamatan->pikrs);
   }
 }

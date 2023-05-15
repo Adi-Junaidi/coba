@@ -2,11 +2,10 @@
 
 namespace App\Exports;
 
-use App\Models\Kabkota;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 
-class Laporan12bExport implements FromView
+class Laporan7aExport implements FromView
 {
   private $kabkota;
   private $kecamatan;
@@ -28,6 +27,6 @@ class Laporan12bExport implements FromView
     $filters = $this->filters;
     $areas = $this->areas;
 
-    return view('partials.exports.12b', compact('kabkota', 'kecamatan', 'filters', 'areas'));
+    return view('partials.exports.7a', compact('kabkota', 'kecamatan', 'filters', 'areas'));
   }
 }
