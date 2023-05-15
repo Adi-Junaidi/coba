@@ -30,17 +30,18 @@ class RegisterController extends Controller
       "passwordConfirm" => "required|min:8|max:255|same:password",
 
       // FIXME: perbaiki validasi
-      "desa_id" => "required",
-      "pembina" => "required",
+      "desa_id" => "required|integer|exists:desas,id",
+      "pengelola" => "required",
       "alamat" => "required",
       "basis" => "required",
     ]);
 
     $validatedData["password"] = bcrypt($validatedData["password"]);
-    $pembina = Pembina::where('nama', $validatedData['pembina'])->first();
+    $pembina = Pembina::where('nama', $validatedData['pengelola'])->first();
     if (!$pembina) {
       $pembina = Pembina::create([
-        "nama" => $validatedData["pembina"]
+        "nama" => $validatedData["pengelola"],
+        "desa_id" => $validatedData['desa_id']
       ]);
     }
 
@@ -50,14 +51,10 @@ class RegisterController extends Controller
       "user_id" => $user->id,
       "desa_id" => $validatedData["desa_id"],
       "pembina_id" => $pembina->id,
-      "no_register" => "", // FIXME: generate otomatis
-      "no_urut" => "", // FIXME: generate otomatis
       "alamat" => $validatedData["alamat"],
       "basis" => $validatedData["basis"],
     ]);
 
-    Alert::success('Registrasi Berhasil!');
-
-    return redirect('/login');
+    return redirect('/login')->with('success', "Registrasi $user->nama berhasil");
   }
 }

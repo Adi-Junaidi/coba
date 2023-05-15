@@ -7,34 +7,6 @@
 @endsection
 
 @section('form')
-  @error('username')
-    <div class="alert alert-danger">{{ $message }}</div>
-  @enderror
-  @error('email')
-    <div class="alert alert-danger">{{ $message }}</div>
-  @enderror
-  @error('password')
-    <div class="alert alert-danger">{{ $message }}</div>
-  @enderror
-  @error('passwordConfirm')
-    <div class="alert alert-danger">{{ $message }}</div>
-  @enderror
-  @error('nama')
-    <div class="alert alert-danger">{{ $message }}</div>
-  @enderror
-  @error('basis')
-    <div class="alert alert-danger">{{ $message }}</div>
-  @enderror
-  @error('pembina')
-    <div class="alert alert-danger">{{ $message }}</div>
-  @enderror
-  @error('desa_id')
-    <div class="alert alert-danger">{{ $message }}</div>
-  @enderror
-  @error('alamat')
-    <div class="alert alert-danger">{{ $message }}</div>
-  @enderror
-
   <form class="login100-form validate-form p-b-33 p-t-5" id="stepper-form" action="/register" method="post" novalidate>
     @csrf
     <div class="bs-stepper">
@@ -116,10 +88,10 @@
             <span class="focus-input100" data-placeholder="&#xe82a;"></span>
           </div>
 
-          <div class="wrap-input100 validate-input" data-validate="Masukkan nama pembina">
-            <input class="input100" name="pembina" type="text" value="{{ old('pembina') }}" required list="list-pembina" placeholder="Nama pembina">
+          <div class="wrap-input100 validate-input" data-validate="Masukkan nama pengelola">
+            <input class="input100" name="pengelola" type="text" value="{{ old('pengelola') }}" required list="list-pengelola" placeholder="Nama pengelola">
             <span class="focus-input100" data-placeholder="&#xe82a;"></span>
-            <datalist id="list-pembina">
+            <datalist id="list-pengelola">
               @foreach ($pembinas as $p)
                 <option>{{ $p->nama }}</option>
               @endforeach
@@ -178,6 +150,7 @@
     </div>
 
     <div class="mt-3 text-center">Sudah punya akun? <a href="/login">Login</a></div>
+    <div class="text-center">Kembali ke menu <a href="/">Home</a></div>
   </form>
 @endsection
 

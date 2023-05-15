@@ -17,8 +17,8 @@ class LoginController extends Controller
   public function authenticate(Request $request)
   {
     $credentials = $request->validate([
-      'username' => 'required',
-      'password' => 'required'
+      'username' => 'required|exists:users',
+      'password' => 'required|min:8'
     ]);
 
     $pikr = User::where('username', $credentials['username'])->first()?->pikr;
@@ -27,17 +27,14 @@ class LoginController extends Controller
     }
 
     if (Auth::attempt($credentials)) {
-
       $request->session()->regenerate();
 
       Alert::success('Login Successful!');
 
       return redirect()->intended('/');
-    } else {
-      Alert::error('Login Failed!');
     }
 
-    return back();
+    return back()->with('error', "Login gagal. Cek kembali Username dan Password yang dimasukkan");
   }
 
   public function logout(Request $request)

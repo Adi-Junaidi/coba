@@ -7,7 +7,7 @@
     @csrf
 
     <div class="wrap-input100 validate-input" data-validate="Masukkan Username">
-      <input class="input100" name="username" type="text" placeholder="Masukkan Username">
+      <input class="input100" name="username" type="text" value="{{ old('username') }}" placeholder="Masukkan Username">
       <span class="focus-input100" data-placeholder="&#xe82a;"></span>
     </div>
 
