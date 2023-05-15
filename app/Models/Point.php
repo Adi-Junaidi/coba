@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Point extends Model
 {
@@ -14,5 +13,10 @@ class Point extends Model
     public function pikr(): BelongsTo
     {
         return $this->belongsTo(Pikr::class);
+    }
+    
+    public function criteria()
+    {
+        return $this->belongsTo(Criteria::class);
     }
 }

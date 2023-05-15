@@ -74,6 +74,11 @@ class Pikr extends Model
     return $this->hasMany(Article::class);
   }
 
+  public function points()
+  {
+    return $this->hasMany(Point::class);
+  }
+
   // ini function utk many to many pada tabel materi
 
   public function mitra()

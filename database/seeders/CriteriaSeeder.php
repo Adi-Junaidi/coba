@@ -63,5 +63,12 @@ class CriteriaSeeder extends Seeder
             "normalisasi" => 0
         ]);
 
+        Criteria::create([
+            "nama" => "Artikel",
+            "status" => "benefit",
+            "bobot" => 0,
+            "normalisasi" => 0
+        ]);
+
     }
 }

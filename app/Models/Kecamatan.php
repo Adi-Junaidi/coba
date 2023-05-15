@@ -16,10 +16,15 @@ class Kecamatan extends Model
   {
     return $this->hasMany(Desa::class);
   }
-
+  
   public function pikrs()
   {
     return $this->hasManyThrough(Pikr::class, Desa::class);
+  }
+  
+  public function pikr()
+  {
+    return $this->hasMany(Pikr::class);
   }
 
   public function kabkota()

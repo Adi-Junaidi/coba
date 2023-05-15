@@ -56,6 +56,14 @@ class PointSeeder extends Seeder
             "bulan_tahun" => "01-2023", // formatnya YYYY-MM-DD
             "point" => "4.00"
         ]);
+
+        Point::create([
+            "pikr_id" => "1",
+            "criteria_id" => "8",
+            "bulan_tahun" => "01-2023", // formatnya YYYY-MM-DD
+            "point" => "4.00"
+        ]);
+
         Point::create([
             "pikr_id" => "2 ",
             "criteria_id" => "1",
@@ -97,6 +105,12 @@ class PointSeeder extends Seeder
             "criteria_id" => "7",
             "bulan_tahun" => "01-2023", // formatnya YYYY-MM-DD
             "point" => "4.00"
+        ]);
+        Point::create([
+            "pikr_id" => "2",
+            "criteria_id" => "8",
+            "bulan_tahun" => "01-2023", // formatnya YYYY-MM-DD
+            "point" => "5.00"
         ]);
     }
 }

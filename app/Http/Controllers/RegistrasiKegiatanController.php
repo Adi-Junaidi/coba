@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article;
-use App\Models\Criteria;
 use App\Models\Desa;
 use App\Models\Pikr;
 use App\Models\Point;
+use App\Models\Result;
+use App\Models\Article;
 use App\Models\Kabkota;
 use App\Models\Laporan;
+use App\Models\Pembagi;
 use App\Models\Pembina;
+use App\Models\Criteria;
 use App\Models\Kecamatan;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\PelayananInformasi;
-use App\Models\Pembagi;
-use App\Models\Result;
 
 class RegistrasiKegiatanController extends Controller
 {
@@ -27,20 +28,20 @@ class RegistrasiKegiatanController extends Controller
   public function index()
   {
 
-    $status = Pembina::find(\auth()->user()->pembina->id)->desa->kecamatan->id;
-    $kecamatan = Kecamatan::find($status)->desa;
-    $pikr_s = [];
+    // $status = Pembina::find(\auth()->user()->pembina->id)->desa->kecamatan->id;
+    // $kecamatan = Kecamatan::find($status)->pikr;
+    // $pikr_s = [];
 
-    foreach ($kecamatan as $k) {
-      array_push($pikr_s, $k->pikr->toArray());
-    }
+    // foreach ($kecamatan as $k) {
+    //   array_push($pikr_s, $k->pikr->toArray());
+    // }
 
-    $pikr_s = \array_merge(...$pikr_s);
+    // $pikr_s = \array_merge(...$pikr_s);
 
-    $pikr_id = [];
-    foreach ($pikr_s as $pikr) {
-      \array_push($pikr_id, $pikr['id']);
-    }
+    // $pikr_id = [];
+    // foreach ($pikr_s as $pikr) {
+    //   \array_push($pikr_id, $pikr['id']);
+    // }
 
     $bulan = [
       1 => 'Januari',
@@ -58,7 +59,7 @@ class RegistrasiKegiatanController extends Controller
     ];
 
     return view('registrasi.index', [
-      "reports" => Laporan::whereIn('pikr_id', $pikr_id)->where('status', 'Submited')->get(),
+      "reports" => Laporan::all(),
       "desa" => Desa::all(),
       "kabkota" => Kabkota::all(),
       'bulan' => $bulan,
@@ -127,7 +128,7 @@ class RegistrasiKegiatanController extends Controller
     // Proses input poin ke db points
     $point = $this->setPoint($registrasi_kegiatan);
 
-    if (!$this->setResult($registrasi_kegiatan)) {
+    if (!$this->setResult($point)) {
       return \redirect()->back()->with('fail', 'Gagal melakukan verifikasi register kegiatan PIK-R');
     };
 
@@ -158,141 +159,12 @@ class RegistrasiKegiatanController extends Controller
   }
 
 
-  // protected function countPoint($registrasi_kegiatan)
-  // {
-  //   if (Point::where('laporan_id', $registrasi_kegiatan->id)->first() == null) {
-  //     Point::create([
-  //       'laporan_id' => $registrasi_kegiatan->id,
-  //     ]);
-  //   }
-
-  //   $point = $registrasi_kegiatan->point()->first()->toArray();
-  //   $point = Arr::except($point, ['id', 'created_at', 'updated_at']);
-
-  //   $pelayanan_s = $registrasi_kegiatan->pelayananInformasi()->get();
-
-  //   if ($pelayanan_s != null) {
-  //     foreach ($pelayanan_s as $pelayanan) {
-
-  //       if ($pelayanan->materi_id != 0) {
-  //         $point['materi_pelayanan'] += 2;
-  //       } else {
-  //         $point['materi_pelayanan'] += 1;
-  //       }
-
-  //       if ($pelayanan->jabatan_narsum != 'Lainnya') {
-  //         $point['narasumber_pelayanan'] += 2;
-  //       } else {
-  //         $point['narasumber_pelayanan'] += 1;
-  //       }
-
-  //       $point['peserta_pelayanan'] += $pelayanan->jumlah_peserta;
-  //     }
-
-  //     $jumlah_peserta = 0;
-
-  //     if ($point['peserta_pelayanan'] > 500) {
-  //       $jumlah_peserta = 5;
-  //     } else if ($point['peserta_pelayanan'] > 300) {
-  //       $jumlah_peserta = 4;
-  //     } else if ($point['peserta_pelayanan'] > 150) {
-  //       $jumlah_peserta = 3;
-  //     } else if ($point['peserta_pelayanan'] > 50) {
-  //       $jumlah_peserta = 2;
-  //     } else {
-  //       $jumlah_peserta = 1;
-  //     }
-
-  //     $point['peserta_pelayanan'] = $jumlah_peserta;
-  //   }
-
-
-  //   $ki_s = $registrasi_kegiatan->konseling()->get();
-  //   if ($ki_s != null) {
-  //     foreach ($ki_s as $ki) {
-
-  //       if ($ki->materi_id != 0) {
-  //         $point['materi_ki'] += 2;
-  //       } else {
-  //         $point['materi_ki'] += 1;
-  //       }
-
-  //       $point['peserta_ki'] += $ki->jumlah_cowok + $ki->jumlah_cewek;
-  //     }
-
-  //     $jumlah_peserta = 0;
-
-  //     if ($point['peserta_ki'] > 500) {
-  //       $jumlah_peserta = 5;
-  //     } else if ($point['peserta_ki'] > 300) {
-  //       $jumlah_peserta = 4;
-  //     } else if ($point['peserta_ki'] > 150) {
-  //       $jumlah_peserta = 3;
-  //     } else if ($point['peserta_ki'] > 50) {
-  //       $jumlah_peserta = 2;
-  //     } else {
-  //       $jumlah_peserta = 1;
-  //     }
-
-  //     $point['peserta_ki'] = $jumlah_peserta;
-  //   }
-
-  //   $kk_s = $registrasi_kegiatan->konselingKelompok()->get();
-  //   if ($kk_s != null) {
-  //     foreach ($kk_s as $kk) {
-  //       if ($kk->materi_id != 0) {
-  //         $point['materi_kk'] += 2;
-  //       } else {
-  //         $point['materi_kk'] += 1;
-  //       }
-
-  //       $point['peserta_kk'] += $kk->jumlah_cowok + $kk->jumlah_cewek;
-  //     }
-
-  //     $jumlah_peserta = 0;
-
-  //     if ($point['peserta_kk'] > 500) {
-  //       $jumlah_peserta = 5;
-  //     } else if ($point['peserta_kk'] > 300) {
-  //       $jumlah_peserta = 4;
-  //     } else if ($point['peserta_kk'] > 150) {
-  //       $jumlah_peserta = 3;
-  //     } else if ($point['peserta_kk'] > 50) {
-  //       $jumlah_peserta = 2;
-  //     } else {
-  //       $jumlah_peserta = 1;
-  //     }
-
-  //     $point['peserta_kk'] = $jumlah_peserta;
-  //   }
-
-  //   $bulanTahun = "$registrasi_kegiatan->bulan_lapor-$registrasi_kegiatan->tahun_lapor";
-  //   $jumlah_artikel = Article::where(['pikr_id' => $registrasi_kegiatan->pikr->id, 'bulan_tahun' => $bulanTahun])->count();
-
-  //   $point_artikel = 0;
-
-  //   if ($jumlah_artikel > 25) {
-  //     $point_artikel = 5;
-  //   } else if ($jumlah_artikel > 15) {
-  //     $point_artikel = 4;
-  //   } else if ($jumlah_artikel > 8) {
-  //     $point_artikel = 3;
-  //   } else if ($jumlah_artikel > 3) {
-  //     $point_artikel = 2;
-  //   } else {
-  //     $point_artikel = 1;
-  //   }
-
-  //   $point['artikel'] = $point_artikel;
-
-  //   return $point;
-  // }
 
   protected function setPoint($registrasi_kegiatan)
   {
     foreach (Criteria::all() as $criteria) {
       $point = 0;
-      
+
       switch (strtolower($criteria->nama)) {
         case 'materi pelayanan':
           foreach ($registrasi_kegiatan->pelayananInformasi as $kegiatan) {
@@ -354,10 +226,15 @@ class RegistrasiKegiatanController extends Controller
           }
           break;
 
+        case 'artikel':
+          $articles = Article::where('pikr_id', $registrasi_kegiatan->pikr->id)->get();
+          $point += $articles->count();
+          break;
+
         default:
           break;
       }
-      
+
       Point::create([
         'pikr_id' => $registrasi_kegiatan->pikr->id,
         'criteria_id' => $criteria->id,
@@ -365,53 +242,80 @@ class RegistrasiKegiatanController extends Controller
         'point' => $point,
       ]);
     }
+
+    $data = [
+      'pikr_id' => $registrasi_kegiatan->pikr->id,
+      'bulan_tahun' => sprintf("%s-%s", $registrasi_kegiatan->bulan_lapor, $registrasi_kegiatan->tahun_lapor),
+    ];
+
+    $criterias = $registrasi_kegiatan->pikr->points()->get();
+
+    foreach ($criterias as $criteria) {
+      $data[Str::slug($criteria->criteria->nama, '_')] = $criteria->point;
+    }
+
+    return $data;
   }
 
-  // protected function setResult($registrasi_kegiatan)
-  // {
-  //   $bulanTahun = "$registrasi_kegiatan->bulan_lapor-$registrasi_kegiatan->tahun_lapor";
+  protected function setResult($data)
+  {
+    Result::create([
+      'pikr_id' => $data['pikr_id'],
+      'bulan_tahun' => $data['bulan_tahun'],
+      'point' => 0,
+    ]);
 
-  //   $pembagi = [
-  //     'materi_pelayanan' => 2,
-  //     'narasumber_pelayanan' => 2,
-  //     "peserta_pelayanan" => 5,
-  //     "materi_ki" => 2,
-  //     "peserta_ki" => 5,
-  //     "materi_kk" => 2,
-  //     "peserta_kk" => 5,
-  //     "artikel" => 5,
-  //   ];
+    $pembagi = [
+      'criteria_1' => Point::where('criteria_id', 1)->max('point'),
+      'criteria_2' => Point::where('criteria_id', 2)->max('point'),
+      'criteria_3' => Point::where('criteria_id', 3)->max('point'),
+      'criteria_4' => Point::where('criteria_id', 4)->max('point'),
+      'criteria_5' => Point::where('criteria_id', 5)->max('point'),
+      'criteria_6' => Point::where('criteria_id', 6)->max('point'),
+      'criteria_7' => Point::where('criteria_id', 7)->max('point'),
+      'criteria_8' => Point::where('criteria_id', 8)->max('point'),
+    ];
 
-  //   $bobot = [
-  //     'materi_pelayanan' => 0.05,
-  //     'narasumber_pelayanan' => 0.05,
-  //     "peserta_pelayanan" => 0.3,
-  //     "materi_ki" => 0.05,
-  //     "peserta_ki" => 0.1,
-  //     "materi_kk" => 0.05,
-  //     "peserta_kk" => 0.25,
-  //     "artikel" => 0.2,
-  //   ];
+    $pikr_id = Point::pluck('pikr_id')->unique()->values()->toArray();
 
-  //   $normalisasi = [];
+    for ($i = 0; $i < count($pikr_id); $i++) {
+      $point = Point::where('pikr_id', $pikr_id[$i])->get();
+      $normalisasi = [];
 
-  //   foreach($pembagi as $key => $value){
-  //     $normalisasi[$key] = $point[$key] / $pembagi[$key];
-  //   }
+      foreach ($point as $p) {
+        if ($p->criteria->id == 1 && $pembagi['criteria_1'] != 0.00) {
+          $normalisasi[0] = $p->point / $pembagi['criteria_1'];
+        } elseif ($p->criteria->id == 2 && $pembagi['criteria_2'] != 0.00) {
+          $normalisasi[1] = $p->point / $pembagi['criteria_2'];
+        } elseif ($p->criteria->id == 3 && $pembagi['criteria_3'] != 0.00) {
+          $normalisasi[2] = $p->point / $pembagi['criteria_3'];
+        } elseif ($p->criteria->id == 4 && $pembagi['criteria_4'] != 0.00) {
+          $normalisasi[3] = $p->point / $pembagi['criteria_4'];
+        } elseif ($p->criteria->id == 5 && $pembagi['criteria_5'] != 0.00) {
+          $normalisasi[4] = $p->point / $pembagi['criteria_5'];
+        } elseif ($p->criteria->id == 6 && $pembagi['criteria_6'] != 0.00) {
+          $normalisasi[5] = $p->point / $pembagi['criteria_6'];
+        } elseif ($p->criteria->id == 7 && $pembagi['criteria_7'] != 0.00) {
+          $normalisasi[6] = $p->point / $pembagi['criteria_7'];
+        }elseif ($p->criteria->id == 8 && $pembagi['criteria_8'] != 0.00) {
+          $normalisasi[7] = $p->point / $pembagi['criteria_8'];
+        }
+      }
 
-  //   $result = 0;
+      $hasil = 0;
+      
+      foreach($point as $keys=>$p){
+        if(\array_key_exists($keys, $normalisasi)){
+          $hasil += $p->criteria->normalisasi * $normalisasi[$keys];
+        }
+      }
 
-  //   foreach($normalisasi as $key => $value){
-  //     $result += $normalisasi[$key] * $bobot[$key];
-  //   }
+      Result::where('pikr_id', $pikr_id[$i])->update([
+        'point' => $hasil,
+      ]);
 
-  //   Result::create([
-  //     'pikr_id' => $registrasi_kegiatan->pikr->id,
-  //     'bulan_tahun' => $bulanTahun,
-  //     'point' => $result,
-  //   ]);
+    }
 
-  //   return true;
-
-  // }
+    return true;
+  }
 }
