@@ -29,7 +29,7 @@
               <label for="tambah__email">Email</label>
             </div>
             <div class="col-md-8 form-group">
-              <input class="form-control" id="tambah__email" name="email" type="email" value={{ old('email') }} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Email" required />
+              <input class="form-control" id="tambah__email" name="email" type="email" value="{{ old('email') }}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Email" required />
             </div>
           </div>
           <div class="row">
