@@ -71,7 +71,7 @@
 
                         <li class="sidebar-item has-sub {{ Request::is('spk*') ? 'active' : '' }}">
                             <a class='sidebar-link' href="#">
-                                <i class="bi bi-stack"></i>
+                                <i class="bi bi-capslock"></i>
                                 <span>SPK</span>
                             </a>
 
