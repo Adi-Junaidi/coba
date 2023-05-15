@@ -109,5 +109,26 @@ class Pikr extends Model
         'identitas' => true,
       ]);
     });
+
+    static::deleting(function ($pikr) {
+      if ($pikr->materi) $pikr->materi->delete();
+      if ($pikr->sarana) $pikr->sarana->delete();
+      if ($pikr->user) $pikr->user->delete();
+      if ($pikr->sk) $pikr->sk->delete();
+      if ($pikr->pengurus) $pikr->pengurus()->delete();
+      if ($pikr->articles) $pikr->articles()->delete();
+      if ($pikr->mitra) $pikr->mitra()->delete();
+      if ($pikr->stepper) $pikr->stepper->delete();
+      if ($pikr->result) $pikr->result->delete();
+
+      if ($pikr->laporan) {
+        foreach ($pikr->laporan as $laporan) {
+          foreach ($laporan->pelayananInformasi as $item) $item->delete();
+          foreach ($laporan->konseling as $item) $item->delete();
+          foreach ($laporan->konselingKelompok as $item) $item->delete();
+          $laporan->delete();
+        }
+      }
+    });
   }
 }

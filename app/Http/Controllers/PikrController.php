@@ -25,9 +25,9 @@ class PikrController extends Controller
   public function index()
   {
     return view('pikr.index', [
+      "provinsi" => Provinsi::first(),
+      "kabkotas" => Kabkota::all(),
       "pikr" => Pikr::all(),
-      "desa" => Desa::all(),
-      "kabkota" => Kabkota::all()
     ]);
   }
 
@@ -120,60 +120,10 @@ class PikrController extends Controller
    */
   public function destroy(Pikr $pikr)
   {
-    if ($pikr->materi) {
-      $pikr->materi->delete();
-    }
-    if ($pikr->sarana) {
-      $pikr->sarana->delete();
-    }
-    if ($pikr->user) {
-      $pikr->user->delete();
-    }
-    if ($pikr->sk) {
-      $pikr->sk->delete();
-    }
-    if ($pikr->pengurus) {
-      $pikr->pengurus()->delete();
-    }
-    if ($pikr->articles) {
-      $pikr->articles()->delete();
-    }
-    if ($pikr->mitra) {
-      $pikr->mitra()->delete();
-    }
-    if ($pikr->stepper) {
-      $pikr->stepper->delete();
-    }
-    if ($pikr->result) {
-      $pikr->result->delete();
-    }
-
-    if ($pikr->laporan) {
-      foreach ($pikr->laporan as $laporan) {
-        foreach ($laporan->pelayananInformasi as $item) {
-          $item->delete();
-        }
-      }
-
-      foreach ($pikr->laporan as $laporan) {
-        foreach ($laporan->konseling as $item) {
-          $item->delete();
-        }
-      }
-
-      foreach ($pikr->laporan as $laporan) {
-        foreach ($laporan->konselingKelompok as $item) {
-          $item->delete();
-        }
-      }
-      foreach ($pikr->laporan as $laporan) {
-        $laporan->delete();
-      }
-    }
-
+    // FIXME: Bagian ini masih bisa dilakukan refactoring agar lebih singkat
     $pikr->delete();
 
-    return \back()->with('success', 'Semua Data yang berkaitan dengan PIK-R tersebut berhasil dihapus');
+    return \back()->with('success', "Semua Data yang berkaitan dengan $pikr->nama berhasil dihapus");
   }
 
   public function verify(Pikr $pikr)

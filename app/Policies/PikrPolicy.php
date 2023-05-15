@@ -30,7 +30,7 @@ class PikrPolicy
    */
   public function view(User $user, Pikr $pikr)
   {
-    //
+    return $user->isAdmin() || $this->verify($user, $pikr);
   }
 
   /**

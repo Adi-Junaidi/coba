@@ -36,7 +36,7 @@ class PikrFactory extends Factory
       "keterpaduan_kelompok" => mt_rand(0, 1),
       "pro_pn" => mt_rand(0, 1),
       "desa_id" => mt_rand(1, Desa::count()),
-      "pembina_id" => mt_rand(1, Pembina::count())
+      "pembina_id" => Pembina::factory()->create()->id
     ];
   }
 }

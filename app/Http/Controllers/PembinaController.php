@@ -23,9 +23,8 @@ class PembinaController extends Controller
     $this->authorize('viewAll', Pembina::class);
 
     return view('pembina.index', [
-      "provinsi" => Provinsi::find(1),
-      "kabkota" => Kabkota::all(),
-      "desa" => Desa::all(),
+      "provinsi" => Provinsi::first(),
+      "kabkotas" => Kabkota::all(),
       "jabatans" => Jabatan::all(),
       "pembina" => Pembina::all(),
     ]);
@@ -50,38 +49,28 @@ class PembinaController extends Controller
   public function store(Request $request)
   {
     // FIXME: lakukan validasi
-    $desa = Desa::find($request->desaId);
-    $kecamatan = $desa->kecamatan;
-    $kabkota = $kecamatan->kabkota;
-    $provinsi = $kabkota->provinsi;
+    $validated = $request->validate([
+      'nama' => 'required',
+      'email' => 'required|unique:users',
+      'username' => 'required|unique:users',
+      'password' => 'required|min:8',
+      'konfirmasiPassword' => 'required|same:password',
+      'desa_id' => 'required|integer|exists:desas,id'
+    ]);
 
-    $kodeJabatan = Jabatan::find($request->jabatanId)->kode;
-    $kodeProvinsi = $provinsi->kode;
-    $kodeKabKot = $kabkota->kode;
-    $kodeKecamatan = $kecamatan->kode;
-    $nomorUrut = '01';
-
-    $noRegister = $kodeProvinsi . $kodeKabKot . $kodeKecamatan . $kodeJabatan . $nomorUrut;
     Pembina::create([
       "user_id" => User::create([
-        'nama' => $request->nama,
-        'username' => $request->username,
-        'email' => $request->email,
-        'password' => Hash::make($request->password),
-
-      ]),
-      "no_register" => $noRegister,
-      "nama" => $request->nama,
-      "no_urut" => $nomorUrut,
-      "jabatan_id" => $request->jabatanId,
-      "desa_id" => $request->desaId
+        'nama' => $validated['nama'],
+        'username' => $validated['username'],
+        'email' => $validated['email'],
+        'password' => Hash::make($validated['password']),
+      ])->id,
+      "nama" => $validated['nama'],
+      "jabatan_id" => 1, // id jabatan PLKB
+      "desa_id" => $validated['desa_id']
     ]);
 
-    return response()->json([
-      'nomor_urut' => $kecamatan->toJson(),
-      'status' => 'success',
-      'message' => 'Berhasil menambah pembina'
-    ]);
+    return back()->with('success', 'Berhasil menambah pembina');
   }
 
   /**
@@ -132,15 +121,9 @@ class PembinaController extends Controller
    */
   public function update(Request $request, Pembina $pembina)
   {
-    // FIXME: perbaiki validasi
-    $validated = $request->validate([
-      'nama' => 'required',
-      'jabatan_id' => 'required'
-    ]);
+    $validated = $request->validate(['nama' => 'required']);
 
-    $pembina->nama = $validated["nama"];
-    $pembina->jabatan_id = $validated['jabatan_id'];
-    $pembina->save();
+    $pembina->update(['nama' => $validated["nama"]]);
 
     return back()->with('success', 'Berhasil mengupdate data pembina ' . $validated["nama"]);
   }
@@ -153,11 +136,11 @@ class PembinaController extends Controller
    */
   public function destroy(Pembina $pembina)
   {
-    
-    if($pembina->pikr->isNotEmpty()){
+
+    if ($pembina->pikr->isNotEmpty()) {
       return \back()->with('fail', 'Tidak dapat menghapus pembina, terdapat PIK-R yang terkait dengan pembina tersebut');
     }
-    
+
     $nama = $pembina->nama;
     $pembina->delete();
     User::where('id', $pembina->user_id)->delete();

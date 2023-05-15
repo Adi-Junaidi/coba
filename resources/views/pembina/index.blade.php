@@ -11,62 +11,18 @@
 @endsection
 
 @section('container')
-  <section class="section">
-    <div class="card">
-      <div class="card-header">
-        <h4 class="card-title">Pencarian Berdasarkan Alamat Pembina</h4>
+  @foreach (['username', 'email', 'password', 'konfirmasiPassword', 'nama'] as $field)
+    @error($field)
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ $message }}
+        <button class="btn-close" data-bs-dismiss="alert" type="button" aria-label="Close"></button>
       </div>
+    @enderror
+  @endforeach
 
-      <div class="card-body">
 
-        <div class="row">
-          <div class="col-6">
-            <div class="form-group">
-              <label for="provinsi">Provinsi</label>
-              <select name="provinsi" id="provinsi" class="form-select">
-                <option value="{{ $provinsi->nama }}">{{ $provinsi->nama }}</option>
-              </select>
-            </div>
-          </div>
+  @include('partials.dropdown-dependent-filter-card', ['objek' => 'Pembina'])
 
-          <div class="col-6">
-            <div class="form-group">
-              <label for="provinsi">Kabupatan/Kota</label>
-              <select name="kabkota" id="kabkota" class="form-select">
-                <option hidden>Pilih Kabupaten</option>
-                @foreach ($provinsi->kabkota as $item)
-                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                @endforeach
-              </select>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="row">
-          <div class="col-6">
-            <div class="form-group">
-              <label for="kecamatan">Kecamatan</label>
-              <select name="kecamatan" id="kecamatan" class="form-select" disabled>
-                <option hidden>Pilih Kecamatan</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="col-6">
-            <div class="form-group">
-              <label for="desa">Desa</label>
-              <select name="desa" id="desa" class="form-select" disabled>
-                <option hidden>Pilih Desa</option>
-              </select>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-  </section>
 
   <section class="section">
     <div class="card">
@@ -85,7 +41,6 @@
               <th>No.</th>
               <th>No. Register</th>
               <th>Nama</th>
-              <th>Jabatan</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -99,269 +54,10 @@
 @endsection
 
 @section('modals')
-  <!-- Modal Create -->
-  <div class="modal fade text-left" id="modalCreate" role="dialog" aria-labelledby="judulModalCreate" aria-hidden="true" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
-      <div class="modal-content">
-        <div class="modal-header bg-primary">
-          <h4 class="modal-title text-light" id="judulModalCreate">Tambah Pembina</h4>
-          <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Tutup"></button>
-        </div>
-
-        <form id="formTambah">
-          @csrf
-          <div class="modal-body">
-            <div class="row mb-3">
-
-              <!-- Untuk kebutuhan login -->
-              <label class="col-sm-2 col-form-label" for="tambah__username">Username</label>
-              <div class="col-sm-4">
-                <input class="form-control" id="tambah__username" type="text" placeholder="Username untuk login">
-              </div>
-              <label class="col-sm-2 col-form-label" for="tambah__email">Email</label>
-              <div class="col-sm-4">
-                <input class="form-control" id="tambah__email" type="email" placeholder="Masukkan email">
-              </div>
-              <label class="col-sm-2 col-form-label" for="tambah__password">Password</label>
-              <div class="col-sm-4">
-                <input class="form-control" id="tambah__password" type="password" placeholder="Masukkan password">
-              </div>
-
-              <label class="col-sm-2 col-form-label" for="tambah__noRegister">No. Register</label>
-              <div class="col-sm-4">
-                <input class="form-control" id="tambah__noRegister" type="text" placeholder="Pilih jabatan terlebih dahulu" readonly disabled>
-              </div>
-
-              <label class="col-sm-2 col-form-label" for="tambah__noUrut">No. Urut Pembina</label>
-              <div class="col-sm-4">
-                <input class="form-control" id="tambah__noUrut" type="text" value="02" readonly disabled>
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label" for="tambah__nama">Nama</label>
-              <div class="col-sm-4">
-                <input class="form-control" id="tambah__nama" type="text" placeholder="Nama Pembina">
-              </div>
-
-              <label class="col-sm-2 col-form-label" for="tambah__jabatan">Jabatan</label>
-              <div class="col-sm-4">
-                <select class="form-select" id="tambah__jabatan" required>
-                  <option value="" hidden>Pilih Jabatan</option>
-                  @foreach ($jabatans as $jabatan)
-                    <option data-kode="{{ $jabatan->kode }}" value="{{ $jabatan->id }}">{{ $jabatan->nama }}</option>
-                  @endforeach
-                  {{-- <option value="Lainnya">Lainnya</option> --}}
-                </select>
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label" for="tambah__alamat">Alamat</label>
-              <label class="col-sm-2 col-form-label" for="tambah__provinsi">Provinsi</label>
-              <div class="col-sm-3">
-                <input class="form-control" id="tambah__provinsi" type="text" value="{{ $provinsi->kode . ' | ' . $provinsi->nama }}" readonly disabled>
-              </div>
-
-              <label class="col-sm-2 col-form-label" for="tambah__kabKota">Kab/Kota</label>
-              <div class="col-sm-3">
-                <input class="form-control" id="tambah__kabKota" type="text" readonly disabled>
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <div class="col-sm-2 col-form-label"></div>
-
-              <label class="col-sm-2 col-form-label" for="tambah__kecamatan">Kecamatan</label>
-              <div class="col-sm-3">
-                <input class="form-control" id="tambah__kecamatan" type="text" readonly disabled>
-              </div>
-
-              <label class="col-sm-2 col-form-label" for="tambah__desaKel">Desa/Kel</label>
-              <div class="col-sm-3">
-                <input class="form-control" id="tambah__desaKel" type="text" readonly disabled>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
-              <i class="bx bx-x d-block d-sm-none"></i>
-              <span class="d-none d-sm-block">Batal</span>
-            </button>
-            <button class="btn btn-primary" data-bs-dismiss="modal" type="submit">
-              <i class="bx bx-x d-block d-sm-none"></i>
-              <span class="d-none d-sm-block">Simpan</span>
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Update -->
-  <div class="modal fade text-left" id="modalUpdate" role="dialog" aria-labelledby="judulModalUpdate" aria-hidden="true" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
-      <div class="modal-content">
-        <div class="modal-header bg-warning">
-          <h4 class="modal-title text-light" id="judulModalUpdate">Edit Pembina</h4>
-          <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Tutup"></button>
-        </div>
-
-        <!-- TODO: id di action akan berubah secara dinamis menggunakan js -->
-        <form id="formUpdate" action="/pembina/{id}" method="post">
-          @csrf
-          @method('put')
-          <div class="modal-body">
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label" for="update__noRegister">No. Register</label>
-              <div class="col-sm-4">
-                <input class="form-control" id="update__noRegister" type="text" placeholder="Pilih jabatan terlebih dahulu" readonly disabled>
-              </div>
-
-              <label class="col-sm-2 col-form-label" for="update__noUrut">No. Urut Pembina</label>
-              <div class="col-sm-4">
-                <input class="form-control" id="update__noUrut" type="text" value="02" readonly disabled>
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label" for="update__nama">Nama</label>
-              <div class="col-sm-4">
-                <input class="form-control" id="update__nama" name="nama" type="text" placeholder="Nama Pembina">
-              </div>
-
-              <label class="col-sm-2 col-form-label" for="update__jabatan">Jabatan</label>
-              <div class="col-sm-4">
-                <select class="form-select" id="update__jabatan" name="jabatan_id" required>
-                  <option value="" hidden>Pilih Jabatan</option>
-                  @foreach ($jabatans as $jabatan)
-                    <option data-kode="{{ $jabatan->kode }}" value="{{ $jabatan->id }}">{{ $jabatan->nama }}</option>
-                  @endforeach
-                  {{-- <option value="Lainnya">Lainnya</option> --}}
-                </select>
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label" for="update__alamat">Alamat</label>
-              <label class="col-sm-2 col-form-label" for="update__provinsi">Provinsi</label>
-              <div class="col-sm-3">
-                <input class="form-control" id="update__provinsi" type="text" value="{{ $provinsi->kode . ' | ' . $provinsi->nama }}" readonly disabled>
-              </div>
-
-              <label class="col-sm-2 col-form-label" for="update__kabKota">Kab/Kota</label>
-              <div class="col-sm-3">
-                <input class="form-control" id="update__kabKota" type="text" readonly disabled>
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <div class="col-sm-2 col-form-label"></div>
-
-              <label class="col-sm-2 col-form-label" for="update__kecamatan">Kecamatan</label>
-              <div class="col-sm-3">
-                <input class="form-control" id="update__kecamatan" type="text" readonly disabled>
-              </div>
-
-              <label class="col-sm-2 col-form-label" for="update__desaKel">Desa/Kel</label>
-              <div class="col-sm-3">
-                <input class="form-control" id="update__desaKel" type="text" readonly disabled>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-light-secondary" data-bs-dismiss="modal" type="button">
-              <i class="bx bx-x d-block d-sm-none"></i>
-              <span class="d-none d-sm-block">Batal</span>
-            </button>
-            <button class="btn btn-warning" data-bs-dismiss="modal" type="submit">
-              <i class="bx bx-x d-block d-sm-none"></i>
-              <span class="d-none d-sm-block">Simpan</span>
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Detail -->
-  <div class="modal fade text-left" id="modalDetail" role="dialog" aria-labelledby="judulModalDetail" aria-hidden="true" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
-      <div class="modal-content">
-        <div class="modal-header bg-info">
-          <h4 class="modal-title text-light" id="judulModalDetail">Detail Data Pembina</h4>
-          <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Close"></button>
-        </div>
-
-        <form action="#">
-          <div class="modal-body">
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label" for="noRegister">No. Register</label>
-              <div class="col-sm-4">
-                <input class="form-control" id="detail__noRegister" type="text" disabled readonly>
-              </div>
-
-              <label class="col-sm-2 col-form-label" for="noUrut">No. Urut Pembina</label>
-              <div class="col-sm-4">
-                <input class="form-control" id="detail__noUrut" type="text" value="02" disabled readonly>
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label" for="nama">Nama</label>
-              <div class="col-sm-10">
-                <input class="form-control" id="detail__nama" type="text" disabled readonly>
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label" for="alamat">Alamat</label>
-              <label class="col-sm-2 col-form-label" for="provinsi">Provinsi</label>
-              <div class="col-sm-3">
-                <input class="form-control" id="detail__provinsi" type="text" value="Gorontalo" disabled readonly>
-              </div>
-
-              <label class="col-sm-2 col-form-label" for="kabupaten">Kab/Kota</label>
-              <div class="col-sm-3">
-                <input class="form-control" id="detail__kabKota" type="text" value="Kota Gorontalo" disabled readonly>
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label" for=""></label>
-
-              <label class="col-sm-2 col-form-label" for="kecamatan">Kecamatan</label>
-              <div class="col-sm-3">
-                <input class="form-control" id="detail__kecamatan" type="text" value="Kota Tengah" disabled readonly>
-              </div>
-
-              <label class="col-sm-2 col-form-label" for="desaKel">Desa/Kel</label>
-              <div class="col-sm-3">
-                <input class="form-control" id="detail__desaKel" type="text" value="Liluwo" disabled readonly>
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label" for="jabatan">Jabatan</label>
-              <div class="col-sm-4">
-                <input class="form-control" id="detail__position" type="text" disabled readonly>
-              </div>
-
-              <div class="col-sm-4">
-                <input class="form-control" id="detail__lainnya" type="text" placeholder="Lainnya" disabled readonly>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-light-secondary" data-bs-dismiss="modal" type="button">
-              <i class="bx bx-x d-block d-sm-none"></i>
-              <span class="d-none d-sm-block">Batal</span>
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+  @include('partials.pembina-modal-create')
+  @include('partials.pembina-modal-edit')
+  @include('partials.pembina-modal-detail')
+  @include('partials.pembina-modal-delete')
 @endsection
 
 @section('script')
@@ -382,6 +78,4 @@
   </script>
   <script src="/assets/js/pembina.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-  
 @endsection

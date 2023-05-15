@@ -38,7 +38,6 @@ class PikrSeeder extends Seeder
       "verified" => true
     ]);
 
-    Pikr::factory(Desa::count())->create();
-
+    Pikr::factory(100)->create();
   }
 }
