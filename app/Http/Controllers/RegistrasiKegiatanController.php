@@ -166,7 +166,7 @@ class RegistrasiKegiatanController extends Controller
       $point = 0;
 
       switch (strtolower($criteria->nama)) {
-        case 'materi pelayanan':
+        case 'materi pelayanan informasi':
           foreach ($registrasi_kegiatan->pelayananInformasi as $kegiatan) {
             if ($kegiatan->materi_lainnya == null) {
               $point += 2;
@@ -176,7 +176,7 @@ class RegistrasiKegiatanController extends Controller
           }
           break;
 
-        case 'narasumber pelayanan':
+        case 'narasumber pelayanan informasi':
           foreach ($registrasi_kegiatan->pelayananInformasi as $kegiatan) {
             if ($kegiatan->jabatan_narsum == "Lainnya") {
               $point += 1;
@@ -186,7 +186,7 @@ class RegistrasiKegiatanController extends Controller
           }
           break;
 
-        case 'peserta pelayanan':
+        case 'peserta pelayanan informasi':
           foreach ($registrasi_kegiatan->pelayananInformasi as $kegiatan) {
             $point += $kegiatan->jumlah_peserta;
           }
