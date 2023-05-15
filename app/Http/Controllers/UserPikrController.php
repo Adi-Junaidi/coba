@@ -34,7 +34,7 @@ class UserPikrController extends Controller
     {
         return view('user-pikr/data/identitas', [
             'title' => 'Identitas',
-            'pikr_info' => Pikr::where('user_id', auth()->user()->id)->first(),    
+            'pikr_info' => Pikr::where('user_id', auth()->user()->pikr->id)->first(),    
         ]);
     }
 
@@ -63,12 +63,12 @@ class UserPikrController extends Controller
             'Swadaya',
         ];
 
-        $pikr_info = Pikr::where('user_id', \auth()->user()->id)->first();
+        $pikr_info = Pikr::find(auth()->user()->pikr->id);
 
         $data = [
             'title' => 'Biodata',
             'dikeluarkan' => $dikeluarkan,
-            'sk' => Sk::where('pikr_id', \auth()->user()->id)->first(),
+            'sk' => Sk::where('pikr_id', \auth()->user()->pikr->id)->first(),
             'sumber_dana_pikr' => explode(',', $pikr_info->sumber_dana),
             'sumber_dana' => $sumber_dana,
             'pikr_info' => $pikr_info,
@@ -79,7 +79,7 @@ class UserPikrController extends Controller
 
     public function s_informasi(Request $request)
     {
-        $id = auth()->user()->id;
+        $id = auth()->user()->pikr->id;
 
         $information_rules = [
             'keterpaduan_kelompok' => 'required',
@@ -108,7 +108,7 @@ class UserPikrController extends Controller
             $informationData['sumber_dana'] = 'Tidak Ada';
         }
 
-        Pikr::where('user_id', $id)->update($informationData);
+        Pikr::where('id', $id)->update($informationData);
         Stepper::where('pikr_id', $id)->update(['current_step' => 'Complete', 'informasi' => true]);
 
         return \redirect('/up/data/informasi')->with('success', 'Data Berhasil Ditambahkan');
@@ -127,7 +127,7 @@ class UserPikrController extends Controller
         
         Sk::create($skData);
         
-        Pikr::where('user_id', $id)->update(['sk_id' => Sk::where('pikr_id', $id)->first()->id]);
+        Pikr::where('id', $id)->update(['sk_id' => Sk::where('pikr_id', $id)->first()->id]);
         return \redirect('/up/data/informasi')->with('success', 'Data berhasil ditambahkan');
     }
     

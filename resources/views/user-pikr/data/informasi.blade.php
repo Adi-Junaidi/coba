@@ -32,7 +32,7 @@
                     <div id="sk_part">
                         <form action="/up/data/update_sk" method="post">
                             @csrf
-                            <input type="hidden" name="pikr_id" value="{{ auth()->user()->id }}">
+                            <input type="hidden" name="pikr_id" value="{{ auth()->user()->pikr->id }}">
                             <div class="form-group">
                                 <label for="nomorSk">Nomor SK</label>
                                 <input class="form-control" id="nomorSk" name="no_sk" type="text"
@@ -89,8 +89,6 @@
                                     </div>
                                 </li>
                             @endforeach
-
-
                         </ul>
                     </div>
 
@@ -314,7 +312,7 @@
                         </svg>
                     </button>
                 </div>
-                <form action="/up/data/sk/{{ auth()->user()->id }}" method="post">
+                <form action="/up/data/sk/{{ auth()->user()->pikr->id }}" method="post">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
