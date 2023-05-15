@@ -205,7 +205,7 @@ class LaporanController extends Controller
     $areas = $data['areas'];
 
     switch ($request->export) {
-      case 'xslx':
+      case 'xlsx':
         return Excel::download(new Laporan12aExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA BERDASARKAN IDENTITAS DAN INFORMASI KELOMPOK KEGIATAN TAHUN $filters[tahun].xlsx");
 
       case 'pdf':
@@ -231,7 +231,7 @@ class LaporanController extends Controller
     $areas = $data['areas'];
 
     switch ($request->export) {
-      case 'xslx':
+      case 'xlsx':
         return Excel::download(new Laporan12bExport($kabkota, $kecamatan, $filters, $areas), "JUMLAH PUSAT INFORMASI DAN KONSELING REMAJA (PIK REMAJA) BERDASARKAN MATERI, SARANA DAN KEMITRAAN YANG DIMILIKI SERTA PENDIDIK DAN KONSELOR SEBAYA TAHUN $filters[tahun].xlsx");
 
       case 'pdf':
