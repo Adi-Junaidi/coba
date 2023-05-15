@@ -18,6 +18,7 @@
               <option hidden>Pilih Bentuk Kerjasama</option>
               <option value="Sponsorship">Sponsorship</option>
               <option value="Narasumber">Narasumber</option>
+              <option value="Narasumber">Rujukan</option>
               <option value="Lainnya">Lainnya</option>
             </select>
           </div>
