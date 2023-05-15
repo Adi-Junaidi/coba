@@ -59,7 +59,7 @@ class LaporanController extends Controller
       'laporan_s' => Laporan::where('pikr_id', \session('pikr_id'))->orderBy('bulan_lapor', 'asc')->get(),
       'materi_s' => Materi::all(),
       'pikr' => Pikr::find(\auth()->user()->pikr->id),
-      'ketua_info' => Pengurus::where('jabatan', 'Ketua')->first()
+      'ketua_info' => Pengurus::where('jabatan', 'Ketua')->where('pikr_id', \auth()->user()->pikr->id)->first()
     ];
 
     return \view('user-pikr/kegiatan/index', $data);
@@ -121,7 +121,7 @@ class LaporanController extends Controller
       'pembina_s' => $pembina_s,
       'narsum' => $narsum,
       'laporan' => $kegiatan,
-      'konseb_s' => Pengurus::where('jabatan', 'Konselor Sebaya')->get(),
+      'konseb_s' => Pengurus::where('jabatan', 'Konselor Sebaya')->where('pikr_id', \auth()->user()->pikr->id)->get(),
       'pelayanan_s' => PelayananInformasi::where('laporan_id', $kegiatan->id)->get(),
       'ki_s' => Konseling::where('laporan_id', $kegiatan->id)->get(),
       'kk_s' => KonselingKelompok::where('laporan_id', $kegiatan->id)->get(),
