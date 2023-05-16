@@ -107,7 +107,7 @@ class ArticleController extends Controller
       abort(403);
     }
 
-    return view('user-pikr/artikel/edit', $data);
+    return view('user-pikr.artikel.edit', $data);
   }
 
   /**

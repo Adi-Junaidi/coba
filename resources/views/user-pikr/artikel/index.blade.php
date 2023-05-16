@@ -18,16 +18,21 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Nama PIKR</th>
                             <th>Judul Artikel</th>
                             <th>Tanggal Dibuat</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $i = 1;
+                        @endphp
                         @foreach ($articles as $article)
                             @can('view', $article)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $i }}</td>
+                                    <td>{{ $article->pikr->nama }}</td>
                                     <td>{{ $article->title }}</td>
                                     <td>{{ $article->created_at }}</td>
                                     <td>
@@ -48,11 +53,15 @@
                                         </button>
                                     </td>
                                 </tr>
+                                @php
+                                    $i++;
+                                @endphp
                             @endcan
 
                             @can('viewAny', App\Models\Article::class)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $article->pikr->nama }}</td>
                                     <td>{{ $article->title }}</td>
                                     <td>{{ $article->created_at }}</td>
                                     <td>
@@ -72,7 +81,7 @@
 
                             @can('afiliate', $article)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $i }}</td>
                                     <td>{{ $article->title }}</td>
                                     <td>{{ $article->created_at }}</td>
                                     <td>
@@ -88,6 +97,9 @@
                                         </button>
                                     </td>
                                 </tr>
+                                @php
+                                    $i++;
+                                @endphp
                             @endcan
                         @endforeach
                     </tbody>
@@ -158,7 +170,7 @@
                 <img class="card-img-top article-img" src="" alt=""
                     style="aspect-ratio: 2/1; object-fit: cover;" />
                 <div class="modal-body">
-                    <h3 class="card-title mb-3">Judul Artikel: <span class="article-title"></span></h3>
+                    <h3 class="card-title mb-3"><span class="article-title"></span></h3>
                     <h6>Oleh: <span class="article-nama"></span></h6>
                     <p class="text-muted fs-6 article-updated"></p>
                     <hr>
