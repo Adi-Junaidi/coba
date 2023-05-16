@@ -9,11 +9,10 @@
                 <div class="col-lg-8 col-xl-7 col-xxl-6">
                     <div class="my-5 text-center text-xl-start">
                         <h1 class="display-5 fw-bolder text-white mb-2">
-                            Sistem Informasi PIK-R
+                            Sistem Informasi Pengelolaan PIK-R
                         </h1>
                         <p class="fw-normal text-white-50 mb-4">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                            Distinctio neque vero voluptatibus.
+                            Sistem informasi ini bertujuan untuk memudahkan pengurus pusat informasi dan konseling remaja di Provinsi Gorontalo dalam mengelola data pencatatan dan pelaporan mereka.
                         </p>
                         <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
                             <a class="btn btn-primary btn-lg px-4 me-sm-3" href="/login">Login</a>
@@ -71,49 +70,45 @@
             <div class="row gx-5">
                 <div class="col-lg-4 mb-5 mb-lg-0">
                     <h2 class="fw-bolder mb-0">
-                        Fitur-fitur yang ada pada sistem informasi ini
+                        Fitur Unggulan Sistem Informasi Pengelolaan PIK-R
                     </h2>
                 </div>
                 <div class="col-lg-8">
                     <div class="row gx-5 row-cols-1 row-cols-md-2">
                         <div class="col mb-5 h-100">
                             <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3">
-                                <i class="bi bi-collection"></i>
+                                <i class="bi bi-file-earmark-text"></i>
                             </div>
-                            <h2 class="h5">Manajemen PIK-R</h2>
+                            <h2 class="h5">Pengelolaan Data Pencatatan</h2>
                             <p class="mb-0">
-                                Paragraph of text beneath the heading to explain the
-                                heading. Here is just a bit more text.
+                                Pencatatan PIK-R terdiri dari informasi dan identitas PIK-R, materi dan sarana, serta jalinan mitra serta pengurus PIK-R.
                             </p>
                         </div>
                         <div class="col mb-5 h-100">
                             <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3">
-                                <i class="bi bi-building"></i>
+                                <i class="bi bi-file-earmark-spreadsheet"></i>
                             </div>
-                            <h2 class="h5">Sistem Pendukung Keputusan</h2>
+                            <h2 class="h5">Pengelolaan Data Pelaporan</h2>
                             <p class="mb-0">
-                                Paragraph of text beneath the heading to explain the
-                                heading. Here is just a bit more text.
+                                Pelaporan PIK-R terdiri dari berbagai kegiatan yang telah dilaksanakan oleh PIK-R, mulai dari pelayanan informasi, konseling individu maupun kelompok.
                             </p>
                         </div>
                         <div class="col mb-5 mb-md-0 h-100">
                             <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3">
-                                <i class="bi bi-toggles2"></i>
+                                <i class="bi bi-calendar-event"></i>
                             </div>
-                            <h2 class="h5">Validasi PIK-R</h2>
+                            <h2 class="h5">Artikel Kegiatan PIK-R</h2>
                             <p class="mb-0">
-                                Paragraph of text beneath the heading to explain the
-                                heading. Here is just a bit more text.
+                                Fitur artikel ini memungkinkan setiap PIK-R untuk dapat mempromosikan kegiatan yang telah mereka selenggarakan.
                             </p>
                         </div>
                         <div class="col h-100">
                             <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3">
-                                <i class="bi bi-toggles2"></i>
+                                <i class="bi bi-sort-down"></i>
                             </div>
-                            <h2 class="h5">Post Artikel</h2>
+                            <h2 class="h5">Pemeringkatan PIK-R Terbaik</h2>
                             <p class="mb-0">
-                                Paragraph of text beneath the heading to explain the
-                                heading. Here is just a bit more text.
+                                Melalui berbagai data yang telah dikumpulkan pada aplikasi ini, setiap bulannya aplikasi akan merilis PIK-R terbaik pada bulan tersebut.
                             </p>
                         </div>
                     </div>
@@ -131,8 +126,7 @@
                     <div class="text-center">
                         <h2 class="fw-bolder">Artikel PIK-R</h2>
                         <p class="fw-normal text-muted mb-5">
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                            Possimus sed et obcaecati?
+                            Berikut merupakan deretan kegiatan yang telah dilaksanakan oleh masing-masing PIK-R yang ada di Provinsi Gorontalo.
                         </p>
                     </div>
                 </div>
@@ -184,8 +178,7 @@
                     <div class="text-center">
                         <h2 class="fw-bolder">Peringkat PIK-R Bulan Ini</h2>
                         <p class="fw-normal text-muted mb-5">
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                            Possimus sed et obcaecati?
+                            Berikut merupakan hasil pemeringkatan PIK-R terbaik bulan ini, yang telah dinilai berdasarkan berbagai kegiatan yang telah mereka laksanakan.
                         </p>
                     </div>
                 </div>
