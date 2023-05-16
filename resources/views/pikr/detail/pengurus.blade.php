@@ -41,7 +41,7 @@
     </div>
 @endif
 
-@section('modals')
+@push('modals')
     {{-- Edit Modal --}}
     <div class="modal fade text-left" id="editModal" tabindex="-1" aria-labelledby="" style="display: none;"
         aria-hidden="true">
@@ -61,27 +61,25 @@
                     </button>
                 </div>
                 <form method="post">
-                    
+
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
                             <label>NIK</label>
-                            <input class="form-control @error('e_nik') is-invalid @enderror"" type="text" name="e_nik"
-                                placeholder="Masukkan NIK" required>
-                            @error('e_nik')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                            <input class="form-control" type="text" name="e_nik" placeholder="Masukkan NIK" required>
+                            <div class="small text-muted">Nik hanya memuat angka</div>
                         </div>
 
                         <div class="form-group">
                             <label>Nama Lengkap</label>
-                            <input class="form-control @error('e_nama') is-invalid @enderror"" type="text" name="e_nama"
-                                placeholder="Masukkan Nama Lengkap" required>
+                            <input class="form-control" type="text" name="e_nama" placeholder="Masukkan Nama Lengkap"
+                                required>
                         </div>
                         <div class="form-group">
                             <label>Nomor Handphone</label>
-                            <input class="form-control @error('e_no_hp') is-invalid @enderror"" type="text"
-                                name="e_no_hp" placeholder="Masukkan Nomor Handphone" required>
+                            <input class="form-control" type="text" name="e_no_hp" placeholder="Masukkan Nomor Handphone"
+                                required>
+                            <div class="small text-muted">Nomor Hp hanya memuat angka</div>
                         </div>
 
                         <div class="form-group">
@@ -151,9 +149,19 @@
             </div>
         </div>
     </div>
-@endSection
+@endPush
 
 @push('scripts')
+
+    @if ($errors->any())
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Terjadi Error saat melakukan edit data'
+            });
+        </script>
+    @endif
     <script>
         $(document).on('click', '#table-pengurus .edit_btn', function() {
             const id = $(this).data('id');

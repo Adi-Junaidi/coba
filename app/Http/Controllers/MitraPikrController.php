@@ -62,9 +62,8 @@ class MitraPikrController extends Controller
         $validatedData['pikr_id'] = auth()->user()->pikr->id;
 
         MitraPikr::create($validatedData);
-        Alert::success('New Post has been added!');
 
-        return \redirect('/up/data/mitra');
+        return \back()->with('success', 'Berhasil menambahkan data materi');
     }
 
     /**
@@ -110,9 +109,8 @@ class MitraPikrController extends Controller
 
 
         MitraPikr::where('id', $id)->update($validatedData);
-        Alert::success('New Post has been added!');
 
-        return \redirect('/up/data/mitra');
+        return back()->with('success', 'Berhasil merubah data mitra');
     }
 
     public function updateByAdmin(Request $request, MitraPikr $mitra)
