@@ -68,6 +68,14 @@ class PikrController extends Controller
       'Narasumber',
     ];
 
+    $sumber_dana = [
+      'APBN',
+      'APBD',
+      'ADD',
+      'Swadaya',
+    ];
+
+
     return \view('pikr.detail', [
       'pikr_info' => $pikr,
       'materi' => Materi::all(),
@@ -81,6 +89,8 @@ class PikrController extends Controller
       'kecamatan' => Kecamatan::all(),
       'desa' => Desa::all(),
       'bentuk_kerjasama' => $bentuk_kerjasama,
+      'sumber_dana_pikr' => explode(',', $pikr->sumber_dana),
+      'sumber_dana' => $sumber_dana,
     ]);
   }
 
@@ -106,7 +116,11 @@ class PikrController extends Controller
   {
     if ($request->has('sosmed')) $pikr->update(['akun_medsos' => $request->sosmed]);
     if ($request->has('pro_pn')) $pikr->update(['pro_pn' => $request->pro_pn]);
-    if ($request->has('sumber_dana')) $pikr->update(['sumber_dana' => $request->sumber_dana]);
+    if ($request->has('sumber_dana')) {
+      $pikr->update(['sumber_dana' => implode(',', $request->sumber_dana)]);
+    } else {
+      $pikr->update(['sumber_dana' => "Tidak Ada"]);
+    }
     if ($request->has('keterpaduan_kelompok')) $pikr->update(['keterpaduan_kelompok' => $request->keterpaduan_kelompok]);
 
     return \back()->with('success', 'Berhasil mengubah data PIK-R');

@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-lg-9">
                         <div class="form-group">
-                            <select name="bulan_tahun" id="" class="form-select">
+                            <select name="bulan_tahun" id="select-periode" class="form-select">
                                 <option value="null" hidden>--Pilih Periode Pemeringkatan--</option>
                                 @foreach ($bulan_tahun as $item)
                                     <option value="{{ $item->bulan_tahun }}">{{ convertBulanTahun($item->bulan_tahun) }}
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div class="col-lg-2">
-                        <button class="btn btn-primary w-100">Cari</button>
+                        <button id="btn-search" class="btn btn-primary w-100" hidden >Cari</button>
                     </div>
                 </div>
             </form>
@@ -52,3 +52,11 @@
         </div>
     </section>
 @endsection
+
+@section('script')
+    <script>
+        $('#select-periode').change(function(){
+            $('#btn-search').removeAttr('hidden')
+        })
+    </script>
+@endSection

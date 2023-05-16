@@ -34,7 +34,7 @@ class UserPikrController extends Controller
     {
         return view('user-pikr/data/identitas', [
             'title' => 'Identitas',
-            'pikr_info' => Pikr::where('user_id', auth()->user()->pikr->id)->first(),    
+            'pikr_info' => Pikr::where('id', auth()->user()->pikr->id)->first(),    
         ]);
     }
 
@@ -51,7 +51,7 @@ class UserPikrController extends Controller
             'Kepala Desa',
             'Kepala Lurah',
             'Camat',
-            'OPB-KB',
+            'OPD-KB',
             'Bupati',
             'Walikota',
         ];
