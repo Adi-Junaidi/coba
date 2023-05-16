@@ -38,6 +38,20 @@ class Pembina extends Model
     return $this->hasMany(PelayananInformasi::class);
   }
 
+  // ==== Accessor ====
+  public function getKecamatanAttribute()
+  {
+    return $this->desa->kecamatan;
+  }
+  public function getKabkotaAttribute()
+  {
+    return $this->kecamatan->kabkota;
+  }
+  public function getProvinsiAttribute()
+  {
+    return $this->kabkota->provinsi;
+  }
+
   public static function boot()
   {
     parent::boot();

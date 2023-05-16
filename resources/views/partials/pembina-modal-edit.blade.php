@@ -88,7 +88,6 @@
             </div>
             <div class="col-md-8 form-group">
               <input class="form-control" id="update__desaKel" name="desaKel" type="text" placeholder="Desa/Kel" readonly disabled />
-              <input id="hidden__desaKel" name="desa_id" type="hidden">
             </div>
           </div>
         </div>
