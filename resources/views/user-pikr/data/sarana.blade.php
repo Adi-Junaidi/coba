@@ -6,7 +6,7 @@
 
 @section('content')
     <section class="row">
-        <h1 class="mb-3">Ketersediaan Materi PIK-R</h1>
+        <h1 class="mb-3">Ketersediaan Sarana PIK-R</h1>
         <div class="mb-5 p-4 bg-white shadow-sm">
             @if (session('stepper')->sarana)
                 <div class="bs-stepper">
@@ -40,20 +40,20 @@
                                         @php
                                             $slug = Str::slug($s->nama, '_');
                                         @endphp
-                                        
+
                                         @if ($s->kategori != $item)
                                             @continue
                                         @endif
                                         <div class="form-group">
                                             <label class="my-2"><b>{{ $s->nama }}</b></label>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="{{ $slug }}" value="1" {{ $sarana_pikr->$slug ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="{{ $slug }}"
+                                                    value="1" {{ $sarana_pikr->$slug ? 'checked' : '' }}>
                                                 <label class="form-check-label"> Ada </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="{{ $slug }}" value="0" {{ !$sarana_pikr->$slug ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="radio" name="{{ $slug }}"
+                                                    value="0" {{ !$sarana_pikr->$slug ? 'checked' : '' }}>
                                                 <label class="form-check-label"> Tidak Ada </label>
                                             </div>
                                         </div>
@@ -92,7 +92,7 @@
                                         class="bs-stepper-label d-lg-inline-block d-none small">{{ $item }}</span>
                                 </button>
                             </div>
-          materi                  @if ($loop->last)
+                            @if ($loop->last)
                             @else
                                 <div class="line"></div>
                             @endif
