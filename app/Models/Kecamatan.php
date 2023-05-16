@@ -16,12 +16,12 @@ class Kecamatan extends Model
   {
     return $this->hasMany(Desa::class);
   }
-  
+
   public function pikrs()
   {
     return $this->hasManyThrough(Pikr::class, Desa::class);
   }
-  
+
   public function pikr()
   {
     return $this->hasMany(Pikr::class);
@@ -44,13 +44,27 @@ class Kecamatan extends Model
   }
 
   // ==== Custom Method ====
-  public function getNomorUrut()
+  public function getNomorUrutPembina()
   {
     $lastNomorUrut = $this->pembinas->reduce(fn ($max, $pembina) => (int)$pembina->no_urut > (int)$max ? $pembina->no_urut : $max, "00");
     $nomorUrut = (int)$lastNomorUrut + 1;
     if ($nomorUrut < 10) {
       $nomorUrut = "0$nomorUrut";
     }
+    return $nomorUrut;
+  }
+  public function getNomorUrutPikr()
+  {
+    $lastNomorUrut = $this->pikrs->reduce(fn ($max, $pikr) => (int)$pikr->no_urut > (int)$max ? $pikr->no_urut : $max, "00");
+    $nomorUrut = (int)$lastNomorUrut + 1;
+    if ($nomorUrut < 100) {
+      $nomorUrut = "0$nomorUrut";
+
+      if ($nomorUrut < 10) {
+        $nomorUrut = "0$nomorUrut";
+      }
+    }
+
     return $nomorUrut;
   }
 }

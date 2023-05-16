@@ -27,9 +27,7 @@ class PikrFactory extends Factory
 
     return [
       "user_id" => User::factory()->create()->id,
-      "no_register" => $this->faker->randomNumber(9, true),
       "nama" => 'PIK-R ' . $this->faker->company(),
-      "no_urut" => $this->faker->randomNumber(5, true),
       "alamat" => $this->faker->address(),
       "basis" => $basis,
       "akun_medsos" => "",

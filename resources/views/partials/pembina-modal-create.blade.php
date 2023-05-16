@@ -193,7 +193,7 @@
     function getNomorUrut(kecamatanId) {
       return $.ajax({
         type: "get",
-        url: `/api/kecamatan/${kecamatanId}/no_urut/`,
+        url: `/api/kecamatan/${kecamatanId}/no_urut_pembina/`,
         dataType: "json",
       });
     }

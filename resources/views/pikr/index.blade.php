@@ -31,7 +31,7 @@
             @foreach ($pikr as $p)
               @can('view', $p)
                 <tr>
-                  <td>{{ $p->id }}</td>
+                  <td>{{ $loop->iteration }}</td>
                   <td>
                     <span id="noreg">{{ $p->no_register }}</span>
                   </td>

@@ -142,11 +142,12 @@ class PikrController extends Controller
 
   public function verify(Pikr $pikr)
   {
-
     $this->authorize('verify', $pikr);
 
     if ($pikr->verified) {
       $pikr->update([
+        'no_register' => '0000000000',
+        'no_urut' => '000',
         "verified" => false
       ]);
 
@@ -162,20 +163,21 @@ class PikrController extends Controller
       return back()->with('error', "Berhasil membatalkan verifikasi PIK-R {$pikr->nama}");
     }
 
-    $provinsi = $pikr->desa->kecamatan->kabkota->provinsi->kode;
-    $kabkota = $pikr->desa->kecamatan->kabkota->kode;
-    $kecamatan = $pikr->desa->kecamatan->kode;
-    $unique_code = '5';
-    $id = $pikr->id;
+    $provinsi = $pikr->provinsi;
+    $kabkota = $pikr->kabkota;
+    $kecamatan = $pikr->kecamatan;
 
-    $no_register = \sprintf("%s%s%s%s%s", $provinsi, $kabkota, $kecamatan, $unique_code, $id);
+    $kodeProvinsi = $provinsi->kode;
+    $kodeKabkota = $kabkota->kode;
+    $kodeKecamatan = $kecamatan->kode;
+    $unique_code = '5';
+    $no_urut = $kecamatan->getNomorUrutPikr();
+
+    $no_register = "$kodeProvinsi$kodeKabkota$kodeKecamatan$unique_code$no_urut";
 
     $pikr->update([
       'no_register' => $no_register,
-      'no_urut' => $id
-    ]);
-
-    $pikr->update([
+      'no_urut' => $no_urut,
       "verified" => true
     ]);
 

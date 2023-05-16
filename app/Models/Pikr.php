@@ -87,6 +87,18 @@ class Pikr extends Model
   }
 
   // ==== Accessor ====
+  public function getKecamatanAttribute()
+  {
+    return $this->desa->kecamatan;
+  }
+  public function getKabkotaAttribute()
+  {
+    return $this->kecamatan->kabkota;
+  }
+  public function getProvinsiAttribute()
+  {
+    return $this->kabkota->provinsi;
+  }
   public function getVerifiedLaporansAttribute()
   {
     return $this->laporan->filter(fn ($laporan) => $laporan->status === "Verified");
