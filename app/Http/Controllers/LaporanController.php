@@ -192,7 +192,7 @@ class LaporanController extends Controller
 
   public function tahunan_a(Request $request)
   {
-    if (!auth()->user()->isAdmin()) {
+    if (auth()->user()->cannot('viewAny', Laporan::class)) {
       return back()->with('error', 'Anda tidak berwenang mengakses halaman ini');
     }
 
@@ -218,7 +218,7 @@ class LaporanController extends Controller
 
   public function tahunan_b(Request $request)
   {
-    if (!auth()->user()->isAdmin()) {
+    if (auth()->user()->cannot('viewAny', Laporan::class)) {
       return back()->with('error', 'Anda tidak berwenang mengakses halaman ini');
     }
 
@@ -244,7 +244,7 @@ class LaporanController extends Controller
 
   public function bulanan_a(Request $request)
   {
-    if (!auth()->user()->isAdmin()) {
+    if (auth()->user()->cannot('viewAny', Laporan::class)) {
       return back()->with('error', 'Anda tidak berwenang mengakses halaman ini');
     }
 
@@ -291,7 +291,7 @@ class LaporanController extends Controller
 
   public function bulanan_b(Request $request)
   {
-    if (!auth()->user()->isAdmin()) {
+    if (auth()->user()->cannot('viewAny', Laporan::class)) {
       return back()->with('error', 'Anda tidak berwenang mengakses halaman ini');
     }
 
