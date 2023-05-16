@@ -162,6 +162,7 @@ class RegistrasiKegiatanController extends Controller
 
   protected function setPoint($registrasi_kegiatan)
   {
+    $bulan_tahun = sprintf("%s-%s", $registrasi_kegiatan->bulan_lapor, $registrasi_kegiatan->tahun_lapor);
     foreach (Criteria::all() as $criteria) {
       $point = 0;
 
@@ -227,7 +228,7 @@ class RegistrasiKegiatanController extends Controller
           break;
 
         case 'artikel':
-          $articles = Article::where('pikr_id', $registrasi_kegiatan->pikr->id)->get();
+          $articles = Article::where('pikr_id', $registrasi_kegiatan->pikr->id)->where('bulan_tahun',  $bulan_tahun)->get();
           $point += $articles->count();
           break;
 
@@ -238,14 +239,14 @@ class RegistrasiKegiatanController extends Controller
       Point::create([
         'pikr_id' => $registrasi_kegiatan->pikr->id,
         'criteria_id' => $criteria->id,
-        'bulan_tahun' => sprintf("%s-%s", $registrasi_kegiatan->bulan_lapor, $registrasi_kegiatan->tahun_lapor),
+        'bulan_tahun' => $bulan_tahun,
         'point' => $point,
       ]);
     }
 
     $data = [
       'pikr_id' => $registrasi_kegiatan->pikr->id,
-      'bulan_tahun' => sprintf("%s-%s", $registrasi_kegiatan->bulan_lapor, $registrasi_kegiatan->tahun_lapor),
+      'bulan_tahun' => $bulan_tahun,
     ];
 
     $criterias = $registrasi_kegiatan->pikr->points()->get();
