@@ -35,7 +35,7 @@ class ArticlePolicy
     
     public function afiliate(User $user, Article $article)
     {
-        return $user->isPembina() and $article->pikr->pembina->id == $user->pembina->id;
+        return $user->isPembina() and $article->pikr->desa->id == $user->pembina->desa->id;
     }
 
     /**
