@@ -59,7 +59,7 @@ Route::post('/register', [RegisterController::class, 'store'])->middleware('gues
 // });
 
 // Dashboard
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'pengelolaCheck'])->group(function () {
   Route::get('/dashboard', [DashboardController::class, 'index']);
   Route::resource('/pembina', PembinaController::class);
   Route::resource('/pikr', PikrController::class);
@@ -94,14 +94,17 @@ Route::middleware('auth')->group(function () {
     '/peringkat' => RankController::class,
   ]);
 
-  Route::post('/materi/{materi}', [MateriController::class, 'update']);
-  Route::post('/sarana/{sarana}', [SaranaController::class, 'update']);
-  Route::post('/pengurus/{penguru}', [PengurusController::class, 'update']);
-  Route::post('/pengurus/delete/{penguru}', [PengurusController::class, 'destroy']);
-  Route::get('/pengurus/getData/{pengurus}', [PengurusController::class, 'getData']);
-  Route::get('/mitra/getData/{mitra}', [MitraPikrController::class, 'getData']);
-  Route::post('/mitra/{mitra}', [MitraPikrController::class, 'updateByAdmin']);
-  Route::post('/mitra/delete/{mitra}', [MitraPikrController::class, 'destroyByAdmin']);
+  Route::middleware('pengelolaCheck')->group(function () {
+    Route::post('/materi/{materi}', [MateriController::class, 'update']);
+    Route::post('/sarana/{sarana}', [SaranaController::class, 'update']);
+    Route::post('/pengurus/{penguru}', [PengurusController::class, 'update']);
+    Route::post('/pengurus/delete/{penguru}', [PengurusController::class, 'destroy']);
+    Route::get('/pengurus/getData/{pengurus}', [PengurusController::class, 'getData']);
+    Route::get('/mitra/getData/{mitra}', [MitraPikrController::class, 'getData']);
+    Route::post('/mitra/{mitra}', [MitraPikrController::class, 'updateByAdmin']);
+    Route::post('/mitra/delete/{mitra}', [MitraPikrController::class, 'destroyByAdmin']);
+  });
+
 
   Route::get('/kecamatan/getData/{kabkota}', [KabkotaController::class, 'getData']);
   Route::get('/desa/getData/{kecamatan}', [KecamatanController::class, 'getData']);

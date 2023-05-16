@@ -66,6 +66,8 @@ class PikrController extends Controller
     $bentuk_kerjasama = [
       'Sponsorship',
       'Narasumber',
+      'Rujukan',
+      'Lainnya',
     ];
 
     $sumber_dana = [
