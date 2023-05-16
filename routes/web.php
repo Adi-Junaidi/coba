@@ -109,11 +109,14 @@ Route::middleware('auth')->group(function () {
 
   Route::get('/utility/getArticle/{article}', [ArticleController::class, 'getArticle']);
   Route::get('/utility/check-slug', [ArticleController::class, 'checkSlug']);
+
+  Route::get('/validate/pikr', [ValidationController::class, 'validatePikr']);
+  Route::get('/validate/kegiatan', [ValidationController::class, 'validateKegiatan']);
+  Route::post('/peringkat/filter', [RankController::class, 'filter']);
+  
+  Route::get('/registrasi-kegiatan/show_register/{pikr}', [RegistrasiKegiatanController::class, 'show_register']);
 });
 
-Route::get('/validate/pikr', [ValidationController::class, 'validatePikr'])->middleware('auth');
-Route::get('/validate/kegiatan', [ValidationController::class, 'validateKegiatan'])->middleware('auth');
-Route::post('/peringkat/filter', [RankController::class, 'filter'])->middleware('auth');
 
 Route::middleware('stepCheck', 'auth',)->group(function () {
   Route::get('/up/dashboard', [UserPikrController::class, 'dashboard']);

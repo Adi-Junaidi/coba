@@ -1,7 +1,7 @@
 @extends('layouts.main', [
-    'title' => 'Register Kegiatan',
-    'heading' => 'Register Kegiatan PIK-R',
-    'breadcrumb' => ['Register Kegiatan'],
+    'title' => 'Register Kegiatan PIK-R',
+    'heading' => 'Data Register Kegiatan PIK-R',
+    'breadcrumb' => ['Register Kegiatan', 'PIK-R'],
 ])
 
 @section('link')
@@ -12,7 +12,7 @@
 
 @section('container')
     <section>
-
+        <a href="/registrasi-kegiatan" class="btn btn-sm btn-primary my-2 mx-2">Kembali</a>
         <div class="card">
             <div class="card-body">
                 <table class="table" id="table">
@@ -20,23 +20,33 @@
                         <tr>
                             <th>No.</th>
                             <th>Nama PIK-R</th>
+                            <th>Bulan Tahun Lapor</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php $i = 1; @endphp
-                        @foreach ($pikrs as $pikr)
-                            @can('verify', $pikr)
-                                <tr>
-                                    <td>{{ $i }}</td>
-                                    <td>{{ $pikr->nama }}</td>
-                                    <td>
-                                        <!-- Button trigger for next table -->
-                                        <a href="/registrasi-kegiatan/show_register/{{ $pikr->id }}"
-                                            class="btn btn-info btn-sm">Detail</a>
-                                    </td>
-                                </tr>
-                                @php $i++; @endphp
+                        @foreach ($reports as $report)
+                            @can('valid_reports', $report)
+                                @if ($report->status == 'Verified')
+                                    <tr>
+                                        <td>{{ $i }}</td>
+                                        <td>{{ $report->pikr->nama }}</td>
+                                        <td>
+                                            {{ convertBulanTahun($report->bulan_lapor . '-' . $report->tahun_lapor) }}
+                                        </td>
+                                        <td>
+                                            <!-- Button trigger for next table -->
+                                            <a href="/registrasi-kegiatan/{{ $report->id }}" class="btn btn-info btn-sm"
+                                                id="showKegiatan">
+                                                <span>
+                                                    <span class="fa-fw fas select-all"></span>
+                                                </span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    @php $i++; @endphp
+                                @endif
                             @endcan
                         @endforeach
                     </tbody>

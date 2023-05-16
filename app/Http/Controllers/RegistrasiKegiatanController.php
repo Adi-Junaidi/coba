@@ -28,42 +28,16 @@ class RegistrasiKegiatanController extends Controller
   public function index()
   {
 
-    // $status = Pembina::find(\auth()->user()->pembina->id)->desa->kecamatan->id;
-    // $kecamatan = Kecamatan::find($status)->pikr;
-    // $pikr_s = [];
-
-    // foreach ($kecamatan as $k) {
-    //   array_push($pikr_s, $k->pikr->toArray());
-    // }
-
-    // $pikr_s = \array_merge(...$pikr_s);
-
-    // $pikr_id = [];
-    // foreach ($pikr_s as $pikr) {
-    //   \array_push($pikr_id, $pikr['id']);
-    // }
-
-    $bulan = [
-      1 => 'Januari',
-      2 => 'Februari',
-      3 => 'Maret',
-      4 => 'April',
-      5 => 'Mei',
-      6 => 'Juni',
-      7 => 'Juli',
-      8 => 'Agustus',
-      9 => 'September',
-      10 => 'Oktober',
-      11 => 'November',
-      12 => 'Desember'
-    ];
-
     return view('registrasi.index', [
-      "reports" => Laporan::all(),
-      "desa" => Desa::all(),
-      "kabkota" => Kabkota::all(),
-      'bulan' => $bulan,
-      'laporan' => Laporan::all(),
+      "pikrs" => Pikr::all(),
+    ]);
+  }
+
+  public function show_register(Pikr $pikr)
+  {
+
+    return view('registrasi.show_register', [
+      "reports" => $pikr->laporan()->get(),
     ]);
   }
 
@@ -279,7 +253,7 @@ class RegistrasiKegiatanController extends Controller
       'criteria_8' => Point::where('criteria_id', 8)->where('bulan_tahun', $data['bulan_tahun'])->max('point'),
     ];
 
-    
+
     // Mengambil pikr yang sudah memasukkan laporan
     $pikr_id = Point::where('bulan_tahun', $data['bulan_tahun'])->pluck('pikr_id')->unique()->values()->toArray();
     // dd($pikr_id);
@@ -303,15 +277,15 @@ class RegistrasiKegiatanController extends Controller
           $normalisasi[5] = $p->point / $pembagi['criteria_6'];
         } elseif ($p->criteria->id == 7 && $pembagi['criteria_7'] != 0.00) {
           $normalisasi[6] = $p->point / $pembagi['criteria_7'];
-        }elseif ($p->criteria->id == 8 && $pembagi['criteria_8'] != 0.00) {
+        } elseif ($p->criteria->id == 8 && $pembagi['criteria_8'] != 0.00) {
           $normalisasi[7] = $p->point / $pembagi['criteria_8'];
         }
       }
 
       $hasil = 0;
-      
-      foreach($point as $keys=>$p){
-        if(\array_key_exists($keys, $normalisasi)){
+
+      foreach ($point as $keys => $p) {
+        if (\array_key_exists($keys, $normalisasi)) {
           $hasil += $p->criteria->normalisasi * $normalisasi[$keys];
         }
       }
@@ -319,7 +293,6 @@ class RegistrasiKegiatanController extends Controller
       Result::where('pikr_id', $pikr_id[$i])->where('bulan_tahun', $data['bulan_tahun'])->update([
         'point' => $hasil,
       ]);
-
     }
 
     return true;

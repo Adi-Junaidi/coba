@@ -141,7 +141,7 @@
                                     alt="..." />
                             </div>
                             <div class="card-body p-4">
-                                <h5 class="card-title mb-3">Judul: {{ $article->title }}</h5>
+                                <h5 class="card-title mb-3">{{ $article->title }}</h5>
                                 </a>
                                 <p class="card-text mb-0">
                                     {{ $article->getExcerpt() }}
