@@ -24,10 +24,13 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $i = 1;
+                        @endphp
                         @foreach ($articles as $article)
                             @can('view', $article)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $i }}</td>
                                     <td>{{ $article->title }}</td>
                                     <td>{{ $article->created_at }}</td>
                                     <td>
@@ -48,11 +51,14 @@
                                         </button>
                                     </td>
                                 </tr>
+                                @php
+                                    $i++;
+                                @endphp
                             @endcan
 
                             @can('viewAny', App\Models\Article::class)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $i }}</td>
                                     <td>{{ $article->title }}</td>
                                     <td>{{ $article->created_at }}</td>
                                     <td>
@@ -68,11 +74,14 @@
                                         </button>
                                     </td>
                                 </tr>
+                                @php
+                                    $i++;
+                                @endphp
                             @endcan
 
                             @can('afiliate', $article)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $i }}</td>
                                     <td>{{ $article->title }}</td>
                                     <td>{{ $article->created_at }}</td>
                                     <td>
@@ -88,6 +97,9 @@
                                         </button>
                                     </td>
                                 </tr>
+                                @php
+                                    $i++;
+                                @endphp
                             @endcan
                         @endforeach
                     </tbody>
