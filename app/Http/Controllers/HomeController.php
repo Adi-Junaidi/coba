@@ -20,7 +20,7 @@ class HomeController extends Controller
     public function article(Article $article)
     {
         return \view('home.detail', [
-            'title' => 'Arikel',
+            'title' => 'Detail Artikel',
             'article' => $article,
         ]);
         
