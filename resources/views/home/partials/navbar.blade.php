@@ -1,6 +1,6 @@
 <!-- Navigation-->
 
-<nav class="navbar navbar-expand-lg {{ Request::is('article/*') ? 'navbar-dark bg-dark' : '' }}">
+<nav class="navbar sticky-top bg-dark navbar-dark navbar-expand-lg {{ Request::is('article/*') ? 'navbar-dark bg-dark' : '' }}">
 
     <div class="container px-5">
         <a class="navbar-brand" href="index.html">SI-PIKR</a>

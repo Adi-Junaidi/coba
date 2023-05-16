@@ -19,18 +19,31 @@
         @endif
         <div class="row">
             <div class="form-group col-md-4">
-                <label>Sumber Dana</label>
-                <input class="form-control" name="sumber_dana" disabled value="{{ $pikr_info->sumber_dana }}">
+                <label for="sumberDana">Sumber Dana</label>
+                <ul class="list-unstyled mb-0 mt-2">
+                    @foreach ($sumber_dana as $item)
+                        <li class="d-inline-block me-2 mb-1">
+                            <div class="form-check">
+                                <div class="checkbox">
+                                    <input type="checkbox" class="form-check-input" name="sumber_dana[]"
+                                        value="{{ $item }}" {{ in_array($item, $sumber_dana_pikr) ? 'checked' : '' }} disabled>
+                                    <label>{{ $item }}</label>
+                                </div>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
-            
+
             <div class="form-group col-md-4">
                 <label>Keterpaduan Kelompok</label>
                 <select name="keterpaduan_kelompok" id="keterpaduan_kelompok" class="form-select" disabled>
                     <option value="1" {{ $pikr_info->keterpaduan_kelompok == 1 ? 'selected' : '' }}>Ada</option>
-                    <option value="0" {{ $pikr_info->keterpaduan_kelompok == 0 ? 'selected' : '' }}>Tidak Ada</option>
+                    <option value="0" {{ $pikr_info->keterpaduan_kelompok == 0 ? 'selected' : '' }}>Tidak Ada
+                    </option>
                 </select>
             </div>
-            
+
             <div class="form-group col-md-4">
                 <label>Proyek Prioritas Nasional</label>
                 <select name="pro_pn" id="pro_pn" class="form-select" disabled>
