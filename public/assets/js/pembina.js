@@ -8,7 +8,7 @@ $(document).ready(function () {
     ],
 
     oLanguage: {
-      sEmptyTable: "Data Pembina tidak ditemukan",
+      sEmptyTable: "Data PKB/PLKB tidak ditemukan",
     },
   });
 

@@ -48,7 +48,6 @@ class PembinaController extends Controller
    */
   public function store(Request $request)
   {
-    // FIXME: lakukan validasi
     $validated = $request->validate([
       'nama' => 'required',
       'email' => 'required|unique:users',
@@ -70,7 +69,7 @@ class PembinaController extends Controller
       "desa_id" => $validated['desa_id']
     ]);
 
-    return back()->with('success', 'Berhasil menambah pembina');
+    return back()->with('success', 'Berhasil menambah PKB/PLKB');
   }
 
   /**
@@ -125,7 +124,7 @@ class PembinaController extends Controller
 
     $pembina->update(['nama' => $validated["nama"]]);
 
-    return back()->with('success', 'Berhasil mengupdate data pembina ' . $validated["nama"]);
+    return back()->with('success', 'Berhasil mengupdate data PKB/PLKB ' . $validated["nama"]);
   }
 
   /**
@@ -138,13 +137,13 @@ class PembinaController extends Controller
   {
 
     if ($pembina->pikr->isNotEmpty()) {
-      return \back()->with('fail', 'Tidak dapat menghapus pembina, terdapat PIK-R yang terkait dengan pembina tersebut');
+      return \back()->with('fail', 'Tidak dapat menghapus PKB/PLKB, terdapat PIK-R yang terkait dengan PKB/PLKB tersebut');
     }
 
     $nama = $pembina->nama;
     $pembina->delete();
     User::where('id', $pembina->user_id)->delete();
-    return back()->with('success', 'Berhasil menghapus data pembina ' . $nama);
+    return back()->with('success', 'Berhasil menghapus data PKB/PLKB ' . $nama);
   }
 
   public function api(Request $request)
@@ -163,7 +162,7 @@ class PembinaController extends Controller
 
       return ($pembinas->count() != 0)
         ? response()->json($pembinas)
-        : response()->json(['error' => 'Pembina tidak ditemukan']);
+        : response()->json(['error' => 'PKB/PLKB tidak ditemukan']);
     }
   }
 }

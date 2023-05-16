@@ -37,7 +37,7 @@ $(document).ready(function () {
       `);
 
       $("#namaPembina").replaceWith(`
-        <input class="form-control" list="datalistOptions" name="pembina_id" id="namaPembina" placeholder="Cari Nama Pembina">
+        <input class="form-control" list="datalistOptions" name="pembina_id" id="namaPembina" placeholder="Cari Nama PKB/PLKB">
       `);
 
       $("#datalistOptions").remove();
@@ -56,7 +56,7 @@ $(document).ready(function () {
       `);
 
       $("#namaPembina").replaceWith(`
-        <input class="form-control" list="datalistOptions" name="pembina_id" id="namaPembina" placeholder="Cari Nama Pembina">
+        <input class="form-control" list="datalistOptions" name="pembina_id" id="namaPembina" placeholder="Cari Nama PKB/PLKB">
       `);
 
       $("#datalistOptions").remove();
@@ -66,7 +66,7 @@ $(document).ready(function () {
       `);
 
       $("#namaPembina").replaceWith(`
-        <input class="form-control" list="datalistOptions" name="pembina_id" id="namaPembina" placeholder="Cari Nama Pembina" disabled>
+        <input class="form-control" list="datalistOptions" name="pembina_id" id="namaPembina" placeholder="Cari Nama PKB/PLKB" disabled>
       `);
     }
   });
