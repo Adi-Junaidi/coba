@@ -3,16 +3,16 @@
   @csrf
   @method('delete')
   <div class="modal fade text-left" id="modalDelete" role="dialog" aria-labelledby="judulModalDelete" aria-hidden="true" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
       <div class="modal-content">
         <div class="modal-header bg-danger">
-          <h4 class="modal-title text-light" id="judulModalDelete">Hapus PLKB</h4>
+          <h4 class="modal-title text-light" id="judulModalDelete">Hapus PKB/PLKB</h4>
           <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Tutup"></button>
         </div>
         <div class="modal-body">
           <div class="row mb-3">
             <div class="col">
-              <h1 class="text-center">Anda ingin menghapus data <span id="delete__nama">PLKB</span>?</h1>
+              <h4 class="text-center">Anda ingin menghapus data <span id="delete__nama">PLKB</span>?</h4>
             </div>
           </div>
         </div>

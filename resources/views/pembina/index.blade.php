@@ -1,6 +1,6 @@
 @extends('layouts.main', [
-    'title' => 'Data Pembina',
-    'heading' => 'Data Pembina',
+    'title' => 'Data PKB/PLKB',
+    'heading' => 'Data PKB/PLKB',
     'breadcrumb' => ['Data Master', 'Data PLKB'],
 ])
 
@@ -21,7 +21,7 @@
   @endforeach
 
 
-  @include('partials.dropdown-dependent-filter-card', ['objek' => 'Pembina'])
+  @include('partials.dropdown-dependent-filter-card', ['objek' => 'PKB/PLKB'])
 
 
   <section class="section">
@@ -30,7 +30,7 @@
         <div class="row g-2 mb-3">
           <div class="col-md">
             <div class="d-flex justify-content-end">
-              <button class="btn btn-primary" id="btnTambah" data-bs-toggle="modal" data-bs-target="#modalCreate" disabled><span class="fa-fw fas me-2 select-all"></span>Tambah Data Pembina</button>
+              <button class="btn btn-primary" id="btnTambah" data-bs-toggle="modal" data-bs-target="#modalCreate" disabled><span class="fa-fw fas me-2 select-all"></span>Tambah Data PKB/PLKB</button>
             </div>
           </div>
         </div>
