@@ -79,7 +79,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/api/kabkota/{kabkota}/kecamatans', fn (Kabkota $kabkota) => response()->json($kabkota->kecamatan));
 Route::get('/api/kecamatan/{kecamatan}/desas', fn (Kecamatan $kecamatan) => response()->json($kecamatan->desa));
-Route::get('/api/kecamatan/{kecamatan}/no_urut', fn (Kecamatan $kecamatan) => response()->json($kecamatan->getNomorUrut()));
+Route::get('/api/kecamatan/{kecamatan}/no_urut_pembina', fn (Kecamatan $kecamatan) => response()->json($kecamatan->getNomorUrutPembina()));
 Route::get('/api/desa/{desa}', [DesaController::class, 'api']);
 Route::get('/api/pembina/', [PembinaController::class, 'api']);
 Route::get('/api/pikr', [PikrController::class, 'api']);
@@ -113,7 +113,7 @@ Route::middleware('auth')->group(function () {
   Route::get('/validate/pikr', [ValidationController::class, 'validatePikr']);
   Route::get('/validate/kegiatan', [ValidationController::class, 'validateKegiatan']);
   Route::post('/peringkat/filter', [RankController::class, 'filter']);
-  
+
   Route::get('/registrasi-kegiatan/show_register/{pikr}', [RegistrasiKegiatanController::class, 'show_register']);
 });
 

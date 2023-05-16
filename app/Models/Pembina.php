@@ -67,7 +67,7 @@ class Pembina extends Model
       $kodeProvinsi = $provinsi->kode;
       $kodeKabKot = $kabkota->kode;
       $kodeKecamatan = $kecamatan->kode;
-      $nomorUrut = $kecamatan->getNomorUrut();
+      $nomorUrut = $kecamatan->getNomorUrutPembina();
 
       $noRegister = $kodeProvinsi . $kodeKabKot . $kodeKecamatan . $kodeJabatan . $nomorUrut;
 
