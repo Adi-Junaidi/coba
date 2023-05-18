@@ -173,6 +173,7 @@
                     <h3 class="card-title mb-3"><span class="article-title"></span></h3>
                     <h6>Oleh: <span class="article-nama"></span></h6>
                     <p class="text-muted fs-6 article-updated"></p>
+                    <p><a target="_blank" class="article-doc" hidden>Lihat Dokumen</a></p>
                     <hr>
                     <p class="card-text article-body"></p>
                 </div>
@@ -202,7 +203,12 @@
                     $('.article-nama').html(data.nama_pikr)
                     $('.article-updated').html(data.update)
                     $('.article-body').html(data.body)
-                    // console.log(data);
+
+                    if (data.document ) {
+                        $('.article-doc').attr('href', '{{ asset('storage') }}/' + data.document )
+                        $('.article-doc').removeAttr('hidden')
+                    }
+                    console.log(data);
 
                 })
                 .catch(error => console.log(error));
