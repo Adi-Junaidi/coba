@@ -195,6 +195,14 @@ class PikrController extends Controller
     return back()->with('success', "PIK-R {$pikr->nama} berhasil diverifikasi");
   }
 
+  public function getPikr(Pikr $pikr)
+  {
+    $pikr['pembina'] = $pikr->pembina;
+    $pikr['desa'] = $pikr->desa;
+    $pikr['kecamatan'] = $pikr->desa->kecamatan;
+    return \response()->json($pikr);
+  }
+
   public function api(Request $request)
   {
     if ($request->ajax()) {
