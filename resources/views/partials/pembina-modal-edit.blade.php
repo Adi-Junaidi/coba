@@ -6,7 +6,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
       <div class="modal-content">
         <div class="modal-header bg-warning">
-          <h4 class="modal-title text-light" id="judulModalUpdate">Update Pembina</h4>
+          <h4 class="modal-title text-light" id="judulModalUpdate">Update PKB/PLKB</h4>
           <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Tutup"></button>
         </div>
 
@@ -14,7 +14,6 @@
           <!-- Identitas -->
           <div class="row my-3">
             <div class="col">
-              <hr />
               <h5>Identitas</h5>
             </div>
           </div>
@@ -36,10 +35,10 @@
           </div>
           <div class="row">
             <div class="col-md-4">
-              <label for="update__noUrut">No. Urut Pembina</label>
+              <label for="update__noUrut">No. Urut</label>
             </div>
             <div class="col-md-8 form-group">
-              <input class="form-control" id="update__noUrut" name="noUrut" type="text" value="02" placeholder="No. Urut Pembina" readonly disabled />
+              <input class="form-control" id="update__noUrut" name="noUrut" type="text" value="02" placeholder="No. Urut PKB/PLKB" readonly disabled />
             </div>
           </div>
           <div class="row">
@@ -88,7 +87,6 @@
             </div>
             <div class="col-md-8 form-group">
               <input class="form-control" id="update__desaKel" name="desaKel" type="text" placeholder="Desa/Kel" readonly disabled />
-              <input id="hidden__desaKel" name="desa_id" type="hidden">
             </div>
           </div>
         </div>

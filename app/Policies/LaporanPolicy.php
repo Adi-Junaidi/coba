@@ -18,7 +18,7 @@ class LaporanPolicy
    */
   public function viewAny(User $user)
   {
-    return $user->isAdmin();
+    return $user->isAdmin() || $user->isPembina();
   }
 
   public function viewAnyRegisterKegiatan(User $user)

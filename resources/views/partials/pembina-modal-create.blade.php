@@ -5,7 +5,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
       <div class="modal-content">
         <div class="modal-header bg-primary">
-          <h4 class="modal-title text-light" id="judulModalCreate">Tambah Pembina</h4>
+          <h4 class="modal-title text-light" id="judulModalCreate">Tambah PKB/PLKB</h4>
           <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Tutup"></button>
         </div>
 
@@ -66,18 +66,10 @@
           </div>
           <div class="row">
             <div class="col-md-4">
-              <label for="tambah__jabatan">Jabatan</label>
+              <label for="tambah__noUrut">No. Urut</label>
             </div>
             <div class="col-md-8 form-group">
-              <input class="form-control" id="tambah__jabatan" name="jabatan" type="text" value="PKB/PLKB" placeholder="Jabatan" readonly disabled />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <label for="tambah__noUrut">No. Urut Pembina</label>
-            </div>
-            <div class="col-md-8 form-group">
-              <input class="form-control" id="tambah__noUrut" name="noUrut" type="text" value="02" placeholder="No. Urut Pembina" readonly disabled />
+              <input class="form-control" id="tambah__noUrut" name="noUrut" type="text" value="02" placeholder="No. Urut PKB/PLKB" readonly disabled />
             </div>
           </div>
           <div class="row">
@@ -193,7 +185,7 @@
     function getNomorUrut(kecamatanId) {
       return $.ajax({
         type: "get",
-        url: `/api/kecamatan/${kecamatanId}/no_urut/`,
+        url: `/api/kecamatan/${kecamatanId}/no_urut_pembina/`,
         dataType: "json",
       });
     }

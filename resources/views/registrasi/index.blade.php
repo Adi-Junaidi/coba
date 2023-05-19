@@ -38,6 +38,20 @@
                                 </tr>
                                 @php $i++; @endphp
                             @endcan
+                            
+                            @can('viewAny', $pikr)
+                                <tr>    
+                                    <td>{{ $i }}</td>
+                                    <td>{{ $pikr->nama }}</td>
+                                    <td>
+                                        <!-- Button trigger for next table -->
+                                        <a href="/registrasi-kegiatan/show_register/{{ $pikr->id }}"
+                                            class="btn btn-info btn-sm">Detail</a>
+                                    </td>
+                                </tr>
+                                @php $i++; @endphp
+                            @endcan
+
                         @endforeach
                     </tbody>
                 </table>

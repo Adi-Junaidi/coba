@@ -27,46 +27,36 @@
                         </tr>
                     </thead>
 
-                    <tbody>
-                        @php
-                            $i = 1;
-                        @endphp
-                        @foreach ($pikr as $p)
-                            @can('view', $p)
-                                <tr>
-                                    <td>{{ $i }}</td>
-                                    <td>
-                                        <span id="noreg">{{ $p->no_register }}</span>
-                                    </td>
-                                    <td>
-                                        <span id="nama">{{ $p->nama }}</span>
-                                    </td>
-                                    <td>
-                                        <span id="basis">{{ $p->basis }}</span>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top"
-                                            data-bs-title="Detail PIK-R" href="/pikr/{{ $p->id }}">
-                                            <i class="bi bi-eye-fill"></i>
-                                        </a>
-                                        <button class="btn btn-sm btn-danger btn-delete" data-id="{{ $p->id }}"
-                                            data-nama="{{ $p->nama }}" data-bs-toggle="modal"
-                                            data-bs-target="#deleteModal">
-                                            <i class="bi bi-trash3" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                title="Hapus PIK-R"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                @php
-                                    $i++;
-                                @endphp
-                            @endcan
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
+          <tbody>
+            @foreach ($pikr as $p)
+              @can('view', $p)
+                <tr>
+                  <td>{{ $p->id }}</td>
+                  <td>
+                    <span id="noreg">{{ $p->no_register }}</span>
+                  </td>
+                  <td>
+                    <span id="nama">{{ $p->nama }}</span>
+                  </td>
+                  <td>
+                    <span id="basis">{{ $p->basis }}</span>
+                  </td>
+                  <td>
+                    <a class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Detail PIK-R" href="/pikr/{{ $p->id }}">
+                      <i class="bi bi-eye-fill"></i>
+                    </a>
+                    <button class="btn btn-sm btn-danger btn-delete" data-id="{{ $p->id }}" data-nama="{{ $p->nama }}" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                      <i class="bi bi-trash3" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus PIK-R"></i>
+                    </button>
+                  </td>
+                </tr>
+              @endcan
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 @endsection
 
 {{-- Ini bagian modal detail data registrasi PIK-R nya --}}

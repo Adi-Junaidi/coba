@@ -11,7 +11,7 @@ class ValidationController extends Controller
     public function validatePikr()
     {
         return \view('validation.pikr', [
-            'pikr' => Pikr::all()
+            'pikr' => Pikr::all()->filter(fn($pikr) => $pikr->kecamatan->id === auth()->user()->pembina->kecamatan->id)
         ]);
     }
 

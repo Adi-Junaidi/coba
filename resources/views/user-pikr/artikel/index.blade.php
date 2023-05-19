@@ -18,6 +18,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Nama PIKR</th>
                             <th>Judul Artikel</th>
                             <th>Tanggal Dibuat</th>
                             <th>Aksi</th>
@@ -31,6 +32,7 @@
                             @can('view', $article)
                                 <tr>
                                     <td>{{ $i }}</td>
+                                    <td>{{ $article->pikr->nama }}</td>
                                     <td>{{ $article->title }}</td>
                                     <td>{{ $article->created_at }}</td>
                                     <td>
@@ -59,6 +61,7 @@
                             @can('viewAny', App\Models\Article::class)
                                 <tr>
                                     <td>{{ $i }}</td>
+                                    <td>{{ $article->pikr->nama }}</td>
                                     <td>{{ $article->title }}</td>
                                     <td>{{ $article->created_at }}</td>
                                     <td>
@@ -170,9 +173,10 @@
                 <img class="card-img-top article-img" src="" alt=""
                     style="aspect-ratio: 2/1; object-fit: cover;" />
                 <div class="modal-body">
-                    <h3 class="card-title mb-3">Judul Artikel: <span class="article-title"></span></h3>
+                    <h3 class="card-title mb-3"><span class="article-title"></span></h3>
                     <h6>Oleh: <span class="article-nama"></span></h6>
                     <p class="text-muted fs-6 article-updated"></p>
+                    <p><a target="_blank" class="article-doc" hidden>Lihat Dokumen</a></p>
                     <hr>
                     <p class="card-text article-body"></p>
                 </div>
@@ -202,7 +206,12 @@
                     $('.article-nama').html(data.nama_pikr)
                     $('.article-updated').html(data.update)
                     $('.article-body').html(data.body)
-                    // console.log(data);
+
+                    if (data.document ) {
+                        $('.article-doc').attr('href', '{{ asset('storage') }}/' + data.document )
+                        $('.article-doc').removeAttr('hidden')
+                    }
+                    console.log(data);
 
                 })
                 .catch(error => console.log(error));

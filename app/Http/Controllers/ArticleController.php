@@ -55,7 +55,7 @@ class ArticleController extends Controller
       'slug' => 'required|unique:articles',
       'body' => 'required',
       'image' => 'required|image|file|max:1024',
-      'document' => 'mimes:pdf|file|max:2048',
+      'document' => 'mimes:pdf,docx,xlsx,pptx|file|max:2048',
     ]);
 
     $validatedData['pikr_id'] = \session('pikr_id');
@@ -107,7 +107,7 @@ class ArticleController extends Controller
       abort(403);
     }
 
-    return view('user-pikr/artikel/edit', $data);
+    return view('user-pikr.artikel.edit', $data);
   }
 
   /**

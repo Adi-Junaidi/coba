@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header bg-info">
-        <h4 class="modal-title text-light" id="judulModalDetail">Tambah Pembina</h4>
+        <h4 class="modal-title text-light" id="judulModalDetail">Detail PKB/PLKB</h4>
         <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Tutup"></button>
       </div>
 
@@ -32,10 +32,10 @@
         </div>
         <div class="row">
           <div class="col-md-4">
-            <label for="detail__noUrut">No. Urut Pembina</label>
+            <label for="detail__noUrut">No. Urut PKB/PLKB</label>
           </div>
           <div class="col-md-8 form-group">
-            <input class="form-control" id="detail__noUrut" name="noUrut" type="text" value="02" placeholder="No. Urut Pembina" readonly disabled />
+            <input class="form-control" id="detail__noUrut" name="noUrut" type="text" value="02" placeholder="No. Urut PKB/PLKB" readonly disabled />
           </div>
         </div>
         <div class="row">

@@ -40,6 +40,7 @@
       </div>
 
       @yield('modals')
+      @stack('modals')
     </div>
   </div>
 

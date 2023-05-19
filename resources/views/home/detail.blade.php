@@ -10,6 +10,15 @@
                         <div class="ms-3">
                             <div class="fw-bold">{{ $article->pikr->nama }}</div>
                             <div class="text-muted">{{ $article->pikr->basis }}</div>
+
+                            @if ($article->document)
+                                <div class="mt-3">
+                                    <a href="/storage/{{ $article->document }}" target="_blank" rel="noopener noreferrer">
+                                        <img width="50" src="/assets/img/acrobat-file-pdf-seeklogo.com.svg"
+                                            alt="Logo PDF" data-toggle="tooltip" data-placement="top" title="Lihat Dokumen Artikel">
+                                    </a> 
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -38,4 +47,14 @@
             </div>
         </div>
     </section>
+
 @endsection
+
+@push('scripts')
+    <script>
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    
+@endpush

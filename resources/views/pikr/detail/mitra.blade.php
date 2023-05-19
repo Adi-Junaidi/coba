@@ -35,7 +35,7 @@
     </div>
 @endif
 
-@section('modals')
+@push('modals')
 
     {{-- Edit Modal --}}
     <div class="modal fade text-left" id="editMitraModal" tabindex="-1" aria-labelledby="" style="display: none;"
@@ -147,7 +147,7 @@
             </div>
         </div>
     </div>
-@endSection
+@endPush
 
 @push('scripts')
     <script>

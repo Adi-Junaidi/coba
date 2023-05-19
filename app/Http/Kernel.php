@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Pengelola;
 use App\Http\Middleware\PengurusCheck;
 use App\Http\Middleware\StepperCheck;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -67,5 +68,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'stepCheck' => StepperCheck::class,
         'pengurusCheck' => PengurusCheck::class, 
+        'pengelolaCheck' => Pengelola::class, 
     ];
 }
