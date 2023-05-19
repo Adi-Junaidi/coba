@@ -60,7 +60,7 @@
 
                             @can('viewAny', App\Models\Article::class)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $i }}</td>
                                     <td>{{ $article->pikr->nama }}</td>
                                     <td>{{ $article->title }}</td>
                                     <td>{{ $article->created_at }}</td>
@@ -77,6 +77,9 @@
                                         </button>
                                     </td>
                                 </tr>
+                                @php
+                                    $i++;
+                                @endphp
                             @endcan
 
                             @can('afiliate', $article)

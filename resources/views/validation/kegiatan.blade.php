@@ -47,11 +47,14 @@
                             </tr>
                         @endforeach --}}
 
+                        @php
+                            $i = 1;
+                        @endphp
                         @foreach ($laporan as $report)
                             @can('valid_reports', $report)
                                 @if ($report->status == 'Submited')
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $i }}</td>
                                         <td>{{ $report->pikr->nama }}</td>
                                         <td>
                                             {{ convertBulanTahun($report->bulan_lapor . '-' . $report->tahun_lapor) }}
@@ -65,12 +68,16 @@
                                                 </span>
                                             </a>
 
-                                            <button class="btn btn-sm btn-success verify-btn" data-id="{{ $report->id }}" data-bs-toggle="modal" data-bs-target="#verifyModal">
+                                            <button class="btn btn-sm btn-success verify-btn" data-id="{{ $report->id }}"
+                                                data-bs-toggle="modal" data-bs-target="#verifyModal">
                                                 <i class="bi bi-check-all"></i>
                                             </button>
                                         </td>
                                     </tr>
                                 @endif
+                                @php
+                                    $i++;
+                                @endphp
                             @endcan
                         @endforeach
                     </tbody>
