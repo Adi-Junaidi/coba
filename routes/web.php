@@ -39,6 +39,7 @@ Route::get('/', function () {
 
 Route::middleware('guest')->group(function () {
   Route::get('/home', [HomeController::class, 'index']);
+  Route::get('/articles', [HomeController::class, 'articles']);
   Route::get('/article/{article}', [HomeController::class, 'article']);
 });
 
