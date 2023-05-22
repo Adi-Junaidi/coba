@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Article;
 use App\Models\Desa;
 use App\Models\Pembina;
 use App\Models\Pikr;
@@ -38,6 +39,17 @@ class PikrSeeder extends Seeder
       "verified" => true
     ]);
 
-    Pikr::factory(100)->create();
+    Pikr::factory(100)->create()->each(function ($pikr) {
+      $title = "Judul Artikel $pikr->nama";
+      $slug = preg_replace('/\W/', '-', strtolower($title));
+      Article::create([
+        "pikr_id" => $pikr->id,
+        "title" => $title,
+        "slug" => $slug,
+        "image" => "",
+        "body" => "Lorem ipsum dolor sit amet consectetur adispisicing elit.",
+        "bulan_tahun" => "Januari 2023"
+      ]);
+    });
   }
 }
