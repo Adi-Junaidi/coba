@@ -195,5 +195,10 @@
             const id = $(this).data('id')
             $('#verifyModal form').attr('action', '/registrasi-kegiatan/' + id)
         });
+
+        $('.btn-deny').click(function() {
+            const id = $(this).data('id')
+            $('#reasonModal form').attr('action', '/report/deny/' + id)
+        })
     </script>
 @endsection

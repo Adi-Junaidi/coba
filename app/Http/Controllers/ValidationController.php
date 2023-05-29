@@ -48,4 +48,38 @@ class ValidationController extends Controller
 
         return \back()->with('success', 'Berhasil menolak validasi pikr');
     }
+
+    public function denyReport(Request $request, Laporan $report)
+    {
+        $validator = Validator::make($request->all(), [
+            'reason' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->with('fail', 'Deskripsi jangan di kosongkan');
+        }
+
+        $dataEmail = [
+            'receiver' => $report->pikr->user->email,
+            'title' => 'Menolak Data Laporan PIKR',
+            'body' => "Maaf, Data Laporan Bulan tahun $report->bulan_lapor - $report->tahun_lapor tidak dapat diterima pengajuannya dengan alasan: $request->reason"
+        ];
+
+        $send_email = new MailController();
+        $send_email->sendEmail($dataEmail);
+
+        if ($report->pelayananInformasi) {
+            foreach ($report->pelayananInformasi as $item) $item->delete();
+        }
+        if ($report->konseling) {
+            foreach ($report->konseling as $item) $item->delete();
+        }
+        if ($report->konselingKelompok) {
+            foreach ($report->konselingKelompok as $item) $item->delete();
+        }
+
+        $report->delete();
+
+        return \back()->with('success', 'Berhasil menolak data laporan pikr');
+    }
 }
