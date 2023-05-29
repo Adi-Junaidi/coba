@@ -1,5 +1,5 @@
 @extends('layouts.user_pikr', [
-    'title' => 'Register Kegiatan',
+    'title' => 'Data Laporan',
 ])
 
 @section('content')

@@ -88,7 +88,7 @@
             <li class="sidebar-item {{ Request::is('registrasi-kegiatan*') ? 'active' : '' }}">
               <a class='sidebar-link' href="/registrasi-kegiatan">
                 <i class="bi bi-envelope"></i>
-                <span>Register Kegiatan</span>
+                <span>Data Laporan</span>
               </a>
             </li>
           @endcan

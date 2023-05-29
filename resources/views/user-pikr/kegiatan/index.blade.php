@@ -14,8 +14,8 @@
 
 @section('content')
     <section>
-        <h1 class="mb-3 d-sm-block d-none">Register Kegiatan PIK-R</h1>
-        <h3 class="mb-3 d-sm-none d-block">Register Kegiatan PIK-R</h3>
+        <h1 class="mb-3 d-sm-block d-none">Data Laporan PIK-R</h1>
+        <h3 class="mb-3 d-sm-none d-block">Data Laporan PIK-R</h3>
         <div class="row align-items-center my-4">
             <button class="btn btn-primary me-3 col-md-2" data-bs-toggle="modal" data-bs-target="#addModal">Tambah
                 Kegiatan</button>
@@ -99,7 +99,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-primary">
                     <h5 class="modal-title white" id="myModalLabel1">
-                        Tambah Register Kegiatan
+                        Tambah Data Laporan
                     </h5>
                     <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -163,7 +163,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-success">
                     <h5 class="modal-title white" id="myModalLabel1">
-                        Final Submit Register Kegiatan
+                        Final Submit Data Laporan
                     </h5>
                     <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"

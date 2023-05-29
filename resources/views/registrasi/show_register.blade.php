@@ -1,7 +1,7 @@
 @extends('layouts.main', [
-    'title' => 'Register Kegiatan PIK-R',
-    'heading' => 'Data Register Kegiatan PIK-R',
-    'breadcrumb' => ['Register Kegiatan', 'PIK-R'],
+    'title' => 'Data Laporan PIK-R',
+    'heading' => 'Data Data Laporan PIK-R',
+    'breadcrumb' => ['Data Laporan', 'PIK-R'],
 ])
 
 @section('link')

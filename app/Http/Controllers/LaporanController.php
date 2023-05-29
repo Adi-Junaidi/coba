@@ -52,7 +52,7 @@ class LaporanController extends Controller
     $tahunKemarin = Laporan::where('pikr_id', \session('pikr_id'))->where('tahun_lapor', \date('Y') - 1)->pluck('bulan_lapor')->toArray();
 
     $data = [
-      'title' => "Register Kegiatan",
+      'title' => "Data Laporan",
       'bulan' => $bulan,
       'tahunIni' => $tahunIni,
       'tahunKemarin' => $tahunKemarin,
