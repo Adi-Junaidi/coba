@@ -87,7 +87,7 @@
                 <li class="sidebar-item {{ Request::is('up/kegiatan*') ? 'active' : '' }}">
                     <a href="/up/kegiatan" class="sidebar-link">
                         <i class="bi bi-r-circle-fill"></i>
-                        <span>Register Kegiatan</span>
+                        <span>Data Laporan</span>
                     </a>
                 </li>
                 <li class="sidebar-item {{ Request::is('up/article*') ? 'active' : '' }}">

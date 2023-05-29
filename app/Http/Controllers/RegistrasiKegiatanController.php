@@ -103,7 +103,7 @@ class RegistrasiKegiatanController extends Controller
     $point = $this->setPoint($registrasi_kegiatan);
 
     if (!$this->setResult($point)) {
-      return \redirect()->back()->with('fail', 'Gagal melakukan verifikasi register kegiatan PIK-R');
+      return \redirect()->back()->with('fail', 'Gagal melakukan verifikasi data laporan PIK-R');
     };
 
     $registrasi_kegiatan->update(['status' => 'Verified']);
@@ -118,7 +118,7 @@ class RegistrasiKegiatanController extends Controller
     $send_email = new MailController();
     $send_email->sendEmail($dataEmail);
 
-    return \redirect()->back()->with('success', 'Berhasil melakukan verifikasi register kegiatan PIK-R');
+    return \redirect()->back()->with('success', 'Berhasil melakukan verifikasi data laporan PIK-R');
   }
 
   /**

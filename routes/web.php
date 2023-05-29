@@ -115,8 +115,9 @@ Route::middleware('auth')->group(function () {
   Route::get('/utility/check-slug', [ArticleController::class, 'checkSlug']);
   Route::get('/utility/getPikr/{pikr}', [PikrController::class, 'getPikr']);
 
-
   Route::get('/validate/pikr', [ValidationController::class, 'validatePikr']);
+  Route::post('/pikr/deny/{pikr}', [ValidationController::class, 'denyPikr']);
+  Route::post('/report/deny/{report}', [ValidationController::class, 'denyReport']);
   Route::get('/validate/kegiatan', [ValidationController::class, 'validateKegiatan']);
   Route::post('/peringkat/filter', [RankController::class, 'filter']);
 

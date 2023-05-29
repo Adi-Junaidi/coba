@@ -88,7 +88,7 @@
             <li class="sidebar-item {{ Request::is('registrasi-kegiatan*') ? 'active' : '' }}">
               <a class='sidebar-link' href="/registrasi-kegiatan">
                 <i class="bi bi-envelope"></i>
-                <span>Register Kegiatan</span>
+                <span>Data Laporan</span>
               </a>
             </li>
           @endcan
@@ -102,11 +102,11 @@
 
               <ul class="submenu {{ Request::is('validate*') ? 'active' : '' }}">
                 <li class="submenu-item {{ Request::is('validate/pikr') ? 'active' : '' }}">
-                  <a href="/validate/pikr">PIK-R</a>
+                  <a href="/validate/pikr">Registrasi PIK-R</a>
                 </li>
 
                 <li class="submenu-item {{ Request::is('validate/kegiatan') ? 'active' : '' }}">
-                  <a href="/validate/kegiatan">Register Kegiatan</a>
+                  <a href="/validate/kegiatan">Data Laporan</a>
                 </li>
               </ul>
             </li>

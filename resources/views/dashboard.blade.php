@@ -94,7 +94,7 @@
                                         </div>
                                     </div>
                                     <div class="col-10">
-                                        <h6 class="text-muted font-semibold">Register Kegiatan</h6>
+                                        <h6 class="text-muted font-semibold">Data Laporan</h6>
                                         <h4 class="mb-0 font-extrabold">
                                             @php
                                                 $count = 0;

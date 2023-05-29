@@ -1,7 +1,7 @@
 @extends('layouts.main', [
-    'title' => 'Register Kegiatan',
-    'heading' => 'Data Register Kegiatan PIK-R',
-    'breadcrumb' => ['Register Kegiatan', ''],
+    'title' => 'Data Laporan',
+    'heading' => 'Data Laporan PIK-R',
+    'breadcrumb' => ['Data Laporan', ''],
 ])
 
 @section('link')
@@ -68,6 +68,10 @@
                                                 </span>
                                             </a>
 
+                                            <button class="btn btn-danger btn-sm btn-deny" data-bs-toggle="modal"
+                                                data-bs-target="#reasonModal" data-id="{{ $report->id }}">
+                                                <i class="bi bi-x-circle"></i>
+                                            </button>
                                             <button class="btn btn-sm btn-success verify-btn" data-id="{{ $report->id }}"
                                                 data-bs-toggle="modal" data-bs-target="#verifyModal">
                                                 <i class="bi bi-check-all"></i>
@@ -123,6 +127,47 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade text-left" id="reasonModal" aria-labelledby="" aria-hidden="true" tabindex="-1"
+        style="display: none;">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reasonModalLabel">
+                        Alasan Penolakan Data Laporan
+                    </h5>
+                    <button class="close rounded-pill" data-bs-dismiss="modal" type="button" aria-label="Close">
+                        <svg class="feather feather-x" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <form method="post">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="reason" class="form-label">Alasan</label>
+                            <textarea class="form-control" id="reason" name="reason" rows="3" placeholder="Deskripsikan Disini..."></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-bs-dismiss="modal">
+                            <i class="bx bx-x d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Close</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary ms-1" data-bs-toggle="modal">
+                            <i class="bx bx-check d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Konfirmasi</span>
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
 @endsection
 
 
@@ -150,5 +195,10 @@
             const id = $(this).data('id')
             $('#verifyModal form').attr('action', '/registrasi-kegiatan/' + id)
         });
+
+        $('.btn-deny').click(function() {
+            const id = $(this).data('id')
+            $('#reasonModal form').attr('action', '/report/deny/' + id)
+        })
     </script>
 @endsection
