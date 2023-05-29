@@ -43,16 +43,20 @@
                                     <button data-bs-toggle="modal" data-bs-target="#showModal" data-id="{{ $p->id }}"
                                         class="btn-show btn btn-info btn-sm">Detail</button>
 
-                                    <form class="d-inline" action="/pikr/{{ $p->id }}/verify" method="post">
-                                        @csrf
-                                        @if ($p->verified)
-                                            <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
+                                    @csrf
+                                    @if ($p->verified)
+                                        <form class="d-inline" action="/pikr/{{ $p->id }}/verify" method="post">
+                                            <button class="btn btn-warning btn-sm" data-bs-toggle="tooltip"
                                                 data-bs-placement="bottom" type="submit">Batalkan Verifikasi</button>
-                                        @else
+                                        </form>
+                                    @else
+                                        <button class="btn btn-danger btn-sm btn-deny" data-bs-toggle="modal"
+                                            data-bs-target="#reasonModal" data-id="{{ $p->id }}">Tolak</button>
+                                        <form class="d-inline" action="/pikr/{{ $p->id }}/verify" method="post">
                                             <button class="btn btn-success btn-sm" data-bs-toggle="tooltip"
-                                                data-bs-placement="bottom" type="submit">Verifikasi PIK-R</button>
-                                        @endif
-                                    </form>
+                                                data-bs-placement="bottom" type="submit">Setuju</button>
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -116,6 +120,47 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade text-left" id="reasonModal" aria-labelledby="" aria-hidden="true" tabindex="-1"
+        style="display: none;">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reasonModalLabel">
+                        Alasan Penolakan PIK-R
+                    </h5>
+                    <button class="close rounded-pill" data-bs-dismiss="modal" type="button" aria-label="Close">
+                        <svg class="feather feather-x" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <form method="post">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="reason" class="form-label">Alasan</label>
+                            <textarea class="form-control" id="reason" name="reason" rows="3" placeholder="Deskripsikan Disini..."></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-bs-dismiss="modal">
+                            <i class="bx bx-x d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Close</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary ms-1" data-bs-toggle="modal">
+                            <i class="bx bx-check d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Konfirmasi</span>
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
 @endsection
 
 
@@ -133,11 +178,11 @@
 
         $('.btn-show').click(function() {
             const id = $(this).data('id')
-            
+
             fetch('/utility/getPikr/' + id)
                 .then(response => response.json())
                 .then(data => {
-                  console.log(data);
+                    console.log(data);
                     $('#showModal #nama').val(data.nama)
                     $('#showModal #basis').val(data.basis)
                     $('#showModal #pengelola').val(data.pembina.nama)
@@ -146,7 +191,13 @@
                     $('#showModal #desa').val(data.desa.nama)
                 })
         })
-    </script>
 
+        $('.btn-deny').click(function() {
+            const id = $(this).data('id')
+            $('#reasonModal form').attr('action', '/pikr/deny/' + id)
+        })
+    </script>
+    
     <script src="/js/pikr.js"></script>
+
 @endsection
