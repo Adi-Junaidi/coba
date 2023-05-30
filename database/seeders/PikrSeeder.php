@@ -5,10 +5,12 @@ namespace Database\Seeders;
 use App\Models\Article;
 use App\Models\Desa;
 use App\Models\Pembina;
+use App\Models\Pengurus;
 use App\Models\Pikr;
 use App\Models\Stepper;
 use App\Models\User;
 use Database\Factories\PikrFactory;
+use Faker\Generator as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -39,7 +41,8 @@ class PikrSeeder extends Seeder
       "verified" => true
     ]);
 
-    Pikr::factory(100)->create()->each(function ($pikr) {
+    Pikr::factory(100)->create();
+    Pikr::all()->each(function ($pikr) {
       $title = "Judul Artikel $pikr->nama";
       $slug = preg_replace('/\W/', '-', strtolower($title));
       Article::create([
@@ -49,6 +52,14 @@ class PikrSeeder extends Seeder
         "image" => "",
         "body" => "Lorem ipsum dolor sit amet consectetur adispisicing elit.",
         "bulan_tahun" => "Januari 2023"
+      ]);
+      Pengurus::create([
+        "pikr_id" => $pikr->id,
+        "nik" => str_repeat($pikr->id, 16),
+        "nama" => "Ketua {$pikr->nama}",
+        "jabatan" => "Ketua",
+        "no_hp" => "081234567890",
+        "pernah_pelatihan" => true
       ]);
     });
   }

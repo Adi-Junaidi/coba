@@ -127,7 +127,7 @@ class LaporanController extends Controller
       'kk_s' => KonselingKelompok::where('laporan_id', $kegiatan->id)->get(),
     ];
 
-    return \view('user-pikr/kegiatan/create', $data);
+    return \view('user-pikr.kegiatan.create', $data);
   }
 
   /**
