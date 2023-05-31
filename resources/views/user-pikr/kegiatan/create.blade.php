@@ -11,10 +11,16 @@
     const imageModal = document.getElementById('imageModal')
     imageModal.addEventListener('show.bs.modal', (e) => {
       const triggerBtn = e.relatedTarget;
+
+      // change image
       const imageUrl = triggerBtn.dataset.image;
       const imageTarget = document.getElementById('imageModalImage');
       imageTarget.src = imageUrl;
-      console.log(imageTarget);
+
+      // change modal title
+      const modalTitle = triggerBtn.dataset.title;
+      const titleTarget = document.getElementById('imageModalLabel');
+      titleTarget.textContent = modalTitle;
     })
   </script>
 @endpush

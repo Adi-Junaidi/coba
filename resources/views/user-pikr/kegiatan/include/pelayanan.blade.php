@@ -117,13 +117,12 @@
               <td>{{ $loop->iteration }}</td>
               <td>{{ $pelayanan->tanggal }}</td>
               <td>{{ $pelayanan->nama }}</td>
-              <td>{{ $pelayanan->materi_id == 0 ? $pelayanan->materi_lainnya : $pelayanan->materi->nama }}
-              </td>
+              <td>{{ $pelayanan->materi_id == 0 ? $pelayanan->materi_lainnya : $pelayanan->materi->nama }}</td>
               <td>{{ $pelayanan->jabatan_narsum }}</td>
               <td>{{ $pelayanan->narsum }}</td>
               <td>{{ $pelayanan->jumlah_peserta }}</td>
               <td>
-                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#imageModal" data-image="{{ asset("storage/{$pelayanan->dokumentasi}") }}"><i class="bi bi-image"></i></button>
+                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#imageModal" data-image="{{ asset("storage/{$pelayanan->dokumentasi}") }}" data-title="Pelayanan Informasi"><i class="bi bi-image"></i></button>
                 <button class="btn btn-danger btn-sm delete_btn_pelayanan" data-bs-toggle="modal" data-bs-target="#deleteModal" data-nama="{{ $pelayanan->nama }}" data-id="{{ $pelayanan->id }}">
                   <i class="bi bi-trash3"></i>
                 </button>
