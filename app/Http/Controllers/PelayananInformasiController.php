@@ -11,131 +11,133 @@ use Illuminate\Http\Request;
 
 class PelayananInformasiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function index()
+  {
+    //
+  }
+
+  /**
+   * Show the form for creating a new resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function create()
+  {
+    //
+  }
+
+  /**
+   * Store a newly created resource in storage.
+   *
+   * @param  \App\Http\Requests\StorePelayananInformasiRequest  $request
+   * @return \Illuminate\Http\Response
+   */
+  public function store(Request $request)
+  {
+
+    $rules = [
+      'tanggal_pelayanan' => 'required',
+      'nama_pelayanan' => 'required',
+      'jumlah_remaja' => 'required|integer|min:1',
+      'nama_narsum_pelayanan' => 'required',
+      'dokumentasi_pelayanan_informasi' => 'required|image|file|max:1024'
+    ];
+
+    if ($request->materi_pelayanan == "Lainnya") {
+      $rules['materi_pelayanan_lainnya'] = 'required';
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    $request->validate($rules);
+
+    $storeData = [
+      'pikr_id' => \session('pikr_id'),
+      'materi_id' => $request->materi_pelayanan,
+      'laporan_id' => $request->laporan_id,
+      'tanggal' => $request->tanggal_pelayanan,
+      'nama' => $request->nama_pelayanan,
+      'narsum' => $request->nama_narsum_pelayanan,
+      'jabatan_narsum' => $request->narsum_pelayanan,
+      'jumlah_peserta' => $request->jumlah_remaja,
+      'dokumentasi' => $request->file('dokumentasi_pelayanan_informasi')->store('dokumentasi/pelayanan_informasi')
+    ];
+
+    if ($request->materi_pelayanan == "Lainnya") {
+      $storeData['materi_id'] = 0;
+      $storeData['materi_lainnya'] = $request->materi_pelayanan_lainnya;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorePelayananInformasiRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
+    PelayananInformasi::create($storeData);
 
-        $rules = [
-            'tanggal_pelayanan' => 'required',
-            'nama_pelayanan' => 'required',
-            'jumlah_remaja' => 'required|integer|min:1',
-            'nama_narsum_pelayanan' => 'required',
-        ];
-        
-        if($request->materi_pelayanan == "Lainnya"){
-            $rules['materi_pelayanan_lainnya'] = 'required';
-        }
-        
-        $request->validate($rules);
-        
-        $storeData = [
-            'pikr_id' => \session('pikr_id'),
-            'materi_id' => $request->materi_pelayanan,
-            'laporan_id' => $request->laporan_id,
-            'tanggal' => $request->tanggal_pelayanan,
-            'nama' => $request->nama_pelayanan,
-            'narsum' => $request->nama_narsum_pelayanan,
-            'jabatan_narsum' => $request->narsum_pelayanan,
-            'jumlah_peserta' => $request->jumlah_remaja,
-        ];
-        
-        if($request->materi_pelayanan == "Lainnya"){
-            $storeData['materi_id'] = 0;
-            $storeData['materi_lainnya'] = $request->materi_pelayanan_lainnya;
-        }
+    return \redirect()->back()->with('success', 'Pelayanan Informasi Berhasil Ditambahkan');
+  }
 
-        PelayananInformasi::create($storeData);
+  /**
+   * Display the specified resource.
+   *
+   * @param  \App\Models\PelayananInformasi  $pelayananInformasi
+   * @return \Illuminate\Http\Response
+   */
+  public function show(PelayananInformasi $pelayananInformasi)
+  {
+    //
+  }
 
-        return \redirect()->back()->with('success', 'Pelayanan Informasi Berhasil Ditambahkan');
-    }
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @param  \App\Models\PelayananInformasi  $pelayananInformasi
+   * @return \Illuminate\Http\Response
+   */
+  public function edit(PelayananInformasi $pelayananInformasi)
+  {
+    //
+  }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\PelayananInformasi  $pelayananInformasi
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PelayananInformasi $pelayananInformasi)
-    {
-        //
-    }
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  \App\Http\Requests\UpdatePelayananInformasiRequest  $request
+   * @param  \App\Models\PelayananInformasi  $pelayananInformasi
+   * @return \Illuminate\Http\Response
+   */
+  public function update(UpdatePelayananInformasiRequest $request, PelayananInformasi $pelayananInformasi)
+  {
+    //
+  }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\PelayananInformasi  $pelayananInformasi
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PelayananInformasi $pelayananInformasi)
-    {
-        //
-    }
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param  \App\Models\PelayananInformasi  $pelayananInformasi
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy(PelayananInformasi $pelayanan)
+  {
+    $pelayanan->delete();
+    return \redirect()->back()->with('success' . 'Data Berhasil Dihapus');
+  }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePelayananInformasiRequest  $request
-     * @param  \App\Models\PelayananInformasi  $pelayananInformasi
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatePelayananInformasiRequest $request, PelayananInformasi $pelayananInformasi)
-    {
-        //
-    }
+  public function getPendidikSebaya()
+  {
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\PelayananInformasi  $pelayananInformasi
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(PelayananInformasi $pelayanan)
-    {
-        $pelayanan->delete();
-        return \redirect()->back()->with('success'. 'Data Berhasil Dihapus');
-    }
+    $data = Pengurus::where('jabatan', 'Pendidik Sebaya')->where('pikr_id', $_GET['id'])->get();
+    return \response()->json($data);
+  }
 
-    public function getPendidikSebaya()
-    {
-        
-        $data = Pengurus::where('jabatan', 'Pendidik Sebaya')->where('pikr_id', $_GET['id'])->get();
-        return \response()->json($data);
-    }
+  public function getKonselorSebaya()
+  {
+    $data = Pengurus::where('jabatan', 'Konselor Sebaya')->where('pikr_id', $_GET['id'])->get();
+    return \response()->json($data);
+  }
 
-    public function getKonselorSebaya()
-    {
-        $data = Pengurus::where('jabatan', 'Konselor Sebaya')->where('pikr_id', $_GET['id'])->get();
-        return \response()->json($data);
-    }
-
-    public function getPLKB()
-    {
-        $data = Pembina::all();
-        return \response()->json($data);
-    }
+  public function getPLKB()
+  {
+    $data = Pembina::all();
+    return \response()->json($data);
+  }
 }
