@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
   public function index()
   {
-    return \view('home.index', [
+    return view('home.index', [
       'articles' => Article::orderBy('updated_at', 'desc')->limit(5)->get(),
       'ranks' => Result::where('bulan_tahun', date('m-Y'))->orderBy('point', 'desc')->get(),
     ]);

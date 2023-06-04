@@ -62,7 +62,7 @@ class LaporanController extends Controller
       'ketua_info' => Pengurus::where('jabatan', 'Ketua')->where('pikr_id', \auth()->user()->pikr->id)->first()
     ];
 
-    return \view('user-pikr/kegiatan/index', $data);
+    return view('user-pikr/kegiatan/index', $data);
   }
 
   /**

@@ -56,7 +56,7 @@
                 </li>
 
                 <li class="submenu-item {{ Request::is('pikr*') ? 'active' : '' }}">
-                  <a href="/pikr">Data PIK-R</a>
+                  <a href="/pikr">Data Pencatatan</a>
                 </li>
               </ul>
             </li>
@@ -88,7 +88,7 @@
             <li class="sidebar-item {{ Request::is('registrasi-kegiatan*') ? 'active' : '' }}">
               <a class='sidebar-link' href="/registrasi-kegiatan">
                 <i class="bi bi-envelope"></i>
-                <span>Data Laporan</span>
+                <span>Data Pelaporan</span>
               </a>
             </li>
           @endcan
@@ -106,7 +106,7 @@
                 </li>
 
                 <li class="submenu-item {{ Request::is('validate/kegiatan') ? 'active' : '' }}">
-                  <a href="/validate/kegiatan">Data Laporan</a>
+                  <a href="/validate/kegiatan">Data Pelaporan</a>
                 </li>
               </ul>
             </li>
