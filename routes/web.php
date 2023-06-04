@@ -157,3 +157,10 @@ Route::middleware('stepCheck', 'auth',)->group(function () {
     Route::get('/utility/getPLKB', [PelayananInformasiController::class, 'getPLKB']);
   });
 });
+
+Route::resources([
+  '/up/kegiatan' => LaporanController::class,
+  '/kegiatan/pelayanan' => PelayananInformasiController::class,
+  '/kegiatan/konseling/individu' => KonselingController::class,
+  '/kegiatan/konseling/kelompok' => KonselingKelompokController::class,
+]);

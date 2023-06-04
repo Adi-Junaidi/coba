@@ -42,25 +42,25 @@ class PikrSeeder extends Seeder
     ]);
 
     Pikr::factory(100)->create();
-    Pikr::all()->each(function ($pikr) {
-      $title = "Judul Artikel $pikr->nama";
-      $slug = preg_replace('/\W/', '-', strtolower($title));
-      Article::create([
-        "pikr_id" => $pikr->id,
-        "title" => $title,
-        "slug" => $slug,
-        "image" => "",
-        "body" => "Lorem ipsum dolor sit amet consectetur adispisicing elit.",
-        "bulan_tahun" => "Januari 2023"
-      ]);
-      Pengurus::create([
-        "pikr_id" => $pikr->id,
-        "nik" => str_repeat($pikr->id, 16),
-        "nama" => "Ketua {$pikr->nama}",
-        "jabatan" => "Ketua",
-        "no_hp" => "081234567890",
-        "pernah_pelatihan" => true
-      ]);
-    });
+    // Pikr::all()->each(function ($pikr) {
+    //   $title = "Judul Artikel $pikr->nama";
+    //   $slug = preg_replace('/\W/', '-', strtolower($title));
+    //   Article::create([
+    //     "pikr_id" => $pikr->id,
+    //     "title" => $title,
+    //     "slug" => $slug,
+    //     "image" => "",
+    //     "body" => "Lorem ipsum dolor sit amet consectetur adispisicing elit.",
+    //     "bulan_tahun" => "Januari 2023"
+    //   ]);
+    //   Pengurus::create([
+    //     "pikr_id" => $pikr->id,
+    //     "nik" => str_repeat($pikr->id, 16),
+    //     "nama" => "Ketua {$pikr->nama}",
+    //     "jabatan" => "Ketua",
+    //     "no_hp" => "081234567890",
+    //     "pernah_pelatihan" => true
+    //   ]);
+    // });
   }
 }
