@@ -43,9 +43,9 @@
                                     <button data-bs-toggle="modal" data-bs-target="#showModal" data-id="{{ $p->id }}"
                                         class="btn-show btn btn-info btn-sm">Detail</button>
 
-                                    @csrf
                                     @if ($p->verified)
                                         <form class="d-inline" action="/pikr/{{ $p->id }}/verify" method="post">
+                                            @csrf
                                             <button class="btn btn-warning btn-sm" data-bs-toggle="tooltip"
                                                 data-bs-placement="bottom" type="submit">Batalkan Verifikasi</button>
                                         </form>
@@ -53,6 +53,7 @@
                                         <button class="btn btn-danger btn-sm btn-deny" data-bs-toggle="modal"
                                             data-bs-target="#reasonModal" data-id="{{ $p->id }}">Tolak</button>
                                         <form class="d-inline" action="/pikr/{{ $p->id }}/verify" method="post">
+                                            @csrf
                                             <button class="btn btn-success btn-sm" data-bs-toggle="tooltip"
                                                 data-bs-placement="bottom" type="submit">Setuju</button>
                                         </form>
@@ -197,7 +198,6 @@
             $('#reasonModal form').attr('action', '/pikr/deny/' + id)
         })
     </script>
-    
-    <script src="/js/pikr.js"></script>
 
+    <script src="/js/pikr.js"></script>
 @endsection
