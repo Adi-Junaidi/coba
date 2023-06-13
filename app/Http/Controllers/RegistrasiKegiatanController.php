@@ -29,7 +29,7 @@ class RegistrasiKegiatanController extends Controller
   {
 
     return view('registrasi.index', [
-      "pikrs" => Pikr::all(),
+      "pikrs" => Pikr::allVerified(),
     ]);
   }
 
