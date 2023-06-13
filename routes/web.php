@@ -43,21 +43,11 @@ Route::middleware('guest')->group(function () {
   Route::get('/article/{article}', [HomeController::class, 'article']);
 });
 
-
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->middleware('guest');
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
-
-
-// Landing
-// Route::get('/articles', [ArticleController::class, 'index']);
-// Route::get('/articles', [ArticleController::class, 'showAll']);
-// Route::get('/articles/{article}', [ArticleController::class, 'show']);
-// Route::get('/leaderboard', function () {
-//   return view('landing.leaderboard');
-// });
 
 // Dashboard
 Route::middleware(['auth', 'pengelolaCheck'])->group(function () {

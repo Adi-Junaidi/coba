@@ -52,7 +52,7 @@ class LaporanController extends Controller
     $tahunKemarin = Laporan::where('pikr_id', \session('pikr_id'))->where('tahun_lapor', \date('Y') - 1)->pluck('bulan_lapor')->toArray();
 
     $data = [
-      'title' => "Data Laporan",
+      'title' => "Data Pelaporan",
       'bulan' => $bulan,
       'tahunIni' => $tahunIni,
       'tahunKemarin' => $tahunKemarin,
@@ -62,7 +62,7 @@ class LaporanController extends Controller
       'ketua_info' => Pengurus::where('jabatan', 'Ketua')->where('pikr_id', \auth()->user()->pikr->id)->first()
     ];
 
-    return view('user-pikr/kegiatan/index', $data);
+    return view('user-pikr.kegiatan.index', $data);
   }
 
   /**
