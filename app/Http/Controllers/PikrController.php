@@ -125,7 +125,7 @@ class PikrController extends Controller
     }
     if ($request->has('keterpaduan_kelompok')) $pikr->update(['keterpaduan_kelompok' => $request->keterpaduan_kelompok]);
 
-    return \back()->with('success', 'Berhasil mengubah data PIK-R');
+    return \back()->with('success', 'Berhasil mengubah data pencatatan');
   }
 
   /**

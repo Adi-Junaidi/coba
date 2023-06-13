@@ -26,7 +26,7 @@ $(document).ready(function () {
     ],
     // custom pesan data kosong
     language: {
-      emptyTable: "Data PIK-R tidak ditemukan",
+      emptyTable: "Data Pencatatan tidak ditemukan",
     },
   });
 

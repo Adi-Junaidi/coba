@@ -1,7 +1,7 @@
 @extends('layouts.main', [
-    'title' => 'Data Laporan',
-    'heading' => 'Data Laporan PIK-R',
-    'breadcrumb' => ['Data Laporan', ''],
+    'title' => 'Data Pelaporan',
+    'heading' => 'Data Pelaporan PIK-R',
+    'breadcrumb' => ['Validasi', 'Data Pelaporan'],
 ])
 
 @section('link')
@@ -100,7 +100,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="reasonModalLabel">
-            Alasan Penolakan Data Laporan
+            Alasan Penolakan Data Pelaporan
           </h5>
           <button class="close rounded-pill" data-bs-dismiss="modal" type="button" aria-label="Close">
             <svg class="feather feather-x" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

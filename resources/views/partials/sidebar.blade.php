@@ -79,7 +79,7 @@
             <li class="sidebar-item {{ Request::is('pikr*') ? 'active' : '' }}">
               <a class='sidebar-link' href="/pikr">
                 <i class="bi bi-people-fill"></i>
-                <span>Data PIK-R</span>
+                <span>Data Pencatatan</span>
               </a>
             </li>
           @endcan

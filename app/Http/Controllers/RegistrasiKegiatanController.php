@@ -37,6 +37,7 @@ class RegistrasiKegiatanController extends Controller
   {
 
     return view('registrasi.show_register', [
+      "pikr" => $pikr,
       "reports" => $pikr->laporan()->get(),
     ]);
   }
@@ -98,12 +99,11 @@ class RegistrasiKegiatanController extends Controller
    */
   public function update(Request $request, Laporan $registrasi_kegiatan)
   {
-
     // Proses input poin ke db points
     $point = $this->setPoint($registrasi_kegiatan);
 
     if (!$this->setResult($point)) {
-      return \redirect()->back()->with('fail', 'Gagal melakukan verifikasi data laporan PIK-R');
+      return \redirect()->back()->with('fail', 'Gagal melakukan verifikasi data pelaporan PIK-R');
     };
 
     $registrasi_kegiatan->update(['status' => 'Verified']);
@@ -118,7 +118,7 @@ class RegistrasiKegiatanController extends Controller
     $send_email = new MailController();
     $send_email->sendEmail($dataEmail);
 
-    return \redirect()->back()->with('success', 'Berhasil melakukan verifikasi data laporan PIK-R');
+    return \redirect()->back()->with('success', 'Berhasil melakukan verifikasi data pelaporan PIK-R');
   }
 
   /**
