@@ -1,6 +1,6 @@
 @extends('layouts.main', [
-    'title' => 'Validasi Data Pencatatan',
-    'heading' => 'Validasi Data Pencatatan',
+    'title' => 'Validasi Registrasi PIK-R',
+    'heading' => 'Validasi Registrasi PIK-R',
     'breadcrumb' => ['Validasi', 'Registrasi PIK-R'],
 ])
 

@@ -1,6 +1,6 @@
 @extends('layouts.main', [
-    'title' => 'Data Pelaporan',
-    'heading' => 'Data Pelaporan PIK-R',
+    'title' => 'Validasi Data Pelaporan',
+    'heading' => 'Validasi Data Pelaporan',
     'breadcrumb' => ['Validasi', 'Data Pelaporan'],
 ])
 
